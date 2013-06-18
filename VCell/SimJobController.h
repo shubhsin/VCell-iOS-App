@@ -7,7 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "SimJob.h"
+#import "SimJobCell.h"
 
-@interface FirstViewController : UIViewController
+@interface SimJobController : UITableViewController
 
 @end
