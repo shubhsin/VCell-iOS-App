@@ -11,22 +11,56 @@
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="144" sectionHeaderHeight="22" sectionFooterHeight="22" id="VH9-hy-kAj">
                         <rect key="frame" x="0.0" y="64" width="320" height="504"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" name="alternateSelectedControlTextColor" catalog="System" colorSpace="catalog"/>
+                        <color key="separatorColor" name="alternateSelectedControlTextColor" catalog="System" colorSpace="catalog"/>
                         <view key="tableHeaderView" contentMode="scaleToFill" id="w5g-Ta-Vno">
-                            <rect key="frame" x="0.0" y="0.0" width="320" height="96"/>
+                            <rect key="frame" x="0.0" y="0.0" width="320" height="82"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
-                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EBB-2q-AAI">
+                                <button opaque="NO" tag="10" contentMode="scaleToFill" highlighted="YES" selected="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EBB-2q-AAI">
+                                    <constraints>
+                                        <constraint firstAttribute="width" constant="101" id="a76-ah-gqo"/>
+                                    </constraints>
                                     <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                     <state key="normal" title="Completed">
+                                        <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                    </state>
+                                    <state key="selected">
+                                        <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                    </state>
+                                    <state key="highlighted">
+                                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <color key="titleShadowColor" red="0.32681341240875911" green="0.20534899635036497" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                    </state>
+                                    <connections>
+                                        <action selector="optionsBtnPressed:" destination="TTe-86-iE8" eventType="touchUpInside" id="6zj-ue-CYn"/>
+                                    </connections>
+                                </button>
+                                <button opaque="NO" tag="20" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Jrv-T1-fMV">
+                                    <constraints>
+                                        <constraint firstAttribute="width" constant="84" id="4Te-IW-hyl"/>
+                                        <constraint firstAttribute="height" constant="30" id="ytx-av-f8m"/>
+                                    </constraints>
+                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                    <state key="normal" title="Running">
                                         <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
                                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                    </state>
+                                    <state key="selected" title="Running">
+                                        <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                     </state>
                                     <state key="highlighted">
                                         <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     </state>
+                                    <connections>
+                                        <action selector="optionsBtnPressed:" destination="TTe-86-iE8" eventType="touchUpInside" id="llv-S3-YsD"/>
+                                    </connections>
                                 </button>
-                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Jrv-T1-fMV">
+                                <button opaque="NO" tag="30" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CdY-gn-eIP">
+                                    <constraints>
+                                        <constraint firstAttribute="width" constant="80" id="S4H-6f-6b1"/>
+                                    </constraints>
                                     <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                     <state key="normal" title="Stopped">
                                         <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
@@ -35,41 +69,32 @@
                                     <state key="highlighted">
                                         <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     </state>
+                                    <connections>
+                                        <action selector="optionsBtnPressed:" destination="TTe-86-iE8" eventType="touchUpInside" id="Kl0-Y2-xl8"/>
+                                    </connections>
                                 </button>
-                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CdY-gn-eIP">
-                                    <constraints>
-                                        <constraint firstAttribute="width" constant="80" id="S4H-6f-6b1"/>
-                                    </constraints>
-                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                    <state key="normal" title="Failed">
-                                        <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
-                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                    </state>
-                                    <state key="highlighted">
-                                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                    </state>
-                                </button>
-                                <searchBar contentMode="redraw" text="Search" translatesAutoresizingMaskIntoConstraints="NO" id="Qtg-d5-NDz">
-                                    <color key="tintColor" name="controlShadowColor" catalog="System" colorSpace="catalog"/>
+                                <searchBar contentMode="redraw" text="" placeholder="Search" translatesAutoresizingMaskIntoConstraints="NO" id="fc4-ZA-Hqx">
                                     <textInputTraits key="textInputTraits"/>
                                 </searchBar>
                             </subviews>
-                            <color key="backgroundColor" name="selectedTextBackgroundColor" catalog="System" colorSpace="catalog"/>
+                            <color key="backgroundColor" red="0.88627450980392153" green="0.90196078431372551" blue="0.93725490196078431" alpha="0.59999999999999998" colorSpace="calibratedRGB"/>
                             <constraints>
-                                <constraint firstItem="Qtg-d5-NDz" firstAttribute="leading" secondItem="w5g-Ta-Vno" secondAttribute="leading" type="default" id="46n-WU-ewF"/>
-                                <constraint firstItem="EBB-2q-AAI" firstAttribute="leading" secondItem="w5g-Ta-Vno" secondAttribute="leading" constant="3" id="BjW-J2-1FS"/>
-                                <constraint firstItem="Jrv-T1-fMV" firstAttribute="baseline" secondItem="EBB-2q-AAI" secondAttribute="baseline" type="default" id="CEH-ez-Du7"/>
-                                <constraint firstAttribute="trailing" secondItem="CdY-gn-eIP" secondAttribute="trailing" constant="7" id="HW3-Ie-1Dc"/>
-                                <constraint firstItem="Qtg-d5-NDz" firstAttribute="trailing" secondItem="w5g-Ta-Vno" secondAttribute="trailing" type="default" id="LQw-0r-Ugh"/>
-                                <constraint firstItem="Qtg-d5-NDz" firstAttribute="top" secondItem="w5g-Ta-Vno" secondAttribute="top" type="default" id="QXP-A5-GBq"/>
-                                <constraint firstItem="EBB-2q-AAI" firstAttribute="top" secondItem="w5g-Ta-Vno" secondAttribute="top" constant="46" id="ZpQ-aS-NKE"/>
-                                <constraint firstItem="Jrv-T1-fMV" firstAttribute="leading" secondItem="w5g-Ta-Vno" secondAttribute="leading" constant="125" id="a8s-Gy-TKX"/>
-                                <constraint firstItem="CdY-gn-eIP" firstAttribute="baseline" secondItem="Jrv-T1-fMV" secondAttribute="baseline" type="default" id="p99-cQ-Llg"/>
+                                <constraint firstItem="Jrv-T1-fMV" firstAttribute="top" secondItem="EBB-2q-AAI" secondAttribute="top" type="default" id="1Jv-lp-kcq"/>
+                                <constraint firstItem="fc4-ZA-Hqx" firstAttribute="top" secondItem="w5g-Ta-Vno" secondAttribute="top" type="default" id="AOH-ke-jCy"/>
+                                <constraint firstAttribute="trailing" secondItem="CdY-gn-eIP" secondAttribute="trailing" constant="11" id="Gd0-ES-Hxa"/>
+                                <constraint firstAttribute="bottom" secondItem="Jrv-T1-fMV" secondAttribute="bottom" constant="5" id="Pcr-kj-XNz"/>
+                                <constraint firstItem="EBB-2q-AAI" firstAttribute="leading" secondItem="w5g-Ta-Vno" secondAttribute="leading" constant="7" id="RTp-TQ-TdJ"/>
+                                <constraint firstItem="CdY-gn-eIP" firstAttribute="bottom" secondItem="Jrv-T1-fMV" secondAttribute="bottom" type="default" id="UXU-O5-TyT"/>
+                                <constraint firstItem="Jrv-T1-fMV" firstAttribute="bottom" secondItem="EBB-2q-AAI" secondAttribute="bottom" type="default" id="V0c-li-YVk"/>
+                                <constraint firstItem="CdY-gn-eIP" firstAttribute="top" secondItem="Jrv-T1-fMV" secondAttribute="top" type="default" id="WMq-Qa-lvY"/>
+                                <constraint firstItem="fc4-ZA-Hqx" firstAttribute="trailing" secondItem="w5g-Ta-Vno" secondAttribute="trailing" type="default" id="hGn-As-SPB"/>
+                                <constraint firstItem="fc4-ZA-Hqx" firstAttribute="leading" secondItem="w5g-Ta-Vno" secondAttribute="leading" type="default" id="j7w-FH-tpN"/>
+                                <constraint firstItem="Jrv-T1-fMV" firstAttribute="leading" secondItem="w5g-Ta-Vno" secondAttribute="leading" constant="127" id="xWL-KJ-VFr"/>
                             </constraints>
                         </view>
                         <prototypes>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Cell" rowHeight="144" id="ST5-Vc-rR3" customClass="SimJobCell">
-                                <rect key="frame" x="0.0" y="118" width="320" height="144"/>
+                                <rect key="frame" x="0.0" y="104" width="320" height="144"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                     <rect key="frame" x="0.0" y="0.0" width="320" height="143"/>
@@ -515,31 +540,6 @@
     <resources>
         <image name="second" width="16" height="16"/>
     </resources>
-    <classes>
-        <class className="NSLayoutConstraint" superclassName="NSObject">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/NSLayoutConstraint.h"/>
-        </class>
-        <class className="SecondViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/SecondViewController.h"/>
-        </class>
-        <class className="SimJobCell" superclassName="UITableViewCell">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/SimJobCell.h"/>
-            <relationships>
-                <relationship kind="outlet" name="htcJobID" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="message" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="simKey" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="simName" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="startDate" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="status" candidateClass="UILabel"/>
-            </relationships>
-        </class>
-        <class className="SimJobController" superclassName="UITableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/SimJobController.h"/>
-            <relationships>
-                <relationship kind="action" name="bioModelDateSwap:"/>
-            </relationships>
-        </class>
-    </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>
