@@ -8,6 +8,9 @@
 
 #import "SimJobController.h"
 
+#define BIOMODEL_SORT 0
+#define DATE_SORT 1
+
 @interface SimJobController ()
 {
     NSMutableData *connectionData;
@@ -166,6 +169,18 @@
     
     SimJob *job = [[simJobSections objectForKey:key] objectAtIndex:0];
     return job.bioModelLink.bioModelName;
+    
+}
+
+- (IBAction)bioModelDateSwap:(id)sender
+{
+    UISegmentedControl *sortButton = (UISegmentedControl*)sender;
+    
+   if(sortButton.selectedSegmentIndex == BIOMODEL_SORT)
+       [self breakIntoSectionsbyDate:NO];
+    
+   else if(sortButton.selectedSegmentIndex == DATE_SORT)
+       [self breakIntoSectionsbyDate:YES];
     
 }
 

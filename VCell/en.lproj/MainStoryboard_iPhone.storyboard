@@ -150,6 +150,19 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="SimJobs" id="upK-tr-ao3">
+                        <barButtonItem key="leftBarButtonItem" id="S3z-ts-sgi">
+                            <segmentedControl key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" id="wZO-ZT-vul">
+                                <rect key="frame" x="5" y="6" width="137" height="33"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <segments>
+                                    <segment title="BioModel"/>
+                                    <segment title="Date"/>
+                                </segments>
+                                <connections>
+                                    <action selector="bioModelDateSwap:" destination="TTe-86-iE8" eventType="valueChanged" id="mW2-xd-QT9"/>
+                                </connections>
+                            </segmentedControl>
+                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" title="Filter" id="pi4-Og-9Ie">
                             <connections>
                                 <segue destination="nQ0-Sx-c0j" kind="modal" id="ull-3y-agv"/>
@@ -522,6 +535,9 @@
         </class>
         <class className="SimJobController" superclassName="UITableViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/SimJobController.h"/>
+            <relationships>
+                <relationship kind="action" name="bioModelDateSwap:"/>
+            </relationships>
         </class>
     </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">

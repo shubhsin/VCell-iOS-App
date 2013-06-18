@@ -12,4 +12,6 @@
 
 @interface SimJobController : UITableViewController
 
+- (IBAction)bioModelDateSwap:(id)sender;
+
 @end
