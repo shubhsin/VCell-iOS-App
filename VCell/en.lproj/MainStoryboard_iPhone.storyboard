@@ -73,23 +73,30 @@
                                         <action selector="optionsBtnPressed:" destination="TTe-86-iE8" eventType="touchUpInside" id="Kl0-Y2-xl8"/>
                                     </connections>
                                 </button>
-                                <searchBar contentMode="redraw" text="" placeholder="Search" translatesAutoresizingMaskIntoConstraints="NO" id="fc4-ZA-Hqx">
+                                <searchBar contentMode="redraw" placeholder="Search simKey, simName, status..." translatesAutoresizingMaskIntoConstraints="NO" id="NZJ-Gy-yQ5">
                                     <textInputTraits key="textInputTraits"/>
+                                    <scopeButtonTitles>
+                                        <string>Title</string>
+                                        <string>Title</string>
+                                    </scopeButtonTitles>
+                                    <connections>
+                                        <outlet property="delegate" destination="TTe-86-iE8" id="Uwc-Cg-e7l"/>
+                                    </connections>
                                 </searchBar>
                             </subviews>
                             <color key="backgroundColor" red="0.88627450980392153" green="0.90196078431372551" blue="0.93725490196078431" alpha="0.59999999999999998" colorSpace="calibratedRGB"/>
                             <constraints>
+                                <constraint firstItem="NZJ-Gy-yQ5" firstAttribute="leading" secondItem="w5g-Ta-Vno" secondAttribute="leading" type="default" id="58J-0d-aIA"/>
                                 <constraint firstItem="Jrv-T1-fMV" firstAttribute="bottom" secondItem="EBB-2q-AAI" secondAttribute="bottom" type="default" id="5JR-UR-GbU"/>
                                 <constraint firstItem="EBB-2q-AAI" firstAttribute="top" secondItem="Jrv-T1-fMV" secondAttribute="top" type="default" id="7HW-gx-hho"/>
-                                <constraint firstItem="fc4-ZA-Hqx" firstAttribute="trailing" secondItem="w5g-Ta-Vno" secondAttribute="trailing" type="default" id="AHL-6U-NcM"/>
                                 <constraint firstItem="Jrv-T1-fMV" firstAttribute="top" secondItem="CdY-gn-eIP" secondAttribute="top" type="default" id="GNx-4E-O66"/>
-                                <constraint firstItem="fc4-ZA-Hqx" firstAttribute="top" secondItem="w5g-Ta-Vno" secondAttribute="top" type="default" id="IC1-6e-zuA"/>
                                 <constraint firstAttribute="trailing" secondItem="CdY-gn-eIP" secondAttribute="trailing" constant="11" id="KSX-Rv-ahG"/>
+                                <constraint firstItem="NZJ-Gy-yQ5" firstAttribute="trailing" secondItem="w5g-Ta-Vno" secondAttribute="trailing" type="default" id="T6W-Kk-uqP"/>
                                 <constraint firstItem="Jrv-T1-fMV" firstAttribute="leading" secondItem="w5g-Ta-Vno" secondAttribute="leading" constant="127" id="VWU-nw-5gd"/>
                                 <constraint firstAttribute="bottom" secondItem="EBB-2q-AAI" secondAttribute="bottom" constant="5" id="bTH-mi-DnC"/>
+                                <constraint firstItem="NZJ-Gy-yQ5" firstAttribute="top" secondItem="w5g-Ta-Vno" secondAttribute="top" type="default" id="eFO-Cr-0s6"/>
                                 <constraint firstItem="CdY-gn-eIP" firstAttribute="bottom" secondItem="Jrv-T1-fMV" secondAttribute="bottom" type="default" id="kYA-xK-g3g"/>
                                 <constraint firstItem="EBB-2q-AAI" firstAttribute="leading" secondItem="w5g-Ta-Vno" secondAttribute="leading" constant="7" id="wOd-EB-vH4"/>
-                                <constraint firstItem="fc4-ZA-Hqx" firstAttribute="leading" secondItem="w5g-Ta-Vno" secondAttribute="leading" type="default" id="xeA-X1-uiF"/>
                             </constraints>
                         </view>
                         <prototypes>
@@ -219,8 +226,21 @@
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <outlet property="searchBar" destination="NZJ-Gy-yQ5" id="ZgC-fH-TIm"/>
+                        <outlet property="searchDisplayController" destination="nM2-J8-za4" id="Jr0-DE-fct"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Xvt-f0-cya" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <searchDisplayController id="nM2-J8-za4">
+                    <connections>
+                        <outlet property="delegate" destination="TTe-86-iE8" id="aX5-GR-9f7"/>
+                        <outlet property="searchBar" destination="NZJ-Gy-yQ5" id="J4x-LG-yII"/>
+                        <outlet property="searchContentsController" destination="TTe-86-iE8" id="qtv-FI-teA"/>
+                        <outlet property="searchResultsDataSource" destination="TTe-86-iE8" id="6hE-iB-h9t"/>
+                        <outlet property="searchResultsDelegate" destination="TTe-86-iE8" id="PrE-09-Yd7"/>
+                    </connections>
+                </searchDisplayController>
             </objects>
             <point key="canvasLocation" x="1455" y="-171"/>
         </scene>

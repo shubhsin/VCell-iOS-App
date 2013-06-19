@@ -20,9 +20,14 @@
     //Class Vars
     NSMutableDictionary *URLparams;
     NSMutableData *connectionData;
-    NSMutableArray *simJobs; // Received JSON Objects
+    
+    
+    NSMutableDictionary *filteredSimJobs; //used to hold search bar results
     NSMutableDictionary *simJobSections; // JSON objects in sections
+    NSMutableDictionary *currentSimJobSectons; // points to search results or whole content
+    
     NSArray *keyArray; // Keys of the Sections
+    NSArray *simJobs; // Received JSON Objects
     BOOL sortByDate;
 }
 @end
@@ -134,11 +139,13 @@
     NSArray *jsonData = [NSJSONSerialization JSONObjectWithData:connectionData options:kNilOptions error:nil];
     
     // Make an empty array with size equal to number of objects received
-    simJobs = [NSMutableArray arrayWithCapacity:[jsonData count]];
+    NSMutableArray *simMutableJobs = [NSMutableArray arrayWithCapacity:[jsonData count]];
     
     // Add the objects in the array
     for(NSDictionary *dict in jsonData)
-        [simJobs addObject:[[SimJob alloc] initWithDict:dict]];
+        [simMutableJobs addObject:[[SimJob alloc] initWithDict:dict]];
+        
+    simJobs = [NSArray arrayWithArray:simMutableJobs];
     
     [self breakIntoSectionsbyDate:NO];
     
@@ -206,10 +213,12 @@
         SimJob *job = [[simJobSections objectForKey:[keyArray objectAtIndex:indexPath.section]] objectAtIndex:indexPath.row];
     
         //Hide Buttons if not needed
+        cell.dataBtn.hidden = NO;
         if(![job.hasData boolValue])
             cell.dataBtn.hidden = YES;
-
-        if(job.bioModelLink.bioModelKey == NULL)
+        
+        cell.bioModelBtn.hidden = NO;
+        if(job.bioModelLink.bioModelName == NULL)
             cell.bioModelBtn.hidden = YES;
         
         //Setup labels
@@ -250,7 +259,7 @@
 
 #pragma mark - Class Methods
 
-- (void)breakIntoSectionsbyDate:(BOOL)byDate
+- (void)breakIntoSectionsbyDate:(BOOL)byDate 
 {
     sortByDate = byDate;
     
@@ -309,7 +318,6 @@
         }
     }
     keyArray = [simJobSections allKeys];
-    
     [self.tableView reloadData];
 }
 
@@ -395,6 +403,40 @@
         
     }];
 }
+
+#pragma mark - Content Filtering
+
+- (void)filterContentForSearchText:(NSString*)searchText scope:(NSString*)scope
+{
+    // Update the filtered array based on the search text and scope.
+    // Remove all objects from the filtered search array
+    [filteredSimJobs removeAllObjects];
+    // Filter the array using NSPredicate
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"SELF.simName contains[c] %@",searchText];
+    filteredSimJobs = [NSMutableArray arrayWithArray:[simJobs filteredArrayUsingPredicate:predicate]];
+}
+
+#pragma mark - UISearchDisplayController Delegate Methods
+
+- (BOOL)searchDisplayController:(UISearchDisplayController *)controller shouldReloadTableForSearchString:(NSString *)searchString
+{
+    // Tells the table data source to reload when text changes
+    [self filterContentForSearchText:searchString scope:
+     [[self.searchDisplayController.searchBar scopeButtonTitles]
+      objectAtIndex:[self.searchDisplayController.searchBar selectedScopeButtonIndex]]];
+    // Return YES to cause the search result table view to be reloaded.
+    return YES;
+}
+
+- (BOOL)searchDisplayController:(UISearchDisplayController *)controller shouldReloadTableForSearchScope:(NSInteger)searchOption
+{
+    // Tells the table data source to reload when scope bar selection changes
+    [self filterContentForSearchText:self.searchDisplayController.searchBar.text scope:
+     [[self.searchDisplayController.searchBar scopeButtonTitles] objectAtIndex:searchOption]];
+    // Return YES to cause the search result table view to be reloaded.
+    return YES;
+}
+
 
 
 @end

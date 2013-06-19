@@ -20,8 +20,9 @@
 #define RUNNING_BTN 20   // running, dispatched, waiting, queued
 #define STOPPED_BTN 30  // stopped, failed
 
-@interface SimJobController : UITableViewController <MBProgressHUDDelegate>
+@interface SimJobController : UITableViewController <MBProgressHUDDelegate,UISearchBarDelegate, UISearchDisplayDelegate>
 
+@property (weak, nonatomic) IBOutlet UISearchBar *searchBar;
 - (IBAction)bioModelDateSwap:(id)sender;
 - (IBAction)optionsBtnPressed:(id)sender;
 
