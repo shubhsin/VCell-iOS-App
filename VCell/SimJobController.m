@@ -89,8 +89,9 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-  
-    
+    self.searchDisplayController.searchBar.showsScopeBar = NO;
+    [ self.searchDisplayController.searchBar sizeToFit];
+
     [self setUpBtns];
     
     [self initURLParamDict];
@@ -199,7 +200,7 @@
     
     //Register nib files manually for custom cell since search display controller can't load from storyboard
     [self.searchDisplayController.searchResultsTableView registerNib:[UINib nibWithNibName:@"SimJobCell" bundle:[NSBundle mainBundle]] forCellReuseIdentifier:CellIdentifier];
-    [self.tableView registerNib:[UINib nibWithNibName:@"SimJobCell" bundle:[NSBundle mainBundle]] forCellReuseIdentifier:CellIdentifier];
+   // [self.tableView registerNib:[UINib nibWithNibName:@"SimJobCell" bundle:[NSBundle mainBundle]] forCellReuseIdentifier:CellIdentifier];
 
     SimJobCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
     
@@ -414,17 +415,40 @@
 #pragma mark - Search Delegates
 - (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText
 {
+    
+    [self initSearchWithSearchText:searchText];
+}
+
+- (void)initSearchWithSearchText:(NSString *)searchText
+{
     [filteredSimJobsArr removeAllObjects];
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"SELF.simName contains[c] %@",searchText];
+    
+    NSString *searchScopeProperty;
+    NSInteger scopeIndex = [self.searchDisplayController.searchBar selectedScopeButtonIndex];
+    if(scopeIndex == SIMULATION_SCOPE)
+        searchScopeProperty = @"simName";
+    else if(scopeIndex == SIMKEY_SCOPE)
+        searchScopeProperty = @"simKey";
+    else if(scopeIndex == APPLICATION_SCOPE)
+        searchScopeProperty = @"bioModelLink.simContextName";
+    else if(scopeIndex == BIOMODEL_SCOPE)
+        searchScopeProperty = @"bioModelLink.bioModelName";
+    if(searchText == NULL)
+        searchText = self.searchDisplayController.searchBar.text;
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"SELF.%@ contains[c] %@",searchScopeProperty,searchText];
     filteredSimJobsArr = [NSMutableArray arrayWithArray:[simJobs filteredArrayUsingPredicate:predicate]];
     [self breakIntoSectionsbyDate:NO andSimJobArr:filteredSimJobsArr];
 }
-
 //Reload the main tableView when done with search
 - (void)searchDisplayController:(UISearchDisplayController *)controller willHideSearchResultsTableView:(UITableView *)tableView
 {
+  
     [self breakIntoSectionsbyDate:NO andSimJobArr:simJobs];
 
+}
+- (void)searchBar:(UISearchBar *)searchBar selectedScopeButtonIndexDidChange:(NSInteger)selectedScope
+{
+    [self initSearchWithSearchText:NULL];
 }
 
 

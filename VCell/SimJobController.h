@@ -20,6 +20,12 @@
 #define RUNNING_BTN 20   // running, dispatched, waiting, queued
 #define STOPPED_BTN 30  // stopped, failed
 
+//Search Scope button index constants
+#define SIMULATION_SCOPE 0
+#define SIMKEY_SCOPE 1
+#define APPLICATION_SCOPE 2
+#define BIOMODEL_SCOPE 3
+
 @interface SimJobController : UITableViewController <MBProgressHUDDelegate,UISearchBarDelegate, UISearchDisplayDelegate>
 
 @property (weak, nonatomic) IBOutlet UISearchBar *searchBar;

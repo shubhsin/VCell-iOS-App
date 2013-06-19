@@ -13,92 +13,120 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" name="alternateSelectedControlTextColor" catalog="System" colorSpace="catalog"/>
                         <color key="separatorColor" red="0.70196080207824707" green="0.70196080207824707" blue="0.70196080207824707" alpha="1" colorSpace="calibratedRGB"/>
-                        <view key="tableHeaderView" contentMode="scaleToFill" id="w5g-Ta-Vno">
-                            <rect key="frame" x="0.0" y="0.0" width="320" height="82"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <subviews>
-                                <button opaque="NO" tag="10" contentMode="scaleToFill" highlighted="YES" selected="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EBB-2q-AAI">
-                                    <constraints>
-                                        <constraint firstAttribute="width" constant="101" id="PB0-jZ-1DE"/>
-                                        <constraint firstAttribute="height" constant="30" id="RQM-A4-cXa"/>
-                                    </constraints>
-                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                    <state key="normal" title="Completed">
-                                        <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                    </state>
-                                    <state key="selected">
-                                        <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                    </state>
-                                    <state key="highlighted">
-                                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        <color key="titleShadowColor" red="0.32681341240875911" green="0.20534899635036497" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                    </state>
-                                    <connections>
-                                        <action selector="optionsBtnPressed:" destination="TTe-86-iE8" eventType="touchUpInside" id="6zj-ue-CYn"/>
-                                    </connections>
-                                </button>
-                                <button opaque="NO" tag="20" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Jrv-T1-fMV">
-                                    <constraints>
-                                        <constraint firstAttribute="width" constant="84" id="Wi7-PS-Qgj"/>
-                                    </constraints>
-                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                    <state key="normal" title="Running">
-                                        <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
-                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                    </state>
-                                    <state key="selected" title="Running">
-                                        <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                    </state>
-                                    <state key="highlighted">
-                                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                    </state>
-                                    <connections>
-                                        <action selector="optionsBtnPressed:" destination="TTe-86-iE8" eventType="touchUpInside" id="llv-S3-YsD"/>
-                                    </connections>
-                                </button>
-                                <button opaque="NO" tag="30" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CdY-gn-eIP">
-                                    <constraints>
-                                        <constraint firstAttribute="width" constant="80" id="wHR-Sg-1JI"/>
-                                    </constraints>
-                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                    <state key="normal" title="Stopped">
-                                        <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
-                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                    </state>
-                                    <state key="highlighted">
-                                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                    </state>
-                                    <connections>
-                                        <action selector="optionsBtnPressed:" destination="TTe-86-iE8" eventType="touchUpInside" id="Kl0-Y2-xl8"/>
-                                    </connections>
-                                </button>
-                                <searchBar contentMode="redraw" placeholder="Search simKey, simName, status..." translatesAutoresizingMaskIntoConstraints="NO" id="NZJ-Gy-yQ5">
-                                    <textInputTraits key="textInputTraits"/>
-                                    <scopeButtonTitles>
-                                        <string>Title</string>
-                                        <string>Title</string>
-                                    </scopeButtonTitles>
-                                    <connections>
-                                        <outlet property="delegate" destination="TTe-86-iE8" id="Eav-4Z-0Yj"/>
-                                    </connections>
-                                </searchBar>
-                            </subviews>
-                            <color key="backgroundColor" red="0.88627450980392153" green="0.90196078431372551" blue="0.93725490196078431" alpha="0.59999999999999998" colorSpace="calibratedRGB"/>
-                            <constraints>
-                                <constraint firstItem="NZJ-Gy-yQ5" firstAttribute="leading" secondItem="w5g-Ta-Vno" secondAttribute="leading" type="default" id="58J-0d-aIA"/>
-                                <constraint firstItem="Jrv-T1-fMV" firstAttribute="bottom" secondItem="EBB-2q-AAI" secondAttribute="bottom" type="default" id="5JR-UR-GbU"/>
-                                <constraint firstItem="EBB-2q-AAI" firstAttribute="top" secondItem="Jrv-T1-fMV" secondAttribute="top" type="default" id="7HW-gx-hho"/>
-                                <constraint firstItem="Jrv-T1-fMV" firstAttribute="top" secondItem="CdY-gn-eIP" secondAttribute="top" type="default" id="GNx-4E-O66"/>
-                                <constraint firstAttribute="trailing" secondItem="CdY-gn-eIP" secondAttribute="trailing" constant="11" id="KSX-Rv-ahG"/>
-                                <constraint firstItem="NZJ-Gy-yQ5" firstAttribute="trailing" secondItem="w5g-Ta-Vno" secondAttribute="trailing" type="default" id="T6W-Kk-uqP"/>
-                                <constraint firstItem="Jrv-T1-fMV" firstAttribute="leading" secondItem="w5g-Ta-Vno" secondAttribute="leading" constant="127" id="VWU-nw-5gd"/>
-                                <constraint firstAttribute="bottom" secondItem="EBB-2q-AAI" secondAttribute="bottom" constant="5" id="bTH-mi-DnC"/>
-                                <constraint firstItem="NZJ-Gy-yQ5" firstAttribute="top" secondItem="w5g-Ta-Vno" secondAttribute="top" type="default" id="eFO-Cr-0s6"/>
-                                <constraint firstItem="CdY-gn-eIP" firstAttribute="bottom" secondItem="Jrv-T1-fMV" secondAttribute="bottom" type="default" id="kYA-xK-g3g"/>
-                                <constraint firstItem="EBB-2q-AAI" firstAttribute="leading" secondItem="w5g-Ta-Vno" secondAttribute="leading" constant="7" id="wOd-EB-vH4"/>
-                            </constraints>
-                        </view>
+                        <searchBar key="tableHeaderView" contentMode="redraw" text="" placeholder="Search simKey, simName, status..." showsScopeBar="YES" id="NZJ-Gy-yQ5">
+                            <rect key="frame" x="0.0" y="0.0" width="320" height="88"/>
+                            <textInputTraits key="textInputTraits"/>
+                            <scopeButtonTitles>
+                                <string>Simulation</string>
+                                <string>SimKey</string>
+                                <string>Application</string>
+                                <string>BioModel</string>
+                            </scopeButtonTitles>
+                            <connections>
+                                <outlet property="delegate" destination="TTe-86-iE8" id="Eav-4Z-0Yj"/>
+                            </connections>
+                        </searchBar>
+                        <prototypes>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" indentationWidth="10" reuseIdentifier="Cell" rowHeight="112" id="nRF-VI-VsZ" customClass="SimJobCell">
+                                <rect key="frame" x="0.0" y="110" width="320" height="112"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="111"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Sim Name" lineBreakMode="clip" baselineAdjustment="none" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mgp-Sf-ej8">
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="294" id="0wG-2S-upB"/>
+                                                <constraint firstAttribute="height" constant="28" id="bUz-Sx-B1p"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </label>
+                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Status" lineBreakMode="clip" baselineAdjustment="none" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6zH-VH-w1a">
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="164" id="Wot-vB-m6W"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <color key="textColor" red="0.20000000300000001" green="0.20000000300000001" blue="0.20000000300000001" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </label>
+                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Job Index" textAlignment="right" lineBreakMode="clip" baselineAdjustment="none" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sq9-7R-WXm">
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <color key="textColor" red="0.80000001190000003" green="0.80000001190000003" blue="0.80000001190000003" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </label>
+                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Application Name" lineBreakMode="clip" baselineAdjustment="none" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DX6-IB-7S0">
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <color key="textColor" red="0.20000000300000001" green="0.20000000300000001" blue="0.20000000300000001" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </label>
+                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="start Date/BioModel" textAlignment="right" lineBreakMode="wordWrap" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="I0o-Gr-0FH">
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="185" id="Hsk-gQ-bhc"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <color key="textColor" red="0.40000000600000002" green="0.40000000600000002" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </label>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CQV-z9-37s">
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="120" id="dgH-LV-AqB"/>
+                                                <constraint firstAttribute="height" constant="32" id="tOM-Nm-msD"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                            <state key="normal" title="View Data">
+                                                <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
+                                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                            </state>
+                                            <state key="highlighted">
+                                                <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            </state>
+                                        </button>
+                                        <button autoresizesSubviews="NO" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ehP-P4-pdX">
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="120" id="pJz-nW-qEL"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                            <state key="normal" title="BioModel">
+                                                <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
+                                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                            </state>
+                                            <state key="highlighted">
+                                                <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            </state>
+                                        </button>
+                                    </subviews>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                </view>
+                                <constraints>
+                                    <constraint firstItem="DX6-IB-7S0" firstAttribute="baseline" secondItem="I0o-Gr-0FH" secondAttribute="baseline" type="default" id="09t-AQ-SKb"/>
+                                    <constraint firstItem="CQV-z9-37s" firstAttribute="leading" secondItem="nRF-VI-VsZ" secondAttribute="leading" constant="6" id="1ak-73-660"/>
+                                    <constraint firstItem="CQV-z9-37s" firstAttribute="bottom" secondItem="ehP-P4-pdX" secondAttribute="bottom" type="default" id="8Da-kj-Lyf"/>
+                                    <constraint firstItem="ehP-P4-pdX" firstAttribute="top" secondItem="CQV-z9-37s" secondAttribute="top" type="default" id="Adu-vU-nfF"/>
+                                    <constraint firstItem="mgp-Sf-ej8" firstAttribute="top" secondItem="nRF-VI-VsZ" secondAttribute="top" constant="-3" id="K0E-9Q-EZU"/>
+                                    <constraint firstAttribute="bottom" secondItem="CQV-z9-37s" secondAttribute="bottom" constant="11" id="Q2I-8r-VXx"/>
+                                    <constraint firstItem="6zH-VH-w1a" firstAttribute="top" secondItem="nRF-VI-VsZ" secondAttribute="top" constant="25" id="S8q-XC-imI"/>
+                                    <constraint firstItem="6zH-VH-w1a" firstAttribute="leading" secondItem="DX6-IB-7S0" secondAttribute="leading" type="default" id="Sph-zU-Lem"/>
+                                    <constraint firstItem="6zH-VH-w1a" firstAttribute="baseline" secondItem="sq9-7R-WXm" secondAttribute="baseline" type="default" id="ZCJ-x4-BwP"/>
+                                    <constraint firstItem="mgp-Sf-ej8" firstAttribute="leading" secondItem="6zH-VH-w1a" secondAttribute="leading" type="default" id="i2f-l2-aZv"/>
+                                    <constraint firstItem="mgp-Sf-ej8" firstAttribute="leading" secondItem="nRF-VI-VsZ" secondAttribute="leading" constant="11" id="qsI-SL-3WP"/>
+                                    <constraint firstItem="I0o-Gr-0FH" firstAttribute="leading" secondItem="nRF-VI-VsZ" secondAttribute="leading" constant="128" id="sHF-0k-s2X"/>
+                                    <constraint firstItem="DX6-IB-7S0" firstAttribute="centerY" secondItem="nRF-VI-VsZ" secondAttribute="centerY" type="default" id="tkp-2R-jFh"/>
+                                    <constraint firstItem="ehP-P4-pdX" firstAttribute="trailing" secondItem="sq9-7R-WXm" secondAttribute="trailing" type="default" id="vXT-8m-oSh"/>
+                                    <constraint firstAttribute="trailing" secondItem="sq9-7R-WXm" secondAttribute="trailing" constant="5" id="wVl-84-7u4"/>
+                                </constraints>
+                                <connections>
+                                    <outlet property="appName" destination="DX6-IB-7S0" id="t8R-s3-rE6"/>
+                                    <outlet property="bioModelBtn" destination="ehP-P4-pdX" id="T2b-gQ-s2l"/>
+                                    <outlet property="dataBtn" destination="CQV-z9-37s" id="2D0-qt-APY"/>
+                                    <outlet property="jobIndex" destination="sq9-7R-WXm" id="Ffb-vf-bBA"/>
+                                    <outlet property="simName" destination="mgp-Sf-ej8" id="HdA-xf-Vnl"/>
+                                    <outlet property="startDate" destination="I0o-Gr-0FH" id="cWp-cL-ZC8"/>
+                                    <outlet property="status" destination="6zH-VH-w1a" id="tSB-qO-NBr"/>
+                                </connections>
+                            </tableViewCell>
+                        </prototypes>
                         <connections>
                             <outlet property="dataSource" destination="TTe-86-iE8" id="Ycy-ZB-I3d"/>
                             <outlet property="delegate" destination="TTe-86-iE8" id="tSP-qR-0bT"/>
@@ -489,6 +517,18 @@
         </class>
         <class className="SecondViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/SecondViewController.h"/>
+        </class>
+        <class className="SimJobCell" superclassName="UITableViewCell">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/SimJobCell.h"/>
+            <relationships>
+                <relationship kind="outlet" name="appName" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="bioModelBtn" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="dataBtn" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="jobIndex" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="simName" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="startDate" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="status" candidateClass="UILabel"/>
+            </relationships>
         </class>
         <class className="SimJobController" superclassName="UITableViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/SimJobController.h"/>
