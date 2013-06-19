@@ -30,7 +30,7 @@
 @property (nonatomic,strong) MathModelLink *mathModelLink;
 
 - (id)initWithDict:(NSDictionary*) dict;
-
+- (NSString*)startDateString;
 @end
 
 @interface BioModelLink : NSObject

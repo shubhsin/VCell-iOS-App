@@ -79,10 +79,10 @@
     button.titleLabel.textColor = [UIColor whiteColor];
     
     button = (UIButton *)[self.view viewWithTag:STOPPED_BTN];
-    button.titleLabel.textColor = [UIColor blueColor];
+    button.titleLabel.textColor = [UIColor colorWithRed:71/255.0 green:84/255.0 blue:255/255.0 alpha:1.0];
     
     button = (UIButton *)[self.view viewWithTag:RUNNING_BTN];
-    button.titleLabel.textColor = [UIColor blueColor];
+    button.titleLabel.textColor = [UIColor colorWithRed:71/255.0 green:84/255.0 blue:255/255.0 alpha:1.0];
 
 }
 - (void)viewDidLoad
@@ -177,7 +177,18 @@
     // Return the number of rows in the section.
     return [[simJobSections objectForKey:[keyArray objectAtIndex:section]] count];
 }
-
+- (void)setCellButtonStyle:(SimJobCell*)cell
+{
+    UIImage *buttonImage = [[UIImage imageNamed:@"greyButton.png"]
+                            resizableImageWithCapInsets:UIEdgeInsetsMake(18, 18, 18, 18)];
+    UIImage *buttonImageHighlight = [[UIImage imageNamed:@"greyButtonHighlight.png"]
+                                     resizableImageWithCapInsets:UIEdgeInsetsMake(18, 18, 18, 18)];
+    
+    [cell.dataBtn setBackgroundImage:buttonImage forState:UIControlStateNormal];
+    [cell.dataBtn setBackgroundImage:buttonImageHighlight forState:UIControlStateHighlighted];
+    [cell.bioModelBtn setBackgroundImage:buttonImage forState:UIControlStateNormal];
+    [cell.bioModelBtn setBackgroundImage:buttonImageHighlight forState:UIControlStateHighlighted];
+}
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *CellIdentifier = @"Cell";
@@ -190,15 +201,36 @@
    
     if(simJobs)
     {
+        [self setCellButtonStyle:cell];
+        
         SimJob *job = [[simJobSections objectForKey:[keyArray objectAtIndex:indexPath.section]] objectAtIndex:indexPath.row];
     
+        //Hide Buttons if not needed
+        if(![job.hasData boolValue])
+            cell.dataBtn.hidden = YES;
+
+        if(job.bioModelLink.bioModelKey == NULL)
+            cell.bioModelBtn.hidden = YES;
+        
+        //Setup labels
         cell.simName.text = job.simName;
-        cell.message.text = job.message;
-        cell.htcJobID.text =  [NSString stringWithFormat:@"%@",job.htcJobId];
         cell.status.text = job.status;
-        cell.simKey.text = job.simKey;
-        NSDate *date = [NSDate dateWithTimeIntervalSince1970:[job.startdate doubleValue]/1000];
-        cell.startDate.text =  [NSString stringWithFormat:@"%@",date];
+        
+        if(job.bioModelLink.simContextName)
+             cell.appName.text = job.bioModelLink.simContextName;
+        else
+             cell.appName.text = @"Unknown";
+        
+        cell.jobIndex.text = [NSString stringWithFormat:@"%@",job.jobIndex];
+        if(sortByDate)
+        {
+            if(job.bioModelLink.bioModelName)
+                cell.startDate.text = job.bioModelLink.bioModelName;
+            else
+                cell.startDate.text = @"Unknown";
+        }   
+        else
+            cell.startDate.text =  [job startDateString];
     }
  
     return cell;
@@ -307,7 +339,7 @@
         {
             button.highlighted = NO;
             button.selected = NO;
-            button.titleLabel.textColor = [UIColor blueColor];
+            button.titleLabel.textColor = [UIColor colorWithRed:71/255.0 green:84/255.0 blue:255/255.0 alpha:1.0];
             active = NO;
         }
         else

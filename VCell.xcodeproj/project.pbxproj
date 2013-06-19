@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		541BD299177193DD00E82846 /* greyButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 541BD297177193DD00E82846 /* greyButton.png */; };
+		541BD29A177193DD00E82846 /* greyButton@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 541BD298177193DD00E82846 /* greyButton@2x.png */; };
+		541BD29D177193F100E82846 /* greyButtonHighlight.png in Resources */ = {isa = PBXBuildFile; fileRef = 541BD29B177193F100E82846 /* greyButtonHighlight.png */; };
+		541BD29E177193F100E82846 /* greyButtonHighlight@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 541BD29C177193F100E82846 /* greyButtonHighlight@2x.png */; };
 		543721E2176DFA8000AFC35F /* Constants.m in Sources */ = {isa = PBXBuildFile; fileRef = 543721E1176DFA8000AFC35F /* Constants.m */; };
 		544CE0CA1765E13600F69C45 /* SimJob.m in Sources */ = {isa = PBXBuildFile; fileRef = 544CE0C91765E13600F69C45 /* SimJob.m */; };
 		5467C06017674804002A5CC9 /* SimJobCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5467C05F17674804002A5CC9 /* SimJobCell.m */; };
@@ -48,6 +52,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		541BD297177193DD00E82846 /* greyButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = greyButton.png; sourceTree = "<group>"; };
+		541BD298177193DD00E82846 /* greyButton@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "greyButton@2x.png"; sourceTree = "<group>"; };
+		541BD29B177193F100E82846 /* greyButtonHighlight.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = greyButtonHighlight.png; sourceTree = "<group>"; };
+		541BD29C177193F100E82846 /* greyButtonHighlight@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "greyButtonHighlight@2x.png"; sourceTree = "<group>"; };
 		543721E0176DFA8000AFC35F /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
 		543721E1176DFA8000AFC35F /* Constants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Constants.m; sourceTree = "<group>"; };
 		544CE0C81765E13600F69C45 /* SimJob.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SimJob.h; sourceTree = "<group>"; };
@@ -169,6 +177,10 @@
 				54DA318F1764B8900020D2B5 /* MainStoryboard_iPhone.storyboard */,
 				543721E3176DFB7100AFC35F /* First Tab */,
 				54DA31921764B8900020D2B5 /* MainStoryboard_iPad.storyboard */,
+				541BD297177193DD00E82846 /* greyButton.png */,
+				541BD298177193DD00E82846 /* greyButton@2x.png */,
+				541BD29B177193F100E82846 /* greyButtonHighlight.png */,
+				541BD29C177193F100E82846 /* greyButtonHighlight@2x.png */,
 				54DA31981764B8900020D2B5 /* first.png */,
 				54DA319A1764B8900020D2B5 /* first@2x.png */,
 				54DA319C1764B8900020D2B5 /* SecondViewController.h */,
@@ -300,6 +312,10 @@
 				54DA31A21764B8900020D2B5 /* second@2x.png in Resources */,
 				54EDA98B17709B7100A32120 /* 37x-Checkmark.png in Resources */,
 				54EDA98C17709B7100A32120 /* 37x-Checkmark@2x.png in Resources */,
+				541BD299177193DD00E82846 /* greyButton.png in Resources */,
+				541BD29A177193DD00E82846 /* greyButton@2x.png in Resources */,
+				541BD29D177193F100E82846 /* greyButtonHighlight.png in Resources */,
+				541BD29E177193F100E82846 /* greyButtonHighlight@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

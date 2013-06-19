@@ -9,7 +9,13 @@
 #import "SimJob.h"
 
 @implementation SimJob
-
+- (NSString*)startDateString
+{
+    NSDate *date = [NSDate dateWithTimeIntervalSince1970:[self.startdate doubleValue]/1000];
+    NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
+    dateFormat.dateFormat = @"EEEE',' d MMMM yyyy";
+    return [dateFormat stringFromDate:date];
+}
 - (id)initWithDict:(NSDictionary *)dict
 {
     self = [super init];
