@@ -20,13 +20,9 @@
     //Class Vars
     NSMutableDictionary *URLparams;
     NSMutableData *connectionData;
-    
-    
-    NSMutableDictionary *filteredSimJobs; //used to hold search bar results
     NSMutableDictionary *simJobSections; // JSON objects in sections
-    NSMutableDictionary *currentSimJobSectons; // points to search results or whole content
-    
     NSArray *keyArray; // Keys of the Sections
+    NSMutableArray *filteredSimJobsArr; //Search
     NSArray *simJobs; // Received JSON Objects
     BOOL sortByDate;
 }
@@ -41,7 +37,7 @@
     for(NSString *key in dict)
         [params appendFormat:@"%@=%@&",key,[dict objectForKey:key]];
     
-    NSLog(@"%@",params);
+//    NSLog(@"%@",params);
     return params;
 }
 - (void)initURLParamDict
@@ -93,6 +89,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+  
     
     [self setUpBtns];
     
@@ -147,7 +144,7 @@
         
     simJobs = [NSArray arrayWithArray:simMutableJobs];
     
-    [self breakIntoSectionsbyDate:NO];
+    [self breakIntoSectionsbyDate:NO andSimJobArr:simJobs];
     
     HUD.customView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"37x-Checkmark.png"]];
 	HUD.mode = MBProgressHUDModeCustomView;
@@ -199,6 +196,11 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *CellIdentifier = @"Cell";
+    
+    //Register nib files manually for custom cell since search display controller can't load from storyboard
+    [self.searchDisplayController.searchResultsTableView registerNib:[UINib nibWithNibName:@"SimJobCell" bundle:[NSBundle mainBundle]] forCellReuseIdentifier:CellIdentifier];
+    [self.tableView registerNib:[UINib nibWithNibName:@"SimJobCell" bundle:[NSBundle mainBundle]] forCellReuseIdentifier:CellIdentifier];
+
     SimJobCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
     
     // Configure the cell...
@@ -209,7 +211,6 @@
     if(simJobs)
     {
         [self setCellButtonStyle:cell];
-        
         SimJob *job = [[simJobSections objectForKey:[keyArray objectAtIndex:indexPath.section]] objectAtIndex:indexPath.row];
     
         //Hide Buttons if not needed
@@ -259,7 +260,7 @@
 
 #pragma mark - Class Methods
 
-- (void)breakIntoSectionsbyDate:(BOOL)byDate 
+- (void)breakIntoSectionsbyDate:(BOOL)byDate andSimJobArr:(NSArray*)currentSimJobs
 {
     sortByDate = byDate;
     
@@ -268,7 +269,7 @@
     NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
     dateFormat.dateFormat = @"EEEE',' d MMMM yyyy";
     
-    for(SimJob *job in simJobs)
+    for(SimJob *job in currentSimJobs)
     {
         NSString *key;
         
@@ -293,7 +294,7 @@
     for(NSString *key in uniqueKeys)
         [simJobSections setObject:[NSMutableArray array] forKey:key];
     
-    for(SimJob *job in simJobs)
+    for(SimJob *job in currentSimJobs)
     {
         NSString *key;
         if(byDate)
@@ -317,6 +318,7 @@
             }
         }
     }
+   // NSLog(@"%@",simJobSections);
     keyArray = [simJobSections allKeys];
     [self.tableView reloadData];
 }
@@ -326,10 +328,10 @@
     UISegmentedControl *sortButton = (UISegmentedControl*)sender;
     
    if(sortButton.selectedSegmentIndex == BIOMODEL_SORT)
-       [self breakIntoSectionsbyDate:NO];
+       [self breakIntoSectionsbyDate:NO andSimJobArr:simJobs];
     
    else if(sortButton.selectedSegmentIndex == DATE_SORT)
-       [self breakIntoSectionsbyDate:YES];
+       [self breakIntoSectionsbyDate:YES andSimJobArr:simJobs];
     
 }
 
@@ -403,38 +405,26 @@
         
     }];
 }
-
-#pragma mark - Content Filtering
-
-- (void)filterContentForSearchText:(NSString*)searchText scope:(NSString*)scope
+// Needed to set height of search display controller properly.
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    // Update the filtered array based on the search text and scope.
-    // Remove all objects from the filtered search array
-    [filteredSimJobs removeAllObjects];
-    // Filter the array using NSPredicate
+    return 112.0f;
+}
+
+#pragma mark - Search Delegates
+- (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText
+{
+    [filteredSimJobsArr removeAllObjects];
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"SELF.simName contains[c] %@",searchText];
-    filteredSimJobs = [NSMutableArray arrayWithArray:[simJobs filteredArrayUsingPredicate:predicate]];
+    filteredSimJobsArr = [NSMutableArray arrayWithArray:[simJobs filteredArrayUsingPredicate:predicate]];
+    [self breakIntoSectionsbyDate:NO andSimJobArr:filteredSimJobsArr];
 }
 
-#pragma mark - UISearchDisplayController Delegate Methods
-
-- (BOOL)searchDisplayController:(UISearchDisplayController *)controller shouldReloadTableForSearchString:(NSString *)searchString
+//Reload the main tableView when done with search
+- (void)searchDisplayController:(UISearchDisplayController *)controller willHideSearchResultsTableView:(UITableView *)tableView
 {
-    // Tells the table data source to reload when text changes
-    [self filterContentForSearchText:searchString scope:
-     [[self.searchDisplayController.searchBar scopeButtonTitles]
-      objectAtIndex:[self.searchDisplayController.searchBar selectedScopeButtonIndex]]];
-    // Return YES to cause the search result table view to be reloaded.
-    return YES;
-}
+    [self breakIntoSectionsbyDate:NO andSimJobArr:simJobs];
 
-- (BOOL)searchDisplayController:(UISearchDisplayController *)controller shouldReloadTableForSearchScope:(NSInteger)searchOption
-{
-    // Tells the table data source to reload when scope bar selection changes
-    [self filterContentForSearchText:self.searchDisplayController.searchBar.text scope:
-     [[self.searchDisplayController.searchBar scopeButtonTitles] objectAtIndex:searchOption]];
-    // Return YES to cause the search result table view to be reloaded.
-    return YES;
 }
 
 
