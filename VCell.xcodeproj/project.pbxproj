@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		540AAC5D1772D482007C4DCF /* SimJobButtonCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 540AAC5C1772D482007C4DCF /* SimJobButtonCell.m */; };
+		540AAC601772FD74007C4DCF /* dot.png in Resources */ = {isa = PBXBuildFile; fileRef = 540AAC5E1772FD73007C4DCF /* dot.png */; };
+		540AAC611772FD74007C4DCF /* dot@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 540AAC5F1772FD74007C4DCF /* dot@2x.png */; };
 		540C37951771F68F00D95990 /* SimJobCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 540C37941771F68F00D95990 /* SimJobCell.xib */; };
 		541BD299177193DD00E82846 /* greyButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 541BD297177193DD00E82846 /* greyButton.png */; };
 		541BD29A177193DD00E82846 /* greyButton@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 541BD298177193DD00E82846 /* greyButton@2x.png */; };
@@ -53,6 +56,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		540AAC5B1772D482007C4DCF /* SimJobButtonCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SimJobButtonCell.h; sourceTree = "<group>"; };
+		540AAC5C1772D482007C4DCF /* SimJobButtonCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SimJobButtonCell.m; sourceTree = "<group>"; };
+		540AAC5E1772FD73007C4DCF /* dot.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dot.png; sourceTree = "<group>"; };
+		540AAC5F1772FD74007C4DCF /* dot@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "dot@2x.png"; sourceTree = "<group>"; };
 		540C37941771F68F00D95990 /* SimJobCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SimJobCell.xib; sourceTree = "<group>"; };
 		541BD297177193DD00E82846 /* greyButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = greyButton.png; sourceTree = "<group>"; };
 		541BD298177193DD00E82846 /* greyButton@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "greyButton@2x.png"; sourceTree = "<group>"; };
@@ -134,6 +141,8 @@
 				544CE0C91765E13600F69C45 /* SimJob.m */,
 				5467C05E17674804002A5CC9 /* SimJobCell.h */,
 				5467C05F17674804002A5CC9 /* SimJobCell.m */,
+				540AAC5B1772D482007C4DCF /* SimJobButtonCell.h */,
+				540AAC5C1772D482007C4DCF /* SimJobButtonCell.m */,
 			);
 			name = "First Tab";
 			sourceTree = "<group>";
@@ -184,6 +193,8 @@
 				541BD298177193DD00E82846 /* greyButton@2x.png */,
 				541BD29B177193F100E82846 /* greyButtonHighlight.png */,
 				541BD29C177193F100E82846 /* greyButtonHighlight@2x.png */,
+				540AAC5E1772FD73007C4DCF /* dot.png */,
+				540AAC5F1772FD74007C4DCF /* dot@2x.png */,
 				54DA31981764B8900020D2B5 /* first.png */,
 				54DA319A1764B8900020D2B5 /* first@2x.png */,
 				54DA319C1764B8900020D2B5 /* SecondViewController.h */,
@@ -320,6 +331,8 @@
 				541BD29D177193F100E82846 /* greyButtonHighlight.png in Resources */,
 				541BD29E177193F100E82846 /* greyButtonHighlight@2x.png in Resources */,
 				540C37951771F68F00D95990 /* SimJobCell.xib in Resources */,
+				540AAC601772FD74007C4DCF /* dot.png in Resources */,
+				540AAC611772FD74007C4DCF /* dot@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -389,6 +402,7 @@
 				544CE0CA1765E13600F69C45 /* SimJob.m in Sources */,
 				5467C06017674804002A5CC9 /* SimJobCell.m in Sources */,
 				543721E2176DFA8000AFC35F /* Constants.m in Sources */,
+				540AAC5D1772D482007C4DCF /* SimJobButtonCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

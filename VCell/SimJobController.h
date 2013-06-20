@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "SimJob.h"
 #import "SimJobCell.h"
+#import "SimJobButtonCell.h"
 #import "MBProgressHUD.h"
 
 //Constants for sorts
@@ -30,6 +31,5 @@
 
 @property (weak, nonatomic) IBOutlet UISearchBar *searchBar;
 - (IBAction)bioModelDateSwap:(id)sender;
-- (IBAction)optionsBtnPressed:(id)sender;
-
+- (void)updatDataOnBtnPressedWithButtonTag:(int)tag AndButtonActive:(BOOL)active;
 @end

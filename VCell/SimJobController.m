@@ -72,27 +72,13 @@
     
     URLparams = [[NSMutableDictionary alloc] initWithObjects:objects forKeys:keys];
 }
-- (void)setUpBtns
-{
 
-    UIButton *button;
-    button = (UIButton *)[self.view viewWithTag:COMPLETED_BTN];
-    button.titleLabel.textColor = [UIColor whiteColor];
-    
-    button = (UIButton *)[self.view viewWithTag:STOPPED_BTN];
-    button.titleLabel.textColor = [UIColor colorWithRed:71/255.0 green:84/255.0 blue:255/255.0 alpha:1.0];
-    
-    button = (UIButton *)[self.view viewWithTag:RUNNING_BTN];
-    button.titleLabel.textColor = [UIColor colorWithRed:71/255.0 green:84/255.0 blue:255/255.0 alpha:1.0];
-
-}
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     self.searchDisplayController.searchBar.showsScopeBar = NO;
-    [ self.searchDisplayController.searchBar sizeToFit];
+    [self.searchDisplayController.searchBar sizeToFit];
 
-    [self setUpBtns];
     
     [self initURLParamDict];
     
@@ -145,7 +131,7 @@
         
     simJobs = [NSArray arrayWithArray:simMutableJobs];
     
-    [self breakIntoSectionsbyDate:NO andSimJobArr:simJobs];
+    [self breakIntoSectionsbyDate:NO andSimJobArr:simJobs forTableView:self.tableView];
     
     HUD.customView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"37x-Checkmark.png"]];
 	HUD.mode = MBProgressHUDModeCustomView;
@@ -174,13 +160,23 @@
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     // Return the number of sections.
-    return [keyArray count];
+    
+    if (tableView == self.searchDisplayController.searchResultsTableView)
+        return [keyArray count];
+    else
+        return [keyArray count]+1; //for completed/running/stopped buttons 
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     // Return the number of rows in the section.
-    return [[simJobSections objectForKey:[keyArray objectAtIndex:section]] count];
+    NSInteger currentSection = section;
+    if (tableView != self.searchDisplayController.searchResultsTableView)
+        currentSection = section - 1;
+    
+    if(section == 0 && tableView != self.searchDisplayController.searchResultsTableView)
+        return 1;
+    return [[simJobSections objectForKey:[keyArray objectAtIndex:currentSection]] count];
 }
 - (void)setCellButtonStyle:(SimJobCell*)cell
 {
@@ -197,12 +193,34 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *CellIdentifier = @"Cell";
+    static NSString *SimJobButtonCellIdentifier = @"SimJobButtonCell";
+
+    NSInteger currentSection = indexPath.section;
+    //For first cell
+    
+    //for completed/running/stopped buttons    
+    if(indexPath.section == 0 && tableView != self.searchDisplayController.searchResultsTableView)
+    {
+        SimJobButtonCell *cell;
+        cell = [tableView dequeueReusableCellWithIdentifier:SimJobButtonCellIdentifier];
+        // Configure the cell...
+        if (cell == nil) {
+            cell = [[SimJobButtonCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:SimJobButtonCellIdentifier];
+        }
+        return cell;
+    }
+    if(tableView != self.searchDisplayController.searchResultsTableView)
+    {
+        currentSection = indexPath.section - 1;
+    }
+    SimJobCell *cell;
+
     
     //Register nib files manually for custom cell since search display controller can't load from storyboard
     [self.searchDisplayController.searchResultsTableView registerNib:[UINib nibWithNibName:@"SimJobCell" bundle:[NSBundle mainBundle]] forCellReuseIdentifier:CellIdentifier];
-   // [self.tableView registerNib:[UINib nibWithNibName:@"SimJobCell" bundle:[NSBundle mainBundle]] forCellReuseIdentifier:CellIdentifier];
-
-    SimJobCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
+    [self.tableView registerNib:[UINib nibWithNibName:@"SimJobCell" bundle:[NSBundle mainBundle]] forCellReuseIdentifier:CellIdentifier];
+    
+    cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
     
     // Configure the cell...
     if (cell == nil) {
@@ -212,7 +230,7 @@
     if(simJobs)
     {
         [self setCellButtonStyle:cell];
-        SimJob *job = [[simJobSections objectForKey:[keyArray objectAtIndex:indexPath.section]] objectAtIndex:indexPath.row];
+        SimJob *job = [[simJobSections objectForKey:[keyArray objectAtIndex:currentSection]] objectAtIndex:indexPath.row];
     
         //Hide Buttons if not needed
         cell.dataBtn.hidden = NO;
@@ -249,7 +267,15 @@
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
 {
-    NSString *key = [keyArray objectAtIndex:section];
+    //Dont display completed/running/stopped buttons in search
+    NSInteger currentSection = section;
+    if (section == 0 && tableView != self.searchDisplayController.searchResultsTableView)
+        return NULL;
+    
+    if(tableView != self.searchDisplayController.searchResultsTableView)
+        currentSection = section - 1;
+    
+    NSString *key = [keyArray objectAtIndex:currentSection];
    
     if([key isEqualToString:@"Unknown"] || sortByDate == YES)
         return key;
@@ -261,7 +287,7 @@
 
 #pragma mark - Class Methods
 
-- (void)breakIntoSectionsbyDate:(BOOL)byDate andSimJobArr:(NSArray*)currentSimJobs
+- (void)breakIntoSectionsbyDate:(BOOL)byDate andSimJobArr:(NSArray*)currentSimJobs forTableView:(UITableView*)tableView
 {
     sortByDate = byDate;
     
@@ -321,7 +347,7 @@
     }
    // NSLog(@"%@",simJobSections);
     keyArray = [simJobSections allKeys];
-    [self.tableView reloadData];
+    [tableView reloadData];
 }
 
 - (IBAction)bioModelDateSwap:(id)sender
@@ -329,53 +355,30 @@
     UISegmentedControl *sortButton = (UISegmentedControl*)sender;
     
    if(sortButton.selectedSegmentIndex == BIOMODEL_SORT)
-       [self breakIntoSectionsbyDate:NO andSimJobArr:simJobs];
+       [self breakIntoSectionsbyDate:NO andSimJobArr:simJobs forTableView:self.tableView];
     
    else if(sortButton.selectedSegmentIndex == DATE_SORT)
-       [self breakIntoSectionsbyDate:YES andSimJobArr:simJobs];
+       [self breakIntoSectionsbyDate:YES andSimJobArr:simJobs forTableView:self.tableView];
     
 }
 
-- (IBAction)optionsBtnPressed:(id)sender
+- (void)updatDataOnBtnPressedWithButtonTag:(int)tag AndButtonActive:(BOOL)active
 {
-    UIButton *button = (UIButton*)sender;
-    
-    
-    //Imitate toggle behavior for the buttons. 
-    [NSOperationQueue.mainQueue addOperationWithBlock:^{
-        
-        BOOL active;
-        //toggle the switch
-        if(button.selected)
-        {
-            button.highlighted = NO;
-            button.selected = NO;
-            button.titleLabel.textColor = [UIColor colorWithRed:71/255.0 green:84/255.0 blue:255/255.0 alpha:1.0];
-            active = NO;
-        }
-        else
-        {
-            button.highlighted = YES;
-            button.selected = YES;
-            button.titleLabel.textColor = [UIColor whiteColor];
-            active = YES;
-        }
-        
-        //construct the URL params
+   
         if(active)
         {
-            if(button.tag == COMPLETED_BTN)
+            if(tag == COMPLETED_BTN)
             {
                 [URLparams setObject:@"on" forKey:@"completed"];
             }
-            else if (button.tag == RUNNING_BTN)
+            else if (tag == RUNNING_BTN)
             {
                 [URLparams setObject:@"on" forKey:@"waiting"];
                 [URLparams setObject:@"on" forKey:@"queued"];
                 [URLparams setObject:@"on" forKey:@"dispatched"];
                 [URLparams setObject:@"on" forKey:@"running"];
             }
-            else if (button.tag == STOPPED_BTN)
+            else if (tag == STOPPED_BTN)
             {
                 [URLparams setObject:@"on" forKey:@"stopped"];
                 [URLparams setObject:@"on" forKey:@"failed"];
@@ -383,18 +386,18 @@
         }
         else
         {
-            if(button.tag == COMPLETED_BTN)
+            if(tag == COMPLETED_BTN)
             {
                 [URLparams setObject:@"" forKey:@"completed"];
             }
-            else if (button.tag == RUNNING_BTN)
+            else if (tag == RUNNING_BTN)
             {
                 [URLparams setObject:@"" forKey:@"waiting"];
                 [URLparams setObject:@"" forKey:@"queued"];
                 [URLparams setObject:@"" forKey:@"dispatched"];
                 [URLparams setObject:@"" forKey:@"running"];
             }
-            else if (button.tag == STOPPED_BTN)
+            else if (tag == STOPPED_BTN)
             {
                 [URLparams setObject:@"" forKey:@"stopped"];
                 [URLparams setObject:@"" forKey:@"failed"];
@@ -402,13 +405,13 @@
         }
         
         [self startLoading];
-        
-        
-    }];
+     
 }
-// Needed to set height of search display controller properly.
+ //Needed to set height of search display controller properly.
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    if(indexPath.section == 0 && tableView != self.searchDisplayController.searchResultsTableView)
+        return 38.0f;
     return 112.0f;
 }
 
@@ -437,14 +440,12 @@
         searchText = self.searchDisplayController.searchBar.text;
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"SELF.%@ contains[c] %@",searchScopeProperty,searchText];
     filteredSimJobsArr = [NSMutableArray arrayWithArray:[simJobs filteredArrayUsingPredicate:predicate]];
-    [self breakIntoSectionsbyDate:NO andSimJobArr:filteredSimJobsArr];
+    [self breakIntoSectionsbyDate:NO andSimJobArr:filteredSimJobsArr forTableView:self.searchDisplayController.searchResultsTableView];
 }
 //Reload the main tableView when done with search
 - (void)searchDisplayController:(UISearchDisplayController *)controller willHideSearchResultsTableView:(UITableView *)tableView
 {
-  
-    [self breakIntoSectionsbyDate:NO andSimJobArr:simJobs];
-
+    [self breakIntoSectionsbyDate:NO andSimJobArr:simJobs forTableView:self.tableView];
 }
 - (void)searchBar:(UISearchBar *)searchBar selectedScopeButtonIndexDidChange:(NSInteger)selectedScope
 {

@@ -8,7 +8,7 @@
         <scene sceneID="ebF-hF-n14">
             <objects>
                 <tableViewController id="TTe-86-iE8" customClass="SimJobController" sceneMemberID="viewController">
-                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="112" sectionHeaderHeight="22" sectionFooterHeight="22" id="VH9-hy-kAj">
+                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="38" sectionHeaderHeight="22" sectionFooterHeight="22" id="VH9-hy-kAj">
                         <rect key="frame" x="0.0" y="64" width="320" height="504"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" name="alternateSelectedControlTextColor" catalog="System" colorSpace="catalog"/>
@@ -27,103 +27,82 @@
                             </connections>
                         </searchBar>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" indentationWidth="10" reuseIdentifier="Cell" rowHeight="112" id="nRF-VI-VsZ" customClass="SimJobCell">
-                                <rect key="frame" x="0.0" y="110" width="320" height="112"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="SimJobButtonCell" rowHeight="38" id="Wxl-8T-os8" customClass="SimJobButtonCell">
+                                <rect key="frame" x="0.0" y="110" width="320" height="38"/>
+                                <autoresizingMask key="autoresizingMask"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                    <rect key="frame" x="0.0" y="0.0" width="320" height="111"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="37"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Sim Name" lineBreakMode="clip" baselineAdjustment="none" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mgp-Sf-ej8">
+                                        <button opaque="NO" tag="20" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="m6n-XO-W59">
                                             <constraints>
-                                                <constraint firstAttribute="width" constant="294" id="0wG-2S-upB"/>
-                                                <constraint firstAttribute="height" constant="28" id="bUz-Sx-B1p"/>
-                                            </constraints>
-                                            <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
-                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                            <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        </label>
-                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Status" lineBreakMode="clip" baselineAdjustment="none" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6zH-VH-w1a">
-                                            <constraints>
-                                                <constraint firstAttribute="width" constant="164" id="Wot-vB-m6W"/>
-                                            </constraints>
-                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                            <color key="textColor" red="0.20000000300000001" green="0.20000000300000001" blue="0.20000000300000001" alpha="1" colorSpace="calibratedRGB"/>
-                                            <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        </label>
-                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Job Index" textAlignment="right" lineBreakMode="clip" baselineAdjustment="none" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sq9-7R-WXm">
-                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                            <color key="textColor" red="0.80000001190000003" green="0.80000001190000003" blue="0.80000001190000003" alpha="1" colorSpace="calibratedRGB"/>
-                                            <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        </label>
-                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Application Name" lineBreakMode="clip" baselineAdjustment="none" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DX6-IB-7S0">
-                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                            <color key="textColor" red="0.20000000300000001" green="0.20000000300000001" blue="0.20000000300000001" alpha="1" colorSpace="calibratedRGB"/>
-                                            <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        </label>
-                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="start Date/BioModel" textAlignment="right" lineBreakMode="wordWrap" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="I0o-Gr-0FH">
-                                            <constraints>
-                                                <constraint firstAttribute="width" constant="185" id="Hsk-gQ-bhc"/>
-                                            </constraints>
-                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                            <color key="textColor" red="0.40000000600000002" green="0.40000000600000002" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                            <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        </label>
-                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CQV-z9-37s">
-                                            <constraints>
-                                                <constraint firstAttribute="width" constant="120" id="dgH-LV-AqB"/>
-                                                <constraint firstAttribute="height" constant="32" id="tOM-Nm-msD"/>
+                                                <constraint firstAttribute="width" constant="102" id="yyk-hs-9jJ"/>
                                             </constraints>
                                             <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                            <state key="normal" title="View Data">
+                                            <state key="normal" title="Running">
                                                 <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
                                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                             </state>
-                                            <state key="highlighted">
+                                            <state key="selected" title="Running" image="dot.png"/>
+                                            <state key="highlighted" title="Running">
                                                 <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             </state>
+                                            <connections>
+                                                <action selector="btnPressed:" destination="Wxl-8T-os8" eventType="touchUpInside" id="57B-4I-6Pj"/>
+                                            </connections>
                                         </button>
-                                        <button autoresizesSubviews="NO" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ehP-P4-pdX">
+                                        <button opaque="NO" tag="10" contentMode="scaleToFill" selected="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Lr1-4I-DtZ">
                                             <constraints>
-                                                <constraint firstAttribute="width" constant="120" id="pJz-nW-qEL"/>
+                                                <constraint firstAttribute="width" constant="102" id="OEa-K4-Tpo"/>
+                                                <constraint firstAttribute="height" constant="31" id="gAl-2I-a9y"/>
                                             </constraints>
                                             <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                            <state key="normal" title="BioModel">
+                                            <state key="normal" title="Completed">
                                                 <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
                                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                             </state>
-                                            <state key="highlighted">
+                                            <state key="selected" title="Completed" image="dot.png"/>
+                                            <state key="highlighted" title="Completed">
                                                 <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             </state>
+                                            <connections>
+                                                <action selector="btnPressed:" destination="Wxl-8T-os8" eventType="touchUpInside" id="t7y-hX-yiY"/>
+                                            </connections>
+                                        </button>
+                                        <button opaque="NO" tag="30" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="k8g-1h-WmR">
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="102" id="bTB-93-5BF"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                            <state key="normal" title="Stopped">
+                                                <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
+                                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                            </state>
+                                            <state key="selected" title="Stopped" image="dot.png"/>
+                                            <state key="highlighted" title="Stopped">
+                                                <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            </state>
+                                            <connections>
+                                                <action selector="btnPressed:" destination="Wxl-8T-os8" eventType="touchUpInside" id="k6Z-D8-Zmy"/>
+                                            </connections>
                                         </button>
                                     </subviews>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 </view>
                                 <constraints>
-                                    <constraint firstItem="DX6-IB-7S0" firstAttribute="baseline" secondItem="I0o-Gr-0FH" secondAttribute="baseline" type="default" id="09t-AQ-SKb"/>
-                                    <constraint firstItem="CQV-z9-37s" firstAttribute="leading" secondItem="nRF-VI-VsZ" secondAttribute="leading" constant="6" id="1ak-73-660"/>
-                                    <constraint firstItem="CQV-z9-37s" firstAttribute="bottom" secondItem="ehP-P4-pdX" secondAttribute="bottom" type="default" id="8Da-kj-Lyf"/>
-                                    <constraint firstItem="ehP-P4-pdX" firstAttribute="top" secondItem="CQV-z9-37s" secondAttribute="top" type="default" id="Adu-vU-nfF"/>
-                                    <constraint firstItem="mgp-Sf-ej8" firstAttribute="top" secondItem="nRF-VI-VsZ" secondAttribute="top" constant="-3" id="K0E-9Q-EZU"/>
-                                    <constraint firstAttribute="bottom" secondItem="CQV-z9-37s" secondAttribute="bottom" constant="11" id="Q2I-8r-VXx"/>
-                                    <constraint firstItem="6zH-VH-w1a" firstAttribute="top" secondItem="nRF-VI-VsZ" secondAttribute="top" constant="25" id="S8q-XC-imI"/>
-                                    <constraint firstItem="6zH-VH-w1a" firstAttribute="leading" secondItem="DX6-IB-7S0" secondAttribute="leading" type="default" id="Sph-zU-Lem"/>
-                                    <constraint firstItem="6zH-VH-w1a" firstAttribute="baseline" secondItem="sq9-7R-WXm" secondAttribute="baseline" type="default" id="ZCJ-x4-BwP"/>
-                                    <constraint firstItem="mgp-Sf-ej8" firstAttribute="leading" secondItem="6zH-VH-w1a" secondAttribute="leading" type="default" id="i2f-l2-aZv"/>
-                                    <constraint firstItem="mgp-Sf-ej8" firstAttribute="leading" secondItem="nRF-VI-VsZ" secondAttribute="leading" constant="11" id="qsI-SL-3WP"/>
-                                    <constraint firstItem="I0o-Gr-0FH" firstAttribute="leading" secondItem="nRF-VI-VsZ" secondAttribute="leading" constant="128" id="sHF-0k-s2X"/>
-                                    <constraint firstItem="DX6-IB-7S0" firstAttribute="centerY" secondItem="nRF-VI-VsZ" secondAttribute="centerY" type="default" id="tkp-2R-jFh"/>
-                                    <constraint firstItem="ehP-P4-pdX" firstAttribute="trailing" secondItem="sq9-7R-WXm" secondAttribute="trailing" type="default" id="vXT-8m-oSh"/>
-                                    <constraint firstAttribute="trailing" secondItem="sq9-7R-WXm" secondAttribute="trailing" constant="5" id="wVl-84-7u4"/>
+                                    <constraint firstItem="Lr1-4I-DtZ" firstAttribute="top" secondItem="m6n-XO-W59" secondAttribute="top" type="default" id="4fh-jI-qfp"/>
+                                    <constraint firstItem="Lr1-4I-DtZ" firstAttribute="bottom" secondItem="m6n-XO-W59" secondAttribute="bottom" type="default" id="B96-CL-h53"/>
+                                    <constraint firstAttribute="trailing" secondItem="k8g-1h-WmR" secondAttribute="trailing" constant="5" id="CFV-fs-oZh"/>
+                                    <constraint firstItem="Lr1-4I-DtZ" firstAttribute="leading" secondItem="Wxl-8T-os8" secondAttribute="leading" constant="5" id="OEH-qY-cdU"/>
+                                    <constraint firstItem="m6n-XO-W59" firstAttribute="centerY" secondItem="Wxl-8T-os8" secondAttribute="centerY" type="default" id="fS0-IQ-BiJ"/>
+                                    <constraint firstItem="m6n-XO-W59" firstAttribute="centerX" secondItem="Wxl-8T-os8" secondAttribute="centerX" type="default" id="gYG-d2-GUU"/>
+                                    <constraint firstItem="k8g-1h-WmR" firstAttribute="bottom" secondItem="m6n-XO-W59" secondAttribute="bottom" type="default" id="n6d-4O-Yga"/>
+                                    <constraint firstItem="k8g-1h-WmR" firstAttribute="top" secondItem="m6n-XO-W59" secondAttribute="top" type="default" id="wSW-6Q-jcC"/>
                                 </constraints>
                                 <connections>
-                                    <outlet property="appName" destination="DX6-IB-7S0" id="t8R-s3-rE6"/>
-                                    <outlet property="bioModelBtn" destination="ehP-P4-pdX" id="T2b-gQ-s2l"/>
-                                    <outlet property="dataBtn" destination="CQV-z9-37s" id="2D0-qt-APY"/>
-                                    <outlet property="jobIndex" destination="sq9-7R-WXm" id="Ffb-vf-bBA"/>
-                                    <outlet property="simName" destination="mgp-Sf-ej8" id="HdA-xf-Vnl"/>
-                                    <outlet property="startDate" destination="I0o-Gr-0FH" id="cWp-cL-ZC8"/>
-                                    <outlet property="status" destination="6zH-VH-w1a" id="tSB-qO-NBr"/>
+                                    <outlet property="completedBtn" destination="Lr1-4I-DtZ" id="OjN-SI-RER"/>
+                                    <outlet property="runningBtn" destination="m6n-XO-W59" id="6Ud-an-N40"/>
+                                    <outlet property="stoppedBtn" destination="k8g-1h-WmR" id="pcx-Dh-gXG"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -509,36 +488,9 @@
         </scene>
     </scenes>
     <resources>
+        <image name="dot.png" width="15" height="15"/>
         <image name="second" width="16" height="16"/>
     </resources>
-    <classes>
-        <class className="NSLayoutConstraint" superclassName="NSObject">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/NSLayoutConstraint.h"/>
-        </class>
-        <class className="SecondViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/SecondViewController.h"/>
-        </class>
-        <class className="SimJobCell" superclassName="UITableViewCell">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/SimJobCell.h"/>
-            <relationships>
-                <relationship kind="outlet" name="appName" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="bioModelBtn" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="dataBtn" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="jobIndex" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="simName" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="startDate" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="status" candidateClass="UILabel"/>
-            </relationships>
-        </class>
-        <class className="SimJobController" superclassName="UITableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/SimJobController.h"/>
-            <relationships>
-                <relationship kind="action" name="bioModelDateSwap:"/>
-                <relationship kind="action" name="optionsBtnPressed:"/>
-                <relationship kind="outlet" name="searchBar" candidateClass="UISearchBar"/>
-            </relationships>
-        </class>
-    </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>
