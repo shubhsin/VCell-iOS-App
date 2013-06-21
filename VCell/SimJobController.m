@@ -452,10 +452,11 @@
     job.simName = @"hiii";
     SimJob *job1 = [[SimJob alloc] init];
     job1.simName = @"hiii2";
-   // [simJobSections setObject:[NSArray arrayWithObjects:job,job1,nil] forKey:@"Zew Section"];
+    [simJobSections addObject:[NSMutableArray arrayWithObjects:job,job1,nil]];
     NSLog(@"%@",simJobSections);
-    [self.tableView insertSections:[NSIndexSet indexSetWithIndex:6] withRowAnimation:UITableViewRowAnimationAutomatic];
    
+    [self.tableView insertSections:[NSIndexSet indexSetWithIndex:[simJobSections count]] withRowAnimation:UITableViewRowAnimationBottom];
+    [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:[simJobSections count]] atScrollPosition:UITableViewScrollPositionBottom animated:YES];
   
 }
 @end
