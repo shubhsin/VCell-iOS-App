@@ -491,31 +491,6 @@
         <image name="dot.png" width="15" height="15"/>
         <image name="second" width="16" height="16"/>
     </resources>
-    <classes>
-        <class className="NSLayoutConstraint" superclassName="NSObject">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/NSLayoutConstraint.h"/>
-        </class>
-        <class className="SecondViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/SecondViewController.h"/>
-        </class>
-        <class className="SimJobButtonCell" superclassName="UITableViewCell">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/SimJobButtonCell.h"/>
-            <relationships>
-                <relationship kind="action" name="btnPressed:"/>
-                <relationship kind="outlet" name="completedBtn" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="runningBtn" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="stoppedBtn" candidateClass="UIButton"/>
-            </relationships>
-        </class>
-        <class className="SimJobController" superclassName="UITableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/SimJobController.h"/>
-            <relationships>
-                <relationship kind="action" name="addMoreCells:"/>
-                <relationship kind="action" name="bioModelDateSwap:"/>
-                <relationship kind="outlet" name="searchBar" candidateClass="UISearchBar"/>
-            </relationships>
-        </class>
-    </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>

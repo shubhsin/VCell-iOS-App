@@ -20,8 +20,7 @@
     //Class Vars
     NSMutableDictionary *URLparams;
     NSMutableData *connectionData;
-    NSMutableDictionary *simJobSections; // JSON objects in sections
-    NSArray *keyArray; // Keys of the Sections
+    NSMutableArray *simJobSections; // JSON objects in sections
     NSMutableArray *filteredSimJobsArr; //Search
     NSArray *simJobs; // Received JSON Objects
     BOOL sortByDate;
@@ -78,12 +77,9 @@
     [super viewDidLoad];
     self.searchDisplayController.searchBar.showsScopeBar = NO;
     [self.searchDisplayController.searchBar sizeToFit];
-
-    
     [self initURLParamDict];
-    
-    [self startLoading];
 
+    [self startLoading];
 }
 
 - (void)startLoading
@@ -162,9 +158,9 @@
     // Return the number of sections.
     
     if (tableView == self.searchDisplayController.searchResultsTableView)
-        return [[simJobSections allKeys] count];
+        return [simJobSections count];
     else
-        return [[simJobSections allKeys] count]+1; //for completed/running/stopped buttons
+        return [simJobSections count] + 1; //for completed/running/stopped buttons
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -176,7 +172,7 @@
     
     if(section == 0 && tableView != self.searchDisplayController.searchResultsTableView)
         return 1;
-    return [[simJobSections objectForKey:[[simJobSections allKeys] objectAtIndex:currentSection]] count];
+    return [[simJobSections objectAtIndex:currentSection] count];
 }
 - (void)setCellButtonStyle:(SimJobCell*)cell
 {
@@ -230,8 +226,7 @@
     if(simJobs)
     {
         [self setCellButtonStyle:cell];
-        SimJob *job = [[simJobSections objectForKey:[[simJobSections allKeys] objectAtIndex:currentSection]] objectAtIndex:indexPath.row];
-    
+        SimJob *job = [[simJobSections objectAtIndex:currentSection] objectAtIndex:indexPath.row];
         //Hide Buttons if not needed
         cell.dataBtn.hidden = NO;
         if(![job.hasData boolValue])
@@ -275,14 +270,18 @@
     if(tableView != self.searchDisplayController.searchResultsTableView)
         currentSection = section - 1;
     
-    NSString *key = [[simJobSections allKeys] objectAtIndex:currentSection];
-   
-    if([key isEqualToString:@"Unknown"] || sortByDate == YES)
-        return key;
+    SimJob *job  = [[simJobSections objectAtIndex:currentSection] objectAtIndex:0];
     
-    SimJob *job = [[simJobSections objectForKey:key] objectAtIndex:0];
-    return job.bioModelLink.bioModelName;
+    NSString *title; 
+    if(sortByDate == YES)
+        title = [job startDateString];
+    else
+        title  = job.bioModelLink.bioModelName;
     
+    if(title == NULL)
+        title = @"Unknown";
+
+    return title;
 }
 
 #pragma mark - Class Methods
@@ -292,19 +291,13 @@
     sortByDate = byDate;
     
     NSMutableArray *keys = [NSMutableArray array];
-    //For sort by date
-    NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
-    dateFormat.dateFormat = @"EEEE',' d MMMM yyyy";
     
     for(SimJob *job in currentSimJobs)
     {
         NSString *key;
         
         if(byDate)
-        {
-            NSDate *date = [NSDate dateWithTimeIntervalSince1970:[job.startdate doubleValue]/1000];
-            key = [dateFormat stringFromDate:date];
-        }
+            key = [job startDateString];
         else
             key = job.bioModelLink.bioModelKey;
         
@@ -314,39 +307,38 @@
             [keys addObject:@"Unknown"];
     }
     
-    NSSet *uniqueKeys = [NSSet setWithArray:keys];
+    NSSet *uniqueKeysUnordered = [NSSet setWithArray:keys];
     
-    simJobSections = [NSMutableDictionary dictionary];
+    NSOrderedSet *uniqueKeys = [[NSOrderedSet alloc] initWithSet:uniqueKeysUnordered];
+    
+    simJobSections = [NSMutableArray arrayWithCapacity:[uniqueKeys count]];
     
     for(NSString *key in uniqueKeys)
-        [simJobSections setObject:[NSMutableArray array] forKey:key];
+        [simJobSections addObject:[NSMutableArray array]];
     
     for(SimJob *job in currentSimJobs)
     {
         NSString *key;
+        
         if(byDate)
-        {
-            NSDate *date = [NSDate dateWithTimeIntervalSince1970:[job.startdate doubleValue]/1000];
-            key = [dateFormat stringFromDate:date];
-        }
+            key = [job startDateString];
         else
             key = job.bioModelLink.bioModelKey;
         
         if(key == NULL)
             key = @"Unknown";
         
-        for(NSString *itrkey in simJobSections)
+        for(NSString *itrkey in uniqueKeys)
         {
             if([key isEqualToString:itrkey])
             {
-                NSMutableArray *section = [simJobSections objectForKey:itrkey];
+                NSMutableArray *section = [simJobSections objectAtIndex:[uniqueKeys indexOfObject:key]];
                 [section addObject:job];
                 break;
             }
         }
     }
-   // NSLog(@"%@",simJobSections);
-    keyArray = [simJobSections allKeys];
+    //NSLog(@"%@",simJobSections);
     [tableView reloadData];
 }
 
@@ -418,14 +410,13 @@
 #pragma mark - Search Delegates
 - (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText
 {
-    
     [self initSearchWithSearchText:searchText];
 }
 
 - (void)initSearchWithSearchText:(NSString *)searchText
 {
+
     [filteredSimJobsArr removeAllObjects];
-    
     NSString *searchScopeProperty;
     NSInteger scopeIndex = [self.searchDisplayController.searchBar selectedScopeButtonIndex];
     if(scopeIndex == SIMULATION_SCOPE)
@@ -441,6 +432,7 @@
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"SELF.%@ contains[c] %@",searchScopeProperty,searchText];
     filteredSimJobsArr = [NSMutableArray arrayWithArray:[simJobs filteredArrayUsingPredicate:predicate]];
     [self breakIntoSectionsbyDate:NO andSimJobArr:filteredSimJobsArr forTableView:self.searchDisplayController.searchResultsTableView];
+    
 }
 //Reload the main tableView when done with search
 - (void)searchDisplayController:(UISearchDisplayController *)controller willHideSearchResultsTableView:(UITableView *)tableView
@@ -456,8 +448,14 @@
 
 - (IBAction)addMoreCells:(id)sender
 {
-  //  simJobSections
-    
-    
+    SimJob *job = [[SimJob alloc] init];
+    job.simName = @"hiii";
+    SimJob *job1 = [[SimJob alloc] init];
+    job1.simName = @"hiii2";
+   // [simJobSections setObject:[NSArray arrayWithObjects:job,job1,nil] forKey:@"Zew Section"];
+    NSLog(@"%@",simJobSections);
+    [self.tableView insertSections:[NSIndexSet indexSetWithIndex:6] withRowAnimation:UITableViewRowAnimationAutomatic];
+   
+  
 }
 @end

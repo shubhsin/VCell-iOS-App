@@ -131,6 +131,25 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		54097FA41774A54D00AA6AE2 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				541BD297177193DD00E82846 /* greyButton.png */,
+				541BD298177193DD00E82846 /* greyButton@2x.png */,
+				541BD29B177193F100E82846 /* greyButtonHighlight.png */,
+				541BD29C177193F100E82846 /* greyButtonHighlight@2x.png */,
+				540AAC5E1772FD73007C4DCF /* dot.png */,
+				540AAC5F1772FD74007C4DCF /* dot@2x.png */,
+				54DA31981764B8900020D2B5 /* first.png */,
+				54DA319A1764B8900020D2B5 /* first@2x.png */,
+				54EDA98917709B7100A32120 /* 37x-Checkmark.png */,
+				54EDA98A17709B7100A32120 /* 37x-Checkmark@2x.png */,
+				54DA319F1764B8900020D2B5 /* second.png */,
+				54DA31A11764B8900020D2B5 /* second@2x.png */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
 		543721E3176DFB7100AFC35F /* First Tab */ = {
 			isa = PBXGroup;
 			children = (
@@ -189,20 +208,9 @@
 				54DA318F1764B8900020D2B5 /* MainStoryboard_iPhone.storyboard */,
 				543721E3176DFB7100AFC35F /* First Tab */,
 				54DA31921764B8900020D2B5 /* MainStoryboard_iPad.storyboard */,
-				541BD297177193DD00E82846 /* greyButton.png */,
-				541BD298177193DD00E82846 /* greyButton@2x.png */,
-				541BD29B177193F100E82846 /* greyButtonHighlight.png */,
-				541BD29C177193F100E82846 /* greyButtonHighlight@2x.png */,
-				540AAC5E1772FD73007C4DCF /* dot.png */,
-				540AAC5F1772FD74007C4DCF /* dot@2x.png */,
-				54DA31981764B8900020D2B5 /* first.png */,
-				54DA319A1764B8900020D2B5 /* first@2x.png */,
+				54097FA41774A54D00AA6AE2 /* Resources */,
 				54DA319C1764B8900020D2B5 /* SecondViewController.h */,
 				54DA319D1764B8900020D2B5 /* SecondViewController.m */,
-				54EDA98917709B7100A32120 /* 37x-Checkmark.png */,
-				54EDA98A17709B7100A32120 /* 37x-Checkmark@2x.png */,
-				54DA319F1764B8900020D2B5 /* second.png */,
-				54DA31A11764B8900020D2B5 /* second@2x.png */,
 				54DA317E1764B8900020D2B5 /* Supporting Files */,
 			);
 			path = VCell;
@@ -525,6 +533,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "VCell/VCell-Prefix.pch";
 				INFOPLIST_FILE = "VCell/VCell-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -537,6 +546,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "VCell/VCell-Prefix.pch";
 				INFOPLIST_FILE = "VCell/VCell-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
