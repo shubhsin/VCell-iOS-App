@@ -127,7 +127,7 @@
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" title="Filter" id="pi4-Og-9Ie">
                             <connections>
-                                <segue destination="nQ0-Sx-c0j" kind="modal" id="ull-3y-agv"/>
+                                <action selector="addMoreCells:" destination="TTe-86-iE8" id="ehq-gB-GMu"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -510,6 +510,7 @@
         <class className="SimJobController" superclassName="UITableViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/SimJobController.h"/>
             <relationships>
+                <relationship kind="action" name="addMoreCells:"/>
                 <relationship kind="action" name="bioModelDateSwap:"/>
                 <relationship kind="outlet" name="searchBar" candidateClass="UISearchBar"/>
             </relationships>

@@ -162,9 +162,9 @@
     // Return the number of sections.
     
     if (tableView == self.searchDisplayController.searchResultsTableView)
-        return [keyArray count];
+        return [[simJobSections allKeys] count];
     else
-        return [keyArray count]+1; //for completed/running/stopped buttons 
+        return [[simJobSections allKeys] count]+1; //for completed/running/stopped buttons
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -176,7 +176,7 @@
     
     if(section == 0 && tableView != self.searchDisplayController.searchResultsTableView)
         return 1;
-    return [[simJobSections objectForKey:[keyArray objectAtIndex:currentSection]] count];
+    return [[simJobSections objectForKey:[[simJobSections allKeys] objectAtIndex:currentSection]] count];
 }
 - (void)setCellButtonStyle:(SimJobCell*)cell
 {
@@ -230,7 +230,7 @@
     if(simJobs)
     {
         [self setCellButtonStyle:cell];
-        SimJob *job = [[simJobSections objectForKey:[keyArray objectAtIndex:currentSection]] objectAtIndex:indexPath.row];
+        SimJob *job = [[simJobSections objectForKey:[[simJobSections allKeys] objectAtIndex:currentSection]] objectAtIndex:indexPath.row];
     
         //Hide Buttons if not needed
         cell.dataBtn.hidden = NO;
@@ -275,7 +275,7 @@
     if(tableView != self.searchDisplayController.searchResultsTableView)
         currentSection = section - 1;
     
-    NSString *key = [keyArray objectAtIndex:currentSection];
+    NSString *key = [[simJobSections allKeys] objectAtIndex:currentSection];
    
     if([key isEqualToString:@"Unknown"] || sortByDate == YES)
         return key;
@@ -454,4 +454,10 @@
 
 
 
+- (IBAction)addMoreCells:(id)sender
+{
+  //  simJobSections
+    
+    
+}
 @end
