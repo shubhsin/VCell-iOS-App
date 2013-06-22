@@ -106,7 +106,6 @@
         HUD.margin = 10.f;
         HUD.yOffset = 150.f;
         HUD.userInteractionEnabled = NO;
-        HUD.removeFromSuperViewOnHide = YES;
     }
 }
 
@@ -152,6 +151,7 @@
         HUD.customView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"37x-Checkmark.png"]];
         HUD.mode = MBProgressHUDModeCustomView;
         HUD.dimBackground = NO;
+    
     }
     else
     {
@@ -162,6 +162,8 @@
         
         NSMutableArray *newSections = [self returnSectionsArrayByDate:sortByDate fromArray:simMutableJobs];
         
+        NSUInteger oldNumberOfSections = [self.tableView numberOfSections];
+        
         [simJobSections addObjectsFromArray:newSections];
         
         NSUInteger numberOfSections = [self.tableView numberOfSections];
@@ -170,11 +172,14 @@
         [self.tableView insertSections:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(numberOfSections,[newSections count])] withRowAnimation:UITableViewRowAnimationBottom];
         
         //Scroll to row 0 of the new added section
-        [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:numberOfSections + 1] atScrollPosition:UITableViewScrollPositionBottom animated:YES];
+        [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:oldNumberOfSections + 1] atScrollPosition:UITableViewScrollPositionBottom animated:YES];
+        
     }
-   
+    
     HUD.labelText = @"Done!";
     [HUD hide:YES afterDelay:1];
+
+
 
 }
 
@@ -323,6 +328,15 @@
         title = @"Unknown";
 
     return title;
+}
+
+- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if(indexPath.section != 0 && indexPath.section == [simJobSections count] && indexPath.row == 0 && tableView == self.tableView)
+    {
+        rowNum = rowNum + [[URLparams objectForKey:@"maxRows"] intValue];
+        [self startLoading];
+    }
 }
 
 #pragma mark - Class Methods
