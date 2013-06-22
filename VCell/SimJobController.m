@@ -63,7 +63,7 @@
     
     NSArray *objects = [NSArray arrayWithObjects:
                         @"",@"",
-                        @"20",
+                        [NSNumber numberWithInteger:10],
                         @"",@"",@"", @"",@"",
                         @"any",
                         @"on",
@@ -86,17 +86,27 @@
 
 - (void)startLoading
 {
-    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@&startRow=%d",SIMTASK_URL,[self contructUrlParamsOnDict:URLparams],rowNum]];
+    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@startRow=%d",SIMTASK_URL,[self contructUrlParamsOnDict:URLparams],rowNum]];
+    NSLog(@"%@",url);
     connectionData = [NSMutableData data];
     NSURLRequest *urlReq = [NSURLRequest requestWithURL:url];
     NSURLConnection *connection = [[NSURLConnection alloc] initWithRequest:urlReq  delegate:self];
     [connection start];
+    HUD = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
+    HUD.delegate = self;
     if(rowNum == 1)
     {
-        HUD = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
-        HUD.delegate = self;
         HUD.dimBackground = YES;
         HUD.labelText = @"Downloading...";
+    }
+    else
+    {
+        HUD.mode = MBProgressHUDModeText;
+        HUD.labelText = @"Downloading...";
+        HUD.margin = 10.f;
+        HUD.yOffset = 150.f;
+        HUD.userInteractionEnabled = NO;
+        HUD.removeFromSuperViewOnHide = YES;
     }
 }
 
@@ -142,8 +152,6 @@
         HUD.customView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"37x-Checkmark.png"]];
         HUD.mode = MBProgressHUDModeCustomView;
         HUD.dimBackground = NO;
-        HUD.labelText = @"Done!";
-        [HUD hide:YES afterDelay:1];
     }
     else
     {
@@ -164,7 +172,10 @@
         //Scroll to row 0 of the new added section
         [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:numberOfSections + 1] atScrollPosition:UITableViewScrollPositionBottom animated:YES];
     }
-    
+   
+    HUD.labelText = @"Done!";
+    [HUD hide:YES afterDelay:1];
+
 }
 
 - (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error
@@ -471,16 +482,18 @@
 {
     [self breakIntoSectionsbyDate:sortByDate andSimJobArr:simJobs forTableView:self.tableView];
 }
+- (void)searchBarCancelButtonClicked:(UISearchBar *) searchBar
+{
+    [self breakIntoSectionsbyDate:sortByDate andSimJobArr:simJobs forTableView:self.tableView];
+}
 - (void)searchBar:(UISearchBar *)searchBar selectedScopeButtonIndexDidChange:(NSInteger)selectedScope
 {
     [self initSearchWithSearchText:NULL];
 }
 
-
-
 - (IBAction)addMoreCells:(id)sender
 {
-    rowNum = 11;
+    rowNum = rowNum + [[URLparams objectForKey:@"maxRows"] intValue];
     [self startLoading];
 }
 @end
