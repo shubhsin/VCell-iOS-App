@@ -22,8 +22,9 @@
     NSMutableData *connectionData;
     NSMutableArray *simJobSections; // JSON objects in sections
     NSMutableArray *filteredSimJobsArr; //Search
-    NSArray *simJobs; // Received JSON Objects
+    NSMutableArray *simJobs; // Received JSON Objects
     BOOL sortByDate;
+    NSUInteger rowNum; //current start row of the data to request
 }
 @end
 
@@ -78,37 +79,46 @@
     self.searchDisplayController.searchBar.showsScopeBar = NO;
     [self.searchDisplayController.searchBar sizeToFit];
     [self initURLParamDict];
-
+    sortByDate = NO;
+    rowNum = 1;
     [self startLoading];
 }
 
 - (void)startLoading
 {
-    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@",SIMTASK_URL,[self contructUrlParamsOnDict:URLparams]]];
+    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@&startRow=%d",SIMTASK_URL,[self contructUrlParamsOnDict:URLparams],rowNum]];
     connectionData = [NSMutableData data];
     NSURLRequest *urlReq = [NSURLRequest requestWithURL:url];
     NSURLConnection *connection = [[NSURLConnection alloc] initWithRequest:urlReq  delegate:self];
     [connection start];
-    
-    HUD = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
-	HUD.delegate = self;
-    HUD.dimBackground = YES;
-    HUD.labelText = @"Downloading...";
+    if(rowNum == 1)
+    {
+        HUD = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
+        HUD.delegate = self;
+        HUD.dimBackground = YES;
+        HUD.labelText = @"Downloading...";
+    }
 }
 
 #pragma mark - NSURLConnectionDelegete
 
 - (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response
 {
-	expectedLength = [response expectedContentLength];
-	currentLength = 0;
-	HUD.mode = MBProgressHUDModeDeterminate;
+    if(rowNum == 1)
+    {
+        expectedLength = [response expectedContentLength];
+        currentLength = 0;
+        HUD.mode = MBProgressHUDModeDeterminate;
+    }
 }
 
 - (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data
 {
-    currentLength += [data length];
-    HUD.progress = currentLength / (float)expectedLength;
+    if(rowNum == 1)
+    {
+        currentLength += [data length];
+        HUD.progress = currentLength / (float)expectedLength;
+    }
     [connectionData appendData:data];
 }
 
@@ -119,21 +129,41 @@
     NSArray *jsonData = [NSJSONSerialization JSONObjectWithData:connectionData options:kNilOptions error:nil];
     
     // Make an empty array with size equal to number of objects received
-    NSMutableArray *simMutableJobs = [NSMutableArray arrayWithCapacity:[jsonData count]];
+    NSMutableArray *simMutableJobs = [NSMutableArray array];
     
     // Add the objects in the array
     for(NSDictionary *dict in jsonData)
         [simMutableJobs addObject:[[SimJob alloc] initWithDict:dict]];
+    
+    if(rowNum == 1)
+    {
+        simJobs = [NSMutableArray arrayWithArray:simMutableJobs];
+        [self breakIntoSectionsbyDate:sortByDate andSimJobArr:simJobs forTableView:self.tableView];
+        HUD.customView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"37x-Checkmark.png"]];
+        HUD.mode = MBProgressHUDModeCustomView;
+        HUD.dimBackground = NO;
+        HUD.labelText = @"Done!";
+        [HUD hide:YES afterDelay:1];
+    }
+    else
+    {
+        //Update the main array
+        [simJobs addObjectsFromArray:simMutableJobs];
         
-    simJobs = [NSArray arrayWithArray:simMutableJobs];
-    
-    [self breakIntoSectionsbyDate:NO andSimJobArr:simJobs forTableView:self.tableView];
-    
-    HUD.customView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"37x-Checkmark.png"]];
-	HUD.mode = MBProgressHUDModeCustomView;
-    HUD.dimBackground = NO;
-    HUD.labelText = @"Done!";
-	[HUD hide:YES afterDelay:1];
+        //Update the sections array with new sections
+        
+        NSMutableArray *newSections = [self returnSectionsArrayByDate:sortByDate fromArray:simMutableJobs];
+        
+        [simJobSections addObjectsFromArray:newSections];
+        
+        NSUInteger numberOfSections = [self.tableView numberOfSections];
+        
+        //Add to the tableview
+        [self.tableView insertSections:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(numberOfSections,[newSections count])] withRowAnimation:UITableViewRowAnimationBottom];
+        
+        //Scroll to row 0 of the new added section
+        [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:numberOfSections + 1] atScrollPosition:UITableViewScrollPositionBottom animated:YES];
+    }
     
 }
 
@@ -285,14 +315,11 @@
 }
 
 #pragma mark - Class Methods
-
-- (void)breakIntoSectionsbyDate:(BOOL)byDate andSimJobArr:(NSArray*)currentSimJobs forTableView:(UITableView*)tableView
+- (NSMutableArray*)returnSectionsArrayByDate:(BOOL)byDate fromArray:(NSArray*)inputArr
 {
-    sortByDate = byDate;
-    
     NSMutableArray *keys = [NSMutableArray array];
     
-    for(SimJob *job in currentSimJobs)
+    for(SimJob *job in inputArr)
     {
         NSString *key;
         
@@ -311,12 +338,12 @@
     
     NSOrderedSet *uniqueKeys = [[NSOrderedSet alloc] initWithSet:uniqueKeysUnordered];
     
-    simJobSections = [NSMutableArray arrayWithCapacity:[uniqueKeys count]];
+    NSMutableArray *sections = [NSMutableArray array];
     
     for(NSString *key in uniqueKeys)
-        [simJobSections addObject:[NSMutableArray array]];
+        [sections addObject:[NSMutableArray array]];
     
-    for(SimJob *job in currentSimJobs)
+    for(SimJob *job in inputArr)
     {
         NSString *key;
         
@@ -332,26 +359,31 @@
         {
             if([key isEqualToString:itrkey])
             {
-                NSMutableArray *section = [simJobSections objectAtIndex:[uniqueKeys indexOfObject:key]];
+                NSMutableArray *section = [sections objectAtIndex:[uniqueKeys indexOfObject:key]];
                 [section addObject:job];
                 break;
             }
         }
     }
-    //NSLog(@"%@",simJobSections);
+    return sections;
+}
+- (void)breakIntoSectionsbyDate:(BOOL)byDate andSimJobArr:(NSArray*)currentSimJobs forTableView:(UITableView*)tableView
+{
+    simJobSections = [self returnSectionsArrayByDate:byDate fromArray:currentSimJobs];
+  //  NSLog(@"%@",simJobSections);
     [tableView reloadData];
 }
 
 - (IBAction)bioModelDateSwap:(id)sender
 {
     UISegmentedControl *sortButton = (UISegmentedControl*)sender;
-    
+
    if(sortButton.selectedSegmentIndex == BIOMODEL_SORT)
-       [self breakIntoSectionsbyDate:NO andSimJobArr:simJobs forTableView:self.tableView];
-    
+       sortByDate = NO;
    else if(sortButton.selectedSegmentIndex == DATE_SORT)
-       [self breakIntoSectionsbyDate:YES andSimJobArr:simJobs forTableView:self.tableView];
-    
+       sortByDate = YES;
+
+    [self breakIntoSectionsbyDate:sortByDate andSimJobArr:simJobs forTableView:self.tableView];
 }
 
 - (void)updatDataOnBtnPressedWithButtonTag:(int)tag AndButtonActive:(BOOL)active
@@ -431,13 +463,13 @@
         searchText = self.searchDisplayController.searchBar.text;
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"SELF.%@ contains[c] %@",searchScopeProperty,searchText];
     filteredSimJobsArr = [NSMutableArray arrayWithArray:[simJobs filteredArrayUsingPredicate:predicate]];
-    [self breakIntoSectionsbyDate:NO andSimJobArr:filteredSimJobsArr forTableView:self.searchDisplayController.searchResultsTableView];
+    [self breakIntoSectionsbyDate:sortByDate andSimJobArr:filteredSimJobsArr forTableView:self.searchDisplayController.searchResultsTableView];
     
 }
 //Reload the main tableView when done with search
 - (void)searchDisplayController:(UISearchDisplayController *)controller willHideSearchResultsTableView:(UITableView *)tableView
 {
-    [self breakIntoSectionsbyDate:NO andSimJobArr:simJobs forTableView:self.tableView];
+    [self breakIntoSectionsbyDate:sortByDate andSimJobArr:simJobs forTableView:self.tableView];
 }
 - (void)searchBar:(UISearchBar *)searchBar selectedScopeButtonIndexDidChange:(NSInteger)selectedScope
 {
@@ -448,15 +480,7 @@
 
 - (IBAction)addMoreCells:(id)sender
 {
-    SimJob *job = [[SimJob alloc] init];
-    job.simName = @"hiii";
-    SimJob *job1 = [[SimJob alloc] init];
-    job1.simName = @"hiii2";
-    [simJobSections addObject:[NSMutableArray arrayWithObjects:job,job1,nil]];
-    NSLog(@"%@",simJobSections);
-   
-    [self.tableView insertSections:[NSIndexSet indexSetWithIndex:[simJobSections count]] withRowAnimation:UITableViewRowAnimationBottom];
-    [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:[simJobSections count]] atScrollPosition:UITableViewScrollPositionBottom animated:YES];
-  
+    rowNum = 11;
+    [self startLoading];
 }
 @end

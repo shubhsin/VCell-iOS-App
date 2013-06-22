@@ -64,6 +64,8 @@
 }
 - (NSString*)description
 {
+    
+    return [NSString stringWithFormat:@"%@",_simKey];
     return [NSString stringWithFormat:@"%@;%@;%@;%@;%@;%@;%@;%@;%@;%@;%@;%@;%@;%@;%@;%@",
             _simKey,
             _simName,
@@ -81,6 +83,7 @@
             _hasData,
             _bioModelLink,
             _mathModelLink];
+    
 }
 
 
