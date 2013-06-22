@@ -171,9 +171,31 @@
         //Add to the tableview
         [self.tableView insertSections:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(numberOfSections,[newSections count])] withRowAnimation:UITableViewRowAnimationBottom];
         
-        //Scroll to row 0 of the new added section
-        [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:oldNumberOfSections + 1] atScrollPosition:UITableViewScrollPositionBottom animated:YES];
         
+        NSIndexPath *firstCellOfNewData = [NSIndexPath indexPathForRow:0 inSection:oldNumberOfSections];
+       
+        //Scroll to newly added section and highlight animate the first row
+        
+        [UIView animateWithDuration:0.2 animations:^{
+            //Scroll to row 0 of the new added section
+            [self.tableView scrollToRowAtIndexPath:firstCellOfNewData atScrollPosition:UITableViewScrollPositionMiddle animated:NO];
+        } completion:^(BOOL finished){
+            //Highlight after scrollToRowAtIndexPath finished
+            UITableViewCell *cellToHighlight = [self.tableView cellForRowAtIndexPath:firstCellOfNewData];
+            
+            [UIView animateWithDuration:0.2 delay:0.0 options:UIViewAnimationOptionAllowUserInteraction|UIViewAnimationOptionCurveEaseInOut animations:^
+            {
+                //Highlight the cell
+                [cellToHighlight setHighlighted:YES animated:YES];
+            } completion:^(BOOL finished)
+            {
+                [UIView animateWithDuration:0.2 delay:0.0 options:UIViewAnimationOptionAllowUserInteraction|UIViewAnimationOptionCurveEaseInOut animations:^
+                 {
+                     //Unhighlight the cell
+                     [cellToHighlight setHighlighted:NO animated:YES];
+                 } completion: NULL];
+            }];
+        }];
     }
     
     HUD.labelText = @"Done!";
@@ -332,7 +354,7 @@
 
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if(indexPath.section != 0 && indexPath.section == [simJobSections count] && indexPath.row == 0 && tableView == self.tableView)
+    if(indexPath.section != 0 && indexPath.section == [simJobSections count] && indexPath.row == [self.tableView numberOfRowsInSection:[simJobSections count]] - 1 && tableView == self.tableView)
     {
         rowNum = rowNum + [[URLparams objectForKey:@"maxRows"] intValue];
         [self startLoading];
@@ -452,7 +474,7 @@
                 [URLparams setObject:@"" forKey:@"failed"];
             }
         }
-        
+        rowNum = 1;
         [self startLoading];
      
 }

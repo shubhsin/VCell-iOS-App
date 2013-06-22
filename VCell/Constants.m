@@ -11,5 +11,5 @@
 
 NSString * const BASE_URL = @URL_DEF;
 //NSString * const SIMTASK_URL = @URL_DEF "/simtask";
-NSString * const SIMTASK_URL = @"http://localhost/vcell/simTask.php";
+NSString * const SIMTASK_URL = @"http://192.168.1.2/vcell/simTask.php";
 
