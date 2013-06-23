@@ -28,8 +28,8 @@
 #define BIOMODEL_SCOPE 3
 
 @interface SimJobController : UITableViewController <MBProgressHUDDelegate,UISearchBarDelegate, UISearchDisplayDelegate>
-- (IBAction)addMoreCells:(id)sender;
 
+- (IBAction)addMoreCells:(id)sender;
 @property (weak, nonatomic) IBOutlet UISearchBar *searchBar;
 - (IBAction)bioModelDateSwap:(id)sender;
 - (void)updatDataOnBtnPressedWithButtonTag:(int)tag AndButtonActive:(BOOL)active;
