@@ -18,6 +18,7 @@
 	long long currentLength;
     
     //Class Vars
+    NSUInteger numberOfObjectsReceived;
     NSMutableDictionary *URLparams;
     NSMutableData *connectionData;
     NSMutableArray *simJobSections; // JSON objects in sections
@@ -143,6 +144,8 @@
     // Add the objects in the array
     for(NSDictionary *dict in jsonData)
         [simMutableJobs addObject:[[SimJob alloc] initWithDict:dict]];
+    
+    numberOfObjectsReceived = [simMutableJobs count];
     
     if(rowNum == 1)
     {
@@ -354,7 +357,7 @@
 
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if(indexPath.section != 0 && indexPath.section == [simJobSections count] && indexPath.row == [self.tableView numberOfRowsInSection:[simJobSections count]] - 1 && tableView == self.tableView)
+    if(numberOfObjectsReceived == [[URLparams objectForKey:@"maxRows"] intValue] && indexPath.section == [simJobSections count] && indexPath.row == [self.tableView numberOfRowsInSection:[simJobSections count]] - 1 && tableView == self.tableView)
     {
         rowNum = rowNum + [[URLparams objectForKey:@"maxRows"] intValue];
         [self startLoading];

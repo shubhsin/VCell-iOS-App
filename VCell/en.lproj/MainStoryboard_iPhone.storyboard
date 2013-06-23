@@ -9,7 +9,7 @@
             <objects>
                 <tableViewController id="TTe-86-iE8" customClass="SimJobController" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="38" sectionHeaderHeight="22" sectionFooterHeight="22" id="VH9-hy-kAj">
-                        <rect key="frame" x="0.0" y="64" width="320" height="504"/>
+                        <rect key="frame" x="0.0" y="64" width="320" height="455"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" name="alternateSelectedControlTextColor" catalog="System" colorSpace="catalog"/>
                         <color key="separatorColor" red="0.70196080207824707" green="0.70196080207824707" blue="0.70196080207824707" alpha="1" colorSpace="calibratedRGB"/>
@@ -125,9 +125,10 @@
                                 </connections>
                             </segmentedControl>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" title="Filter" id="pi4-Og-9Ie">
+                        <barButtonItem key="rightBarButtonItem" title="Filter" id="DJj-Y5-W7F">
                             <connections>
-                                <action selector="addMoreCells:" destination="TTe-86-iE8" id="ehq-gB-GMu"/>
+                                <action selector="addMoreCells:" destination="TTe-86-iE8" id="tGB-BZ-o3O"/>
+                                <segue destination="nQ0-Sx-c0j" kind="modal" id="nHa-nR-qFn"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -163,11 +164,7 @@
                             <items>
                                 <navigationItem title="Filter Options" id="T8q-lN-bBO">
                                     <barButtonItem key="leftBarButtonItem" title="Clear" id="T7h-EO-epb"/>
-                                    <barButtonItem key="rightBarButtonItem" systemItem="done" id="1JU-KR-JzL">
-                                        <connections>
-                                            <segue destination="yIi-jm-5UB" kind="modal" modalTransitionStyle="crossDissolve" id="Qd1-kP-Gmd"/>
-                                        </connections>
-                                    </barButtonItem>
+                                    <barButtonItem key="rightBarButtonItem" systemItem="done" id="1JU-KR-JzL"/>
                                 </navigationItem>
                             </items>
                         </navigationBar>
@@ -408,7 +405,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="TrG-rL-Udl" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1886" y="-171"/>
+            <point key="canvasLocation" x="1934" y="-171"/>
         </scene>
         <!--Second View Controller - Second-->
         <scene sceneID="13">
@@ -496,7 +493,4 @@
         <simulatedOrientationMetrics key="orientation"/>
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
-    <inferredMetricsTieBreakers>
-        <segue reference="Qd1-kP-Gmd"/>
-    </inferredMetricsTieBreakers>
 </document>
