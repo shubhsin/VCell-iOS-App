@@ -11,6 +11,7 @@
 #import "SimJobCell.h"
 #import "SimJobButtonCell.h"
 #import "MBProgressHUD.h"
+#import "AppDelegate.h"
 
 //Constants for sorts
 #define BIOMODEL_SORT 0
@@ -26,6 +27,18 @@
 #define SIMKEY_SCOPE 1
 #define APPLICATION_SCOPE 2
 #define BIOMODEL_SCOPE 3
+
+
+//constants for URL params
+#define BEGIN_STAMP @"submitLow"
+#define END_STAMP @"submitHigh"
+#define MAXROWS @"maxRows"
+#define SERVERID @"serverId"
+#define COMPUTEHOST @"computeHost+value%3D"
+#define SIMID @"simId"
+#define JOBID @"jobId"
+#define TASKID @"taskId"
+#define HASDATA @"hasData"
 
 @interface SimJobController : UITableViewController <MBProgressHUDDelegate,UISearchBarDelegate, UISearchDisplayDelegate>
 

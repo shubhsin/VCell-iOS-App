@@ -1,0 +1,273 @@
+//
+//  SimJobsFiltersDetail.m
+//  VCell
+//
+//  Created by Aciid on 25/06/13.
+//  Copyright (c) 2013 vcell. All rights reserved.
+//
+
+#import "SimJobsFiltersDetail.h"
+
+@interface SimJobsFiltersDetail ()
+{
+    NSDictionary *URLparams;
+    NSString *option;
+    NSArray *keys;
+    UITableViewCell *tableCell;
+    NSDateFormatter *dateFormat;
+    NSString *plistPath;
+}
+@end
+
+@implementation SimJobsFiltersDetail
+
+- (void)setOption:(NSString *)op
+{
+    option = op;
+}
+
+- (id)initWithStyle:(UITableViewStyle)style
+{
+    self = [super initWithStyle:style];
+    if (self) {
+        // Custom initialization
+    }
+    return self;
+}
+
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+    
+    dateFormat = [[NSDateFormatter alloc] init];
+    dateFormat.dateFormat = @"EEEE',' d MMMM yyyy";
+    
+    plistPath = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0] stringByAppendingPathComponent:SIMJOB_FILTERS_FILE];
+    
+    URLparams = [[NSDictionary alloc] initWithContentsOfFile:plistPath];
+    
+
+//    BEGIN_STAMP,
+//    END_STAMP,
+//    MAXROWS,
+//    SERVERID,
+//    COMPUTEHOST,
+//    SIMID,
+//    JOBID,
+//    TASKID,
+//    HASDATA
+   
+
+    // Uncomment the following line to preserve selection between presentations.
+    // self.clearsSelectionOnViewWillAppear = NO;
+ 
+    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
+    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+}
+
+- (void)didReceiveMemoryWarning
+{
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
+
+#pragma mark - Table view data source
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    // Return the number of sections.
+    return 2;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    // Return the number of rows in the section.
+    if([option isEqualToString:MAXROWS] && section == 0) //Special case for MAXROWS to display 10,20,30,40,50
+        return 5;
+    if([option isEqualToString:HASDATA] && section == 0)
+        return 3;
+    return 1;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    static NSString *CellIdentifier = @"Cell";
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
+        
+    // Configure the cell...
+    if (cell == nil) {
+        cell = [[SimJobCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+    }
+    cell.textLabel.textAlignment = NSTextAlignmentCenter;
+    cell.accessoryType = UITableViewCellAccessoryNone;
+
+    
+    //For time stamps
+    if(([option isEqualToString:BEGIN_STAMP] || [option isEqualToString:END_STAMP]) && indexPath.row == 0)
+    {
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        NSDate *date;
+        NSString *cellText;
+        if([[URLparams objectForKey:option] isEqualToString:@""])
+        {
+            cellText = @"None";
+            date = [NSDate date];
+        }
+        else
+        {
+            date = [NSDate dateWithTimeIntervalSince1970:[[URLparams objectForKey:option] doubleValue]];
+            cellText = [dateFormat stringFromDate:date];
+        }
+        
+        cell.textLabel.text = cellText;
+        
+        tableCell = cell;
+        CGRect screen = [[UIScreen mainScreen] bounds];
+        
+        UIDatePicker *picker = [[UIDatePicker alloc] initWithFrame:CGRectMake(0,0,0,0)];
+        [picker setDatePickerMode:UIDatePickerModeDate];
+        [picker addTarget:self action:@selector(pickerValueChanged:)  forControlEvents:UIControlEventValueChanged];
+        [picker setDate:date];
+        [picker setFrame:
+         CGRectMake(0, screen.size.height - (picker.bounds.size.height + self.navigationController.navigationBar.bounds.size.height), 0, 0)];
+        [self.view addSubview:picker];
+
+    }
+    
+    //Max Rows
+    if([option isEqualToString:MAXROWS] && indexPath.section == 0)
+    {
+        cell.textLabel.textAlignment = NSTextAlignmentLeft;
+        cell.textLabel.text = [NSString stringWithFormat:@"%d",((indexPath.row + 1) * 10)];
+        cell.selectionStyle = UITableViewCellSelectionStyleGray;
+        cell.accessoryType = UITableViewCellAccessoryNone;
+        if([[URLparams objectForKey:option] integerValue] == ((indexPath.row + 1) * 10))
+            cell.accessoryType = UITableViewCellAccessoryCheckmark;
+    }
+    
+    if([option isEqualToString:HASDATA] && indexPath.section == 0)
+    {
+        cell.textLabel.textAlignment = NSTextAlignmentLeft;
+        cell.accessoryType = UITableViewCellAccessoryNone;
+        cell.selectionStyle = UITableViewCellSelectionStyleGray;
+        if(indexPath.row == 0)
+            cell.textLabel.text = @"any";
+        else if(indexPath.row == 1)
+            cell.textLabel.text = @"yes";
+        else if(indexPath.row == 2)
+            cell.textLabel.text = @"no";
+        
+        if([[URLparams objectForKey:option] isEqualToString:cell.textLabel.text])
+            cell.accessoryType = UITableViewCellAccessoryCheckmark;
+
+    }
+    
+    if(([option isEqualToString:SIMID] || [option isEqualToString:SERVERID] || [option isEqualToString:COMPUTEHOST]) && indexPath.section == 0)
+    {
+        cell.accessoryType = UITableViewCellAccessoryNone;
+        CGRect frame = CGRectMake(20.0, 8.0, 260.0, 30.0);
+
+        UITextField *textField = [[UITextField alloc] initWithFrame:frame];
+        textField.borderStyle = UITextBorderStyleRoundedRect;
+        textField.textColor = [UIColor blackColor];
+        textField.font = [UIFont systemFontOfSize:17.0];
+        textField.placeholder = @"<enter text>";
+        textField.backgroundColor = [UIColor whiteColor];
+       textField.autocorrectionType = UITextAutocorrectionTypeNo;  // no auto correction support
+        
+        textField.keyboardType = UIKeyboardTypeDefault;
+        textField.returnKeyType = UIReturnKeyDone;
+        
+        textField.clearButtonMode = UITextFieldViewModeWhileEditing;
+        [cell addSubview:textField];
+
+
+    }
+    //Clear Button
+    if(indexPath.section == 1 && indexPath.row == 0)
+    {
+        cell.textLabel.text = @"Clear";
+        cell.selectionStyle = UITableViewCellSelectionStyleGray;
+
+    }
+    
+    return cell;
+}
+- (NSString *)tableView:(UITableView *)tableView titleForFooterInSection:(NSInteger)section;
+{
+    NSString *footer;
+
+    if(section != 0)
+        return footer;
+    
+    footer = [URLparams objectForKey:option];
+
+    if([option isEqualToString:BEGIN_STAMP] || [option isEqualToString:END_STAMP])
+    {    
+        if([footer isEqualToString:@""])
+            footer = [NSString stringWithFormat:@"Set the Start Date\n Current Value: None"];
+        else
+            footer = [NSString stringWithFormat:@"Set the Start Date\n Current Value: \n%@",
+                        [dateFormat stringFromDate:[NSDate dateWithTimeIntervalSince1970:[footer doubleValue]]]];
+    }
+    
+    if([option isEqualToString:MAXROWS])
+        footer = [NSString stringWithFormat:@"Set the Number of rows to be fetched at a time.\n Current Value: %@",footer];
+    
+    if([option isEqualToString:HASDATA])
+        footer = [NSString stringWithFormat:@"Should SimJobs have data?\n Current Value: %@",footer];
+    
+    
+    return footer;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if([option isEqualToString:MAXROWS]) //Max Rows Selection
+    {
+        [[tableView cellForRowAtIndexPath:indexPath] setAccessoryType:UITableViewCellAccessoryCheckmark];
+        
+        [URLparams setValue:[NSString stringWithFormat:@"%d",((indexPath.row + 1) * 10)] forKey:option];
+        
+        [URLparams writeToFile:plistPath atomically:YES];
+                
+        [self.tableView reloadData];
+    }
+    
+    if([option isEqualToString:HASDATA]) //Has Data Selection
+    {
+        [[tableView cellForRowAtIndexPath:indexPath] setAccessoryType:UITableViewCellAccessoryCheckmark];
+        
+        [URLparams setValue:[[[tableView cellForRowAtIndexPath:indexPath] textLabel] text] forKey:option];
+        
+        [URLparams writeToFile:plistPath atomically:YES];
+        
+        [self.tableView reloadData];
+    }
+    
+    if(indexPath.section == 1 && indexPath.row == 0) //Clear button
+    {
+        //Clear the params
+        [URLparams setValue:@"" forKey:option];
+        
+        //Special cases for HASDATA and MAXROWS
+        if([option isEqualToString: HASDATA])
+            [URLparams setValue:@"any" forKey:HASDATA];
+        if([option isEqualToString: MAXROWS])
+            [URLparams setValue:@"10" forKey:MAXROWS];
+        
+        [URLparams writeToFile:plistPath atomically:YES];
+        [self.tableView reloadData];
+    }
+}
+
+
+- (void)pickerValueChanged:(UIDatePicker *)picker
+{
+    tableCell.textLabel.text = [dateFormat stringFromDate:[picker date]];
+    NSLog(@"%@",[NSString stringWithFormat:@"%.0f",[[picker date] timeIntervalSince1970]]);
+    [URLparams setValue:[NSString stringWithFormat:@"%.0f",[[picker date] timeIntervalSince1970]] forKey:option];
+    [URLparams writeToFile:plistPath atomically:YES];
+    [self.tableView reloadData];
+}
+@end

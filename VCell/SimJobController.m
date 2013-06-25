@@ -43,35 +43,48 @@
 }
 - (void)initURLParamDict
 {
-    NSArray *keys = [NSArray arrayWithObjects:
-                     @"submitLow",
-                     @"submitHigh",
-                     @"maxRows",
-                     @"serverId",
-                     @"computeHost+value%3D",
-                     @"simId",
-                     @"jobId",
-                     @"taskId",
-                     @"hasData",
-                     @"completed",
-                     @"waiting",
-                     @"queued",
-                     @"dispatched",
-                     @"running",
-                     @"failed",
-                     @"stopped",
-                     nil];
-    
+
+
+    NSArray *keys=  [NSArray arrayWithObjects:BEGIN_STAMP,
+                                END_STAMP,
+                                MAXROWS,
+                                SERVERID,
+                                COMPUTEHOST,
+                                SIMID,
+                                JOBID,
+                                TASKID,
+                                HASDATA,
+                                @"completed",
+                                @"waiting",
+                                @"queued",
+                                @"dispatched",
+                                @"running",
+                                @"failed",
+                                @"stopped",nil];
+
     NSArray *objects = [NSArray arrayWithObjects:
                         @"",@"",
-                        [NSNumber numberWithInteger:10],
+                        @"10",
                         @"",@"",@"", @"",@"",
                         @"any",
                         @"on",
                         @"",@"",@"",@"",@"",@"",
                         nil];
     
-    URLparams = [[NSMutableDictionary alloc] initWithObjects:objects forKeys:keys];
+    
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    NSString *plistPath = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0] stringByAppendingPathComponent:SIMJOB_FILTERS_FILE];
+    
+    if ([fileManager fileExistsAtPath:plistPath] == NO)
+    {
+        URLparams = [[NSMutableDictionary alloc] initWithObjects:objects forKeys:keys];
+        [URLparams writeToFile:plistPath atomically:YES];
+
+    }
+    else
+        URLparams = [[NSMutableDictionary alloc] initWithContentsOfFile:plistPath];
+  
+    
 }
 
 - (void)viewDidLoad
@@ -98,12 +111,12 @@
     if(rowNum == 1)
     {
         HUD.dimBackground = YES;
-        HUD.labelText = @"Downloading...";
+        HUD.labelText = @"Fetching...";
     }
     else
     {
         HUD.mode = MBProgressHUDModeText;
-        HUD.labelText = @"Downloading...";
+        HUD.labelText = @"Fetching...";
         HUD.margin = 10.f;
         HUD.yOffset = 150.f;
         HUD.userInteractionEnabled = NO;
