@@ -44,7 +44,6 @@
 - (void)initURLParamDict
 {
 
-
     NSArray *keys=  [NSArray arrayWithObjects:BEGIN_STAMP,
                                 END_STAMP,
                                 MAXROWS,
@@ -90,12 +89,27 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    //Pull to refresh
+    UIRefreshControl *refreshControl = [[UIRefreshControl alloc] init];
+    [refreshControl addTarget:self action:@selector(initDictAndstartLoading:) forControlEvents:UIControlEventValueChanged];
+    [self setRefreshControl:refreshControl];
+    
+    //setup scopebar of searchbar
     self.searchDisplayController.searchBar.showsScopeBar = NO;
     [self.searchDisplayController.searchBar sizeToFit];
-    [self initURLParamDict];
+    
+    //set sortByDate to NO , probably load this value from pref later.
     sortByDate = NO;
+    [self initDictAndstartLoading:nil];
+}
+
+- (void)initDictAndstartLoading:(id)sender
+{
+    [self initURLParamDict];
     rowNum = 1;
     [self startLoading];
+    [(UIRefreshControl *)sender endRefreshing];
 }
 
 - (void)startLoading
@@ -549,9 +563,9 @@
 - (void)SimJobsFiltersControllerDidFinish:(SimJobsFiltersController *)controller
 {
     [self dismissViewControllerAnimated:YES completion:^{
-        [self initURLParamDict];
-        rowNum = 1;
-        [self startLoading];
+        //Scroll to top and startLoadig new data from updated filters values
+        [self.tableView scrollRectToVisible:CGRectMake(0, 0, 1, 1) animated:YES];
+        [self initDictAndstartLoading:nil];
     }];
 }
 
