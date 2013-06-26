@@ -12,7 +12,7 @@
 
 @interface SimJob : NSObject
 
-@property (nonatomic,strong) NSString *simKey;
+@property (nonatomic,strong) NSString *simKey; 
 @property (nonatomic,strong) NSString *simName;
 @property (nonatomic,strong) NSString *userName;
 @property (nonatomic,strong) NSString *userKey;

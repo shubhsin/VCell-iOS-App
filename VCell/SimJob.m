@@ -57,7 +57,8 @@
             _mathModelLink.mathModelName = [[dict objectForKey:@"mathModelLink"] objectForKey:@"mathModelName"];
         }
         
-
+        if([_htcJobId class] == [NSNull class])
+            _htcJobId = nil;
     }
     return self;
     
@@ -65,7 +66,7 @@
 - (NSString*)description
 {
     
-    return [NSString stringWithFormat:@"%@",_simKey];
+    return [NSString stringWithFormat:@"%@",_simName];
     return [NSString stringWithFormat:@"%@;%@;%@;%@;%@;%@;%@;%@;%@;%@;%@;%@;%@;%@;%@;%@",
             _simKey,
             _simName,

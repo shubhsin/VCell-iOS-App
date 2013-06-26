@@ -17,6 +17,7 @@
 		541BD29E177193F100E82846 /* greyButtonHighlight@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 541BD29C177193F100E82846 /* greyButtonHighlight@2x.png */; };
 		541E44F41778779800EE57C9 /* Functions.m in Sources */ = {isa = PBXBuildFile; fileRef = 541E44F31778779800EE57C9 /* Functions.m */; };
 		543721E2176DFA8000AFC35F /* Constants.m in Sources */ = {isa = PBXBuildFile; fileRef = 543721E1176DFA8000AFC35F /* Constants.m */; };
+		54419AE7177B48EE00D10E30 /* SimJobDetailsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 54419AE6177B48EE00D10E30 /* SimJobDetailsController.m */; };
 		544CE0CA1765E13600F69C45 /* SimJob.m in Sources */ = {isa = PBXBuildFile; fileRef = 544CE0C91765E13600F69C45 /* SimJob.m */; };
 		54608B121779ADDA0004C4D9 /* SimJobsFiltersController.m in Sources */ = {isa = PBXBuildFile; fileRef = 54608B111779ADDA0004C4D9 /* SimJobsFiltersController.m */; };
 		54608B151779BC320004C4D9 /* SimJobsFiltersDetail.m in Sources */ = {isa = PBXBuildFile; fileRef = 54608B141779BC320004C4D9 /* SimJobsFiltersDetail.m */; };
@@ -72,6 +73,8 @@
 		541E44F31778779800EE57C9 /* Functions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Functions.m; sourceTree = "<group>"; };
 		543721E0176DFA8000AFC35F /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
 		543721E1176DFA8000AFC35F /* Constants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Constants.m; sourceTree = "<group>"; };
+		54419AE5177B48EE00D10E30 /* SimJobDetailsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SimJobDetailsController.h; sourceTree = "<group>"; };
+		54419AE6177B48EE00D10E30 /* SimJobDetailsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SimJobDetailsController.m; sourceTree = "<group>"; };
 		544CE0C81765E13600F69C45 /* SimJob.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SimJob.h; sourceTree = "<group>"; };
 		544CE0C91765E13600F69C45 /* SimJob.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SimJob.m; sourceTree = "<group>"; };
 		54608B101779ADDA0004C4D9 /* SimJobsFiltersController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SimJobsFiltersController.h; sourceTree = "<group>"; };
@@ -164,19 +167,37 @@
 			children = (
 				54DA31951764B8900020D2B5 /* SimJobController.h */,
 				54DA31961764B8900020D2B5 /* SimJobController.m */,
-				54608B101779ADDA0004C4D9 /* SimJobsFiltersController.h */,
-				54608B111779ADDA0004C4D9 /* SimJobsFiltersController.m */,
-				54608B131779BC320004C4D9 /* SimJobsFiltersDetail.h */,
-				54608B141779BC320004C4D9 /* SimJobsFiltersDetail.m */,
-				540C37941771F68F00D95990 /* SimJobCell.xib */,
+				54419AE5177B48EE00D10E30 /* SimJobDetailsController.h */,
+				54419AE6177B48EE00D10E30 /* SimJobDetailsController.m */,
 				544CE0C81765E13600F69C45 /* SimJob.h */,
 				544CE0C91765E13600F69C45 /* SimJob.m */,
+				54419AE4177B48BB00D10E30 /* Filters */,
+				54419AE3177B48B100D10E30 /* Custom Cells */,
+			);
+			name = "First Tab";
+			sourceTree = "<group>";
+		};
+		54419AE3177B48B100D10E30 /* Custom Cells */ = {
+			isa = PBXGroup;
+			children = (
+				540C37941771F68F00D95990 /* SimJobCell.xib */,
 				5467C05E17674804002A5CC9 /* SimJobCell.h */,
 				5467C05F17674804002A5CC9 /* SimJobCell.m */,
 				540AAC5B1772D482007C4DCF /* SimJobButtonCell.h */,
 				540AAC5C1772D482007C4DCF /* SimJobButtonCell.m */,
 			);
-			name = "First Tab";
+			name = "Custom Cells";
+			sourceTree = "<group>";
+		};
+		54419AE4177B48BB00D10E30 /* Filters */ = {
+			isa = PBXGroup;
+			children = (
+				54608B101779ADDA0004C4D9 /* SimJobsFiltersController.h */,
+				54608B111779ADDA0004C4D9 /* SimJobsFiltersController.m */,
+				54608B131779BC320004C4D9 /* SimJobsFiltersDetail.h */,
+				54608B141779BC320004C4D9 /* SimJobsFiltersDetail.m */,
+			);
+			name = Filters;
 			sourceTree = "<group>";
 		};
 		54DA316B1764B8900020D2B5 = {
@@ -429,6 +450,7 @@
 				541E44F41778779800EE57C9 /* Functions.m in Sources */,
 				54608B121779ADDA0004C4D9 /* SimJobsFiltersController.m in Sources */,
 				54608B151779BC320004C4D9 /* SimJobsFiltersDetail.m in Sources */,
+				54419AE7177B48EE00D10E30 /* SimJobDetailsController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

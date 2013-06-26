@@ -391,6 +391,11 @@
     }
 }
 
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    [self performSegueWithIdentifier:@"showSimJobDetails" sender:nil];
+}
+
 #pragma mark - Class Methods
 - (NSMutableArray*)returnSectionsArrayByDate:(BOOL)byDate fromArray:(NSArray*)inputArr
 {
@@ -574,6 +579,11 @@
     if ([[segue identifier] isEqualToString:@"showSimJobsFilters"])
     {
       [[[[segue destinationViewController] viewControllers] objectAtIndex:0] setDelegate:self];
+    }
+    if([[segue identifier] isEqualToString:@"showSimJobDetails"])
+    {
+        NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
+        [[segue destinationViewController] setObject:[[simJobSections objectAtIndex:indexPath.section - 1] objectAtIndex:indexPath.row]];
     }
 }
 @end

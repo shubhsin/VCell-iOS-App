@@ -13,7 +13,7 @@
 #import "SimJobButtonCell.h"
 #import "MBProgressHUD.h"
 #import "AppDelegate.h"
-
+#import "SimJobDetailsController.h"
 //Constants for sorts
 #define BIOMODEL_SORT 0
 #define DATE_SORT 1
