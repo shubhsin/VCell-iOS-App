@@ -6,9 +6,19 @@
 //  Copyright (c) 2013 vcell. All rights reserved.
 //
 
+
+@class SimJobsFiltersController;
+
+@protocol SimJobsFiltersControllerDelegate
+
+- (void)SimJobsFiltersControllerDidFinish:(SimJobsFiltersController *)controller;
+
+@end
+
 #import <UIKit/UIKit.h>
 #import "SimJobsFiltersDetail.h"
 #import "SimJobController.h"
+
 
 @interface SimJobsFiltersController : UITableViewController
 
@@ -18,8 +28,12 @@
 @property (weak, nonatomic) IBOutlet UITableViewCell *serverIDCell;
 @property (weak, nonatomic) IBOutlet UITableViewCell *computeHostCell;
 @property (weak, nonatomic) IBOutlet UITableViewCell *simulationIDCell;
-@property (weak, nonatomic) IBOutlet UITableViewCell *jobIDCell;
-@property (weak, nonatomic) IBOutlet UITableViewCell *taskIDCell;
 @property (weak, nonatomic) IBOutlet UITableViewCell *hasDataCell;
+
+@property (weak, nonatomic) id <SimJobsFiltersControllerDelegate> delegate;
+
+- (IBAction)doneBtn:(id)sender;
+- (IBAction)clearBtn:(id)sender;
+
 
 @end

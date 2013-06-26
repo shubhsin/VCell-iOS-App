@@ -46,7 +46,7 @@
     
     URLparams = [[NSDictionary alloc] initWithContentsOfFile:plistPath];
     
-
+    
 //    BEGIN_STAMP,
 //    END_STAMP,
 //    MAXROWS,
@@ -165,24 +165,26 @@
     if(([option isEqualToString:SIMID] || [option isEqualToString:SERVERID] || [option isEqualToString:COMPUTEHOST]) && indexPath.section == 0)
     {
         cell.accessoryType = UITableViewCellAccessoryNone;
-        CGRect frame = CGRectMake(20.0, 8.0, 260.0, 30.0);
-
+        CGRect frame = CGRectMake(10.0, 0.0, 300.0, 45.0);
+        
         UITextField *textField = [[UITextField alloc] initWithFrame:frame];
         textField.borderStyle = UITextBorderStyleRoundedRect;
         textField.textColor = [UIColor blackColor];
-        textField.font = [UIFont systemFontOfSize:17.0];
-        textField.placeholder = @"<enter text>";
+        textField.textAlignment = NSTextAlignmentCenter;
+        if([[URLparams objectForKey:option] isEqualToString:@""])
+            textField.placeholder = @"Enter Text";
+        else
+            textField.text = [URLparams objectForKey:option];
         textField.backgroundColor = [UIColor whiteColor];
-       textField.autocorrectionType = UITextAutocorrectionTypeNo;  // no auto correction support
-        
+        textField.autocorrectionType = UITextAutocorrectionTypeNo;  // no auto correction support
         textField.keyboardType = UIKeyboardTypeDefault;
         textField.returnKeyType = UIReturnKeyDone;
-        
+        textField.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
         textField.clearButtonMode = UITextFieldViewModeWhileEditing;
+        textField.delegate = self;
         [cell addSubview:textField];
-
-
     }
+    
     //Clear Button
     if(indexPath.section == 1 && indexPath.row == 0)
     {
@@ -193,6 +195,18 @@
     
     return cell;
 }
+- (BOOL)textFieldShouldReturn:(UITextField *)textField
+{
+    
+    [URLparams setValue:textField.text forKey:option];
+    
+    [URLparams writeToFile:plistPath atomically:YES];
+ 
+    [self.tableView reloadData];
+
+    return YES;
+}
+
 - (NSString *)tableView:(UITableView *)tableView titleForFooterInSection:(NSInteger)section;
 {
     NSString *footer;
@@ -217,6 +231,14 @@
     if([option isEqualToString:HASDATA])
         footer = [NSString stringWithFormat:@"Should SimJobs have data?\n Current Value: %@",footer];
     
+    if([option isEqualToString:SIMID])
+       footer = [NSString stringWithFormat:@"Set the SimKey.\n Current Value: %@",footer];
+
+    if([option isEqualToString:SERVERID])
+       footer = [NSString stringWithFormat:@"Set the Server ID.\n Current Value: %@",footer];
+
+    if([option isEqualToString:COMPUTEHOST])
+        footer = [NSString stringWithFormat:@"Set the Compute Host.\n Current Value: %@",footer];
     
     return footer;
 }
@@ -257,6 +279,7 @@
             [URLparams setValue:@"10" forKey:MAXROWS];
         
         [URLparams writeToFile:plistPath atomically:YES];
+        
         [self.tableView reloadData];
     }
 }

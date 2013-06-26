@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "SimJobsFiltersController.h"
 
-@interface SimJobsFiltersDetail : UITableViewController
+@interface SimJobsFiltersDetail : UITableViewController <UITextFieldDelegate>
 
 - (void)setOption:(NSString *)op;
 

@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "SimJobsFiltersController.h"
 #import "SimJob.h"
 #import "SimJobCell.h"
 #import "SimJobButtonCell.h"
@@ -28,7 +29,6 @@
 #define APPLICATION_SCOPE 2
 #define BIOMODEL_SCOPE 3
 
-
 //constants for URL params
 #define BEGIN_STAMP @"submitLow"
 #define END_STAMP @"submitHigh"
@@ -40,9 +40,8 @@
 #define TASKID @"taskId"
 #define HASDATA @"hasData"
 
-@interface SimJobController : UITableViewController <MBProgressHUDDelegate,UISearchBarDelegate, UISearchDisplayDelegate>
+@interface SimJobController : UITableViewController <MBProgressHUDDelegate,UISearchBarDelegate, UISearchDisplayDelegate, SimJobsFiltersControllerDelegate>
 
-- (IBAction)addMoreCells:(id)sender;
 @property (weak, nonatomic) IBOutlet UISearchBar *searchBar;
 - (IBAction)bioModelDateSwap:(id)sender;
 - (void)updatDataOnBtnPressedWithButtonTag:(int)tag AndButtonActive:(BOOL)active;

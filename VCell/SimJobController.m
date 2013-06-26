@@ -529,6 +529,7 @@
     [self breakIntoSectionsbyDate:sortByDate andSimJobArr:filteredSimJobsArr forTableView:self.searchDisplayController.searchResultsTableView];
     
 }
+
 //Reload the main tableView when done with search
 - (void)searchDisplayController:(UISearchDisplayController *)controller willHideSearchResultsTableView:(UITableView *)tableView
 {
@@ -543,9 +544,22 @@
     [self initSearchWithSearchText:NULL];
 }
 
-- (IBAction)addMoreCells:(id)sender
+#pragma mark - Filter View
+
+- (void)SimJobsFiltersControllerDidFinish:(SimJobsFiltersController *)controller
 {
-    rowNum = rowNum + [[URLparams objectForKey:@"maxRows"] intValue];
-    [self startLoading];
+    [self dismissViewControllerAnimated:YES completion:^{
+        [self initURLParamDict];
+        rowNum = 1;
+        [self startLoading];
+    }];
+}
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    if ([[segue identifier] isEqualToString:@"showSimJobsFilters"])
+    {
+      [[[[segue destinationViewController] viewControllers] objectAtIndex:0] setDelegate:self];
+    }
 }
 @end

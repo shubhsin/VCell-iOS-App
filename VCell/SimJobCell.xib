@@ -147,7 +147,6 @@
 									<bytes key="NSRGB">MC4yMDAwMDAwMDMgMC4yMDAwMDAwMDMgMC4yMDAwMDAwMDMAA</bytes>
 								</object>
 								<reference key="IBUIHighlightedColor" ref="482097080"/>
-								<int key="IBUILineBreakMode">2</int>
 								<reference key="IBUIFontDescription" ref="76145323"/>
 								<reference key="IBUIFont" ref="917880540"/>
 								<bool key="IBUIAdjustsFontSizeToFit">NO</bool>

@@ -13,30 +13,18 @@
     NSMutableDictionary *URLparams;
     NSArray *keys;
     NSMutableArray *cells;
+    NSString *plistPath;
 }
 @end
 
 @implementation SimJobsFiltersController
 
-- (id)initWithStyle:(UITableViewStyle)style
-{
-    self = [super initWithStyle:style];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-   
-    
-    //Load the plist file to dict
-    NSString *plistPath = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0] stringByAppendingPathComponent:SIMJOB_FILTERS_FILE];
-
-    URLparams = [[NSMutableDictionary alloc] initWithContentsOfFile:plistPath];
  
+    plistPath = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0] stringByAppendingPathComponent:SIMJOB_FILTERS_FILE];
+    
     keys = [NSArray arrayWithObjects:BEGIN_STAMP,
             END_STAMP,
             MAXROWS,
@@ -59,40 +47,42 @@
 
 - (void)LoadCellsFromDict
 {
-   
+    //Load the plist file to dict    
+    URLparams = [[NSMutableDictionary alloc] initWithContentsOfFile:plistPath];
     [keys enumerateObjectsWithOptions:NSEnumerationConcurrent
             usingBlock:^(NSString *key, NSUInteger idx, BOOL *stop) {
 
                 UITableViewCell *cell = [cells objectAtIndex:idx];
                 NSString *data = [URLparams objectForKey:key];
-                NSLog(@"%@",data);
-                if(![data isEqualToString:@""])
-                    cell.detailTextLabel.text = [NSString stringWithFormat:@"%@",data];
+                if([data isEqualToString:@""])
+                    cell.detailTextLabel.text = @"Select";
+                else
+                {
+                    if([key isEqualToString:BEGIN_STAMP] || [key isEqualToString:END_STAMP])
+                    {
+                        NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
+                        dateFormat.dateFormat = @"EEEE',' d MMMM yyyy";
+                        cell.detailTextLabel.text = [dateFormat stringFromDate:[NSDate dateWithTimeIntervalSince1970:[data doubleValue]]];
+                    }
+                    else
+                        cell.detailTextLabel.text = data;
+                }
             
     }];
 }
 
-- (void)didReceiveMemoryWarning
+- (void)viewWillAppear:(BOOL)animated
 {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+    [self LoadCellsFromDict];
+    [self.tableView deselectRowAtIndexPath:[self.tableView indexPathForSelectedRow] animated:YES];
 }
 
 #pragma mark - Table view delegate
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    // Navigation logic may go here. Create and push another view controller.
-    /*
-     <#DetailViewController#> *detailViewController = [[<#DetailViewController#> alloc] initWithNibName:@"<#Nib name#>" bundle:nil];
-     // ...
-     // Pass the selected object to the new view controller.
-     [self.navigationController pushViewController:detailViewController animated:YES];
-     */
-    
-    //UITableViewCell *selectedCell = [tableView cellForRowAtIndexPath:indexPath];
-    [self performSegueWithIdentifier:@"simJobFilterDetailView" sender:nil];
-
+    if(indexPath.section != 3) // for last two rows
+        [self performSegueWithIdentifier:@"simJobFilterDetailView" sender:nil];
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
@@ -120,71 +110,26 @@
    }
 }
 
-#pragma mark - Table view data source
+#pragma mark - Actions
 
-//- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
-//{
-//#warning Potentially incomplete method implementation.
-//    // Return the number of sections.
-//    return 0;
-//}
-//
-//- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-//{
-//#warning Incomplete method implementation.
-//    // Return the number of rows in the section.
-//    return 0;
-//}
-
-//- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-//{
-//    static NSString *CellIdentifier = @"Cell";
-//    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
-//    
-//    // Configure the cell...
-//    
-//    return cell;
-//}
-
-/*
-// Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
+- (IBAction)doneBtn:(id)sender
 {
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
+    [self.delegate SimJobsFiltersControllerDidFinish:self];
 }
-*/
-
-/*
-// Override to support editing the table view.
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
+- (IBAction)clearBtn:(id)sender
 {
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    }   
-    else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
+    
+    for(NSString *key in keys)
+    {
+        if([key isEqualToString:HASDATA])
+            [URLparams setValue:@"any" forKey:HASDATA];
+        else if([key isEqualToString:MAXROWS])
+            [URLparams setValue:@"10" forKey:MAXROWS];
+        else
+            [URLparams setValue:@"" forKey:key];
+    }
+
+    [URLparams writeToFile:plistPath atomically:YES];
+    [self LoadCellsFromDict];
 }
-*/
-
-/*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
-{
-}
-*/
-
-/*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
-}
-*/
-
-
-
 @end

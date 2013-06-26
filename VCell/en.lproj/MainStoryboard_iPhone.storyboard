@@ -347,16 +347,20 @@
                             </tableViewSection>
                             <tableViewSection id="WxU-pL-1i1">
                                 <cells>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="b8K-bw-V3p">
-                                        <rect key="frame" x="0.0" y="434" width="320" height="48"/>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="b8K-bw-V3p">
+                                        <rect key="frame" x="0.0" y="434" width="320" height="47"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                             <rect key="frame" x="10" y="1" width="300" height="45"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <switch opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="AWt-ki-5w7"/>
-                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Hide restarted failed jobs " lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tCu-Sk-sGI">
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Hide dupe jobs " lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tCu-Sk-sGI">
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="205" id="LKL-ID-Qdu"/>
+                                                        <constraint firstAttribute="height" constant="22" id="tIm-JL-J6B"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 </label>
@@ -365,9 +369,33 @@
                                         </view>
                                         <constraints>
                                             <constraint firstItem="tCu-Sk-sGI" firstAttribute="leading" secondItem="b8K-bw-V3p" secondAttribute="leading" constant="21" id="5sM-Gc-qLa"/>
-                                            <constraint firstItem="AWt-ki-5w7" firstAttribute="leading" secondItem="tCu-Sk-sGI" secondAttribute="trailing" constant="8" symbolic="YES" type="default" id="95p-jq-JBy"/>
-                                            <constraint firstItem="AWt-ki-5w7" firstAttribute="top" secondItem="b8K-bw-V3p" secondAttribute="top" constant="10" id="DCw-It-piU"/>
+                                            <constraint firstItem="AWt-ki-5w7" firstAttribute="centerY" secondItem="b8K-bw-V3p" secondAttribute="centerY" type="default" id="OZu-8N-9Rv"/>
+                                            <constraint firstAttribute="trailing" secondItem="AWt-ki-5w7" secondAttribute="trailing" constant="19" id="h1l-Wk-bfU"/>
                                             <constraint firstItem="tCu-Sk-sGI" firstAttribute="centerY" secondItem="AWt-ki-5w7" secondAttribute="centerY" type="default" id="qA4-xc-KNd"/>
+                                        </constraints>
+                                    </tableViewCell>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="47" id="lTI-BZ-gfv">
+                                        <rect key="frame" x="0.0" y="481" width="320" height="48"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                            <rect key="frame" x="10" y="0.0" width="300" height="46"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Hide the Jobs which are failed/stopped and are resubmitted." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="277" translatesAutoresizingMaskIntoConstraints="NO" id="rnX-K7-hYA">
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="42" id="2Ld-6M-nXb"/>
+                                                        <constraint firstAttribute="width" constant="277" id="rjp-Tk-U63"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                    <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                </label>
+                                            </subviews>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        </view>
+                                        <constraints>
+                                            <constraint firstItem="rnX-K7-hYA" firstAttribute="top" secondItem="lTI-BZ-gfv" secondAttribute="top" constant="4" id="Pid-lp-PTW"/>
+                                            <constraint firstItem="rnX-K7-hYA" firstAttribute="leading" secondItem="lTI-BZ-gfv" secondAttribute="leading" constant="21" id="wJa-bj-0WD"/>
                                         </constraints>
                                     </tableViewCell>
                                 </cells>
@@ -379,8 +407,16 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Filter Options" id="onh-rw-B2Y">
-                        <barButtonItem key="leftBarButtonItem" title="Clear" id="T7h-EO-epb"/>
-                        <barButtonItem key="rightBarButtonItem" systemItem="done" id="1JU-KR-JzL"/>
+                        <barButtonItem key="leftBarButtonItem" title="Clear" id="T7h-EO-epb">
+                            <connections>
+                                <action selector="clearBtn:" destination="nQ0-Sx-c0j" id="CCu-M0-hu2"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" systemItem="done" id="1JU-KR-JzL">
+                            <connections>
+                                <action selector="doneBtn:" destination="nQ0-Sx-c0j" id="oFE-fi-ZzP"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="computeHostCell" destination="Rxj-Ue-cJm" id="Tmr-T3-Ugq"/>
@@ -533,6 +569,50 @@
         <image name="dot.png" width="15" height="15"/>
         <image name="second" width="16" height="16"/>
     </resources>
+    <classes>
+        <class className="NSLayoutConstraint" superclassName="NSObject">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/NSLayoutConstraint.h"/>
+        </class>
+        <class className="SecondViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/SecondViewController.h"/>
+        </class>
+        <class className="SimJobButtonCell" superclassName="UITableViewCell">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/SimJobButtonCell.h"/>
+            <relationships>
+                <relationship kind="action" name="btnPressed:"/>
+                <relationship kind="outlet" name="completedBtn" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="runningBtn" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="stoppedBtn" candidateClass="UIButton"/>
+            </relationships>
+        </class>
+        <class className="SimJobController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/SimJobController.h"/>
+            <relationships>
+                <relationship kind="action" name="addMoreCells:"/>
+                <relationship kind="action" name="bioModelDateSwap:"/>
+                <relationship kind="outlet" name="searchBar" candidateClass="UISearchBar"/>
+            </relationships>
+        </class>
+        <class className="SimJobsFiltersController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/SimJobsFiltersController.h"/>
+            <relationships>
+                <relationship kind="action" name="clearBtn:"/>
+                <relationship kind="action" name="doneBtn:"/>
+                <relationship kind="outlet" name="computeHostCell" candidateClass="UITableViewCell"/>
+                <relationship kind="outlet" name="dateBeginCell" candidateClass="UITableViewCell"/>
+                <relationship kind="outlet" name="dateEndCell" candidateClass="UITableViewCell"/>
+                <relationship kind="outlet" name="hasDataCell" candidateClass="UITableViewCell"/>
+                <relationship kind="outlet" name="jobIDCell" candidateClass="UITableViewCell"/>
+                <relationship kind="outlet" name="maxRowsCell" candidateClass="UITableViewCell"/>
+                <relationship kind="outlet" name="serverIDCell" candidateClass="UITableViewCell"/>
+                <relationship kind="outlet" name="simulationIDCell" candidateClass="UITableViewCell"/>
+                <relationship kind="outlet" name="taskIDCell" candidateClass="UITableViewCell"/>
+            </relationships>
+        </class>
+        <class className="SimJobsFiltersDetail" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/SimJobsFiltersDetail.h"/>
+        </class>
+    </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>
