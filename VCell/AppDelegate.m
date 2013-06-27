@@ -13,7 +13,11 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     // Override point for customization after application launch
-    
+    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
+        UITabBarController *tabBar = (UITabBarController*)self.window.rootViewController;
+        UISplitViewController *splitViewController = (UISplitViewController *)[tabBar.viewControllers objectAtIndex:0];
+        splitViewController.delegate = (id)[splitViewController.viewControllers lastObject];
+    }
     return YES;
 }
 							

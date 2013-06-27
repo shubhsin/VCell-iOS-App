@@ -127,7 +127,7 @@
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" title="Filter" id="DJj-Y5-W7F">
                             <connections>
-                                <segue destination="xQ6-uz-11U" kind="modal" identifier="showSimJobsFilters" id="nHa-nR-qFn"/>
+                                <segue destination="nQ0-Sx-c0j" kind="push" identifier="showSimJobsFilters" id="Ubn-Ea-1Ll"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -754,7 +754,7 @@
             <objects>
                 <tableViewController id="nQ0-Sx-c0j" customClass="SimJobsFiltersController" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="singleLineEtched" rowHeight="46" sectionHeaderHeight="10" sectionFooterHeight="10" id="nHX-Q8-yW3">
-                        <rect key="frame" x="0.0" y="64" width="320" height="504"/>
+                        <rect key="frame" x="0.0" y="64" width="320" height="455"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <sections>
@@ -1038,7 +1038,7 @@
             <objects>
                 <tableViewController id="7hc-TU-fnp" customClass="SimJobsFiltersDetail" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="singleLineEtched" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="CIz-da-qtJ">
-                        <rect key="frame" x="0.0" y="64" width="320" height="504"/>
+                        <rect key="frame" x="0.0" y="64" width="320" height="455"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <prototypes>
@@ -1145,24 +1145,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="a0S-u4-m8X" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="929" y="-171"/>
-        </scene>
-        <!--Navigation Controller-->
-        <scene sceneID="uEJ-tN-La1">
-            <objects>
-                <navigationController id="xQ6-uz-11U" sceneMemberID="viewController">
-                    <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="cjL-vh-uwc">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <nil name="viewControllers"/>
-                    <connections>
-                        <segue destination="nQ0-Sx-c0j" kind="relationship" relationship="rootViewController" id="k4T-BW-ID3"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="5kK-vy-Iky" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1982" y="-963"/>
         </scene>
     </scenes>
     <resources>

@@ -40,8 +40,9 @@
 #define TASKID @"taskId"
 #define HASDATA @"hasData"
 
-@interface SimJobController : UITableViewController <MBProgressHUDDelegate,UISearchBarDelegate, UISearchDisplayDelegate, SimJobsFiltersControllerDelegate>
+@interface SimJobController : UITableViewController <MBProgressHUDDelegate,UISearchBarDelegate, UISearchDisplayDelegate, SimJobsFiltersControllerDelegate,SimJobButtonCellDelegate>
 
+@property (strong, nonatomic) SimJobDetailsController *simJobDetailsController;
 @property (weak, nonatomic) IBOutlet UISegmentedControl *bioModelDateSegment;
 @property (weak, nonatomic) IBOutlet UISearchBar *searchBar;
 - (IBAction)bioModelDateSwap:(id)sender;

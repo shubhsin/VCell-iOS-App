@@ -45,47 +45,42 @@
 }
 - (void)initURLParamDict
 {
-
-    NSArray *keys=  [NSArray arrayWithObjects:BEGIN_STAMP,
-                                END_STAMP,
-                                MAXROWS,
-                                SERVERID,
-                                COMPUTEHOST,
-                                SIMID,
-                                JOBID,
-                                TASKID,
-                                HASDATA,
-                                @"completed",
-                                @"waiting",
-                                @"queued",
-                                @"dispatched",
-                                @"running",
-                                @"failed",
-                                @"stopped",nil];
-
-    NSArray *objects = [NSArray arrayWithObjects:
-                        @"",@"",
-                        @"10",
-                        @"",@"",@"", @"",@"",
-                        @"any",
-                        @"on",
-                        @"",@"",@"",@"",@"",@"",
-                        nil];
-    
-    
     NSFileManager *fileManager = [NSFileManager defaultManager];
     NSString *plistPath = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0] stringByAppendingPathComponent:SIMJOB_FILTERS_FILE];
     
     if ([fileManager fileExistsAtPath:plistPath] == NO)
     {
+        NSArray *keys=  [NSArray arrayWithObjects:BEGIN_STAMP,
+                         END_STAMP,
+                         MAXROWS,
+                         SERVERID,
+                         COMPUTEHOST,
+                         SIMID,
+                         JOBID,
+                         TASKID,
+                         HASDATA,
+                         @"completed",
+                         @"waiting",
+                         @"queued",
+                         @"dispatched",
+                         @"running",
+                         @"failed",
+                         @"stopped",nil];
+        
+        NSArray *objects = [NSArray arrayWithObjects:
+                            @"",@"",
+                            @"10",
+                            @"",@"",@"", @"",@"",
+                            @"any",
+                            @"on",
+                            @"",@"",@"",@"",@"",@"",
+                            nil];
         URLparams = [[NSMutableDictionary alloc] initWithObjects:objects forKeys:keys];
         [URLparams writeToFile:plistPath atomically:YES];
 
     }
     else
         URLparams = [[NSMutableDictionary alloc] initWithContentsOfFile:plistPath];
-  
-    
 }
 
 - (void)viewDidLoad
@@ -105,6 +100,8 @@
     [self loadPrefs];
     
     [self initDictAndstartLoading:nil];
+    
+    self.simJobDetailsController = (SimJobDetailsController *)[self.splitViewController.viewControllers lastObject];    
 }
 
 - (void)loadPrefs
@@ -125,7 +122,8 @@
     [self initURLParamDict];
     rowNum = 1;
     [self startLoading];
-    [(UIRefreshControl *)sender endRefreshing];
+    if(sender != nil)
+        [(UIRefreshControl *)sender endRefreshing];
 }
 
 - (void)startLoading
@@ -317,6 +315,7 @@
         if (cell == nil) {
             cell = [[SimJobButtonCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:SimJobButtonCellIdentifier];
         }
+        cell.delegate = self;
         
         //Load button states from disk
         NSNumber *btnState = [[NSUserDefaults standardUserDefaults] objectForKey:@"completed"];
@@ -423,7 +422,10 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    [self performSegueWithIdentifier:@"showSimJobDetails" sender:nil];
+    if(IS_PHONE)
+        [self performSegueWithIdentifier:@"showSimJobDetails" sender:nil];
+    else
+        [self.simJobDetailsController setObject:[[simJobSections objectAtIndex:indexPath.section - 1] objectAtIndex:indexPath.row]];
 }
 
 #pragma mark - Class Methods
@@ -482,7 +484,6 @@
 - (void)breakIntoSectionsbyDate:(BOOL)byDate andSimJobArr:(NSArray*)currentSimJobs forTableView:(UITableView*)tableView
 {
     simJobSections = [self returnSectionsArrayByDate:byDate fromArray:currentSimJobs];
-  //  NSLog(@"%@",simJobSections);
     [tableView reloadData];
 }
 
@@ -496,7 +497,6 @@
        sortByDate = YES;
     
     [userDefaults setObject:[NSNumber numberWithBool:sortByDate] forKey:@"sortByDate"];
-    NSLog(@"%@",[userDefaults objectForKey:@"sortByDate"]);
     [userDefaults synchronize];
     [self breakIntoSectionsbyDate:sortByDate andSimJobArr:simJobs forTableView:self.tableView];
 }
@@ -603,18 +603,16 @@
 
 - (void)SimJobsFiltersControllerDidFinish:(SimJobsFiltersController *)controller
 {
-    [self dismissViewControllerAnimated:YES completion:^{
-        //Scroll to top and startLoadig new data from updated filters values
-        [self.tableView scrollRectToVisible:CGRectMake(0, 0, 1, 1) animated:YES];
-        [self initDictAndstartLoading:nil];
-    }];
+    [self.navigationController popViewControllerAnimated:YES];
+    [self.tableView setContentOffset:CGPointZero animated:NO];
+    [self initDictAndstartLoading:nil];
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
     if ([[segue identifier] isEqualToString:@"showSimJobsFilters"])
     {
-      [[[[segue destinationViewController] viewControllers] objectAtIndex:0] setDelegate:self];
+        [[segue destinationViewController] setDelegate:self];
     }
     if([[segue identifier] isEqualToString:@"showSimJobDetails"])
     {
@@ -622,4 +620,5 @@
         [[segue destinationViewController] setObject:[[simJobSections objectAtIndex:indexPath.section - 1] objectAtIndex:indexPath.row]];
     }
 }
+
 @end

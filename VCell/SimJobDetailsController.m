@@ -19,13 +19,13 @@
 - (void)setObject:(SimJob *)object
 {
     simJob = object;
+    NSLog(@"%@",simJob);
+    [self setUpCells];
 }
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    NSLog(@"%@",simJob);
-    [self setUpCells];
 }
 
 - (void)setUpCells
@@ -58,14 +58,13 @@
     self.userKey.detailTextLabel.text = simJob.userKey;
     self.jobId.detailTextLabel.text = [simJob.jobIndex description];
     self.taskId.detailTextLabel.text = [simJob.taskId description];
-    NSLog(@"%@",[simJob.htcJobId class]);
     self.htcJobId.detailTextLabel.text = simJob.htcJobId;
     
     //section 5
     self.site.detailTextLabel.text = simJob.site;
     self.computeHost.detailTextLabel.text = simJob.computeHost;
     self.schStatus.detailTextLabel.text = simJob.schedulerStatus;
-    
+    [self.tableView reloadData];
 }
 
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
@@ -90,5 +89,10 @@
 {
     [self.tableView deselectRowAtIndexPath:[self.tableView indexPathForSelectedRow] animated:YES];
 }
+
+- (BOOL)splitViewController:(UISplitViewController *)svc shouldHideViewController:(UIViewController *)vc inOrientation:(UIInterfaceOrientation)orientation{
+    return NO;
+}
+
 
 @end

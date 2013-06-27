@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "SimJob.h"
 
-@interface SimJobDetailsController : UITableViewController <UIAlertViewDelegate>
+@interface SimJobDetailsController : UITableViewController <UIAlertViewDelegate,UISplitViewControllerDelegate>
 
 //section 0
 @property (weak, nonatomic) IBOutlet UITableViewCell *viewData;

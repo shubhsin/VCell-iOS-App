@@ -128,8 +128,12 @@
         [picker setDatePickerMode:UIDatePickerModeDate];
         [picker addTarget:self action:@selector(pickerValueChanged:)  forControlEvents:UIControlEventValueChanged];
         [picker setDate:date];
-        [picker setFrame:
-         CGRectMake(0, screen.size.height - (picker.bounds.size.height + self.navigationController.navigationBar.bounds.size.height), 0, 0)];
+        CGFloat y = (screen.size.height - (picker.bounds.size.height + self.navigationController.navigationBar.bounds.size.height));
+
+        if(!IS_PHONE)
+            y = y/2;
+        
+        [picker setFrame:CGRectMake(0, y, 0, 0)];
         [self.view addSubview:picker];
 
     }
