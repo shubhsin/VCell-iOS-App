@@ -42,6 +42,7 @@
 
 @interface SimJobController : UITableViewController <MBProgressHUDDelegate,UISearchBarDelegate, UISearchDisplayDelegate, SimJobsFiltersControllerDelegate>
 
+@property (weak, nonatomic) IBOutlet UISegmentedControl *bioModelDateSegment;
 @property (weak, nonatomic) IBOutlet UISearchBar *searchBar;
 - (IBAction)bioModelDateSwap:(id)sender;
 - (void)updatDataOnBtnPressedWithButtonTag:(int)tag AndButtonActive:(BOOL)active;

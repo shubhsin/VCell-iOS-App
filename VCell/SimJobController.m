@@ -26,6 +26,8 @@
     NSMutableArray *simJobs; // Received JSON Objects
     BOOL sortByDate;
     NSUInteger rowNum; //current start row of the data to request
+    NSUserDefaults *userDefaults;
+
 }
 @end
 
@@ -99,9 +101,23 @@
     self.searchDisplayController.searchBar.showsScopeBar = NO;
     [self.searchDisplayController.searchBar sizeToFit];
     
-    //set sortByDate to NO , probably load this value from pref later.
-    sortByDate = NO;
+    //Load states of bioModel/Date sort
+    [self loadPrefs];
+    
     [self initDictAndstartLoading:nil];
+}
+
+- (void)loadPrefs
+{
+    userDefaults  = [NSUserDefaults standardUserDefaults];
+
+    //For biomodel/date sort
+    sortByDate = [[userDefaults objectForKey:@"sortByDate"] boolValue];
+    
+    if(sortByDate)
+        self.bioModelDateSegment.selectedSegmentIndex = DATE_SORT;
+    else
+        self.bioModelDateSegment.selectedSegmentIndex = BIOMODEL_SORT;
 }
 
 - (void)initDictAndstartLoading:(id)sender
@@ -301,6 +317,20 @@
         if (cell == nil) {
             cell = [[SimJobButtonCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:SimJobButtonCellIdentifier];
         }
+        
+        //Load button states from disk
+        NSNumber *btnState = [[NSUserDefaults standardUserDefaults] objectForKey:@"completed"];
+        if(btnState)
+            cell.completedBtn.selected = [btnState boolValue];
+
+        btnState = [[NSUserDefaults standardUserDefaults] objectForKey:@"running"];
+        if(btnState)
+            cell.runningBtn.selected = [btnState boolValue];
+     
+        btnState = [[NSUserDefaults standardUserDefaults] objectForKey:@"stopped"];
+        if(btnState)
+            cell.stoppedBtn.selected = [btnState boolValue];
+        
         return cell;
     }
     if(tableView != self.searchDisplayController.searchResultsTableView)
@@ -464,7 +494,10 @@
        sortByDate = NO;
    else if(sortButton.selectedSegmentIndex == DATE_SORT)
        sortByDate = YES;
-
+    
+    [userDefaults setObject:[NSNumber numberWithBool:sortByDate] forKey:@"sortByDate"];
+    NSLog(@"%@",[userDefaults objectForKey:@"sortByDate"]);
+    [userDefaults synchronize];
     [self breakIntoSectionsbyDate:sortByDate andSimJobArr:simJobs forTableView:self.tableView];
 }
 
@@ -509,9 +542,12 @@
                 [URLparams setObject:@"" forKey:@"failed"];
             }
         }
+
+        //Write params to disk
+        NSString *plistPath = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0] stringByAppendingPathComponent:SIMJOB_FILTERS_FILE];
+        [URLparams writeToFile:plistPath atomically:YES];
         rowNum = 1;
         [self startLoading];
-     
 }
  //Needed to set height of search display controller properly.
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath

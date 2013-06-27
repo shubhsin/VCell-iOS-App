@@ -114,14 +114,14 @@
                     <navigationItem key="navigationItem" title="SimJobs" id="upK-tr-ao3">
                         <barButtonItem key="leftBarButtonItem" id="S3z-ts-sgi">
                             <segmentedControl key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" id="wZO-ZT-vul">
-                                <rect key="frame" x="5" y="6" width="137" height="33"/>
+                                <rect key="frame" x="5" y="7" width="137" height="31"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <segments>
                                     <segment title="BioModel"/>
                                     <segment title="Date"/>
                                 </segments>
                                 <connections>
-                                    <action selector="bioModelDateSwap:" destination="TTe-86-iE8" eventType="valueChanged" id="mW2-xd-QT9"/>
+                                    <action selector="bioModelDateSwap:" destination="TTe-86-iE8" eventType="valueChanged" id="Sge-dd-KxC"/>
                                 </connections>
                             </segmentedControl>
                         </barButtonItem>
@@ -132,6 +132,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="bioModelDateSegment" destination="wZO-ZT-vul" id="cBZ-2G-GJC"/>
                         <outlet property="searchBar" destination="NZJ-Gy-yQ5" id="ZgC-fH-TIm"/>
                         <outlet property="searchDisplayController" destination="nM2-J8-za4" id="Jr0-DE-fct"/>
                         <segue destination="lHt-Dg-wwW" kind="push" identifier="showSimJobDetails" id="Umi-CN-1cF"/>
@@ -668,7 +669,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Host" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="rjb-EJ-f3n">
-                                                    <rect key="frame" x="50" y="15" width="27" height="15"/>
+                                                    <rect key="frame" x="10" y="15" width="67" height="15"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
                                                     <color key="textColor" red="0.32156862749999998" green="0.40000000000000002" blue="0.56862745100000001" alpha="1" colorSpace="calibratedRGB"/>

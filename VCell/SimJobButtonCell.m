@@ -46,6 +46,20 @@
             button.selected = YES;
             active = YES;
         }
+
+        //Save the state to disk
+        NSString *key;
+        if(button.tag  == COMPLETED_BTN)
+            key = @"completed";
+        else if(button.tag == RUNNING_BTN)
+            key = @"running";
+        else if(button.tag == STOPPED_BTN)
+            key = @"stopped";
+        
+        [[NSUserDefaults standardUserDefaults] setBool:button.selected forKey:key];
+        
+        [[NSUserDefaults standardUserDefaults] synchronize];
+        
         UITabBarController *tabBar = (UITabBarController*)self.window.rootViewController;
         
         for (UIViewController *v in tabBar.viewControllers)

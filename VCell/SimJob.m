@@ -57,8 +57,35 @@
             _mathModelLink.mathModelName = [[dict objectForKey:@"mathModelLink"] objectForKey:@"mathModelName"];
         }
         
+        //save the app from crashing in case these values arent returned by the API
+        if([_simKey class] == [NSNull class])
+            _simKey = nil;
+        if([_simName class] == [NSNull class])
+            _simName = nil;
+        if([_userName class] == [NSNull class])
+            _userName = nil;
+        if([_userKey class] == [NSNull class])
+            _userKey = nil;
         if([_htcJobId class] == [NSNull class])
             _htcJobId = nil;
+        if([_status class] == [NSNull class])
+            _status = nil;
+        if([_startdate class] == [NSNull class])
+            _startdate = nil;
+        if([_jobIndex class] == [NSNull class])
+            _jobIndex = nil;
+        if([_taskId class] == [NSNull class])
+            _taskId = nil;
+        if([_message class] == [NSNull class])
+            _message = nil;
+        if([_site class] == [NSNull class])
+            _site = nil;
+        if([_computeHost class] == [NSNull class])
+            _computeHost = nil;
+        if([_schedulerStatus class] == [NSNull class])
+            _schedulerStatus = nil;
+        if([_hasData class] == [NSNull class])
+            _hasData = nil;
     }
     return self;
     
