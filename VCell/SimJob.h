@@ -31,6 +31,7 @@
 
 - (id)initWithDict:(NSDictionary*) dict;
 - (NSString*)startDateString;
+
 @end
 
 @interface BioModelLink : NSObject

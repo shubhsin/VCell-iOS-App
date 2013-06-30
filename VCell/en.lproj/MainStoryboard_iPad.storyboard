@@ -16,11 +16,12 @@
                     </tabBar>
                     <connections>
                         <segue destination="ckz-Bm-qwW" kind="relationship" relationship="viewControllers" id="gND-Vn-i9A"/>
+                        <segue destination="cfd-gp-WHa" kind="relationship" relationship="viewControllers" id="12D-Nj-2gZ"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="14" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2023" y="718"/>
+            <point key="canvasLocation" x="2003" y="770"/>
         </scene>
         <!--Sim Job Controller - SimJobs-->
         <scene sceneID="1cg-k9-m18">
@@ -1121,11 +1122,107 @@
             </objects>
             <point key="canvasLocation" x="4335" y="1255"/>
         </scene>
+        <!--Graph Axis Select Controller - Results-->
+        <scene sceneID="arm-dU-GUO">
+            <objects>
+                <tableViewController id="I9L-z8-2hK" customClass="GraphAxisSelectController" sceneMemberID="viewController">
+                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="singleLineEtched" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="gfK-v7-45W">
+                        <rect key="frame" x="0.0" y="64" width="768" height="911"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                        <prototypes>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Cell" id="mat-wp-N3E">
+                                <rect key="frame" x="0.0" y="54" width="768" height="46"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                    <rect key="frame" x="45" y="1" width="678" height="43"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                </view>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="I9L-z8-2hK" id="wI9-Ss-PQP"/>
+                            <outlet property="delegate" destination="I9L-z8-2hK" id="44I-ZP-8Sn"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="Results" id="774-74-QdD"/>
+                    <simulatedStatusBarMetrics key="simulatedStatusBarMetrics" statusBarStyle="blackTranslucent"/>
+                    <connections>
+                        <segue destination="r8t-7K-o9f" kind="push" identifier="showGraph" id="Gms-Ng-TbG"/>
+                    </connections>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="i7f-b5-veA" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3280" y="2162"/>
+        </scene>
+        <!--Graph View Controller - Results-->
+        <scene sceneID="yJu-8B-nBK">
+            <objects>
+                <viewController id="r8t-7K-o9f" customClass="GraphViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="N6h-gj-CF5">
+                        <rect key="frame" x="0.0" y="64" width="768" height="911"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Omg-pM-sja" customClass="CPTGraphHostingView">
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" cocoaTouchSystemColor="scrollViewTexturedBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="Omg-pM-sja" firstAttribute="trailing" secondItem="N6h-gj-CF5" secondAttribute="trailing" type="default" id="Cbs-mh-1XQ"/>
+                            <constraint firstItem="Omg-pM-sja" firstAttribute="top" secondItem="N6h-gj-CF5" secondAttribute="top" type="default" id="FZO-LE-O7k"/>
+                            <constraint firstItem="Omg-pM-sja" firstAttribute="leading" secondItem="N6h-gj-CF5" secondAttribute="leading" type="default" id="U0V-Yw-UVl"/>
+                            <constraint firstItem="Omg-pM-sja" firstAttribute="bottom" secondItem="N6h-gj-CF5" secondAttribute="bottom" type="default" id="tX0-x4-q5K"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" title="Results" id="IqE-x9-Xub"/>
+                    <simulatedStatusBarMetrics key="simulatedStatusBarMetrics" statusBarStyle="blackTranslucent"/>
+                    <connections>
+                        <outlet property="hostView" destination="Omg-pM-sja" id="vtc-h7-4rh"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="e9X-eF-mm5" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3811" y="2162"/>
+        </scene>
+        <!--Navigation Controller - Item-->
+        <scene sceneID="VMz-DJ-x5w">
+            <objects>
+                <navigationController id="cfd-gp-WHa" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Item" id="8wd-6j-HiU"/>
+                    <toolbarItems/>
+                    <simulatedStatusBarMetrics key="simulatedStatusBarMetrics" statusBarStyle="blackTranslucent"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="eof-z6-dd5">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="I9L-z8-2hK" kind="relationship" relationship="rootViewController" id="tKw-69-ROK"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="J4G-U8-DOG" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2378" y="2202"/>
+        </scene>
     </scenes>
     <resources>
         <image name="dot.png" width="15" height="15"/>
     </resources>
     <classes>
+        <class className="CPTGraphHostingView" superclassName="UIView">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/CPTGraphHostingView.h"/>
+        </class>
+        <class className="GraphAxisSelectController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/GraphAxisSelectController.h"/>
+        </class>
+        <class className="GraphViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/GraphViewController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="hostView" candidateClass="CPTGraphHostingView"/>
+            </relationships>
+        </class>
         <class className="NSLayoutConstraint" superclassName="NSObject">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/NSLayoutConstraint.h"/>
         </class>

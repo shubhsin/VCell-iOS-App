@@ -1070,43 +1070,67 @@
             </objects>
             <point key="canvasLocation" x="3086" y="-963"/>
         </scene>
-        <!--Second View Controller - Second-->
-        <scene sceneID="13">
+        <!--Graph Axis Select Controller - Results-->
+        <scene sceneID="3J4-4Y-oba">
             <objects>
-                <viewController title="Second" id="3" customClass="SecondViewController" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="17">
-                        <rect key="frame" x="0.0" y="20" width="320" height="499"/>
+                <tableViewController id="qpS-ch-Yt9" customClass="GraphAxisSelectController" sceneMemberID="viewController">
+                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="singleLineEtched" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="hGn-JP-tmb">
+                        <rect key="frame" x="0.0" y="64" width="320" height="455"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                        <prototypes>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Cell" id="NfL-Kx-I5y">
+                                <rect key="frame" x="0.0" y="46" width="320" height="46"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                    <rect key="frame" x="10" y="1" width="300" height="43"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                </view>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="qpS-ch-Yt9" id="TnN-22-KWj"/>
+                            <outlet property="delegate" destination="qpS-ch-Yt9" id="vyt-ic-YV4"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="Results" id="ghx-8S-EnU"/>
+                    <connections>
+                        <segue destination="gTa-tn-OvL" kind="push" identifier="showGraph" id="KtQ-6S-fhS"/>
+                    </connections>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="vfi-c7-TTl" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1697" y="510"/>
+        </scene>
+        <!--Graph View Controller - Results-->
+        <scene sceneID="QrW-tN-RpG">
+            <objects>
+                <viewController id="gTa-tn-OvL" customClass="GraphViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="bbi-P6-j7I">
+                        <rect key="frame" x="0.0" y="64" width="320" height="455"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" text="Second View" textAlignment="center" lineBreakMode="tailTruncation" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="22">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ULK-iA-rTg" customClass="CPTGraphHostingView">
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                                <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="36"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <textView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" userInteractionEnabled="NO" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" delaysContentTouches="NO" canCancelContentTouches="NO" minimumZoomScale="0.0" maximumZoomScale="0.0" bouncesZoom="NO" editable="NO" text="Loaded by the second view controller — an instance of SecondViewController — specified in the app delegate." textAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="23">
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="88" id="wOz-59-ijK"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" size="system"/>
-                                <textInputTraits key="textInputTraits"/>
-                            </textView>
+                            </view>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" cocoaTouchSystemColor="scrollViewTexturedBackgroundColor"/>
                         <constraints>
-                            <constraint firstAttribute="trailing" secondItem="23" secondAttribute="trailing" constant="20" symbolic="YES" type="default" id="0RT-g4-ZAI"/>
-                            <constraint firstItem="22" firstAttribute="top" secondItem="17" secondAttribute="top" constant="123" id="5AT-8J-A8h"/>
-                            <constraint firstItem="23" firstAttribute="top" secondItem="17" secondAttribute="top" constant="206" id="JtN-YV-nFh"/>
-                            <constraint firstAttribute="trailing" secondItem="22" secondAttribute="trailing" constant="20" symbolic="YES" type="default" id="K8w-ij-hiL"/>
-                            <constraint firstItem="22" firstAttribute="leading" secondItem="17" secondAttribute="leading" constant="20" symbolic="YES" type="default" id="V6W-ap-cZY"/>
-                            <constraint firstItem="23" firstAttribute="leading" secondItem="17" secondAttribute="leading" constant="20" symbolic="YES" type="default" id="f3o-Qa-xTK"/>
+                            <constraint firstItem="ULK-iA-rTg" firstAttribute="leading" secondItem="bbi-P6-j7I" secondAttribute="leading" type="default" id="HVT-l5-Lh6"/>
+                            <constraint firstItem="ULK-iA-rTg" firstAttribute="trailing" secondItem="bbi-P6-j7I" secondAttribute="trailing" type="default" id="f2j-v4-0qK"/>
+                            <constraint firstItem="ULK-iA-rTg" firstAttribute="top" secondItem="bbi-P6-j7I" secondAttribute="top" type="default" id="oFM-bv-N4i"/>
+                            <constraint firstItem="ULK-iA-rTg" firstAttribute="bottom" secondItem="bbi-P6-j7I" secondAttribute="bottom" type="default" id="uDU-an-iEW"/>
                         </constraints>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Second" image="second" id="6"/>
+                    <navigationItem key="navigationItem" title="Results" id="wUd-mJ-DUF"/>
+                    <connections>
+                        <outlet property="hostView" destination="ULK-iA-rTg" id="ckD-bX-2ur"/>
+                    </connections>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="12" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="9ga-uS-CqZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1179" y="498"/>
+            <point key="canvasLocation" x="2228" y="510"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="15">
@@ -1120,12 +1144,12 @@
                     </tabBar>
                     <connections>
                         <segue destination="yIi-jm-5UB" kind="relationship" relationship="viewControllers" id="W40-6P-8dP"/>
-                        <segue destination="3" kind="relationship" relationship="viewControllers" id="27"/>
+                        <segue destination="A6z-an-8uN" kind="relationship" relationship="viewControllers" id="xTU-Vz-98G"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="14" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="132" y="180"/>
+            <point key="canvasLocation" x="90" y="176"/>
         </scene>
         <!--Navigation Controller - Item-->
         <scene sceneID="4eg-um-KaX">
@@ -1146,11 +1170,107 @@
             </objects>
             <point key="canvasLocation" x="929" y="-171"/>
         </scene>
+        <!--Navigation Controller - Item-->
+        <scene sceneID="EvT-6R-jBt">
+            <objects>
+                <navigationController id="A6z-an-8uN" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Item" id="YyN-P7-bwA"/>
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="RUz-Um-zcb">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="qpS-ch-Yt9" kind="relationship" relationship="rootViewController" id="mXB-Gf-044"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="HUA-KW-xaD" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1191" y="510"/>
+        </scene>
     </scenes>
     <resources>
         <image name="dot.png" width="15" height="15"/>
-        <image name="second" width="16" height="16"/>
     </resources>
+    <classes>
+        <class className="CPTGraphHostingView" superclassName="UIView">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/CPTGraphHostingView.h"/>
+        </class>
+        <class className="GraphAxisSelectController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/GraphAxisSelectController.h"/>
+        </class>
+        <class className="GraphViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/GraphViewController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="hostView" candidateClass="CPTGraphHostingView"/>
+            </relationships>
+        </class>
+        <class className="NSLayoutConstraint" superclassName="NSObject">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/NSLayoutConstraint.h"/>
+        </class>
+        <class className="SimJobButtonCell" superclassName="UITableViewCell">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/SimJobButtonCell.h"/>
+            <relationships>
+                <relationship kind="action" name="btnPressed:"/>
+                <relationship kind="outlet" name="completedBtn" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="runningBtn" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="stoppedBtn" candidateClass="UIButton"/>
+            </relationships>
+        </class>
+        <class className="SimJobController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/SimJobController.h"/>
+            <relationships>
+                <relationship kind="action" name="bioModelDateSwap:"/>
+                <relationship kind="outlet" name="bioModelDateSegment" candidateClass="UISegmentedControl"/>
+                <relationship kind="outlet" name="searchBar" candidateClass="UISearchBar"/>
+            </relationships>
+        </class>
+        <class className="SimJobDetailsController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/SimJobDetailsController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="bioModelBranch" candidateClass="UITableViewCell"/>
+                <relationship kind="outlet" name="bioModelKey" candidateClass="UITableViewCell"/>
+                <relationship kind="outlet" name="bioModelName" candidateClass="UITableViewCell"/>
+                <relationship kind="outlet" name="computeHost" candidateClass="UITableViewCell"/>
+                <relationship kind="outlet" name="htcJobId" candidateClass="UITableViewCell"/>
+                <relationship kind="outlet" name="jobId" candidateClass="UITableViewCell"/>
+                <relationship kind="outlet" name="msg" candidateClass="UITableViewCell"/>
+                <relationship kind="outlet" name="parentApp" candidateClass="UITableViewCell"/>
+                <relationship kind="outlet" name="parentSim" candidateClass="UITableViewCell"/>
+                <relationship kind="outlet" name="schStatus" candidateClass="UITableViewCell"/>
+                <relationship kind="outlet" name="simContextBranch" candidateClass="UITableViewCell"/>
+                <relationship kind="outlet" name="simContextKey" candidateClass="UITableViewCell"/>
+                <relationship kind="outlet" name="simContextName" candidateClass="UITableViewCell"/>
+                <relationship kind="outlet" name="simKey" candidateClass="UITableViewCell"/>
+                <relationship kind="outlet" name="simName" candidateClass="UITableViewCell"/>
+                <relationship kind="outlet" name="site" candidateClass="UITableViewCell"/>
+                <relationship kind="outlet" name="startDate" candidateClass="UITableViewCell"/>
+                <relationship kind="outlet" name="status" candidateClass="UITableViewCell"/>
+                <relationship kind="outlet" name="taskId" candidateClass="UITableViewCell"/>
+                <relationship kind="outlet" name="userKey" candidateClass="UITableViewCell"/>
+                <relationship kind="outlet" name="username" candidateClass="UITableViewCell"/>
+                <relationship kind="outlet" name="viewData" candidateClass="UITableViewCell"/>
+            </relationships>
+        </class>
+        <class className="SimJobsFiltersController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/SimJobsFiltersController.h"/>
+            <relationships>
+                <relationship kind="action" name="clearBtn:"/>
+                <relationship kind="action" name="doneBtn:"/>
+                <relationship kind="outlet" name="computeHostCell" candidateClass="UITableViewCell"/>
+                <relationship kind="outlet" name="dateBeginCell" candidateClass="UITableViewCell"/>
+                <relationship kind="outlet" name="dateEndCell" candidateClass="UITableViewCell"/>
+                <relationship kind="outlet" name="hasDataCell" candidateClass="UITableViewCell"/>
+                <relationship kind="outlet" name="maxRowsCell" candidateClass="UITableViewCell"/>
+                <relationship kind="outlet" name="serverIDCell" candidateClass="UITableViewCell"/>
+                <relationship kind="outlet" name="simulationIDCell" candidateClass="UITableViewCell"/>
+            </relationships>
+        </class>
+        <class className="SimJobsFiltersDetail" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/SimJobsFiltersDetail.h"/>
+        </class>
+    </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>
