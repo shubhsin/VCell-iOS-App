@@ -112,9 +112,9 @@
     sortByDate = [[userDefaults objectForKey:@"sortByDate"] boolValue];
     
     if(sortByDate)
-        self.bioModelDateSegment.selectedSegmentIndex = DATE_SORT;
+        self.biomodelDateSwapBtn.title = BIOMODEL_SORT;
     else
-        self.bioModelDateSegment.selectedSegmentIndex = BIOMODEL_SORT;
+        self.biomodelDateSwapBtn.title = DATE_SORT;
 }
 
 - (void)initDictAndstartLoading:(id)sender
@@ -489,12 +489,18 @@
 
 - (IBAction)bioModelDateSwap:(id)sender
 {
-    UISegmentedControl *sortButton = (UISegmentedControl*)sender;
+    UIBarButtonItem *sortButton = (UIBarButtonItem*)sender;
 
-   if(sortButton.selectedSegmentIndex == BIOMODEL_SORT)
-       sortByDate = NO;
-   else if(sortButton.selectedSegmentIndex == DATE_SORT)
+   if([sortButton.title isEqualToString:@"Date"])
+   {
+       sortButton.title = BIOMODEL_SORT;
        sortByDate = YES;
+   }
+   else if([sortButton.title isEqualToString:@"BioModel"])
+   {
+       sortButton.title = DATE_SORT;
+       sortByDate = NO;
+   }
     
     [userDefaults setObject:[NSNumber numberWithBool:sortByDate] forKey:@"sortByDate"];
     [userDefaults synchronize];

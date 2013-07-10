@@ -15,8 +15,8 @@
 #import "AppDelegate.h"
 #import "SimJobDetailsController.h"
 //Constants for sorts
-#define BIOMODEL_SORT 0
-#define DATE_SORT 1
+#define BIOMODEL_SORT @"BioModel"
+#define DATE_SORT @"Date"
 
 //Tags for buttons
 #define COMPLETED_BTN 10 // completed
@@ -42,8 +42,9 @@
 
 @interface SimJobController : UITableViewController <MBProgressHUDDelegate,UISearchBarDelegate, UISearchDisplayDelegate, SimJobsFiltersControllerDelegate,SimJobButtonCellDelegate>
 
+
 @property (strong, nonatomic) SimJobDetailsController *simJobDetailsController;
-@property (weak, nonatomic) IBOutlet UISegmentedControl *bioModelDateSegment;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *biomodelDateSwapBtn;
 @property (weak, nonatomic) IBOutlet UISearchBar *searchBar;
 - (IBAction)bioModelDateSwap:(id)sender;
 - (void)updatDataOnBtnPressedWithButtonTag:(int)tag AndButtonActive:(BOOL)active;

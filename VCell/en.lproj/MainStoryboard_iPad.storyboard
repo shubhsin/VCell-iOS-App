@@ -132,18 +132,10 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="SimJobs" id="M6C-2L-EGR">
-                        <barButtonItem key="leftBarButtonItem" id="yHL-fB-Kv4">
-                            <segmentedControl key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" id="Qan-ME-uDX">
-                                <rect key="frame" x="7" y="7" width="137" height="31"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <segments>
-                                    <segment title="BioModel"/>
-                                    <segment title="Date"/>
-                                </segments>
-                                <connections>
-                                    <action selector="bioModelDateSwap:" destination="hwi-HP-2ns" eventType="valueChanged" id="1PY-6d-6XF"/>
-                                </connections>
-                            </segmentedControl>
+                        <barButtonItem key="leftBarButtonItem" title="Date" style="done" id="IFu-nc-MIo">
+                            <connections>
+                                <action selector="bioModelDateSwap:" destination="hwi-HP-2ns" id="2Yt-GS-aIW"/>
+                            </connections>
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" title="Filter" id="zc0-Cq-h3s">
                             <connections>
@@ -152,7 +144,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="bioModelDateSegment" destination="Qan-ME-uDX" id="St5-1C-O4z"/>
+                        <outlet property="biomodelDateSwapBtn" destination="IFu-nc-MIo" id="Bin-WD-o00"/>
                         <outlet property="searchDisplayController" destination="UDR-dG-axk" id="dOG-ov-Ndc"/>
                     </connections>
                 </tableViewController>
@@ -1239,7 +1231,7 @@
             <source key="sourceIdentifier" type="project" relativePath="./Classes/SimJobController.h"/>
             <relationships>
                 <relationship kind="action" name="bioModelDateSwap:"/>
-                <relationship kind="outlet" name="bioModelDateSegment" candidateClass="UISegmentedControl"/>
+                <relationship kind="outlet" name="biomodelDateSwapBtn" candidateClass="UIBarButtonItem"/>
                 <relationship kind="outlet" name="searchBar" candidateClass="UISearchBar"/>
             </relationships>
         </class>

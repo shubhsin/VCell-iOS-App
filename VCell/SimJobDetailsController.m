@@ -20,12 +20,17 @@
 {
     simJob = object;
     NSLog(@"%@",simJob);
+    //for iPad
     [self setUpCells];
+
 }
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    //for iPhone
+    [self setUpCells];
+
 }
 
 - (void)setUpCells
@@ -42,7 +47,7 @@
     self.status.detailTextLabel.text = simJob.status;
     self.startDate.detailTextLabel.text = [simJob startDateString];
     self.msg.detailTextLabel.text = simJob.message;
-    
+    NSLog(@"%@",simJob.simKey);
     //section 2
     self.simContextKey.detailTextLabel.text = simJob.bioModelLink.simContextKey;
     self.simContextBranch.detailTextLabel.text = simJob.bioModelLink.simContextBranchId;

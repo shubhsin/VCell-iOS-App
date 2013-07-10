@@ -379,7 +379,7 @@
 			path = CorePlotHeaders;
 			sourceTree = "<group>";
 		};
-		54C2F4F517800D2400FEB6B9 /* Group */ = {
+		54C2F4F517800D2400FEB6B9 /* Graph */ = {
 			isa = PBXGroup;
 			children = (
 				54DA319C1764B8900020D2B5 /* GraphViewController.h */,
@@ -389,7 +389,7 @@
 				54C2F4F9178033BC00FEB6B9 /* GraphAxisSelectController.h */,
 				54C2F4FA178033BC00FEB6B9 /* GraphAxisSelectController.m */,
 			);
-			name = Group;
+			name = Graph;
 			sourceTree = "<group>";
 		};
 		54DA316B1764B8900020D2B5 = {
@@ -434,7 +434,7 @@
 				54DA31861764B8900020D2B5 /* AppDelegate.h */,
 				54DA31871764B8900020D2B5 /* AppDelegate.m */,
 				54DA318F1764B8900020D2B5 /* MainStoryboard_iPhone.storyboard */,
-				54C2F4F517800D2400FEB6B9 /* Group */,
+				54C2F4F517800D2400FEB6B9 /* Graph */,
 				54DA31921764B8900020D2B5 /* MainStoryboard_iPad.storyboard */,
 				543721E3176DFB7100AFC35F /* First Tab */,
 				54097FA41774A54D00AA6AE2 /* Resources */,
