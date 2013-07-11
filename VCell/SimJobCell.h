@@ -18,5 +18,4 @@
 @property (nonatomic, weak) IBOutlet UIButton *dataBtn;
 @property (nonatomic, weak) IBOutlet UIButton *bioModelBtn;
 
-//- (IBAction)dataBtn:(id)sender;
 @end

@@ -363,6 +363,13 @@
         if(job.bioModelLink.bioModelName == NULL)
             cell.bioModelBtn.hidden = YES;
         
+        //Hide buttons if iPad
+        if(!IS_PHONE)
+        {
+            cell.bioModelBtn.hidden = YES;
+            cell.dataBtn.hidden = YES;
+        }
+        
         //Setup labels
         cell.simName.text = job.simName;
         cell.status.text = job.status;
@@ -558,8 +565,10 @@
  //Needed to set height of search display controller properly.
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    //Height of cell for toggle buttons
     if(indexPath.section == 0 && tableView != self.searchDisplayController.searchResultsTableView)
         return 38.0f;
+    //Height of normal cells
     return 112.0f;
 }
 

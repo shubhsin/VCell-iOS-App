@@ -20,16 +20,19 @@
 {
     simJob = object;
     NSLog(@"%@",simJob);
-    //for iPad
-    [self setUpCells];
-
+    if(!IS_PHONE)
+        [self setUpCells];
 }
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    //for iPhone
-    [self setUpCells];
+    if(IS_PHONE)
+        [self setUpCells];
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
 
 }
 
