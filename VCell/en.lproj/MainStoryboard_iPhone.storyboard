@@ -1067,7 +1067,7 @@
             <objects>
                 <tableViewController id="qpS-ch-Yt9" customClass="GraphAxisSelectController" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="singleLineEtched" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="hGn-JP-tmb">
-                        <rect key="frame" x="0.0" y="64" width="320" height="455"/>
+                        <rect key="frame" x="0.0" y="64" width="320" height="504"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <prototypes>
@@ -1093,14 +1093,14 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vfi-c7-TTl" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1697" y="510"/>
+            <point key="canvasLocation" x="3191" y="-171"/>
         </scene>
         <!--Graph View Controller - Results-->
         <scene sceneID="QrW-tN-RpG">
             <objects>
                 <viewController id="gTa-tn-OvL" customClass="GraphViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="bbi-P6-j7I">
-                        <rect key="frame" x="0.0" y="64" width="320" height="455"/>
+                        <rect key="frame" x="0.0" y="64" width="320" height="504"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ULK-iA-rTg" customClass="CPTGraphHostingView">
@@ -1122,7 +1122,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9ga-uS-CqZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2228" y="510"/>
+            <point key="canvasLocation" x="3722" y="-171"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="15">
@@ -1136,18 +1136,18 @@
                     </tabBar>
                     <connections>
                         <segue destination="yIi-jm-5UB" kind="relationship" relationship="viewControllers" id="W40-6P-8dP"/>
-                        <segue destination="A6z-an-8uN" kind="relationship" relationship="viewControllers" id="xTU-Vz-98G"/>
+                        <segue destination="vHu-KI-ABv" kind="relationship" relationship="viewControllers" id="wwF-IY-uZk"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="14" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="90" y="176"/>
         </scene>
-        <!--Navigation Controller - Item-->
+        <!--Navigation Controller - Simulation Jobs-->
         <scene sceneID="4eg-um-KaX">
             <objects>
                 <navigationController id="yIi-jm-5UB" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Item" id="IUe-Bk-ulJ"/>
+                    <tabBarItem key="tabBarItem" title="Simulation Jobs" id="IUe-Bk-ulJ"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="AAo-j2-AVG">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -1161,6 +1161,56 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="a0S-u4-m8X" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="929" y="-171"/>
+        </scene>
+        <!--Biomodel View Controller - Biomodels-->
+        <scene sceneID="O9P-At-8oD">
+            <objects>
+                <tableViewController id="hcS-J6-KHh" customClass="BiomodelViewController" sceneMemberID="viewController">
+                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="h3n-QE-EUI">
+                        <rect key="frame" x="0.0" y="64" width="320" height="455"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <searchBar key="tableHeaderView" contentMode="redraw" text="" id="yNW-au-eFj">
+                            <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                            <textInputTraits key="textInputTraits"/>
+                            <connections>
+                                <outlet property="delegate" destination="hcS-J6-KHh" id="3E0-6T-wke"/>
+                            </connections>
+                        </searchBar>
+                        <prototypes>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="3fs-Tj-pTz">
+                                <rect key="frame" x="0.0" y="66" width="320" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                </view>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="hcS-J6-KHh" id="Mld-l1-ReF"/>
+                            <outlet property="delegate" destination="hcS-J6-KHh" id="8a4-qx-DKa"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="Biomodels" id="Roy-Gu-j7J"/>
+                    <connections>
+                        <outlet property="searchDisplayController" destination="J1z-CC-JCD" id="29j-Q8-Vh5"/>
+                    </connections>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Gry-t4-rau" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <searchDisplayController id="J1z-CC-JCD">
+                    <connections>
+                        <outlet property="delegate" destination="hcS-J6-KHh" id="Ix6-ug-y63"/>
+                        <outlet property="searchBar" destination="yNW-au-eFj" id="QCJ-su-XKj"/>
+                        <outlet property="searchContentsController" destination="hcS-J6-KHh" id="0wc-vc-tJJ"/>
+                        <outlet property="searchResultsDataSource" destination="hcS-J6-KHh" id="IgL-9Y-F0x"/>
+                        <outlet property="searchResultsDelegate" destination="hcS-J6-KHh" id="f9v-g3-64G"/>
+                    </connections>
+                </searchDisplayController>
+            </objects>
+            <point key="canvasLocation" x="1173" y="587"/>
         </scene>
         <!--Navigation Controller - Item-->
         <scene sceneID="EvT-6R-jBt">
@@ -1179,12 +1229,112 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HUA-KW-xaD" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1191" y="510"/>
+            <point key="canvasLocation" x="2685" y="-171"/>
+        </scene>
+        <!--Navigation Controller - Biomodels-->
+        <scene sceneID="MKN-d4-rhj">
+            <objects>
+                <navigationController id="vHu-KI-ABv" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Biomodels" id="trC-wF-Mhg"/>
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="ZFp-uF-43W">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="hcS-J6-KHh" kind="relationship" relationship="rootViewController" id="28Z-Mb-XBt"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="eWy-4m-UGk" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="651" y="587"/>
         </scene>
     </scenes>
     <resources>
         <image name="dot.png" width="15" height="15"/>
     </resources>
+    <classes>
+        <class className="BiomodelViewController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/BiomodelViewController.h"/>
+        </class>
+        <class className="CPTGraphHostingView" superclassName="UIView">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/CPTGraphHostingView.h"/>
+        </class>
+        <class className="GraphAxisSelectController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/GraphAxisSelectController.h"/>
+        </class>
+        <class className="GraphViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/GraphViewController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="hostView" candidateClass="CPTGraphHostingView"/>
+            </relationships>
+        </class>
+        <class className="NSLayoutConstraint" superclassName="NSObject">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/NSLayoutConstraint.h"/>
+        </class>
+        <class className="SimJobButtonCell" superclassName="UITableViewCell">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/SimJobButtonCell.h"/>
+            <relationships>
+                <relationship kind="action" name="btnPressed:"/>
+                <relationship kind="outlet" name="completedBtn" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="runningBtn" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="stoppedBtn" candidateClass="UIButton"/>
+            </relationships>
+        </class>
+        <class className="SimJobController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/SimJobController.h"/>
+            <relationships>
+                <relationship kind="action" name="bioModelDateSwap:"/>
+                <relationship kind="outlet" name="biomodelDateSwapBtn" candidateClass="UIBarButtonItem"/>
+                <relationship kind="outlet" name="searchBar" candidateClass="UISearchBar"/>
+            </relationships>
+        </class>
+        <class className="SimJobDetailsController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/SimJobDetailsController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="bioModelBranch" candidateClass="UITableViewCell"/>
+                <relationship kind="outlet" name="bioModelKey" candidateClass="UITableViewCell"/>
+                <relationship kind="outlet" name="bioModelName" candidateClass="UITableViewCell"/>
+                <relationship kind="outlet" name="computeHost" candidateClass="UITableViewCell"/>
+                <relationship kind="outlet" name="htcJobId" candidateClass="UITableViewCell"/>
+                <relationship kind="outlet" name="jobId" candidateClass="UITableViewCell"/>
+                <relationship kind="outlet" name="msg" candidateClass="UITableViewCell"/>
+                <relationship kind="outlet" name="parentApp" candidateClass="UITableViewCell"/>
+                <relationship kind="outlet" name="parentSim" candidateClass="UITableViewCell"/>
+                <relationship kind="outlet" name="schStatus" candidateClass="UITableViewCell"/>
+                <relationship kind="outlet" name="simContextBranch" candidateClass="UITableViewCell"/>
+                <relationship kind="outlet" name="simContextKey" candidateClass="UITableViewCell"/>
+                <relationship kind="outlet" name="simContextName" candidateClass="UITableViewCell"/>
+                <relationship kind="outlet" name="simKey" candidateClass="UITableViewCell"/>
+                <relationship kind="outlet" name="simName" candidateClass="UITableViewCell"/>
+                <relationship kind="outlet" name="site" candidateClass="UITableViewCell"/>
+                <relationship kind="outlet" name="startDate" candidateClass="UITableViewCell"/>
+                <relationship kind="outlet" name="status" candidateClass="UITableViewCell"/>
+                <relationship kind="outlet" name="taskId" candidateClass="UITableViewCell"/>
+                <relationship kind="outlet" name="userKey" candidateClass="UITableViewCell"/>
+                <relationship kind="outlet" name="username" candidateClass="UITableViewCell"/>
+                <relationship kind="outlet" name="viewData" candidateClass="UITableViewCell"/>
+            </relationships>
+        </class>
+        <class className="SimJobsFiltersController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/SimJobsFiltersController.h"/>
+            <relationships>
+                <relationship kind="action" name="clearBtn:"/>
+                <relationship kind="action" name="doneBtn:"/>
+                <relationship kind="outlet" name="computeHostCell" candidateClass="UITableViewCell"/>
+                <relationship kind="outlet" name="dateBeginCell" candidateClass="UITableViewCell"/>
+                <relationship kind="outlet" name="dateEndCell" candidateClass="UITableViewCell"/>
+                <relationship kind="outlet" name="hasDataCell" candidateClass="UITableViewCell"/>
+                <relationship kind="outlet" name="maxRowsCell" candidateClass="UITableViewCell"/>
+                <relationship kind="outlet" name="serverIDCell" candidateClass="UITableViewCell"/>
+                <relationship kind="outlet" name="simulationIDCell" candidateClass="UITableViewCell"/>
+            </relationships>
+        </class>
+        <class className="SimJobsFiltersDetail" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/SimJobsFiltersDetail.h"/>
+        </class>
+    </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>

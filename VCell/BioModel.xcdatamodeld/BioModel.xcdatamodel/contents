@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model name="" userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="2057" systemVersion="12D78" minimumToolsVersion="Xcode 4.3" macOSVersion="Automatic" iOSVersion="Automatic">
+    <entity name="Application" representedClassName="Application" syncable="YES">
+        <attribute name="branchId" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="key" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="mathKey" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="ownerKey" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="ownerName" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="biomodel" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Biomodel" inverseName="applications" inverseEntity="Biomodel" syncable="YES"/>
+        <relationship name="simulations" optional="YES" toMany="YES" deletionRule="Cascade" ordered="YES" destinationEntity="Simulation" inverseName="application" inverseEntity="Simulation" syncable="YES"/>
+    </entity>
+    <entity name="Biomodel" representedClassName="Biomodel" syncable="YES">
+        <attribute name="annot" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="bmKey" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="branchID" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="groupUsers" optional="YES" attributeType="Transformable" syncable="YES"/>
+        <attribute name="modelKey" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="ownerKey" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="ownerName" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="privacy" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="savedDate" optional="YES" attributeType="Date" syncable="YES"/>
+        <relationship name="applications" optional="YES" toMany="YES" deletionRule="Cascade" ordered="YES" destinationEntity="Application" inverseName="biomodel" inverseEntity="Application" syncable="YES"/>
+    </entity>
+    <entity name="Simulation" representedClassName="Simulation" syncable="YES">
+        <attribute name="branchId" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="key" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="mathKey" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="ownerKey" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="ownerName" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="scanCount" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="solverName" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="application" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Application" inverseName="simulations" inverseEntity="Application" syncable="YES"/>
+    </entity>
+    <elements>
+        <element name="Biomodel" positionX="-315" positionY="-1809" width="128" height="208"/>
+        <element name="Simulation" positionX="187" positionY="-1746" width="128" height="178"/>
+        <element name="Application" positionX="-27" positionY="-1800" width="128" height="163"/>
+    </elements>
+</model>

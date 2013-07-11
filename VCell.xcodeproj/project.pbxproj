@@ -18,6 +18,12 @@
 		543721E2176DFA8000AFC35F /* Constants.m in Sources */ = {isa = PBXBuildFile; fileRef = 543721E1176DFA8000AFC35F /* Constants.m */; };
 		54419AE7177B48EE00D10E30 /* SimJobDetailsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 54419AE6177B48EE00D10E30 /* SimJobDetailsController.m */; };
 		544CE0CA1765E13600F69C45 /* SimJob.m in Sources */ = {isa = PBXBuildFile; fileRef = 544CE0C91765E13600F69C45 /* SimJob.m */; };
+		545AF782178E8A1A0003678F /* BiomodelViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 545AF781178E8A1A0003678F /* BiomodelViewController.m */; };
+		545AF786178EA6DA0003678F /* BioModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 545AF784178EA6DA0003678F /* BioModel.xcdatamodeld */; };
+		545AF78C178ED36C0003678F /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 545AF78B178ED36C0003678F /* CoreData.framework */; };
+		545AF7CF178F21100003678F /* Simulation.m in Sources */ = {isa = PBXBuildFile; fileRef = 545AF7CE178F21100003678F /* Simulation.m */; };
+		545AF7D2178F21100003678F /* Application.m in Sources */ = {isa = PBXBuildFile; fileRef = 545AF7D1178F21100003678F /* Application.m */; };
+		545AF7D5178F21100003678F /* Biomodel.m in Sources */ = {isa = PBXBuildFile; fileRef = 545AF7D4178F21100003678F /* Biomodel.m */; };
 		54608B121779ADDA0004C4D9 /* SimJobsFiltersController.m in Sources */ = {isa = PBXBuildFile; fileRef = 54608B111779ADDA0004C4D9 /* SimJobsFiltersController.m */; };
 		54608B151779BC320004C4D9 /* SimJobsFiltersDetail.m in Sources */ = {isa = PBXBuildFile; fileRef = 54608B141779BC320004C4D9 /* SimJobsFiltersDetail.m */; };
 		5467C06017674804002A5CC9 /* SimJobCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5467C05F17674804002A5CC9 /* SimJobCell.m */; };
@@ -78,6 +84,16 @@
 		54419AE6177B48EE00D10E30 /* SimJobDetailsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SimJobDetailsController.m; sourceTree = "<group>"; };
 		544CE0C81765E13600F69C45 /* SimJob.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SimJob.h; sourceTree = "<group>"; };
 		544CE0C91765E13600F69C45 /* SimJob.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SimJob.m; sourceTree = "<group>"; };
+		545AF780178E8A1A0003678F /* BiomodelViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BiomodelViewController.h; sourceTree = "<group>"; };
+		545AF781178E8A1A0003678F /* BiomodelViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BiomodelViewController.m; sourceTree = "<group>"; };
+		545AF785178EA6DA0003678F /* BioModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = BioModel.xcdatamodel; sourceTree = "<group>"; };
+		545AF78B178ED36C0003678F /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		545AF7CD178F21100003678F /* Simulation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Simulation.h; sourceTree = "<group>"; };
+		545AF7CE178F21100003678F /* Simulation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Simulation.m; sourceTree = "<group>"; };
+		545AF7D0178F21100003678F /* Application.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Application.h; sourceTree = "<group>"; };
+		545AF7D1178F21100003678F /* Application.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Application.m; sourceTree = "<group>"; };
+		545AF7D3178F21100003678F /* Biomodel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Biomodel.h; sourceTree = "<group>"; };
+		545AF7D4178F21100003678F /* Biomodel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Biomodel.m; sourceTree = "<group>"; };
 		54608B101779ADDA0004C4D9 /* SimJobsFiltersController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SimJobsFiltersController.h; sourceTree = "<group>"; };
 		54608B111779ADDA0004C4D9 /* SimJobsFiltersController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SimJobsFiltersController.m; sourceTree = "<group>"; };
 		54608B131779BC320004C4D9 /* SimJobsFiltersDetail.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SimJobsFiltersDetail.h; sourceTree = "<group>"; };
@@ -207,6 +223,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				545AF78C178ED36C0003678F /* CoreData.framework in Frameworks */,
 				54C2F4F4177FDF2500FEB6B9 /* QuartzCore.framework in Frameworks */,
 				54DA31781764B8900020D2B5 /* UIKit.framework in Frameworks */,
 				54DA317A1764B8900020D2B5 /* Foundation.framework in Frameworks */,
@@ -248,7 +265,7 @@
 			name = Resources;
 			sourceTree = "<group>";
 		};
-		543721E3176DFB7100AFC35F /* First Tab */ = {
+		543721E3176DFB7100AFC35F /* First Tab - SimJob */ = {
 			isa = PBXGroup;
 			children = (
 				54DA31951764B8900020D2B5 /* SimJobController.h */,
@@ -257,10 +274,11 @@
 				54419AE6177B48EE00D10E30 /* SimJobDetailsController.m */,
 				544CE0C81765E13600F69C45 /* SimJob.h */,
 				544CE0C91765E13600F69C45 /* SimJob.m */,
+				54C2F4F517800D2400FEB6B9 /* Graph */,
 				54419AE4177B48BB00D10E30 /* Filters */,
 				54419AE3177B48B100D10E30 /* Custom Cells */,
 			);
-			name = "First Tab";
+			name = "First Tab - SimJob";
 			sourceTree = "<group>";
 		};
 		54419AE3177B48B100D10E30 /* Custom Cells */ = {
@@ -284,6 +302,30 @@
 				54608B141779BC320004C4D9 /* SimJobsFiltersDetail.m */,
 			);
 			name = Filters;
+			sourceTree = "<group>";
+		};
+		545AF783178E8A260003678F /* Second Tab - Biomodel */ = {
+			isa = PBXGroup;
+			children = (
+				545AF780178E8A1A0003678F /* BiomodelViewController.h */,
+				545AF781178E8A1A0003678F /* BiomodelViewController.m */,
+				545AF784178EA6DA0003678F /* BioModel.xcdatamodeld */,
+				545AF7A8178EE0C20003678F /* Models */,
+			);
+			name = "Second Tab - Biomodel";
+			sourceTree = "<group>";
+		};
+		545AF7A8178EE0C20003678F /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				545AF7D3178F21100003678F /* Biomodel.h */,
+				545AF7D4178F21100003678F /* Biomodel.m */,
+				545AF7D0178F21100003678F /* Application.h */,
+				545AF7D1178F21100003678F /* Application.m */,
+				545AF7CD178F21100003678F /* Simulation.h */,
+				545AF7CE178F21100003678F /* Simulation.m */,
+			);
+			name = Models;
 			sourceTree = "<group>";
 		};
 		54C2F4A2177FDEA800FEB6B9 /* CorePlot */ = {
@@ -395,6 +437,7 @@
 		54DA316B1764B8900020D2B5 = {
 			isa = PBXGroup;
 			children = (
+				545AF78B178ED36C0003678F /* CoreData.framework */,
 				54DA317D1764B8900020D2B5 /* VCell */,
 				54DA31AF1764B8900020D2B5 /* VCellTests */,
 				54DA31761764B8900020D2B5 /* Frameworks */,
@@ -434,9 +477,9 @@
 				54DA31861764B8900020D2B5 /* AppDelegate.h */,
 				54DA31871764B8900020D2B5 /* AppDelegate.m */,
 				54DA318F1764B8900020D2B5 /* MainStoryboard_iPhone.storyboard */,
-				54C2F4F517800D2400FEB6B9 /* Graph */,
 				54DA31921764B8900020D2B5 /* MainStoryboard_iPad.storyboard */,
-				543721E3176DFB7100AFC35F /* First Tab */,
+				545AF783178E8A260003678F /* Second Tab - Biomodel */,
+				543721E3176DFB7100AFC35F /* First Tab - SimJob */,
 				54097FA41774A54D00AA6AE2 /* Resources */,
 				54DA317E1764B8900020D2B5 /* Supporting Files */,
 			);
@@ -643,6 +686,11 @@
 				54419AE7177B48EE00D10E30 /* SimJobDetailsController.m in Sources */,
 				54C2F4F817800D9400FEB6B9 /* SimGraph.m in Sources */,
 				54C2F4FB178033BC00FEB6B9 /* GraphAxisSelectController.m in Sources */,
+				545AF782178E8A1A0003678F /* BiomodelViewController.m in Sources */,
+				545AF786178EA6DA0003678F /* BioModel.xcdatamodeld in Sources */,
+				545AF7CF178F21100003678F /* Simulation.m in Sources */,
+				545AF7D2178F21100003678F /* Application.m in Sources */,
+				545AF7D5178F21100003678F /* Biomodel.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -857,6 +905,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		545AF784178EA6DA0003678F /* BioModel.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				545AF785178EA6DA0003678F /* BioModel.xcdatamodel */,
+			);
+			currentVersion = 545AF785178EA6DA0003678F /* BioModel.xcdatamodel */;
+			path = BioModel.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 54DA316C1764B8900020D2B5 /* Project object */;
 }

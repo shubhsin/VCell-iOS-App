@@ -8,8 +8,6 @@
 
 #import "SimJobController.h"
 
-
-
 @interface SimJobController ()
 {
     //HUD Variables
@@ -338,7 +336,6 @@
     }
     SimJobCell *cell;
 
-    
     //Register nib files manually for custom cell since search display controller can't load from storyboard
     [self.searchDisplayController.searchResultsTableView registerNib:[UINib nibWithNibName:@"SimJobCell" bundle:[NSBundle mainBundle]] forCellReuseIdentifier:CellIdentifier];
     [self.tableView registerNib:[UINib nibWithNibName:@"SimJobCell" bundle:[NSBundle mainBundle]] forCellReuseIdentifier:CellIdentifier];
