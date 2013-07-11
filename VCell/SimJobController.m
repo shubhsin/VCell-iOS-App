@@ -459,6 +459,19 @@
     
     NSOrderedSet *uniqueKeys = [[NSOrderedSet alloc] initWithSet:uniqueKeysUnordered];
     
+    if(byDate)
+    {
+        NSArray *sortedKeys = [uniqueKeys sortedArrayUsingComparator:^NSComparisonResult(id obj1, id obj2) {
+            NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
+            dateFormat.dateFormat = DATEFORMAT;
+            NSDate *first = [dateFormat dateFromString:obj1];
+            NSDate *second = [dateFormat dateFromString:obj2];
+            return [first compare:second];
+        }];
+        
+        uniqueKeys = [[NSOrderedSet alloc] initWithArray:sortedKeys];
+    }
+        
     NSMutableArray *sections = [NSMutableArray array];
     
     for(NSString *key in uniqueKeys)

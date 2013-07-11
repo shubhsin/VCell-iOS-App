@@ -7,7 +7,7 @@
 //
 
 #define IS_PHONE  UI_USER_INTERFACE_IDIOM()==UIUserInterfaceIdiomPhone
-
+#define DATEFORMAT @"EEEE',' d MMMM yyyy"
 
 extern NSString * const BASE_URL;
 extern NSString * const SIMTASK_URL;

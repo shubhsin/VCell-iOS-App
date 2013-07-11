@@ -13,7 +13,7 @@
 {
     NSDate *date = [NSDate dateWithTimeIntervalSince1970:[self.startdate doubleValue]/1000];
     NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
-    dateFormat.dateFormat = @"EEEE',' d MMMM yyyy";
+    dateFormat.dateFormat = DATEFORMAT;
     return [dateFormat stringFromDate:date];
 }
 - (id)initWithDict:(NSDictionary *)dict
