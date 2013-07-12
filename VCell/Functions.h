@@ -28,5 +28,8 @@
 @property (weak, nonatomic) id <FetchJSONDelegate> delegate;
 
 //Makes a NSURLConnection request fetches data and shows HUD
-- (void)fetchJSONFromURL:(NSURL*)url WithrowNum:(NSUInteger)rownum AddHUDToView:(UIView*)view NSURLConnectiondelegate:(id)delegate;
+- (void)fetchJSONFromURL:(NSURL*)url WithrowNum:(NSUInteger)rownum AddHUDToView:(UIView*)view delegate:(id)delegate;
+
+//Delete all objects from Coredata
++ (void)deleteAllObjects:(NSString *) entityDescription inManagedObjectContext:(NSManagedObjectContext *) context;
 @end

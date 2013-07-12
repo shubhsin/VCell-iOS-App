@@ -19,6 +19,7 @@
     NSUInteger numberOfObjectsReceived;
     NSMutableData *connectionData;
     NSUInteger rowNum; //current start row of the data to request
+    NSMutableDictionary *URLparams;
 }
 @end
 
@@ -27,119 +28,62 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    //Pull to refresh
+    UIRefreshControl *refreshControl = [[UIRefreshControl alloc] init];
+    [refreshControl addTarget:self action:@selector(initDictAndstartLoading:) forControlEvents:UIControlEventValueChanged];
+    [self setRefreshControl:refreshControl];
+   
+    // Test listing all Biomodels from the store
+    NSManagedObjectContext *context = [self managedObjectContext];
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+    NSEntityDescription *entity = [NSEntityDescription entityForName:BIOMODEL_ENTITY inManagedObjectContext:context];
+    [fetchRequest setEntity:entity];
+    NSArray *fetchedObjects = [context executeFetchRequest:fetchRequest error:nil];
+    for (Biomodel *biomodel in fetchedObjects)
+        NSLog(@"Name: %@", biomodel.bmKey);
+
 }
 
-#pragma mark - Table view data source
 
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+- (void)initDictAndstartLoading:(id)sender
 {
-    // Return the number of sections.
-    return 0;
-}
-
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-{
-    // Return the number of rows in the section.
-    return 0;
-}
-
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    static NSString *CellIdentifier = @"Cell";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
+    [Functions deleteAllObjects:BIOMODEL_ENTITY inManagedObjectContext:self.managedObjectContext];
+    [self initURLParamDict];
+    rowNum = 1;
+    [self startLoading];
+    if(sender != nil)
+        [(UIRefreshControl *)sender endRefreshing];
     
-    // Configure the cell...
+  
     
-    return cell;
-}
-
-#pragma mark - Table view delegate
-
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Navigation logic may go here. Create and push another view controller.
-    /*
-     <#DetailViewController#> *detailViewController = [[<#DetailViewController#> alloc] initWithNibName:@"<#Nib name#>" bundle:nil];
-     // ...
-     // Pass the selected object to the new view controller.
-     [self.navigationController pushViewController:detailViewController animated:YES];
-     */
 }
 
 #pragma mark - Fetch JSON
 
+- (void)initURLParamDict
+{
+    NSArray *keys=  [NSArray arrayWithObjects:
+                     BM_BEGIN_STAMP,
+                     BM_END_STAMP,
+                     BM_MAXROWS,
+                     BIOMODELID,
+                     nil];
+    
+    NSArray *objects = [NSArray arrayWithObjects:
+                        @"",
+                        @"",
+                        @"10",
+                        @"",
+                        nil];
+    
+    URLparams = [Functions initURLParamDictWithFileName:BIOMODEL_FILTERS_FILE Keys:keys AndObjects:objects];
+}
 - (void)startLoading
 {
-//    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@startRow=%d",BIOMODEL_URL,[self contructUrlParamsOnDict:URLparams],rowNum]];
-//    NSLog(@"%@",url);
-//    connectionData = [NSMutableData data];
-//    NSURLRequest *urlReq = [NSURLRequest requestWithURL:url];
-//    NSURLConnection *connection = [[NSURLConnection alloc] initWithRequest:urlReq  delegate:self];
-//    [connection start];
-//    HUD = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
-//    HUD.delegate = self;
-//    if(rowNum == 1)
-//    {
-//        HUD.dimBackground = YES;
-//        HUD.labelText = @"Fetching...";
-//    }
-//    else
-//    {
-//        HUD.mode = MBProgressHUDModeText;
-//        HUD.labelText = @"Fetching...";
-//        HUD.margin = 10.f;
-//        HUD.yOffset = 150.f;
-//        HUD.userInteractionEnabled = NO;
-//    }
-}
-
-#pragma mark - NSURLConnectionDelegete
-
-- (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response
-{
-    if(rowNum == 1)
-    {
-        expectedLength = [response expectedContentLength];
-        currentLength = 0;
-        HUD.mode = MBProgressHUDModeDeterminate;
-    }
-}
-
-- (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data
-{
-    if(rowNum == 1)
-    {
-        currentLength += [data length];
-        HUD.progress = currentLength / (float)expectedLength;
-    }
-    [connectionData appendData:data];
-}
-
-
-- (void)connectionDidFinishLoading:(NSURLConnection *)connection {
-    
-    // Save the received JSON array inside an NSArray
-    NSArray *jsonData = [NSJSONSerialization JSONObjectWithData:connectionData options:kNilOptions error:nil];
-    
-    // Make an empty array with size equal to number of objects received
-    NSMutableArray *simMutableJobs = [NSMutableArray array];
-    
-    // Add the objects in the array
-    //for(NSDictionary *dict in jsonData)
-    //    [simMutableJobs addObject:[[SimJob alloc] initWithDict:dict]];
-    
-  
-    
-    HUD.labelText = @"Done!";
-    [HUD hide:YES afterDelay:1];
-    
-    
-    
-}
-
-- (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error
-{
-	[HUD hide:YES];
+    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@startRow=%d",BIOMODEL_URL,[Functions contructUrlParamsOnDict:URLparams],rowNum]];
+    NSLog(@"%@",url);
+    Functions *functions = [(AppDelegate*)[[UIApplication sharedApplication] delegate] functions];
+    [functions fetchJSONFromURL:url WithrowNum:rowNum AddHUDToView:self.navigationController.view delegate:self];
 }
 
 #pragma mark MBProgressHUDDelegate methods
@@ -150,6 +94,57 @@
 	HUD = nil;
 }
 
+#pragma mark - fetch JSON delegate
+
+- (void)fetchJSONDidCompleteWithJSONArray:(NSArray *)jsonData
+{
+    NSManagedObjectContext *context = [self managedObjectContext];
+    
+    // Make an empty array
+    NSMutableArray *biomodels = [NSMutableArray array];
+    
+    // Add the objects in the array
+    for(NSDictionary *dict in jsonData)
+    {        
+        Biomodel *biomodel = [Biomodel biomodelWithDict:dict inContext:context];
+        [biomodels addObject:biomodel];
+    }
+    numberOfObjectsReceived = [biomodels count];
+    
+    NSError *error;
+    if (![context save:&error]) {
+        NSLog(@"Whoops, couldn't save: %@", [error localizedDescription]);
+    }
+    
+}
+
+#pragma mark - Table view data source
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    // Return the number of sections.
+    return [[self.fetchedResultsController sections] count];
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    // Return the number of rows in the section.
+    id <NSFetchedResultsSectionInfo> sectionInfo = [self.fetchedResultsController sections][section];
+    return [sectionInfo numberOfObjects];
+}
+
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
+{
+    id <NSFetchedResultsSectionInfo> sectionInfo = [self.fetchedResultsController sections][section];
+    return [sectionInfo name];
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
+    [self configureCell:cell atIndexPath:indexPath];
+    return cell;
+}
 
 #pragma mark - Fetched results controller
 
@@ -161,21 +156,21 @@
     
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
     // Edit the entity name as appropriate.
-    NSEntityDescription *entity = [NSEntityDescription entityForName:@"Event" inManagedObjectContext:self.managedObjectContext];
+    NSEntityDescription *entity = [NSEntityDescription entityForName:SIMULATION_ENTITY inManagedObjectContext:self.managedObjectContext];
     [fetchRequest setEntity:entity];
     
     // Set the batch size to a suitable number.
     [fetchRequest setFetchBatchSize:20];
     
     // Edit the sort key as appropriate.
-    NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"timeStamp" ascending:NO];
+    NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"application.biomodel.savedDate" ascending:YES];
     NSArray *sortDescriptors = @[sortDescriptor];
     
     [fetchRequest setSortDescriptors:sortDescriptors];
     
     // Edit the section name key path and cache name if appropriate.
     // nil for section name key path means "no sections".
-    NSFetchedResultsController *aFetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest managedObjectContext:self.managedObjectContext sectionNameKeyPath:nil cacheName:@"Master"];
+    NSFetchedResultsController *aFetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest managedObjectContext:self.managedObjectContext sectionNameKeyPath:@"application.biomodel.name" cacheName:@"Master"];
     aFetchedResultsController.delegate = self;
     self.fetchedResultsController = aFetchedResultsController;
 
@@ -192,8 +187,23 @@
 
 - (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath
 {
-    NSManagedObject *object = [self.fetchedResultsController objectAtIndexPath:indexPath];
-    cell.textLabel.text = [[object valueForKey:@"timeStamp"] description];
+    Simulation *object = [self.fetchedResultsController objectAtIndexPath:indexPath];
+    cell.textLabel.text = object.name;
+
 }
+
+#pragma mark - Table view delegate
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    // Navigation logic may go here. Create and push another view controller.
+    /*
+     <#DetailViewController#> *detailViewController = [[<#DetailViewController#> alloc] initWithNibName:@"<#Nib name#>" bundle:nil];
+     // ...
+     // Pass the selected object to the new view controller.
+     [self.navigationController pushViewController:detailViewController animated:YES];
+     */
+}
+
 
 @end

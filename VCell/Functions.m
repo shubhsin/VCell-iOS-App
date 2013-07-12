@@ -45,8 +45,22 @@
         URLparams = [[NSMutableDictionary alloc] initWithContentsOfFile:plistPath];
     return URLparams;
 }
++ (void)deleteAllObjects:(NSString *) entityDescription inManagedObjectContext:(NSManagedObjectContext *) context
+{
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+    NSEntityDescription *entity = [NSEntityDescription entityForName:entityDescription inManagedObjectContext:context];
+    [fetchRequest setEntity:entity];
+    NSError *error;
+    NSArray *items = [context executeFetchRequest:fetchRequest error:&error];
+    for (NSManagedObject *managedObject in items)
+    	[context deleteObject:managedObject];
+    
+    if (![context save:&error]) {
+    	NSLog(@"Error deleting %@ - error:%@",entityDescription,error);
+    }
 
-- (void)fetchJSONFromURL:(NSURL*)url WithrowNum:(NSUInteger)rownum AddHUDToView:(UIView*)view NSURLConnectiondelegate:(id)delegate
+}
+- (void)fetchJSONFromURL:(NSURL*)url WithrowNum:(NSUInteger)rownum AddHUDToView:(UIView*)view delegate:(id)delegate
 {
     self.delegate = delegate;
     rowNum = rownum;

@@ -10,6 +10,7 @@
 #import "SimJobsFiltersController.h"
 #import "SimJob.h"
 #import "SimJobCell.h"
+#import "AppDelegate.h"
 #import "SimJobButtonCell.h"
 #import "MBProgressHUD.h"
 #import "AppDelegate.h"

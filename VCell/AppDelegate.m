@@ -13,10 +13,14 @@
 @synthesize managedObjectContext = _managedObjectContext;
 @synthesize managedObjectModel = _managedObjectModel;
 @synthesize persistentStoreCoordinator = _persistentStoreCoordinator;
+@synthesize functions = _functions;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     // Override point for customization after application launch
+    
+    self.functions = [[Functions alloc] init];
+    
     UITabBarController *tabBar = (UITabBarController*)self.window.rootViewController;
 
     if (!IS_PHONE)

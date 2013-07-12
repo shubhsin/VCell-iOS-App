@@ -26,7 +26,6 @@
 
 @implementation SimJobController
 
-
 - (void)initURLParamDict
 {
     NSArray *keys=  [NSArray arrayWithObjects:BEGIN_STAMP,
@@ -103,17 +102,16 @@
 
 - (void)startLoading
 {
-    
-    
     NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@startRow=%d",SIMTASK_URL,[Functions contructUrlParamsOnDict:URLparams],rowNum]];
     NSLog(@"%@",url);
-    [[[Functions alloc] init] fetchJSONFromURL:url WithrowNum:rowNum AddHUDToView:self.navigationController.view NSURLConnectiondelegate:self];
+    Functions *functions = [(AppDelegate*)[[UIApplication sharedApplication] delegate] functions];
+    [functions fetchJSONFromURL:url WithrowNum:rowNum AddHUDToView:self.navigationController.view delegate:self];
 }
 
 
 - (void)fetchJSONDidCompleteWithJSONArray:(NSArray *)jsonData
 {
-    // Make an empty array with size equal to number of objects received
+    // Make an empty array
     NSMutableArray *simMutableJobs = [NSMutableArray array];
     
     // Add the objects in the array

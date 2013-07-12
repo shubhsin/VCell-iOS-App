@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
+#import "Simulation.h"
 
 @class Application;
 
@@ -24,6 +25,9 @@
 @property (nonatomic, retain) NSNumber * ownerKey;
 @property (nonatomic, retain) NSString * annot;
 @property (nonatomic, retain) NSOrderedSet *applications;
+
++ (id)biomodelWithDict:(NSDictionary*)dict inContext:(NSManagedObjectContext*)context;
+
 @end
 
 @interface Biomodel (CoreDataGeneratedAccessors)
