@@ -40,7 +40,7 @@
 #define TASKID @"taskId"
 #define HASDATA @"hasData"
 
-@interface SimJobController : UITableViewController <MBProgressHUDDelegate,UISearchBarDelegate, UISearchDisplayDelegate, SimJobsFiltersControllerDelegate,SimJobButtonCellDelegate>
+@interface SimJobController : UITableViewController <MBProgressHUDDelegate, UISearchBarDelegate, UISearchDisplayDelegate, SimJobsFiltersControllerDelegate,SimJobButtonCellDelegate,FetchJSONDelegate>
 
 
 @property (strong, nonatomic) SimJobDetailsController *simJobDetailsController;

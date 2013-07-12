@@ -9,12 +9,7 @@
 #import "SimJobController.h"
 
 @interface SimJobController ()
-{
-    //HUD Variables
-    MBProgressHUD *HUD;
-    long long expectedLength;
-	long long currentLength;
-    
+{  
     //Class Vars
     NSUInteger numberOfObjectsReceived;
     NSMutableDictionary *URLparams;
@@ -108,57 +103,16 @@
 
 - (void)startLoading
 {
+    
+    
     NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@startRow=%d",SIMTASK_URL,[Functions contructUrlParamsOnDict:URLparams],rowNum]];
     NSLog(@"%@",url);
-    connectionData = [NSMutableData data];
-    NSURLRequest *urlReq = [NSURLRequest requestWithURL:url];
-    NSURLConnection *connection = [[NSURLConnection alloc] initWithRequest:urlReq  delegate:self];
-    [connection start];
-    HUD = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
-    HUD.delegate = self;
-    if(rowNum == 1)
-    {
-        HUD.dimBackground = YES;
-        HUD.labelText = @"Fetching...";
-    }
-    else
-    {
-        HUD.mode = MBProgressHUDModeText;
-        HUD.labelText = @"Fetching...";
-        HUD.margin = 10.f;
-        HUD.yOffset = 150.f;
-        HUD.userInteractionEnabled = NO;
-    }
+    [[[Functions alloc] init] fetchJSONFromURL:url WithrowNum:rowNum AddHUDToView:self.navigationController.view NSURLConnectiondelegate:self];
 }
 
-#pragma mark - NSURLConnectionDelegete
 
-- (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response
+- (void)fetchJSONDidCompleteWithJSONArray:(NSArray *)jsonData
 {
-    if(rowNum == 1)
-    {
-        expectedLength = [response expectedContentLength];
-        currentLength = 0;
-        HUD.mode = MBProgressHUDModeDeterminate;
-    }
-}
-
-- (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data
-{
-    if(rowNum == 1)
-    {
-        currentLength += [data length];
-        HUD.progress = currentLength / (float)expectedLength;
-    }
-    [connectionData appendData:data];
-}
-
-
-- (void)connectionDidFinishLoading:(NSURLConnection *)connection {
-    
-    // Save the received JSON array inside an NSArray
-    NSArray *jsonData = [NSJSONSerialization JSONObjectWithData:connectionData options:kNilOptions error:nil];
-    
     // Make an empty array with size equal to number of objects received
     NSMutableArray *simMutableJobs = [NSMutableArray array];
     
@@ -172,10 +126,7 @@
     {
         simJobs = [NSMutableArray arrayWithArray:simMutableJobs];
         [self breakIntoSectionsbyDate:sortByDate andSimJobArr:simJobs forTableView:self.tableView];
-        HUD.customView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"37x-Checkmark.png"]];
-        HUD.mode = MBProgressHUDModeCustomView;
-        HUD.dimBackground = NO;
-    
+           
     }
     else
     {
@@ -221,27 +172,14 @@
             }];
         }];
     }
-    
-    HUD.labelText = @"Done!";
-    [HUD hide:YES afterDelay:1];
-
-
-
 }
-
-- (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error
-{
-	[HUD hide:YES];
-}
-
 #pragma mark MBProgressHUDDelegate methods
 
 - (void)hudWasHidden:(MBProgressHUD *)hud {
 	// Remove HUD from screen when the HUD was hidded
-	[HUD removeFromSuperview];
-	HUD = nil;
+	[hud removeFromSuperview];
+	hud = nil;
 }
-    
 
 #pragma mark - Table view data source
 
