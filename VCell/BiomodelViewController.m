@@ -9,7 +9,17 @@
 #import "BiomodelViewController.h"
 
 @interface BiomodelViewController ()
-
+{
+    //HUD Variables
+    MBProgressHUD *HUD;
+    long long expectedLength;
+	long long currentLength;
+    
+    //Class Vars
+    NSUInteger numberOfObjectsReceived;
+    NSMutableData *connectionData;
+    NSUInteger rowNum; //current start row of the data to request
+}
 @end
 
 @implementation BiomodelViewController
@@ -54,6 +64,90 @@
      // Pass the selected object to the new view controller.
      [self.navigationController pushViewController:detailViewController animated:YES];
      */
+}
+
+#pragma mark - Fetch JSON
+
+- (void)startLoading
+{
+//    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@startRow=%d",BIOMODEL_URL,[self contructUrlParamsOnDict:URLparams],rowNum]];
+//    NSLog(@"%@",url);
+//    connectionData = [NSMutableData data];
+//    NSURLRequest *urlReq = [NSURLRequest requestWithURL:url];
+//    NSURLConnection *connection = [[NSURLConnection alloc] initWithRequest:urlReq  delegate:self];
+//    [connection start];
+//    HUD = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
+//    HUD.delegate = self;
+//    if(rowNum == 1)
+//    {
+//        HUD.dimBackground = YES;
+//        HUD.labelText = @"Fetching...";
+//    }
+//    else
+//    {
+//        HUD.mode = MBProgressHUDModeText;
+//        HUD.labelText = @"Fetching...";
+//        HUD.margin = 10.f;
+//        HUD.yOffset = 150.f;
+//        HUD.userInteractionEnabled = NO;
+//    }
+}
+
+#pragma mark - NSURLConnectionDelegete
+
+- (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response
+{
+    if(rowNum == 1)
+    {
+        expectedLength = [response expectedContentLength];
+        currentLength = 0;
+        HUD.mode = MBProgressHUDModeDeterminate;
+    }
+}
+
+- (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data
+{
+    if(rowNum == 1)
+    {
+        currentLength += [data length];
+        HUD.progress = currentLength / (float)expectedLength;
+    }
+    [connectionData appendData:data];
+}
+
+
+- (void)connectionDidFinishLoading:(NSURLConnection *)connection {
+    
+    // Save the received JSON array inside an NSArray
+    NSArray *jsonData = [NSJSONSerialization JSONObjectWithData:connectionData options:kNilOptions error:nil];
+    
+    // Make an empty array with size equal to number of objects received
+    NSMutableArray *simMutableJobs = [NSMutableArray array];
+    
+    // Add the objects in the array
+    //for(NSDictionary *dict in jsonData)
+    //    [simMutableJobs addObject:[[SimJob alloc] initWithDict:dict]];
+    
+  
+    
+    HUD.labelText = @"Done!";
+    [HUD hide:YES afterDelay:1];
+    
+    
+    
+}
+
+- (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error
+{
+	[HUD hide:YES];
+}
+
+#pragma mark MBProgressHUDDelegate methods
+
+- (void)hudWasHidden:(MBProgressHUD *)hud {
+	// Remove HUD from screen when the HUD was hidded
+	[HUD removeFromSuperview];
+	HUD = nil;
 }
 
 

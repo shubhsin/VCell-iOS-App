@@ -31,24 +31,10 @@
 
 @implementation SimJobController
 
-- (NSString*)contructUrlParamsOnDict:(NSDictionary*)dict
-{ 
-    NSMutableString *params = [NSMutableString stringWithString:@"?"];
-    
-    for(NSString *key in dict)
-        [params appendFormat:@"%@=%@&",key,[dict objectForKey:key]];
-    
-//    NSLog(@"%@",params);
-    return params;
-}
+
 - (void)initURLParamDict
 {
-    NSFileManager *fileManager = [NSFileManager defaultManager];
-    NSString *plistPath = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0] stringByAppendingPathComponent:SIMJOB_FILTERS_FILE];
-    
-    if ([fileManager fileExistsAtPath:plistPath] == NO)
-    {
-        NSArray *keys=  [NSArray arrayWithObjects:BEGIN_STAMP,
+    NSArray *keys=  [NSArray arrayWithObjects:BEGIN_STAMP,
                          END_STAMP,
                          MAXROWS,
                          SERVERID,
@@ -65,7 +51,7 @@
                          @"failed",
                          @"stopped",nil];
         
-        NSArray *objects = [NSArray arrayWithObjects:
+    NSArray *objects = [NSArray arrayWithObjects:
                             @"",@"",
                             @"10",
                             @"",@"",@"", @"",@"",
@@ -73,12 +59,8 @@
                             @"on",
                             @"",@"",@"",@"",@"",@"",
                             nil];
-        URLparams = [[NSMutableDictionary alloc] initWithObjects:objects forKeys:keys];
-        [URLparams writeToFile:plistPath atomically:YES];
-
-    }
-    else
-        URLparams = [[NSMutableDictionary alloc] initWithContentsOfFile:plistPath];
+  
+    URLparams = [Functions initURLParamDictWithFileName:SIMJOB_FILTERS_FILE Keys:keys AndObjects:objects];
 }
 
 - (void)viewDidLoad
@@ -126,7 +108,7 @@
 
 - (void)startLoading
 {
-    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@startRow=%d",SIMTASK_URL,[self contructUrlParamsOnDict:URLparams],rowNum]];
+    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@startRow=%d",SIMTASK_URL,[Functions contructUrlParamsOnDict:URLparams],rowNum]];
     NSLog(@"%@",url);
     connectionData = [NSMutableData data];
     NSURLRequest *urlReq = [NSURLRequest requestWithURL:url];

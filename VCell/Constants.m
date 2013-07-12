@@ -9,6 +9,7 @@
 #import "Constants.h"
 
 NSString * const SIMJOB_FILTERS_FILE = @"simJobFilters.plist";
+NSString * const BIOMODEL_FILTERS_FILE = @"biomodelFilters.plist";
 
 #ifdef LOCALHOST
 #define EXTENSION @".php"

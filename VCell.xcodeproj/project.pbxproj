@@ -24,6 +24,7 @@
 		545AF7CF178F21100003678F /* Simulation.m in Sources */ = {isa = PBXBuildFile; fileRef = 545AF7CE178F21100003678F /* Simulation.m */; };
 		545AF7D2178F21100003678F /* Application.m in Sources */ = {isa = PBXBuildFile; fileRef = 545AF7D1178F21100003678F /* Application.m */; };
 		545AF7D5178F21100003678F /* Biomodel.m in Sources */ = {isa = PBXBuildFile; fileRef = 545AF7D4178F21100003678F /* Biomodel.m */; };
+		545AF7D8178FC0BA0003678F /* Functions.m in Sources */ = {isa = PBXBuildFile; fileRef = 545AF7D7178FC0BA0003678F /* Functions.m */; };
 		54608B121779ADDA0004C4D9 /* SimJobsFiltersController.m in Sources */ = {isa = PBXBuildFile; fileRef = 54608B111779ADDA0004C4D9 /* SimJobsFiltersController.m */; };
 		54608B151779BC320004C4D9 /* SimJobsFiltersDetail.m in Sources */ = {isa = PBXBuildFile; fileRef = 54608B141779BC320004C4D9 /* SimJobsFiltersDetail.m */; };
 		5467C06017674804002A5CC9 /* SimJobCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5467C05F17674804002A5CC9 /* SimJobCell.m */; };
@@ -94,6 +95,8 @@
 		545AF7D1178F21100003678F /* Application.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Application.m; sourceTree = "<group>"; };
 		545AF7D3178F21100003678F /* Biomodel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Biomodel.h; sourceTree = "<group>"; };
 		545AF7D4178F21100003678F /* Biomodel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Biomodel.m; sourceTree = "<group>"; };
+		545AF7D6178FC0BA0003678F /* Functions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Functions.h; sourceTree = "<group>"; };
+		545AF7D7178FC0BA0003678F /* Functions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Functions.m; sourceTree = "<group>"; };
 		54608B101779ADDA0004C4D9 /* SimJobsFiltersController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SimJobsFiltersController.h; sourceTree = "<group>"; };
 		54608B111779ADDA0004C4D9 /* SimJobsFiltersController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SimJobsFiltersController.m; sourceTree = "<group>"; };
 		54608B131779BC320004C4D9 /* SimJobsFiltersDetail.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SimJobsFiltersDetail.h; sourceTree = "<group>"; };
@@ -474,6 +477,8 @@
 				54C2F4A2177FDEA800FEB6B9 /* CorePlot */,
 				543721E0176DFA8000AFC35F /* Constants.h */,
 				543721E1176DFA8000AFC35F /* Constants.m */,
+				545AF7D6178FC0BA0003678F /* Functions.h */,
+				545AF7D7178FC0BA0003678F /* Functions.m */,
 				54DA31861764B8900020D2B5 /* AppDelegate.h */,
 				54DA31871764B8900020D2B5 /* AppDelegate.m */,
 				54DA318F1764B8900020D2B5 /* MainStoryboard_iPhone.storyboard */,
@@ -691,6 +696,7 @@
 				545AF7CF178F21100003678F /* Simulation.m in Sources */,
 				545AF7D2178F21100003678F /* Application.m in Sources */,
 				545AF7D5178F21100003678F /* Biomodel.m in Sources */,
+				545AF7D8178FC0BA0003678F /* Functions.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
