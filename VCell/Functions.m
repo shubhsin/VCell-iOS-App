@@ -45,6 +45,7 @@
         URLparams = [[NSMutableDictionary alloc] initWithContentsOfFile:plistPath];
     return URLparams;
 }
+
 + (void)deleteAllObjects:(NSString *) entityDescription inManagedObjectContext:(NSManagedObjectContext *) context
 {
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
@@ -60,6 +61,7 @@
     }
 
 }
+
 - (void)fetchJSONFromURL:(NSURL*)url WithrowNum:(NSUInteger)rownum AddHUDToView:(UIView*)view delegate:(id)delegate
 {
     self.delegate = delegate;

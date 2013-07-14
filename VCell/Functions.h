@@ -32,4 +32,5 @@
 
 //Delete all objects from Coredata
 + (void)deleteAllObjects:(NSString *) entityDescription inManagedObjectContext:(NSManagedObjectContext *) context;
+
 @end
