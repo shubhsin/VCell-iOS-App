@@ -34,7 +34,10 @@
     biomodel.privacy = [dict objectForKey:StringFromSel(privacy)];
     biomodel.groupUsers = [dict objectForKey:StringFromSel(groupUsers)];
     biomodel.savedDate = [NSDate dateWithTimeIntervalSince1970:[[dict objectForKey:StringFromSel(savedDate)] doubleValue]/1000];
-    biomodel.annot = [dict objectForKey:StringFromSel(annot)];
+    if([dict objectForKey:StringFromSel(annot)] == [NSNull null])
+        biomodel.annot = @"";
+    else
+        biomodel.annot = [dict objectForKey:StringFromSel(annot)];
     biomodel.branchID = [NSNumber numberWithInteger:[[dict objectForKey:StringFromSel(branchID)] integerValue]];
     biomodel.modelKey = [NSNumber numberWithInteger:[[dict objectForKey:StringFromSel(branchID)] integerValue]];
     biomodel.ownerName = [dict objectForKey:StringFromSel(ownerName)];

@@ -46,20 +46,40 @@
     return URLparams;
 }
 
-+ (void)deleteAllObjects:(NSString *) entityDescription inManagedObjectContext:(NSManagedObjectContext *) context
++ (void)deleteAllObjects:(NSString *) entityDescription inManagedObjectContext:(NSManagedObjectContext *) managedObjectContext
 {
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
-    NSEntityDescription *entity = [NSEntityDescription entityForName:entityDescription inManagedObjectContext:context];
+    NSEntityDescription *entity = [NSEntityDescription entityForName:entityDescription inManagedObjectContext:managedObjectContext];
     [fetchRequest setEntity:entity];
     NSError *error;
-    NSArray *items = [context executeFetchRequest:fetchRequest error:&error];
+    NSArray *items = [managedObjectContext executeFetchRequest:fetchRequest error:&error];
     for (NSManagedObject *managedObject in items)
-    	[context deleteObject:managedObject];
+    {
+        [managedObjectContext deleteObject:managedObject];
+        
+    }
     
-    if (![context save:&error]) {
+    if (![managedObjectContext save:&error]) {
     	NSLog(@"Error deleting %@ - error:%@",entityDescription,error);
     }
-
+    
+    
+//Deletes entire db file.
+//    NSError * error;
+//    // retrieve the store URL
+//    NSURL * storeURL = [[managedObjectContext persistentStoreCoordinator] URLForPersistentStore:[[[managedObjectContext persistentStoreCoordinator] persistentStores] lastObject]];
+//    // lock the current context
+//    [managedObjectContext lock];
+//    [managedObjectContext reset];//to drop pending changes
+//    //delete the store from the current managedObjectContext
+//    if ([[managedObjectContext persistentStoreCoordinator] removePersistentStore:[[[managedObjectContext persistentStoreCoordinator] persistentStores] lastObject] error:&error])
+//    {
+//        // remove the file containing the data
+//        [[NSFileManager defaultManager] removeItemAtURL:storeURL error:&error];
+//        //recreate the store like in the  appDelegate method
+//        [[managedObjectContext persistentStoreCoordinator] addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:storeURL options:nil error:&error];//recreates the persistent store
+//    }
+//    [managedObjectContext unlock];
 }
 
 - (void)fetchJSONFromURL:(NSURL*)url WithrowNum:(NSUInteger)rownum AddHUDToView:(UIView*)view delegate:(id)delegate

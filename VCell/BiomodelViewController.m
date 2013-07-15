@@ -16,7 +16,8 @@
 	long long currentLength;
     
     //Class Vars
-    NSUInteger numberOfObjectsReceived;
+    Functions *functions;
+    NSUInteger oldNumberOfSections;
     NSMutableData *connectionData;
     NSUInteger rowNum; //current start row of the data to request
     NSMutableDictionary *URLparams;
@@ -28,34 +29,28 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    [self updateNumRow];
+    functions = [[Functions alloc] init];
     //Pull to refresh
     UIRefreshControl *refreshControl = [[UIRefreshControl alloc] init];
     [refreshControl addTarget:self action:@selector(initDictAndstartLoading:) forControlEvents:UIControlEventValueChanged];
     [self setRefreshControl:refreshControl];
-   
-    // Test listing all Biomodels from the store
-    NSManagedObjectContext *context = [self managedObjectContext];
-    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
-    NSEntityDescription *entity = [NSEntityDescription entityForName:BIOMODEL_ENTITY inManagedObjectContext:context];
-    [fetchRequest setEntity:entity];
-    NSArray *fetchedObjects = [context executeFetchRequest:fetchRequest error:nil];
-    for (Biomodel *biomodel in fetchedObjects)
-        NSLog(@"Name: %@", biomodel.bmKey);
-
 }
 
 
 - (void)initDictAndstartLoading:(id)sender
 {
-    [Functions deleteAllObjects:BIOMODEL_ENTITY inManagedObjectContext:self.managedObjectContext];
 
+    [Functions deleteAllObjects:BIOMODEL_ENTITY inManagedObjectContext:self.managedObjectContext];
+     // To get rid of rougue simulations, applications if any
+    [Functions deleteAllObjects:SIMULATION_ENTITY inManagedObjectContext:self.managedObjectContext];
+    [Functions deleteAllObjects:APPLICATION_ENTITY inManagedObjectContext:self.managedObjectContext];
+    
+    rowNum = 0;
     [self initURLParamDict];
-    rowNum = 1;
     [self startLoading];
     if(sender != nil)
         [(UIRefreshControl *)sender endRefreshing];
-    
-
 }
 
 #pragma mark - Fetch JSON
@@ -78,12 +73,24 @@
     
     URLparams = [Functions initURLParamDictWithFileName:BIOMODEL_FILTERS_FILE Keys:keys AndObjects:objects];
 }
+
+- (void)updateNumRow
+{
+    // Test listing all Biomodels from the store
+    NSManagedObjectContext *context = [self managedObjectContext];
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+    NSEntityDescription *entity = [NSEntityDescription entityForName:BIOMODEL_ENTITY inManagedObjectContext:context];
+    [fetchRequest setEntity:entity];
+    [fetchRequest setIncludesSubentities:NO];
+    rowNum = [context countForFetchRequest:fetchRequest error:nil];
+}
+
 - (void)startLoading
 {
-    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@startRow=%d",BIOMODEL_URL,[Functions contructUrlParamsOnDict:URLparams],rowNum]];
+    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@startRow=%d",
+                                       BIOMODEL_URL,[Functions contructUrlParamsOnDict:URLparams],rowNum+1]];
     NSLog(@"%@",url);
-    Functions *functions = [(AppDelegate*)[[UIApplication sharedApplication] delegate] functions];
-    [functions fetchJSONFromURL:url WithrowNum:rowNum AddHUDToView:self.navigationController.view delegate:self];
+    [functions fetchJSONFromURL:url WithrowNum:rowNum+1 AddHUDToView:self.navigationController.view delegate:self];
 }
 
 #pragma mark MBProgressHUDDelegate methods
@@ -98,18 +105,12 @@
 
 - (void)fetchJSONDidCompleteWithJSONArray:(NSArray *)jsonData
 {
+
     NSManagedObjectContext *context = [self managedObjectContext];
-    
-    // Make an empty array
-    NSMutableArray *biomodels = [NSMutableArray array];
-    
+
     // Add the objects in the array
     for(NSDictionary *dict in jsonData)
-    {        
-        Biomodel *biomodel = [Biomodel biomodelWithDict:dict inContext:context];
-        [biomodels addObject:biomodel];
-    }
-    numberOfObjectsReceived = [biomodels count];
+        [Biomodel biomodelWithDict:dict inContext:context];
     
     NSError *error;
     if (![context save:&error]) {
@@ -134,7 +135,7 @@
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
 {
-    Biomodel *bioModel = [[[self.fetchedResultsController objectAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:section]] application] biomodel];
+    Biomodel *bioModel = [[self.fetchedResultsController objectAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:section]] biomodel];
     return [bioModel name];
 }
 
@@ -155,21 +156,24 @@
     
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
     // Edit the entity name as appropriate.
-    NSEntityDescription *entity = [NSEntityDescription entityForName:SIMULATION_ENTITY inManagedObjectContext:self.managedObjectContext];
+    NSEntityDescription *entity = [NSEntityDescription entityForName:APPLICATION_ENTITY inManagedObjectContext:self.managedObjectContext];
     [fetchRequest setEntity:entity];
     
     // Set the batch size to a suitable number.
-    //[fetchRequest setFetchBatchSize:20];
+   // [fetchRequest setFetchBatchSize:20];
     
     // Edit the sort key as appropriate.
-    NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"application.biomodel.savedDate" ascending:NO];
+    NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"biomodel.savedDate" ascending:NO];
     NSArray *sortDescriptors = @[sortDescriptor];
     
     [fetchRequest setSortDescriptors:sortDescriptors];
     
     // Edit the section name key path and cache name if appropriate.
     // nil for section name key path means "no sections".
-    NSFetchedResultsController *aFetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest managedObjectContext:self.managedObjectContext sectionNameKeyPath:@"application.biomodel.bmKey" cacheName:@"Master"];
+    
+    NSFetchedResultsController *aFetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest managedObjectContext:self.managedObjectContext sectionNameKeyPath:@"biomodel.bmKey" cacheName:nil];
+    
+    
     aFetchedResultsController.delegate = self;
     self.fetchedResultsController = aFetchedResultsController;
 
@@ -189,9 +193,43 @@
 
 #pragma mark - NSFetchedResults delegate
 
+- (void)controllerWillChangeContent:(NSFetchedResultsController *)controller
+{
+    oldNumberOfSections = [self.tableView numberOfSections];
+}
+
 - (void)controllerDidChangeContent:(NSFetchedResultsController *)controller
 {
+    [self updateNumRow];
     [self.tableView reloadData];
+    if(rowNum > [[URLparams objectForKey:BM_MAXROWS] integerValue])
+    {
+        NSIndexPath *firstCellOfNewData = [NSIndexPath indexPathForRow:0 inSection:oldNumberOfSections];
+    
+        //Scroll to newly added section and highlight animate the first row
+    
+        [UIView animateWithDuration:0.2 animations:^{
+            //Scroll to row 0 of the new added section
+            [self.tableView scrollToRowAtIndexPath:firstCellOfNewData atScrollPosition:UITableViewScrollPositionMiddle animated:NO];
+        } completion:^(BOOL finished){
+            //Highlight after scrollToRowAtIndexPath finished
+            UITableViewCell *cellToHighlight = [self.tableView cellForRowAtIndexPath:firstCellOfNewData];
+        
+            [UIView animateWithDuration:0.2 delay:0.0 options:UIViewAnimationOptionAllowUserInteraction|UIViewAnimationOptionCurveEaseInOut animations:^
+             {
+                 //Highlight the cell
+                 [cellToHighlight setHighlighted:YES animated:YES];
+             } completion:^(BOOL finished)
+             {
+                 [UIView animateWithDuration:0.2 delay:0.0 options:UIViewAnimationOptionAllowUserInteraction|UIViewAnimationOptionCurveEaseInOut animations:^
+                  {
+                      //Unhighlight the cell
+                      [cellToHighlight setHighlighted:NO animated:YES];
+                  } completion: NULL];
+             }];
+        }];
+    }
+    
 }
 
 
@@ -202,5 +240,16 @@
  
 }
 
+- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    NSUInteger sections = [[self.fetchedResultsController sections] count];
+    if(sections > 0)
+    if(indexPath.section == sections -1 &&
+       indexPath.row == [self.tableView numberOfRowsInSection:sections - 1] - 1 &&
+       tableView == self.tableView)
+    {
+        [self startLoading];
+    }
+}
 
 @end

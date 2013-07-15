@@ -11,6 +11,7 @@
 @interface SimJobController ()
 {  
     //Class Vars
+    Functions *functions;
     NSUInteger numberOfObjectsReceived;
     NSMutableDictionary *URLparams;
     NSMutableData *connectionData;
@@ -61,6 +62,8 @@
 {
     [super viewDidLoad];
     
+    functions = [[Functions alloc] init];
+    
     //Pull to refresh
     UIRefreshControl *refreshControl = [[UIRefreshControl alloc] init];
     [refreshControl addTarget:self action:@selector(initDictAndstartLoading:) forControlEvents:UIControlEventValueChanged];
@@ -104,7 +107,6 @@
 {
     NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@startRow=%d",SIMTASK_URL,[Functions contructUrlParamsOnDict:URLparams],rowNum]];
     NSLog(@"%@",url);
-    Functions *functions = [(AppDelegate*)[[UIApplication sharedApplication] delegate] functions];
     [functions fetchJSONFromURL:url WithrowNum:rowNum AddHUDToView:self.navigationController.view delegate:self];
 }
 

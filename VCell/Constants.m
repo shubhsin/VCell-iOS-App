@@ -13,7 +13,7 @@ NSString * const BIOMODEL_FILTERS_FILE = @"biomodelFilters.plist";
 
 #ifdef LOCALHOST
 #define EXTENSION @".php"
-#define URL_DEF @"http://localhost/vcell"
+#define URL_DEF @"http://192.168.1.3/vcell"
 #else
 #define EXTENSION @""
 #define URL_DEF @"https://vcellapi.cam.uchc.edu:8080"
