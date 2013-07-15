@@ -13,6 +13,9 @@
 #import "Application.h"
 #import "Simulation.h"
 
+#define APPLICATIONS_SEGMENT 0
+#define SIMULATIONS_SEGMENT 1
+
 //constants for URL params
 #define BM_BEGIN_STAMP @"savedLow"
 #define BM_END_STAMP @"savedHigh"
@@ -28,5 +31,7 @@
 
 @property (strong, nonatomic) NSFetchedResultsController *fetchedResultsController;
 @property (strong, nonatomic) NSManagedObjectContext *managedObjectContext;
+@property (weak, nonatomic) IBOutlet UISegmentedControl *appSimSegmentControl;
+- (IBAction)appSimSwap:(id)sender;
 
 @end

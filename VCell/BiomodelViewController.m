@@ -16,19 +16,37 @@
 	long long currentLength;
     
     //Class Vars
+    BOOL displayApplications;
     Functions *functions;
     NSUInteger oldNumberOfSections;
     NSMutableData *connectionData;
     NSUInteger rowNum; //current start row of the data to request
     NSMutableDictionary *URLparams;
+    NSUserDefaults *userDefaults;
 }
 @end
 
 @implementation BiomodelViewController
 
+- (void)loadPrefs
+{
+    userDefaults  = [NSUserDefaults standardUserDefaults];
+    
+    if([userDefaults objectForKey:@"displayApplications"])
+        displayApplications = [[userDefaults objectForKey:@"displayApplications"] boolValue];
+    else
+        displayApplications = true;
+
+    if(displayApplications)
+        self.appSimSegmentControl.selectedSegmentIndex = APPLICATIONS_SEGMENT;
+    else
+        self.appSimSegmentControl.selectedSegmentIndex = SIMULATIONS_SEGMENT;
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    [self loadPrefs];
     [self updateNumRow];
     functions = [[Functions alloc] init];
     //Pull to refresh
@@ -127,7 +145,7 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-{
+{    
     // Return the number of rows in the section.
     id <NSFetchedResultsSectionInfo> sectionInfo = [self.fetchedResultsController sections][section];
     return [sectionInfo numberOfObjects];
@@ -135,7 +153,12 @@
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
 {
-    Biomodel *bioModel = [[self.fetchedResultsController objectAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:section]] biomodel];
+    Biomodel *bioModel;
+    
+    id baseObject = [self.fetchedResultsController objectAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:section]];
+    
+    bioModel = displayApplications ? [baseObject biomodel] : [[baseObject application] biomodel];
+    
     return [bioModel name];
 }
 
@@ -156,14 +179,19 @@
     
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
     // Edit the entity name as appropriate.
-    NSEntityDescription *entity = [NSEntityDescription entityForName:APPLICATION_ENTITY inManagedObjectContext:self.managedObjectContext];
+    
+    NSString *entityName =  displayApplications ? APPLICATION_ENTITY : SIMULATION_ENTITY;
+    
+    NSEntityDescription *entity = [NSEntityDescription entityForName:entityName inManagedObjectContext:self.managedObjectContext];
     [fetchRequest setEntity:entity];
     
     // Set the batch size to a suitable number.
-   // [fetchRequest setFetchBatchSize:20];
+    [fetchRequest setFetchBatchSize:20];
     
     // Edit the sort key as appropriate.
-    NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"biomodel.savedDate" ascending:NO];
+    NSString *sortKey = displayApplications ? @"biomodel.savedDate" : @"application.biomodel.savedDate";
+        
+    NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:sortKey ascending:NO];
     NSArray *sortDescriptors = @[sortDescriptor];
     
     [fetchRequest setSortDescriptors:sortDescriptors];
@@ -171,7 +199,9 @@
     // Edit the section name key path and cache name if appropriate.
     // nil for section name key path means "no sections".
     
-    NSFetchedResultsController *aFetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest managedObjectContext:self.managedObjectContext sectionNameKeyPath:@"biomodel.bmKey" cacheName:nil];
+    NSString *sectionKeyPath = displayApplications ? @"biomodel.bmKey" : @"application.biomodel.bmKey";
+    
+    NSFetchedResultsController *aFetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest managedObjectContext:self.managedObjectContext sectionNameKeyPath:sectionKeyPath cacheName:nil];
     
     
     aFetchedResultsController.delegate = self;
@@ -187,8 +217,8 @@
 
 - (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath
 {
-    Simulation *object = [self.fetchedResultsController objectAtIndexPath:indexPath];
-    cell.textLabel.text = object.name;
+    id object = [self.fetchedResultsController objectAtIndexPath:indexPath];
+    cell.textLabel.text = [object name];
 }
 
 #pragma mark - NSFetchedResults delegate
@@ -252,4 +282,19 @@
     }
 }
 
+- (IBAction)appSimSwap:(id)sender
+{    
+    if(self.appSimSegmentControl.selectedSegmentIndex == APPLICATIONS_SEGMENT)
+        displayApplications = YES;
+    
+    if(self.appSimSegmentControl.selectedSegmentIndex == SIMULATIONS_SEGMENT)
+        displayApplications = NO;
+
+    [userDefaults setObject:[NSNumber numberWithBool:displayApplications] forKey:@"displayApplications"];
+    [userDefaults synchronize];
+
+    self.fetchedResultsController = nil;
+    self.fetchedResultsController = [self fetchedResultsController];
+    [self.tableView reloadData];
+}
 @end
