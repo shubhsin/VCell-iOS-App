@@ -145,13 +145,13 @@
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     // Return the number of sections.
-    return [[self.fetchedResultsController sections] count];
+    return [[[self fetchedResultsControllerForTableView:tableView] sections] count];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {    
     // Return the number of rows in the section.
-    id <NSFetchedResultsSectionInfo> sectionInfo = [self.fetchedResultsController sections][section];
+    id <NSFetchedResultsSectionInfo> sectionInfo = [[self fetchedResultsControllerForTableView:tableView] sections][section];
     return [sectionInfo numberOfObjects];
 }
 
@@ -160,7 +160,8 @@
     if(displaySegmentIndex == BIOMODELS_SEGMENT) return nil;
     
     Biomodel *bioModel;
-    id baseObject = [self.fetchedResultsController objectAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:section]];
+    id baseObject = [[self fetchedResultsControllerForTableView:tableView] objectAtIndexPath:
+                     [NSIndexPath indexPathForRow:0 inSection:section]];
     
     switch (displaySegmentIndex) {
         case APPLICATIONS_SEGMENT:
@@ -174,25 +175,30 @@
     return [bioModel name];
 }
 
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return 55.0f;
+}
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
-    [self configureCell:cell atIndexPath:indexPath];
+    static NSString *CellIdentifier = @"Cell";
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    if ( cell == nil ) {
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
+    }
+    [self configureCell:cell atIndexPath:indexPath  tableView:tableView];
     return cell;
 }
 
 #pragma mark - Fetched results controller
 
-- (NSFetchedResultsController *)fetchedResultsController
+- (NSFetchedResultsController *)newFetchedResultsControllerWithSearch:(NSString *)searchString
 {
-    if (_fetchedResultsController != nil) {
-        return _fetchedResultsController;
-    }
-    
     NSString *entityName, *sortKey, *sectionKeyPath;
     
     switch (displaySegmentIndex) {
-
+            
         case BIOMODELS_SEGMENT:
             
             entityName = BIOMODEL_ENTITY;
@@ -216,18 +222,23 @@
             break;
     }
     
+    
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
     // Edit the entity name as appropriate.
-    
-    
     NSEntityDescription *entity = [NSEntityDescription entityForName:entityName inManagedObjectContext:self.managedObjectContext];
     [fetchRequest setEntity:entity];
     
     // Set the batch size to a suitable number.
     [fetchRequest setFetchBatchSize:20];
     
+    //Set the predicate
+    if(searchString)
+    {
+        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"SELF.name contains[c] %@",searchString];
+        [fetchRequest setPredicate:predicate];
+    }
     // Edit the sort key as appropriate.
-        
+    
     NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:sortKey ascending:NO];
     NSArray *sortDescriptors = @[sortDescriptor];
     
@@ -235,24 +246,44 @@
     
     // Edit the section name key path and cache name if appropriate.
     // nil for section name key path means "no sections".
-        
+    
     NSFetchedResultsController *aFetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest managedObjectContext:self.managedObjectContext sectionNameKeyPath:sectionKeyPath cacheName:nil];
     
     
     aFetchedResultsController.delegate = self;
-    self.fetchedResultsController = aFetchedResultsController;
 
 	NSError *error = nil;
-	if (![self.fetchedResultsController performFetch:&error]) {
+	if (![aFetchedResultsController performFetch:&error]) {
 	    NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
 	}
-    
+  //  NSArray *biomodels = [aFetchedResultsController fetchedObjects];
+   // NSLog(@"%@",biomodels);
+    return aFetchedResultsController;
+
+}
+
+- (NSFetchedResultsController *)searchFetchedResultsController
+{
+    if (_searchFetchedResultsController != nil) {
+        return _searchFetchedResultsController;
+    }
+    _searchFetchedResultsController = [self newFetchedResultsControllerWithSearch:self.searchDisplayController.searchBar.text];
+    return _searchFetchedResultsController;
+
+}
+
+- (NSFetchedResultsController *)fetchedResultsController
+{
+    if (_fetchedResultsController != nil) {
+        return _fetchedResultsController;
+    }
+    _fetchedResultsController = [self newFetchedResultsControllerWithSearch:nil];
     return _fetchedResultsController;
 }
 
-- (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath
+- (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath tableView:(UITableView *)tableView
 {
-    id object = [self.fetchedResultsController objectAtIndexPath:indexPath];
+    id object = [[self fetchedResultsControllerForTableView:tableView] objectAtIndexPath:indexPath];
     cell.textLabel.text = [object name];
 
     if(displaySegmentIndex == BIOMODELS_SEGMENT)
@@ -295,26 +326,37 @@
 
 }
 
+
+- (NSFetchedResultsController *)fetchedResultsControllerForTableView:(UITableView *)tableView
+{
+    return tableView == self.tableView ? self.fetchedResultsController : self.searchFetchedResultsController;
+}
+
 #pragma mark - NSFetchedResults delegate
+
 
 - (void)controllerWillChangeContent:(NSFetchedResultsController *)controller
 {
-    oldNumberOfSections = [self.tableView numberOfSections];
+    if(controller == self.fetchedResultsController)
+        oldNumberOfSections = [self.tableView numberOfSections];
 }
 
 - (void)controllerDidChangeContent:(NSFetchedResultsController *)controller
 {
-    [self updateNumRow];
-    [self.tableView reloadData];
-    if(rowNum > [[URLparams objectForKey:BM_MAXROWS] integerValue])
+    if(controller == self.fetchedResultsController)
     {
-        NSIndexPath *indexPath;
-        if(displaySegmentIndex == BIOMODELS_SEGMENT)
-            indexPath = [NSIndexPath indexPathForRow:rowNum - numberOfObjectsReceived inSection:0];
-        else
-            indexPath = [NSIndexPath indexPathForRow:0 inSection:oldNumberOfSections];
+        [self.tableView reloadData];
+        [self updateNumRow];
+        if(rowNum > [[URLparams objectForKey:BM_MAXROWS] integerValue])
+        {
+            NSIndexPath *indexPath;
+            if(displaySegmentIndex == BIOMODELS_SEGMENT)
+                indexPath = [NSIndexPath indexPathForRow:rowNum - numberOfObjectsReceived inSection:0];
+            else
+                indexPath = [NSIndexPath indexPathForRow:0 inSection:oldNumberOfSections];
         
-        [Functions scrollToFirstRowOfNewSectionsWithOldNumberOfSections:indexPath tableView:self.tableView];
+            [Functions scrollToFirstRowOfNewSectionsWithOldNumberOfSections:indexPath tableView:self.tableView];
+        }
     }
 }
 
@@ -328,6 +370,9 @@
 
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    if(tableView != self.tableView)
+        return;
+    
     NSUInteger sections = [[self.fetchedResultsController sections] count];
     if(sections > 0)
     if(numberOfObjectsReceived == [[URLparams objectForKey:BM_MAXROWS] integerValue] &&
@@ -349,5 +394,48 @@
 
     self.fetchedResultsController = nil;
     [self.tableView reloadData];
+}
+
+#pragma mark - Search Delegates
+- (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText
+{
+    _searchFetchedResultsController = nil;
+   // [self.searchDisplayController.searchResultsTableView reloadData];
+}
+
+//- (void)initSearchWithSearchText:(NSString *)searchText
+//{
+//    
+//    [filteredSimJobsArr removeAllObjects];
+//    NSString *searchScopeProperty;
+//    NSInteger scopeIndex = [self.searchDisplayController.searchBar selectedScopeButtonIndex];
+//    if(scopeIndex == SIMULATION_SCOPE)
+//        searchScopeProperty = @"simName";
+//    else if(scopeIndex == SIMKEY_SCOPE)
+//        searchScopeProperty = @"simKey";
+//    else if(scopeIndex == APPLICATION_SCOPE)
+//        searchScopeProperty = @"bioModelLink.simContextName";
+//    else if(scopeIndex == BIOMODEL_SCOPE)
+//        searchScopeProperty = @"bioModelLink.bioModelName";
+//    if(searchText == NULL)
+//        searchText = self.searchDisplayController.searchBar.text;
+//    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"SELF.%@ contains[c] %@",searchScopeProperty,searchText];
+//    filteredSimJobsArr = [NSMutableArray arrayWithArray:[simJobs filteredArrayUsingPredicate:predicate]];
+//    [self breakIntoSectionsbyDate:sortByDate andSimJobArr:filteredSimJobsArr forTableView:self.searchDisplayController.searchResultsTableView];
+//    
+//}
+
+//Reload the main tableView when done with search
+- (void)searchDisplayController:(UISearchDisplayController *)controller willHideSearchResultsTableView:(UITableView *)tableView
+{
+    self.searchFetchedResultsController = nil;
+}
+- (void)searchBarCancelButtonClicked:(UISearchBar *) searchBar
+{
+    self.searchFetchedResultsController = nil;
+}
+- (void)searchBar:(UISearchBar *)searchBar selectedScopeButtonIndexDidChange:(NSInteger)selectedScope
+{
+   // [self initSearchWithSearchText:NULL];
 }
 @end

@@ -101,4 +101,9 @@
     return biomodel;
 }
 
+- (NSString*)description
+{
+    return [NSString stringWithFormat:@"BioModel:%@",self.name];
+}
+
 @end

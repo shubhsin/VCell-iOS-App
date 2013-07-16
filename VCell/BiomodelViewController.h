@@ -31,9 +31,10 @@
 #define APPLICATION_ENTITY @"Application"
 #define SIMULATION_ENTITY @"Simulation"
 
-@interface BiomodelViewController : UITableViewController <NSFetchedResultsControllerDelegate, FetchJSONDelegate>
+@interface BiomodelViewController : UITableViewController <NSFetchedResultsControllerDelegate, FetchJSONDelegate, UISearchBarDelegate, UISearchDisplayDelegate>
 
 @property (strong, nonatomic) NSFetchedResultsController *fetchedResultsController;
+@property (strong, nonatomic) NSFetchedResultsController *searchFetchedResultsController;
 @property (strong, nonatomic) NSManagedObjectContext *managedObjectContext;
 @property (weak, nonatomic) IBOutlet UISegmentedControl *appSimSegmentControl;
 - (IBAction)appSimSwap:(id)sender;

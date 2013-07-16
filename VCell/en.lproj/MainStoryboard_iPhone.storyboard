@@ -1166,11 +1166,11 @@
         <scene sceneID="O9P-At-8oD">
             <objects>
                 <tableViewController id="hcS-J6-KHh" customClass="BiomodelViewController" sceneMemberID="viewController">
-                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="50" sectionHeaderHeight="22" sectionFooterHeight="22" id="h3n-QE-EUI">
+                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="55" sectionHeaderHeight="22" sectionFooterHeight="22" id="h3n-QE-EUI">
                         <rect key="frame" x="0.0" y="64" width="320" height="455"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <searchBar key="tableHeaderView" contentMode="redraw" text="" id="yNW-au-eFj">
+                        <searchBar key="tableHeaderView" contentMode="redraw" placeholder="Enter Search Text..." id="yNW-au-eFj">
                             <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                             <textInputTraits key="textInputTraits"/>
@@ -1179,19 +1179,19 @@
                             </connections>
                         </searchBar>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Cell" textLabel="gqf-1d-Pjd" detailTextLabel="93p-aW-LEw" rowHeight="50" style="IBUITableViewCellStyleSubtitle" id="3fs-Tj-pTz">
-                                <rect key="frame" x="0.0" y="66" width="320" height="50"/>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Cell" textLabel="lOp-jk-izN" detailTextLabel="5Vg-X7-TEB" rowHeight="55" style="IBUITableViewCellStyleSubtitle" id="I0k-od-yaj">
+                                <rect key="frame" x="0.0" y="66" width="320" height="55"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                    <rect key="frame" x="0.0" y="0.0" width="320" height="49"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="54"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gqf-1d-Pjd">
+                                        <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lOp-jk-izN">
                                             <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
                                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                             <color key="highlightedColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                         </label>
-                                        <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Subtitle" lineBreakMode="middleTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="93p-aW-LEw">
+                                        <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Subtitle" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5Vg-X7-TEB">
                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                             <color key="textColor" red="0.50196078431372548" green="0.50196078431372548" blue="0.50196078431372548" alpha="1" colorSpace="calibratedRGB"/>
                                             <color key="highlightedColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -1281,6 +1281,91 @@
     <resources>
         <image name="dot.png" width="15" height="15"/>
     </resources>
+    <classes>
+        <class className="BiomodelViewController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/BiomodelViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="appSimSwap:"/>
+                <relationship kind="outlet" name="appSimSegmentControl" candidateClass="UISegmentedControl"/>
+            </relationships>
+        </class>
+        <class className="CPTGraphHostingView" superclassName="UIView">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/CPTGraphHostingView.h"/>
+        </class>
+        <class className="GraphAxisSelectController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/GraphAxisSelectController.h"/>
+        </class>
+        <class className="GraphViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/GraphViewController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="hostView" candidateClass="CPTGraphHostingView"/>
+            </relationships>
+        </class>
+        <class className="NSLayoutConstraint" superclassName="NSObject">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/NSLayoutConstraint.h"/>
+        </class>
+        <class className="SimJobButtonCell" superclassName="UITableViewCell">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/SimJobButtonCell.h"/>
+            <relationships>
+                <relationship kind="action" name="btnPressed:"/>
+                <relationship kind="outlet" name="completedBtn" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="runningBtn" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="stoppedBtn" candidateClass="UIButton"/>
+            </relationships>
+        </class>
+        <class className="SimJobController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/SimJobController.h"/>
+            <relationships>
+                <relationship kind="action" name="bioModelDateSwap:"/>
+                <relationship kind="outlet" name="biomodelDateSwapBtn" candidateClass="UIBarButtonItem"/>
+                <relationship kind="outlet" name="searchBar" candidateClass="UISearchBar"/>
+            </relationships>
+        </class>
+        <class className="SimJobDetailsController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/SimJobDetailsController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="bioModelBranch" candidateClass="UITableViewCell"/>
+                <relationship kind="outlet" name="bioModelKey" candidateClass="UITableViewCell"/>
+                <relationship kind="outlet" name="bioModelName" candidateClass="UITableViewCell"/>
+                <relationship kind="outlet" name="computeHost" candidateClass="UITableViewCell"/>
+                <relationship kind="outlet" name="htcJobId" candidateClass="UITableViewCell"/>
+                <relationship kind="outlet" name="jobId" candidateClass="UITableViewCell"/>
+                <relationship kind="outlet" name="msg" candidateClass="UITableViewCell"/>
+                <relationship kind="outlet" name="parentApp" candidateClass="UITableViewCell"/>
+                <relationship kind="outlet" name="parentSim" candidateClass="UITableViewCell"/>
+                <relationship kind="outlet" name="schStatus" candidateClass="UITableViewCell"/>
+                <relationship kind="outlet" name="simContextBranch" candidateClass="UITableViewCell"/>
+                <relationship kind="outlet" name="simContextKey" candidateClass="UITableViewCell"/>
+                <relationship kind="outlet" name="simContextName" candidateClass="UITableViewCell"/>
+                <relationship kind="outlet" name="simKey" candidateClass="UITableViewCell"/>
+                <relationship kind="outlet" name="simName" candidateClass="UITableViewCell"/>
+                <relationship kind="outlet" name="site" candidateClass="UITableViewCell"/>
+                <relationship kind="outlet" name="startDate" candidateClass="UITableViewCell"/>
+                <relationship kind="outlet" name="status" candidateClass="UITableViewCell"/>
+                <relationship kind="outlet" name="taskId" candidateClass="UITableViewCell"/>
+                <relationship kind="outlet" name="userKey" candidateClass="UITableViewCell"/>
+                <relationship kind="outlet" name="username" candidateClass="UITableViewCell"/>
+                <relationship kind="outlet" name="viewData" candidateClass="UITableViewCell"/>
+            </relationships>
+        </class>
+        <class className="SimJobsFiltersController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/SimJobsFiltersController.h"/>
+            <relationships>
+                <relationship kind="action" name="clearBtn:"/>
+                <relationship kind="action" name="doneBtn:"/>
+                <relationship kind="outlet" name="computeHostCell" candidateClass="UITableViewCell"/>
+                <relationship kind="outlet" name="dateBeginCell" candidateClass="UITableViewCell"/>
+                <relationship kind="outlet" name="dateEndCell" candidateClass="UITableViewCell"/>
+                <relationship kind="outlet" name="hasDataCell" candidateClass="UITableViewCell"/>
+                <relationship kind="outlet" name="maxRowsCell" candidateClass="UITableViewCell"/>
+                <relationship kind="outlet" name="serverIDCell" candidateClass="UITableViewCell"/>
+                <relationship kind="outlet" name="simulationIDCell" candidateClass="UITableViewCell"/>
+            </relationships>
+        </class>
+        <class className="SimJobsFiltersDetail" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/SimJobsFiltersDetail.h"/>
+        </class>
+    </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>
