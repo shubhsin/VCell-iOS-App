@@ -24,6 +24,13 @@
 @dynamic annot;
 @dynamic applications;
 
+- (NSString *)savedDateString
+{
+    NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
+    dateFormat.dateFormat = DATEFORMAT;
+    return [dateFormat stringFromDate:self.savedDate];
+}
+
 + (id)biomodelWithDict:(NSDictionary*)dict inContext:(NSManagedObjectContext*)context
 {
     //Biomodel

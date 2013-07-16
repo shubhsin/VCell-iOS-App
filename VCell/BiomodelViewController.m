@@ -16,7 +16,8 @@
 	long long currentLength;
     
     //Class Vars
-    BOOL displayApplications;
+    NSUInteger numberOfObjectsReceived;
+    NSUInteger displaySegmentIndex;
     Functions *functions;
     NSUInteger oldNumberOfSections;
     NSMutableData *connectionData;
@@ -32,15 +33,14 @@
 {
     userDefaults  = [NSUserDefaults standardUserDefaults];
     
-    if([userDefaults objectForKey:@"displayApplications"])
-        displayApplications = [[userDefaults objectForKey:@"displayApplications"] boolValue];
+    if([userDefaults objectForKey:BM_DISPLAYSEGMENTINDEX])
+        displaySegmentIndex = [[userDefaults objectForKey:BM_DISPLAYSEGMENTINDEX] integerValue];
     else
-        displayApplications = true;
+        displaySegmentIndex = APPLICATIONS_SEGMENT;
 
-    if(displayApplications)
-        self.appSimSegmentControl.selectedSegmentIndex = APPLICATIONS_SEGMENT;
-    else
-        self.appSimSegmentControl.selectedSegmentIndex = SIMULATIONS_SEGMENT;
+    self.appSimSegmentControl.selectedSegmentIndex = displaySegmentIndex;
+    
+    numberOfObjectsReceived = [[userDefaults objectForKey:BM_NUMBEROFOBJECTS] integerValue];
 }
 
 - (void)viewDidLoad
@@ -123,7 +123,11 @@
 
 - (void)fetchJSONDidCompleteWithJSONArray:(NSArray *)jsonData
 {
-
+    numberOfObjectsReceived = [jsonData count];
+    
+    [userDefaults setObject:[NSNumber numberWithInteger:numberOfObjectsReceived] forKey:BM_NUMBEROFOBJECTS];
+    [userDefaults synchronize];
+    
     NSManagedObjectContext *context = [self managedObjectContext];
 
     // Add the objects in the array
@@ -157,8 +161,17 @@
     
     id baseObject = [self.fetchedResultsController objectAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:section]];
     
-    bioModel = displayApplications ? [baseObject biomodel] : [[baseObject application] biomodel];
-    
+    switch (displaySegmentIndex) {
+        case BIOMODELS_SEGMENT:
+            return @"";
+        case APPLICATIONS_SEGMENT:
+            bioModel = [baseObject biomodel];
+            break;
+        case SIMULATIONS_SEGMENT:
+            bioModel = [[baseObject application] biomodel];
+            break;
+    }
+        
     return [bioModel name];
 }
 
@@ -177,10 +190,36 @@
         return _fetchedResultsController;
     }
     
+    NSString *entityName, *sortKey, *sectionKeyPath;
+    
+    switch (displaySegmentIndex) {
+
+        case BIOMODELS_SEGMENT:
+            
+            entityName = BIOMODEL_ENTITY;
+            sortKey = @"savedDate";
+            sectionKeyPath = nil;
+            
+            break;
+        case APPLICATIONS_SEGMENT:
+            
+            entityName = APPLICATION_ENTITY;
+            sortKey = @"biomodel.savedDate";
+            sectionKeyPath = @"biomodel.bmKey";
+            
+            break;
+        case SIMULATIONS_SEGMENT:
+            
+            entityName = SIMULATION_ENTITY;
+            sortKey = @"application.biomodel.savedDate";
+            sectionKeyPath =  @"application.biomodel.bmKey";
+            
+            break;
+    }
+    
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
     // Edit the entity name as appropriate.
     
-    NSString *entityName =  displayApplications ? APPLICATION_ENTITY : SIMULATION_ENTITY;
     
     NSEntityDescription *entity = [NSEntityDescription entityForName:entityName inManagedObjectContext:self.managedObjectContext];
     [fetchRequest setEntity:entity];
@@ -189,7 +228,6 @@
     [fetchRequest setFetchBatchSize:20];
     
     // Edit the sort key as appropriate.
-    NSString *sortKey = displayApplications ? @"biomodel.savedDate" : @"application.biomodel.savedDate";
         
     NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:sortKey ascending:NO];
     NSArray *sortDescriptors = @[sortDescriptor];
@@ -198,9 +236,7 @@
     
     // Edit the section name key path and cache name if appropriate.
     // nil for section name key path means "no sections".
-    
-    NSString *sectionKeyPath = displayApplications ? @"biomodel.bmKey" : @"application.biomodel.bmKey";
-    
+        
     NSFetchedResultsController *aFetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest managedObjectContext:self.managedObjectContext sectionNameKeyPath:sectionKeyPath cacheName:nil];
     
     
@@ -219,6 +255,45 @@
 {
     id object = [self.fetchedResultsController objectAtIndexPath:indexPath];
     cell.textLabel.text = [object name];
+
+    if(displaySegmentIndex == BIOMODELS_SEGMENT)
+    {
+        UILabel *labelTwo = [[UILabel alloc] initWithFrame:CGRectMake(160, 27, 140, 20)];
+
+        cell.detailTextLabel.text = [object savedDateString];
+
+        labelTwo.font = cell.detailTextLabel.font;
+        labelTwo.textAlignment = NSTextAlignmentRight;
+        labelTwo.textColor = [UIColor darkGrayColor];
+        
+        __block NSUInteger numberOfSim = 0;
+        
+        [[object applications] enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+            numberOfSim += [[obj simulations] count];
+        }];
+        
+        labelTwo.text =  [NSString stringWithFormat:@"| A: %d | S: %d |",[[object applications] count], numberOfSim];
+        
+        [cell.contentView addSubview:labelTwo];
+       
+    }
+    else if(displaySegmentIndex == APPLICATIONS_SEGMENT)
+    {
+        if ([cell.contentView subviews])
+            for (UIView *subview in [cell.contentView subviews]) 
+                [subview removeFromSuperview];
+        
+        cell.detailTextLabel.text = [NSString stringWithFormat:@"Simulations: %d",[[object simulations] count]];
+    }
+    else if(displaySegmentIndex == SIMULATIONS_SEGMENT)
+    {
+        if ([cell.contentView subviews])
+            for (UIView *subview in [cell.contentView subviews])
+                [subview removeFromSuperview];
+        
+        cell.detailTextLabel.text = [[object application] name];
+    }
+
 }
 
 #pragma mark - NSFetchedResults delegate
@@ -232,34 +307,8 @@
 {
     [self updateNumRow];
     [self.tableView reloadData];
-    if(rowNum > [[URLparams objectForKey:BM_MAXROWS] integerValue])
-    {
-        NSIndexPath *firstCellOfNewData = [NSIndexPath indexPathForRow:0 inSection:oldNumberOfSections];
-    
-        //Scroll to newly added section and highlight animate the first row
-    
-        [UIView animateWithDuration:0.2 animations:^{
-            //Scroll to row 0 of the new added section
-            [self.tableView scrollToRowAtIndexPath:firstCellOfNewData atScrollPosition:UITableViewScrollPositionMiddle animated:NO];
-        } completion:^(BOOL finished){
-            //Highlight after scrollToRowAtIndexPath finished
-            UITableViewCell *cellToHighlight = [self.tableView cellForRowAtIndexPath:firstCellOfNewData];
-        
-            [UIView animateWithDuration:0.2 delay:0.0 options:UIViewAnimationOptionAllowUserInteraction|UIViewAnimationOptionCurveEaseInOut animations:^
-             {
-                 //Highlight the cell
-                 [cellToHighlight setHighlighted:YES animated:YES];
-             } completion:^(BOOL finished)
-             {
-                 [UIView animateWithDuration:0.2 delay:0.0 options:UIViewAnimationOptionAllowUserInteraction|UIViewAnimationOptionCurveEaseInOut animations:^
-                  {
-                      //Unhighlight the cell
-                      [cellToHighlight setHighlighted:NO animated:YES];
-                  } completion: NULL];
-             }];
-        }];
-    }
-    
+    if(rowNum > [[URLparams objectForKey:BM_MAXROWS] integerValue] && displaySegmentIndex != BIOMODELS_SEGMENT)
+        [Functions scrollToFirstRowOfNewSectionsWithOldNumberOfSections:oldNumberOfSections tableView:self.tableView];
 }
 
 
@@ -274,7 +323,8 @@
 {
     NSUInteger sections = [[self.fetchedResultsController sections] count];
     if(sections > 0)
-    if(indexPath.section == sections -1 &&
+    if(numberOfObjectsReceived == [[URLparams objectForKey:BM_MAXROWS] integerValue] &&
+       indexPath.section == sections -1 &&
        indexPath.row == [self.tableView numberOfRowsInSection:sections - 1] - 1 &&
        tableView == self.tableView)
     {
@@ -283,14 +333,11 @@
 }
 
 - (IBAction)appSimSwap:(id)sender
-{    
-    if(self.appSimSegmentControl.selectedSegmentIndex == APPLICATIONS_SEGMENT)
-        displayApplications = YES;
+{
+    [self.tableView setContentOffset:CGPointZero animated:NO]; // Scroll to top
+    displaySegmentIndex = self.appSimSegmentControl.selectedSegmentIndex;
     
-    if(self.appSimSegmentControl.selectedSegmentIndex == SIMULATIONS_SEGMENT)
-        displayApplications = NO;
-
-    [userDefaults setObject:[NSNumber numberWithBool:displayApplications] forKey:@"displayApplications"];
+    [userDefaults setObject:[NSNumber numberWithInteger:displaySegmentIndex] forKey:BM_DISPLAYSEGMENTINDEX];
     [userDefaults synchronize];
 
     self.fetchedResultsController = nil;

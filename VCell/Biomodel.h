@@ -27,6 +27,7 @@
 @property (nonatomic, retain) NSOrderedSet *applications;
 
 + (id)biomodelWithDict:(NSDictionary*)dict inContext:(NSManagedObjectContext*)context;
+- (NSString *)savedDateString;
 
 @end
 

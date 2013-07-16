@@ -25,6 +25,8 @@
 //Returns URL Parameter Dict from disk or save it to disk if it doesnt already
 + (NSMutableDictionary*)initURLParamDictWithFileName:(NSString*)fileName Keys:(NSArray*)keys AndObjects:(NSArray*)objects;
 
++ (void)scrollToFirstRowOfNewSectionsWithOldNumberOfSections:(NSInteger)oldNumberOfSections tableView:(UITableView*)tableView;
+
 @property (weak, nonatomic) id <FetchJSONDelegate> delegate;
 
 //Makes a NSURLConnection request fetches data and shows HUD

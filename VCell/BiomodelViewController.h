@@ -5,7 +5,7 @@
 //  Created by Aciid on 11/07/13.
 //  Copyright (c) 2013 vcell. All rights reserved.
 //
-
+#import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 #import "MBProgressHUD.h"
 #import "AppDelegate.h"
@@ -13,8 +13,12 @@
 #import "Application.h"
 #import "Simulation.h"
 
-#define APPLICATIONS_SEGMENT 0
-#define SIMULATIONS_SEGMENT 1
+#define BM_DISPLAYSEGMENTINDEX @"displaySegmentIndex"
+#define BM_NUMBEROFOBJECTS @"numberOfObjects" //to keep track of number of objects received in last request
+
+#define BIOMODELS_SEGMENT 0
+#define APPLICATIONS_SEGMENT 1
+#define SIMULATIONS_SEGMENT 2
 
 //constants for URL params
 #define BM_BEGIN_STAMP @"savedLow"

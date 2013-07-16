@@ -82,6 +82,34 @@
 //    [managedObjectContext unlock];
 }
 
++ (void)scrollToFirstRowOfNewSectionsWithOldNumberOfSections:(NSInteger)oldNumberOfSections tableView:(UITableView *)tableView
+{
+    NSIndexPath *firstCellOfNewData = [NSIndexPath indexPathForRow:0 inSection:oldNumberOfSections];
+    
+    //Scroll to newly added section and highlight animate the first row
+    
+    [UIView animateWithDuration:0.2 animations:^{
+        //Scroll to row 0 of the new added section
+        [tableView scrollToRowAtIndexPath:firstCellOfNewData atScrollPosition:UITableViewScrollPositionMiddle animated:NO];
+    } completion:^(BOOL finished){
+        //Highlight after scrollToRowAtIndexPath finished
+        UITableViewCell *cellToHighlight = [tableView cellForRowAtIndexPath:firstCellOfNewData];
+        
+        [UIView animateWithDuration:0.2 delay:0.0 options:UIViewAnimationOptionAllowUserInteraction|UIViewAnimationOptionCurveEaseInOut animations:^
+         {
+             //Highlight the cell
+             [cellToHighlight setHighlighted:YES animated:YES];
+         } completion:^(BOOL finished)
+         {
+             [UIView animateWithDuration:0.2 delay:0.0 options:UIViewAnimationOptionAllowUserInteraction|UIViewAnimationOptionCurveEaseInOut animations:^
+              {
+                  //Unhighlight the cell
+                  [cellToHighlight setHighlighted:NO animated:YES];
+              } completion: NULL];
+         }];
+    }];
+}
+
 - (void)fetchJSONFromURL:(NSURL*)url WithrowNum:(NSUInteger)rownum AddHUDToView:(UIView*)view delegate:(id)delegate
 {
     self.delegate = delegate;

@@ -9,6 +9,7 @@
 #import "SimJob.h"
 
 @implementation SimJob
+
 - (NSString*)startDateString
 {
     NSDate *date = [NSDate dateWithTimeIntervalSince1970:[self.startdate doubleValue]/1000];
