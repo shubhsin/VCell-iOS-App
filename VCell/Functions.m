@@ -82,9 +82,8 @@
 //    [managedObjectContext unlock];
 }
 
-+ (void)scrollToFirstRowOfNewSectionsWithOldNumberOfSections:(NSInteger)oldNumberOfSections tableView:(UITableView *)tableView
++ (void)scrollToFirstRowOfNewSectionsWithOldNumberOfSections:(NSIndexPath*)firstCellOfNewData tableView:(UITableView *)tableView
 {
-    NSIndexPath *firstCellOfNewData = [NSIndexPath indexPathForRow:0 inSection:oldNumberOfSections];
     
     //Scroll to newly added section and highlight animate the first row
     

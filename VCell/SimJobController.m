@@ -146,7 +146,7 @@
         //Add to the tableview
         [self.tableView insertSections:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(numberOfSections,[newSections count])] withRowAnimation:UITableViewRowAnimationBottom];
         
-        [Functions scrollToFirstRowOfNewSectionsWithOldNumberOfSections:oldNumberOfSections tableView:self.tableView];
+        [Functions scrollToFirstRowOfNewSectionsWithOldNumberOfSections:[NSIndexPath indexPathForRow:0 inSection:oldNumberOfSections] tableView:self.tableView];
     }
 }
 #pragma mark MBProgressHUDDelegate methods

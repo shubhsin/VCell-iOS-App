@@ -157,13 +157,12 @@
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
 {
-    Biomodel *bioModel;
+    if(displaySegmentIndex == BIOMODELS_SEGMENT) return nil;
     
+    Biomodel *bioModel;
     id baseObject = [self.fetchedResultsController objectAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:section]];
     
     switch (displaySegmentIndex) {
-        case BIOMODELS_SEGMENT:
-            return @"";
         case APPLICATIONS_SEGMENT:
             bioModel = [baseObject biomodel];
             break;
@@ -307,8 +306,16 @@
 {
     [self updateNumRow];
     [self.tableView reloadData];
-    if(rowNum > [[URLparams objectForKey:BM_MAXROWS] integerValue] && displaySegmentIndex != BIOMODELS_SEGMENT)
-        [Functions scrollToFirstRowOfNewSectionsWithOldNumberOfSections:oldNumberOfSections tableView:self.tableView];
+    if(rowNum > [[URLparams objectForKey:BM_MAXROWS] integerValue])
+    {
+        NSIndexPath *indexPath;
+        if(displaySegmentIndex == BIOMODELS_SEGMENT)
+            indexPath = [NSIndexPath indexPathForRow:rowNum - numberOfObjectsReceived inSection:0];
+        else
+            indexPath = [NSIndexPath indexPathForRow:0 inSection:oldNumberOfSections];
+        
+        [Functions scrollToFirstRowOfNewSectionsWithOldNumberOfSections:indexPath tableView:self.tableView];
+    }
 }
 
 
@@ -341,7 +348,6 @@
     [userDefaults synchronize];
 
     self.fetchedResultsController = nil;
-    self.fetchedResultsController = [self fetchedResultsController];
     [self.tableView reloadData];
 }
 @end
