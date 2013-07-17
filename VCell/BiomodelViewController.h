@@ -12,9 +12,11 @@
 #import "Biomodel.h"
 #import "Application.h"
 #import "Simulation.h"
+#import "BiomodelDetailsViewController.h"
 
 #define BM_DISPLAYSEGMENTINDEX @"displaySegmentIndex"
 #define BM_NUMBEROFOBJECTS @"numberOfObjects" //to keep track of number of objects received in last request
+#define BM_ACTIONSHEETPREF @"bmActionSheetPref"
 
 #define BIOMODELS_SEGMENT 0
 #define APPLICATIONS_SEGMENT 1
@@ -25,18 +27,24 @@
 #define BM_END_STAMP @"savedHigh"
 #define BM_MAXROWS @"maxRows"
 #define BIOMODELID @"bmId"
+#define BMOWNER @"owner"
+
+//OWNERS
+
 
 //coredata entity constants
 #define BIOMODEL_ENTITY @"Biomodel"
 #define APPLICATION_ENTITY @"Application"
 #define SIMULATION_ENTITY @"Simulation"
 
-@interface BiomodelViewController : UITableViewController <NSFetchedResultsControllerDelegate, FetchJSONDelegate, UISearchBarDelegate, UISearchDisplayDelegate>
+@interface BiomodelViewController : UITableViewController <NSFetchedResultsControllerDelegate, FetchJSONDelegate, UISearchBarDelegate, UISearchDisplayDelegate, UIActionSheetDelegate>
 
+@property (strong, nonatomic) UIActionSheet *actionSheet;
 @property (strong, nonatomic) NSFetchedResultsController *fetchedResultsController;
 @property (strong, nonatomic) NSFetchedResultsController *searchFetchedResultsController;
 @property (strong, nonatomic) NSManagedObjectContext *managedObjectContext;
 @property (weak, nonatomic) IBOutlet UISegmentedControl *appSimSegmentControl;
 - (IBAction)appSimSwap:(id)sender;
 
+- (IBAction)selectOwnerBtnClicked:(id)sender;
 @end

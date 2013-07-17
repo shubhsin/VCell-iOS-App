@@ -13,6 +13,7 @@
 @implementation Biomodel
 
 @dynamic bmKey;
+@dynamic bmgroup;
 @dynamic name;
 @dynamic privacy;
 @dynamic groupUsers;
@@ -31,11 +32,12 @@
     return [dateFormat stringFromDate:self.savedDate];
 }
 
-+ (id)biomodelWithDict:(NSDictionary*)dict inContext:(NSManagedObjectContext*)context
++ (id)biomodelWithDict:(NSDictionary*)dict inContext:(NSManagedObjectContext*)context biomodelGroup:(NSString *)bmg
 {
     //Biomodel
     Biomodel *biomodel = [NSEntityDescription insertNewObjectForEntityForName:BIOMODEL_ENTITY inManagedObjectContext:context];
    
+    biomodel.bmgroup = bmg;
     biomodel.name = [dict objectForKey:StringFromSel(name)];
     biomodel.bmKey = [NSNumber numberWithInteger:[[dict objectForKey:StringFromSel(bmKey)] integerValue]];
     biomodel.privacy = [dict objectForKey:StringFromSel(privacy)];

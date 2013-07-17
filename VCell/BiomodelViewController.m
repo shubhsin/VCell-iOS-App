@@ -16,6 +16,7 @@
 	long long currentLength;
     
     //Class Vars
+    NSString *actionSheetPref;
     NSUInteger numberOfObjectsReceived;
     NSUInteger displaySegmentIndex;
     Functions *functions;
@@ -31,7 +32,7 @@
 
 - (void)loadPrefs
 {
-    userDefaults  = [NSUserDefaults standardUserDefaults];
+    userDefaults = [NSUserDefaults standardUserDefaults];
     
     if([userDefaults objectForKey:BM_DISPLAYSEGMENTINDEX])
         displaySegmentIndex = [[userDefaults objectForKey:BM_DISPLAYSEGMENTINDEX] integerValue];
@@ -41,12 +42,63 @@
     self.appSimSegmentControl.selectedSegmentIndex = displaySegmentIndex;
     
     numberOfObjectsReceived = [[userDefaults objectForKey:BM_NUMBEROFOBJECTS] integerValue];
+    
+    actionSheetPref = [userDefaults objectForKey:BM_ACTIONSHEETPREF];
+}
+
+- (void)initActionSheet
+{
+    NSArray *keys = [NSArray arrayWithObjects:
+                     @"myModels",
+                     @"public",
+                     @"shared",
+                     @"educational",
+                     @"tutorial",
+                     nil];
+   
+    NSArray *objects = [NSArray arrayWithObjects:
+                        [NSMutableString stringWithString:@"My Models"],
+                        [NSMutableString stringWithString:@"Public"],
+                        [NSMutableString stringWithString:@"Shared"],
+                        [NSMutableString stringWithString:@"Educational"],
+                        [NSMutableString stringWithString:@"Tutorial"], nil];
+    
+    NSDictionary *buttonTitlesDict = [NSDictionary dictionaryWithObjects:objects forKeys:keys];
+    
+    if(actionSheetPref == nil)
+    {
+        actionSheetPref = [objects objectAtIndex:0];
+        [userDefaults setObject:actionSheetPref forKey:BM_ACTIONSHEETPREF];
+        [userDefaults synchronize];
+    }
+    
+    [objects enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+
+        if([obj isEqualToString:actionSheetPref])
+        {
+            [obj appendString:TICK_MARK];
+            *stop = YES;
+        }
+    }];
+    
+    self.actionSheet = nil; //reclaim memory from last action sheet
+    self.actionSheet = [[UIActionSheet alloc]
+                        initWithTitle:@"Select Biomodel Group"
+                        delegate:self
+                        cancelButtonTitle:@"Cancel"
+                        destructiveButtonTitle:[buttonTitlesDict objectForKey:@"myModels"]
+                        otherButtonTitles:
+                        [buttonTitlesDict objectForKey:@"shared"],
+                        [buttonTitlesDict objectForKey:@"public"],
+                        [buttonTitlesDict objectForKey:@"educational"],
+                        [buttonTitlesDict objectForKey:@"tutorial"],nil];
 }
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     [self loadPrefs];
+    [self initActionSheet];
     [self updateNumRow];
     functions = [[Functions alloc] init];
     //Pull to refresh
@@ -105,8 +157,8 @@
 
 - (void)startLoading
 {
-    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@startRow=%d",
-                                       BIOMODEL_URL,[Functions contructUrlParamsOnDict:URLparams],rowNum+1]];
+    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@startRow=%d&owner=%@",
+                                       BIOMODEL_URL,[Functions contructUrlParamsOnDict:URLparams],rowNum+1,actionSheetPref]];
     NSLog(@"%@",url);
     [functions fetchJSONFromURL:url WithrowNum:rowNum+1 AddHUDToView:self.navigationController.view delegate:self];
 }
@@ -132,7 +184,7 @@
 
     // Add the objects in the array
     for(NSDictionary *dict in jsonData)
-        [Biomodel biomodelWithDict:dict inContext:context];
+        [Biomodel biomodelWithDict:dict inContext:context biomodelGroup:actionSheetPref];
     
     NSError *error;
     if (![context save:&error]) {
@@ -232,11 +284,17 @@
     [fetchRequest setFetchBatchSize:20];
     
     //Set the predicate
+    NSPredicate *searchPredicate;
+    
     if(searchString)
-    {
-        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"SELF.name contains[c] %@",searchString];
-        [fetchRequest setPredicate:predicate];
-    }
+        searchPredicate = [NSPredicate predicateWithFormat:@"SELF.name contains[c] %@",searchString];
+    
+    NSPredicate *actionSheetPredicate = [NSPredicate predicateWithFormat:@"SELF.bmgroup like '%@'",actionSheetPref];
+    
+    NSPredicate *predicate = [NSCompoundPredicate andPredicateWithSubpredicates:
+                              [NSArray arrayWithObjects:searchPredicate,actionSheetPredicate, nil]];
+    [fetchRequest setPredicate:predicate];
+    
     // Edit the sort key as appropriate.
     
     NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:sortKey ascending:NO];
@@ -256,8 +314,6 @@
 	if (![aFetchedResultsController performFetch:&error]) {
 	    NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
 	}
-  //  NSArray *biomodels = [aFetchedResultsController fetchedObjects];
-   // NSLog(@"%@",biomodels);
     return aFetchedResultsController;
 
 }
@@ -365,7 +421,10 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
- 
+    BiomodelDetailsViewController *biomodelDetailsViewController = [[BiomodelDetailsViewController alloc] initWithStyle:UITableViewStylePlain];
+    [biomodelDetailsViewController setObject:[[self fetchedResultsControllerForTableView:tableView] objectAtIndexPath:indexPath]];
+    [self.navigationController pushViewController:biomodelDetailsViewController animated:YES];
+    
 }
 
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
@@ -396,34 +455,33 @@
     [self.tableView reloadData];
 }
 
+- (IBAction)selectOwnerBtnClicked:(id)sender
+{
+
+    [self.actionSheet showFromTabBar:self.tabBarController.tabBar];
+}
+
+#pragma mark - UIActionSheetDelegate
+
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    NSString *btnIndex = [actionSheet buttonTitleAtIndex:buttonIndex];
+    if(![btnIndex isEqualToString:@"Cancel"])
+    {
+        actionSheetPref = btnIndex;
+        [userDefaults setObject:actionSheetPref forKey:BM_ACTIONSHEETPREF];
+        [userDefaults synchronize];
+        [self initActionSheet];
+        self.fetchedResultsController = nil;
+        [self.tableView reloadData];
+    }
+}
+
 #pragma mark - Search Delegates
 - (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText
 {
     _searchFetchedResultsController = nil;
-   // [self.searchDisplayController.searchResultsTableView reloadData];
 }
-
-//- (void)initSearchWithSearchText:(NSString *)searchText
-//{
-//    
-//    [filteredSimJobsArr removeAllObjects];
-//    NSString *searchScopeProperty;
-//    NSInteger scopeIndex = [self.searchDisplayController.searchBar selectedScopeButtonIndex];
-//    if(scopeIndex == SIMULATION_SCOPE)
-//        searchScopeProperty = @"simName";
-//    else if(scopeIndex == SIMKEY_SCOPE)
-//        searchScopeProperty = @"simKey";
-//    else if(scopeIndex == APPLICATION_SCOPE)
-//        searchScopeProperty = @"bioModelLink.simContextName";
-//    else if(scopeIndex == BIOMODEL_SCOPE)
-//        searchScopeProperty = @"bioModelLink.bioModelName";
-//    if(searchText == NULL)
-//        searchText = self.searchDisplayController.searchBar.text;
-//    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"SELF.%@ contains[c] %@",searchScopeProperty,searchText];
-//    filteredSimJobsArr = [NSMutableArray arrayWithArray:[simJobs filteredArrayUsingPredicate:predicate]];
-//    [self breakIntoSectionsbyDate:sortByDate andSimJobArr:filteredSimJobsArr forTableView:self.searchDisplayController.searchResultsTableView];
-//    
-//}
 
 //Reload the main tableView when done with search
 - (void)searchDisplayController:(UISearchDisplayController *)controller willHideSearchResultsTableView:(UITableView *)tableView
@@ -434,8 +492,5 @@
 {
     self.searchFetchedResultsController = nil;
 }
-- (void)searchBar:(UISearchBar *)searchBar selectedScopeButtonIndexDidChange:(NSInteger)selectedScope
-{
-   // [self initSearchWithSearchText:NULL];
-}
+
 @end

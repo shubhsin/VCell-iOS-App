@@ -12,6 +12,7 @@
     </entity>
     <entity name="Biomodel" representedClassName="Biomodel" syncable="YES">
         <attribute name="annot" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="bmgroup" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="bmKey" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="branchID" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="groupUsers" optional="YES" attributeType="Transformable" syncable="YES"/>
@@ -35,7 +36,7 @@
         <relationship name="application" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Application" inverseName="simulations" inverseEntity="Application" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Biomodel" positionX="-315" positionY="-1809" width="128" height="208"/>
+        <element name="Biomodel" positionX="-315" positionY="-1809" width="128" height="223"/>
         <element name="Simulation" positionX="187" positionY="-1746" width="128" height="178"/>
         <element name="Application" positionX="-27" positionY="-1800" width="128" height="163"/>
     </elements>

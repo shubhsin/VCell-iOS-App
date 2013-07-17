@@ -6,11 +6,11 @@
 //  Copyright (c) 2013 vcell. All rights reserved.
 //
 
-#define LOCALHOST
+//#define LOCALHOST
 
 #define IS_PHONE  UI_USER_INTERFACE_IDIOM()==UIUserInterfaceIdiomPhone
 #define DATEFORMAT @"EEEE',' d MMMM yyyy"
-
+#define TICK_MARK @"\342\234\223"
 #define SIMJOBTAB 0
 #define BIOMODELTAB 1
 

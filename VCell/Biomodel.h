@@ -16,6 +16,7 @@
 
 @property (nonatomic, retain) NSNumber * bmKey;
 @property (nonatomic, retain) NSString * name;
+@property (nonatomic, retain) NSString * bmgroup;
 @property (nonatomic, retain) NSNumber * privacy;
 @property (nonatomic, retain) id groupUsers;
 @property (nonatomic, retain) NSDate * savedDate;
@@ -26,7 +27,7 @@
 @property (nonatomic, retain) NSString * annot;
 @property (nonatomic, retain) NSOrderedSet *applications;
 
-+ (id)biomodelWithDict:(NSDictionary*)dict inContext:(NSManagedObjectContext*)context;
++ (id)biomodelWithDict:(NSDictionary*)dict inContext:(NSManagedObjectContext*)context biomodelGroup:(NSString*)bmg;
 - (NSString *)savedDateString;
 
 @end
