@@ -359,7 +359,7 @@
             dateFormat.dateFormat = DATEFORMAT;
             NSDate *first = [dateFormat dateFromString:obj1];
             NSDate *second = [dateFormat dateFromString:obj2];
-            return [first compare:second];
+            return [second compare:first];
         }];
         
         uniqueKeys = [[NSOrderedSet alloc] initWithArray:sortedKeys];

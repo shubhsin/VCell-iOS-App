@@ -46,11 +46,17 @@
     return URLparams;
 }
 
-+ (void)deleteAllObjects:(NSString *) entityDescription inManagedObjectContext:(NSManagedObjectContext *) managedObjectContext
++ (void)deleteAllObjects:(NSString *) entityDescription inManagedObjectContext:(NSManagedObjectContext *) managedObjectContext withOwner:(NSString *)owner
 {
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
     NSEntityDescription *entity = [NSEntityDescription entityForName:entityDescription inManagedObjectContext:managedObjectContext];
     [fetchRequest setEntity:entity];
+    if(owner)
+    {
+        NSPredicate *predicate = [NSPredicate predicateWithFormat:[NSString stringWithFormat:@"(SELF.bmgroup like '%@')",owner]];
+        [fetchRequest setPredicate:predicate];
+    }
+    
     NSError *error;
     NSArray *items = [managedObjectContext executeFetchRequest:fetchRequest error:&error];
     for (NSManagedObject *managedObject in items)

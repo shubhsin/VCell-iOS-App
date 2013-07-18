@@ -6,7 +6,7 @@
 //  Copyright (c) 2013 vcell. All rights reserved.
 //
 
-//#define LOCALHOST
+#define LOCALHOST
 
 #define IS_PHONE  UI_USER_INTERFACE_IDIOM()==UIUserInterfaceIdiomPhone
 #define DATEFORMAT @"EEEE',' d MMMM yyyy"

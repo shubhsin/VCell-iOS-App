@@ -17,7 +17,8 @@
     
     //Class Vars
     NSString *actionSheetPref;
-    NSUInteger numberOfObjectsReceived;
+    NSDictionary *actionSheetDict;
+    NSMutableDictionary *numberOfObjectsReceived;
     NSUInteger displaySegmentIndex;
     Functions *functions;
     NSUInteger oldNumberOfSections;
@@ -41,38 +42,56 @@
 
     self.appSimSegmentControl.selectedSegmentIndex = displaySegmentIndex;
     
-    numberOfObjectsReceived = [[userDefaults objectForKey:BM_NUMBEROFOBJECTS] integerValue];
-    
+    numberOfObjectsReceived = [userDefaults objectForKey:BM_NUMBEROFOBJECTS];
+        
     actionSheetPref = [userDefaults objectForKey:BM_ACTIONSHEETPREF];
 }
 
 - (void)initActionSheet
 {
-    NSArray *keys = [NSArray arrayWithObjects:
-                     @"myModels",
-                     @"public",
-                     @"shared",
-                     @"educational",
-                     @"tutorial",
-                     nil];
+    NSArray *buttonTitles = [NSArray arrayWithObjects:@"My Models",@"Public",@"Shared",@"Educational",@"Tutorial", nil];
+
    
-    NSArray *objects = [NSArray arrayWithObjects:
-                        [NSMutableString stringWithString:@"My Models"],
-                        [NSMutableString stringWithString:@"Public"],
-                        [NSMutableString stringWithString:@"Shared"],
-                        [NSMutableString stringWithString:@"Educational"],
-                        [NSMutableString stringWithString:@"Tutorial"], nil];
+    NSMutableArray *buttonMutableTitles = [NSMutableArray array];
     
-    NSDictionary *buttonTitlesDict = [NSDictionary dictionaryWithObjects:objects forKeys:keys];
+    [buttonTitles enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+        [buttonMutableTitles addObject:[NSMutableString stringWithString:obj]];
+    }];
+
     
-    if(actionSheetPref == nil)
+    if(!numberOfObjectsReceived)
     {
-        actionSheetPref = [objects objectAtIndex:0];
+        
+        numberOfObjectsReceived = [NSMutableDictionary dictionaryWithObjects:[NSArray arrayWithObjects:
+                                                                    [NSNumber numberWithInteger:0],
+                                                                    [NSNumber numberWithInteger:0],
+                                                                    [NSNumber numberWithInteger:0],
+                                                                    [NSNumber numberWithInteger:0],
+                                                                    [NSNumber numberWithInteger:0],
+                                                                    nil] forKeys:buttonTitles];
+        
+        [userDefaults setObject:numberOfObjectsReceived forKey:BM_NUMBEROFOBJECTS];
+        [userDefaults synchronize];
+    }
+    
+    if(!actionSheetDict)
+    {
+        actionSheetDict = [NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:@"schaff",
+                                                           @"all_public",
+                                                           @"all_shared",
+                                                           @"Education",
+                                                           @"tutorial"
+                                                           , nil] forKeys:buttonTitles];
+    }
+    
+    if(!actionSheetPref)
+    {
+        actionSheetPref = [buttonTitles objectAtIndex:0];
         [userDefaults setObject:actionSheetPref forKey:BM_ACTIONSHEETPREF];
         [userDefaults synchronize];
     }
     
-    [objects enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+    [buttonMutableTitles enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
 
         if([obj isEqualToString:actionSheetPref])
         {
@@ -86,12 +105,13 @@
                         initWithTitle:@"Select Biomodel Group"
                         delegate:self
                         cancelButtonTitle:@"Cancel"
-                        destructiveButtonTitle:[buttonTitlesDict objectForKey:@"myModels"]
+                        destructiveButtonTitle:[buttonMutableTitles objectAtIndex:0]
                         otherButtonTitles:
-                        [buttonTitlesDict objectForKey:@"shared"],
-                        [buttonTitlesDict objectForKey:@"public"],
-                        [buttonTitlesDict objectForKey:@"educational"],
-                        [buttonTitlesDict objectForKey:@"tutorial"],nil];
+                        [buttonMutableTitles objectAtIndex:1],
+                        [buttonMutableTitles objectAtIndex:2],
+                        [buttonMutableTitles objectAtIndex:3],
+                        [buttonMutableTitles objectAtIndex:4],
+                        nil];
 }
 
 - (void)viewDidLoad
@@ -110,11 +130,10 @@
 
 - (void)initDictAndstartLoading:(id)sender
 {
-
-    [Functions deleteAllObjects:BIOMODEL_ENTITY inManagedObjectContext:self.managedObjectContext];
+    [Functions deleteAllObjects:BIOMODEL_ENTITY inManagedObjectContext:self.managedObjectContext withOwner:actionSheetPref];
      // To get rid of rougue simulations, applications if any
-    [Functions deleteAllObjects:SIMULATION_ENTITY inManagedObjectContext:self.managedObjectContext];
-    [Functions deleteAllObjects:APPLICATION_ENTITY inManagedObjectContext:self.managedObjectContext];
+  //  [Functions deleteAllObjects:SIMULATION_ENTITY inManagedObjectContext:self.managedObjectContext];
+  //  [Functions deleteAllObjects:APPLICATION_ENTITY inManagedObjectContext:self.managedObjectContext];
     
     rowNum = 0;
     [self initURLParamDict];
@@ -150,6 +169,8 @@
     NSManagedObjectContext *context = [self managedObjectContext];
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
     NSEntityDescription *entity = [NSEntityDescription entityForName:BIOMODEL_ENTITY inManagedObjectContext:context];
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:[NSString stringWithFormat:@"(SELF.bmgroup like '%@')",actionSheetPref]];
+    [fetchRequest setPredicate:predicate];
     [fetchRequest setEntity:entity];
     [fetchRequest setIncludesSubentities:NO];
     rowNum = [context countForFetchRequest:fetchRequest error:nil];
@@ -158,7 +179,10 @@
 - (void)startLoading
 {
     NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@startRow=%d&owner=%@",
-                                       BIOMODEL_URL,[Functions contructUrlParamsOnDict:URLparams],rowNum+1,actionSheetPref]];
+                                       BIOMODEL_URL,
+                                       [Functions contructUrlParamsOnDict:URLparams],
+                                       rowNum+1,
+                                       [actionSheetDict objectForKey:actionSheetPref]]];
     NSLog(@"%@",url);
     [functions fetchJSONFromURL:url WithrowNum:rowNum+1 AddHUDToView:self.navigationController.view delegate:self];
 }
@@ -175,9 +199,9 @@
 
 - (void)fetchJSONDidCompleteWithJSONArray:(NSArray *)jsonData
 {
-    numberOfObjectsReceived = [jsonData count];
+    [numberOfObjectsReceived setValue:[NSNumber numberWithInteger:[jsonData count]] forKey:actionSheetPref];
     
-    [userDefaults setObject:[NSNumber numberWithInteger:numberOfObjectsReceived] forKey:BM_NUMBEROFOBJECTS];
+    [userDefaults setObject:numberOfObjectsReceived forKey:BM_NUMBEROFOBJECTS];
     [userDefaults synchronize];
     
     NSManagedObjectContext *context = [self managedObjectContext];
@@ -248,7 +272,8 @@
 - (NSFetchedResultsController *)newFetchedResultsControllerWithSearch:(NSString *)searchString
 {
     NSString *entityName, *sortKey, *sectionKeyPath;
-    
+    NSMutableString *predicateFormat = [NSMutableString stringWithString:@"("];
+
     switch (displaySegmentIndex) {
             
         case BIOMODELS_SEGMENT:
@@ -263,17 +288,18 @@
             entityName = APPLICATION_ENTITY;
             sortKey = @"biomodel.savedDate";
             sectionKeyPath = @"biomodel.bmKey";
-            
+            [predicateFormat appendString:@"biomodel."];
             break;
         case SIMULATIONS_SEGMENT:
             
             entityName = SIMULATION_ENTITY;
             sortKey = @"application.biomodel.savedDate";
             sectionKeyPath =  @"application.biomodel.bmKey";
-            
+            [predicateFormat appendString:@"application.biomodel."];            
             break;
     }
     
+    [predicateFormat appendFormat:@"bmgroup like '%@')",actionSheetPref];
     
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
     // Edit the entity name as appropriate.
@@ -284,15 +310,13 @@
     [fetchRequest setFetchBatchSize:20];
     
     //Set the predicate
-    NSPredicate *searchPredicate;
     
+        
     if(searchString)
-        searchPredicate = [NSPredicate predicateWithFormat:@"SELF.name contains[c] %@",searchString];
-    
-    NSPredicate *actionSheetPredicate = [NSPredicate predicateWithFormat:@"SELF.bmgroup like '%@'",actionSheetPref];
-    
-    NSPredicate *predicate = [NSCompoundPredicate andPredicateWithSubpredicates:
-                              [NSArray arrayWithObjects:searchPredicate,actionSheetPredicate, nil]];
+        [predicateFormat appendFormat:@" AND (SELF.name contains[c] '%@')",searchString];
+   
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:predicateFormat];
+
     [fetchRequest setPredicate:predicate];
     
     // Edit the sort key as appropriate.
@@ -407,7 +431,7 @@
         {
             NSIndexPath *indexPath;
             if(displaySegmentIndex == BIOMODELS_SEGMENT)
-                indexPath = [NSIndexPath indexPathForRow:rowNum - numberOfObjectsReceived inSection:0];
+                indexPath = [NSIndexPath indexPathForRow:rowNum - [[numberOfObjectsReceived objectForKey:actionSheetPref] integerValue] inSection:0];
             else
                 indexPath = [NSIndexPath indexPathForRow:0 inSection:oldNumberOfSections];
         
@@ -434,7 +458,7 @@
     
     NSUInteger sections = [[self.fetchedResultsController sections] count];
     if(sections > 0)
-    if(numberOfObjectsReceived == [[URLparams objectForKey:BM_MAXROWS] integerValue] &&
+    if([[numberOfObjectsReceived objectForKey:actionSheetPref] integerValue] == [[URLparams objectForKey:BM_MAXROWS] integerValue] &&
        indexPath.section == sections -1 &&
        indexPath.row == [self.tableView numberOfRowsInSection:sections - 1] - 1 &&
        tableView == self.tableView)
@@ -457,7 +481,6 @@
 
 - (IBAction)selectOwnerBtnClicked:(id)sender
 {
-
     [self.actionSheet showFromTabBar:self.tabBarController.tabBar];
 }
 
@@ -468,10 +491,16 @@
     NSString *btnIndex = [actionSheet buttonTitleAtIndex:buttonIndex];
     if(![btnIndex isEqualToString:@"Cancel"])
     {
-        actionSheetPref = btnIndex;
+        if([btnIndex isEqualToString:[actionSheetPref stringByAppendingString:TICK_MARK]])
+            actionSheetPref = [btnIndex stringByReplacingOccurrencesOfString:TICK_MARK withString:@""];
+        else
+            actionSheetPref = btnIndex;
         [userDefaults setObject:actionSheetPref forKey:BM_ACTIONSHEETPREF];
         [userDefaults synchronize];
+        
         [self initActionSheet];
+        [self.tableView setContentOffset:CGPointZero animated:NO]; // Scroll to top
+        [self updateNumRow];
         self.fetchedResultsController = nil;
         [self.tableView reloadData];
     }
