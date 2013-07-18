@@ -45,6 +45,7 @@
 @property (strong, nonatomic) NSManagedObjectContext *managedObjectContext;
 @property (weak, nonatomic) IBOutlet UISegmentedControl *appSimSegmentControl;
 - (IBAction)appSimSwap:(id)sender;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *ownerBtn;
 
 - (IBAction)selectOwnerBtnClicked:(id)sender;
 @end

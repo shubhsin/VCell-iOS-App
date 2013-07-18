@@ -120,6 +120,8 @@
     [self loadPrefs];
     [self initActionSheet];
     [self updateNumRow];
+    [self setOwnerBtnTitle];
+    
     functions = [[Functions alloc] init];
     //Pull to refresh
     UIRefreshControl *refreshControl = [[UIRefreshControl alloc] init];
@@ -498,12 +500,24 @@
         [userDefaults setObject:actionSheetPref forKey:BM_ACTIONSHEETPREF];
         [userDefaults synchronize];
         
+        [self setOwnerBtnTitle];
+        
         [self initActionSheet];
         [self.tableView setContentOffset:CGPointZero animated:NO]; // Scroll to top
         [self updateNumRow];
         self.fetchedResultsController = nil;
         [self.tableView reloadData];
     }
+}
+
+- (void)setOwnerBtnTitle
+{
+    if([actionSheetPref isEqualToString:@"My Models"])
+        self.ownerBtn.title = @"My";
+    else if([actionSheetPref isEqualToString:@"Educational"])
+        self.ownerBtn.title = @"Edu";
+    else
+        self.ownerBtn.title = actionSheetPref;
 }
 
 #pragma mark - Search Delegates
