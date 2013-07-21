@@ -157,7 +157,7 @@
         HUD.mode = MBProgressHUDModeCustomView;
         HUD.dimBackground = NO;
     }
-    [self.delegate fetchJSONDidCompleteWithJSONArray:jsonData];
+    [self.delegate fetchJSONDidCompleteWithJSONArray:jsonData function:self];
     HUD.labelText = @"Done!";
     [HUD hide:YES afterDelay:1];
 }

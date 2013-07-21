@@ -10,7 +10,8 @@
 
 @interface BiomodelDetailsViewController ()
 {
-    Functions *functions;
+    Functions *simJobFunc;
+    Functions *bioModelFunc;
     Biomodel *biomodel;
     Simulation *simulation;
     Application *application;
@@ -23,18 +24,56 @@
 
 - (void)setObject:(id)obj
 {
-    if ([obj isKindOfClass:[Biomodel class]]) 
+    if ([obj isKindOfClass:[Biomodel class]])
         biomodel = obj;
     else if([obj isKindOfClass:[Application class]])
         application = obj;
     else if ([obj isKindOfClass:[Simulation class]])
-        simulation = obj;    
+        simulation = obj;
+    else if([obj isKindOfClass:[SimJob class]])
+        [self searchInStoreOrGetFromInternet:obj];
+    
+}
+
+- (void)searchInStoreOrGetFromInternet:(SimJob *)simJob
+{
+    AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+    NSManagedObjectContext *context = appDelegate.managedObjectContext;
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+    NSEntityDescription *entity = [NSEntityDescription entityForName:BIOMODEL_ENTITY inManagedObjectContext:context];
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:
+                              [NSString stringWithFormat:@"(SELF.bmKey like '%@')",simJob.bioModelLink.bioModelKey]];
+    [fetchRequest setPredicate:predicate];
+    [fetchRequest setEntity:entity];
+    
+    NSArray *fetchedObject = [context executeFetchRequest:fetchRequest error:nil];
+    
+    if([fetchedObject count] == 0)
+        [self getFromInternet:simJob];
+    else
+    {
+        Biomodel *aBiomodel = [fetchedObject objectAtIndex:0];
+        [self setObject:aBiomodel];
+        [self setUpView];
+        [self.tableView reloadData];
+    }
+}
+
+- (void)getFromInternet:(SimJob *)simJob
+{
+    NSURL *bioModelUrl = [NSURL URLWithString:[NSString stringWithFormat:@"%@?bmId=%@",BIOMODEL_URL,simJob.bioModelLink.bioModelKey]];
+    bioModelFunc = [[Functions alloc] init];
+    [bioModelFunc fetchJSONFromURL:bioModelUrl WithrowNum:1 AddHUDToView:[[[[UIApplication sharedApplication] keyWindow] subviews] lastObject] delegate:self];
 }
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    [self setUpView];
+}
 
+- (void)setUpView
+{
     if(biomodel || application)
         self.title = @"Simulations";
     else if(simulation)
@@ -43,23 +82,31 @@
         
         NSURL *checkJobsURL = [NSURL URLWithString:[NSString stringWithFormat:@"%@?simId=%d&hasData=all&waiting=on&queued=on&dispatched=on&running=on&completed=on&failed=on&stopped=on&startRow=1&maxRows=200"
                                                     ,SIMTASK_URL,[simulation.key integerValue]]];
-        functions = [[Functions alloc] init];
-        [functions fetchJSONFromURL:checkJobsURL WithrowNum:1 AddHUDToView:self.navigationController.view delegate:self];
-
-    }    
+        simJobFunc = [[Functions alloc] init];
+        [simJobFunc fetchJSONFromURL:checkJobsURL WithrowNum:1 AddHUDToView:self.navigationController.view delegate:self];
+        
+    }
 }
 
-- (void)fetchJSONDidCompleteWithJSONArray:(NSArray *)jsonData
+- (void)fetchJSONDidCompleteWithJSONArray:(NSArray *)jsonData function:(Functions *)function
 {
-
-    NSMutableArray *simMutableJobs = [NSMutableArray array];
-    
-    // Add the objects in the array
-    for(NSDictionary *dict in jsonData)
-        [simMutableJobs addObject:[[SimJob alloc] initWithDict:dict]];
-
-    simJobs = simMutableJobs;
+    if (function == simJobFunc)
+    {
+        NSMutableArray *simMutableJobs = [NSMutableArray array];
+        
+        // Add the objects in the array
+        for(NSDictionary *dict in jsonData)
+            [simMutableJobs addObject:[[SimJob alloc] initWithDict:dict]];
+        
+        simJobs = simMutableJobs;
+    }
+    else if (function == bioModelFunc)
+    {
+        biomodel = [Biomodel biomodelWithDict:[jsonData objectAtIndex:0] inContext:[(AppDelegate *)[[UIApplication sharedApplication] delegate] managedObjectContext] biomodelGroup:nil];
+        [self setUpView];
+    }
     [self.tableView reloadData];
+    
 }
 
 #pragma mark - Table view data source
@@ -117,6 +164,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
     if(biomodel || application)
     {
         BiomodelDetailsViewController *biomodelDetailsViewController = [[BiomodelDetailsViewController alloc] initWithStyle:UITableViewStylePlain];
@@ -132,9 +180,9 @@
     {
         UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"MainStoryboard_iPhone" bundle:nil];
         SimJobDetailsController *simJobDetailsController = [storyboard instantiateViewControllerWithIdentifier:@"SimJobDetailsController"];
+        [simJobDetailsController setFromBiomodelTab:YES];
         [simJobDetailsController setObject:[simJobs objectAtIndex:indexPath.row]];
         [self.navigationController pushViewController:simJobDetailsController animated:YES];
-
     }
 }
 

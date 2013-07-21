@@ -11,10 +11,11 @@
 
 @interface SimJobDetailsController : UITableViewController <UIAlertViewDelegate,UISplitViewControllerDelegate>
 
+@property (assign, nonatomic, getter=isFromBiomodelTab) BOOL fromBiomodelTab;
+
 //section 0
 @property (weak, nonatomic) IBOutlet UITableViewCell *viewData;
-@property (weak, nonatomic) IBOutlet UITableViewCell *parentApp;
-@property (weak, nonatomic) IBOutlet UITableViewCell *parentSim;
+@property (weak, nonatomic) IBOutlet UITableViewCell *parent;
 
 //section 1
 @property (weak, nonatomic) IBOutlet UITableViewCell *simKey;

@@ -9,7 +9,7 @@
 #import "SimJobController.h"
 
 @interface SimJobController ()
-{  
+{
     //Class Vars
     Functions *functions;
     NSUInteger numberOfObjectsReceived;
@@ -21,7 +21,7 @@
     BOOL sortByDate;
     NSUInteger rowNum; //current start row of the data to request
     NSUserDefaults *userDefaults;
-
+    
 }
 @end
 
@@ -30,31 +30,31 @@
 - (void)initURLParamDict
 {
     NSArray *keys=  [NSArray arrayWithObjects:BEGIN_STAMP,
-                         END_STAMP,
-                         MAXROWS,
-                         SERVERID,
-                         COMPUTEHOST,
-                         SIMID,
-                         JOBID,
-                         TASKID,
-                         HASDATA,
-                         @"completed",
-                         @"waiting",
-                         @"queued",
-                         @"dispatched",
-                         @"running",
-                         @"failed",
-                         @"stopped",nil];
-        
+                     END_STAMP,
+                     MAXROWS,
+                     SERVERID,
+                     COMPUTEHOST,
+                     SIMID,
+                     JOBID,
+                     TASKID,
+                     HASDATA,
+                     @"completed",
+                     @"waiting",
+                     @"queued",
+                     @"dispatched",
+                     @"running",
+                     @"failed",
+                     @"stopped",nil];
+    
     NSArray *objects = [NSArray arrayWithObjects:
-                            @"",@"",
-                            @"10",
-                            @"",@"",@"", @"",@"",
-                            @"any",
-                            @"on",
-                            @"",@"",@"",@"",@"",@"",
-                            nil];
-  
+                        @"",@"",
+                        @"10",
+                        @"",@"",@"", @"",@"",
+                        @"any",
+                        @"on",
+                        @"",@"",@"",@"",@"",@"",
+                        nil];
+    
     URLparams = [Functions initURLParamDictWithFileName:SIMJOB_FILTERS_FILE Keys:keys AndObjects:objects];
 }
 
@@ -78,13 +78,13 @@
     
     [self initDictAndstartLoading:nil];
     
-    self.simJobDetailsController = (SimJobDetailsController *)[self.splitViewController.viewControllers lastObject];    
+    self.simJobDetailsController = (SimJobDetailsController *)[self.splitViewController.viewControllers lastObject];
 }
 
 - (void)loadPrefs
 {
     userDefaults  = [NSUserDefaults standardUserDefaults];
-
+    
     //For biomodel/date sort
     sortByDate = [[userDefaults objectForKey:@"sortByDate"] boolValue];
     
@@ -111,7 +111,7 @@
 }
 
 
-- (void)fetchJSONDidCompleteWithJSONArray:(NSArray *)jsonData
+- (void)fetchJSONDidCompleteWithJSONArray:(NSArray *)jsonData function:(Functions *)function;
 {
     // Make an empty array
     NSMutableArray *simMutableJobs = [NSMutableArray array];
@@ -126,7 +126,7 @@
     {
         simJobs = [NSMutableArray arrayWithArray:simMutableJobs];
         [self breakIntoSectionsbyDate:sortByDate andSimJobArr:simJobs forTableView:self.tableView];
-           
+        
     }
     else
     {
@@ -196,11 +196,11 @@
 {
     static NSString *CellIdentifier = @"Cell";
     static NSString *SimJobButtonCellIdentifier = @"SimJobButtonCell";
-
+    
     NSInteger currentSection = indexPath.section;
     //For first cell
     
-    //for completed/running/stopped buttons    
+    //for completed/running/stopped buttons
     if(indexPath.section == 0 && tableView != self.searchDisplayController.searchResultsTableView)
     {
         SimJobButtonCell *cell;
@@ -215,11 +215,11 @@
         NSNumber *btnState = [[NSUserDefaults standardUserDefaults] objectForKey:@"completed"];
         if(btnState)
             cell.completedBtn.selected = [btnState boolValue];
-
+        
         btnState = [[NSUserDefaults standardUserDefaults] objectForKey:@"running"];
         if(btnState)
             cell.runningBtn.selected = [btnState boolValue];
-     
+        
         btnState = [[NSUserDefaults standardUserDefaults] objectForKey:@"stopped"];
         if(btnState)
             cell.stoppedBtn.selected = [btnState boolValue];
@@ -231,7 +231,7 @@
         currentSection = indexPath.section - 1;
     }
     SimJobCell *cell;
-
+    
     //Register nib files manually for custom cell since search display controller can't load from storyboard
     [self.searchDisplayController.searchResultsTableView registerNib:[UINib nibWithNibName:@"SimJobCell" bundle:[NSBundle mainBundle]] forCellReuseIdentifier:CellIdentifier];
     [self.tableView registerNib:[UINib nibWithNibName:@"SimJobCell" bundle:[NSBundle mainBundle]] forCellReuseIdentifier:CellIdentifier];
@@ -242,7 +242,7 @@
     if (cell == nil) {
         cell = [[SimJobCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
     }
-   
+    
     if(simJobs)
     {
         [self setCellButtonStyle:cell];
@@ -268,9 +268,9 @@
         cell.status.text = job.status;
         
         if(job.bioModelLink.simContextName)
-             cell.appName.text = job.bioModelLink.simContextName;
+            cell.appName.text = job.bioModelLink.simContextName;
         else
-             cell.appName.text = @"Unknown";
+            cell.appName.text = @"Unknown";
         
         cell.jobIndex.text = [NSString stringWithFormat:@"%@",job.jobIndex];
         if(sortByDate)
@@ -279,11 +279,11 @@
                 cell.startDate.text = job.bioModelLink.bioModelName;
             else
                 cell.startDate.text = @"Unknown";
-        }   
+        }
         else
             cell.startDate.text =  [job startDateString];
     }
- 
+    
     return cell;
 }
 
@@ -299,7 +299,7 @@
     
     SimJob *job  = [[simJobSections objectAtIndex:currentSection] objectAtIndex:0];
     
-    NSString *title; 
+    NSString *title;
     if(sortByDate == YES)
         title = [job startDateString];
     else
@@ -307,7 +307,7 @@
     
     if(title == NULL)
         title = @"Unknown";
-
+    
     return title;
 }
 
@@ -364,7 +364,7 @@
         
         uniqueKeys = [[NSOrderedSet alloc] initWithArray:sortedKeys];
     }
-        
+    
     NSMutableArray *sections = [NSMutableArray array];
     
     for(NSString *key in uniqueKeys)
@@ -403,17 +403,17 @@
 - (IBAction)bioModelDateSwap:(id)sender
 {
     UIBarButtonItem *sortButton = (UIBarButtonItem*)sender;
-
-   if([sortButton.title isEqualToString:@"Date"])
-   {
-       sortButton.title = BIOMODEL_SORT;
-       sortByDate = YES;
-   }
-   else if([sortButton.title isEqualToString:@"BioModel"])
-   {
-       sortButton.title = DATE_SORT;
-       sortByDate = NO;
-   }
+    
+    if([sortButton.title isEqualToString:@"Date"])
+    {
+        sortButton.title = BIOMODEL_SORT;
+        sortByDate = YES;
+    }
+    else if([sortButton.title isEqualToString:@"BioModel"])
+    {
+        sortButton.title = DATE_SORT;
+        sortByDate = NO;
+    }
     
     [userDefaults setObject:[NSNumber numberWithBool:sortByDate] forKey:@"sortByDate"];
     [userDefaults synchronize];
@@ -422,53 +422,53 @@
 
 - (void)updatDataOnBtnPressedWithButtonTag:(int)tag AndButtonActive:(BOOL)active
 {
-   
-        if(active)
+    
+    if(active)
+    {
+        if(tag == COMPLETED_BTN)
         {
-            if(tag == COMPLETED_BTN)
-            {
-                [URLparams setObject:@"on" forKey:@"completed"];
-            }
-            else if (tag == RUNNING_BTN)
-            {
-                [URLparams setObject:@"on" forKey:@"waiting"];
-                [URLparams setObject:@"on" forKey:@"queued"];
-                [URLparams setObject:@"on" forKey:@"dispatched"];
-                [URLparams setObject:@"on" forKey:@"running"];
-            }
-            else if (tag == STOPPED_BTN)
-            {
-                [URLparams setObject:@"on" forKey:@"stopped"];
-                [URLparams setObject:@"on" forKey:@"failed"];
-            }
+            [URLparams setObject:@"on" forKey:@"completed"];
         }
-        else
+        else if (tag == RUNNING_BTN)
         {
-            if(tag == COMPLETED_BTN)
-            {
-                [URLparams setObject:@"" forKey:@"completed"];
-            }
-            else if (tag == RUNNING_BTN)
-            {
-                [URLparams setObject:@"" forKey:@"waiting"];
-                [URLparams setObject:@"" forKey:@"queued"];
-                [URLparams setObject:@"" forKey:@"dispatched"];
-                [URLparams setObject:@"" forKey:@"running"];
-            }
-            else if (tag == STOPPED_BTN)
-            {
-                [URLparams setObject:@"" forKey:@"stopped"];
-                [URLparams setObject:@"" forKey:@"failed"];
-            }
+            [URLparams setObject:@"on" forKey:@"waiting"];
+            [URLparams setObject:@"on" forKey:@"queued"];
+            [URLparams setObject:@"on" forKey:@"dispatched"];
+            [URLparams setObject:@"on" forKey:@"running"];
         }
-
-        //Write params to disk
-        NSString *plistPath = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0] stringByAppendingPathComponent:SIMJOB_FILTERS_FILE];
-        [URLparams writeToFile:plistPath atomically:YES];
-        rowNum = 1;
-        [self startLoading];
+        else if (tag == STOPPED_BTN)
+        {
+            [URLparams setObject:@"on" forKey:@"stopped"];
+            [URLparams setObject:@"on" forKey:@"failed"];
+        }
+    }
+    else
+    {
+        if(tag == COMPLETED_BTN)
+        {
+            [URLparams setObject:@"" forKey:@"completed"];
+        }
+        else if (tag == RUNNING_BTN)
+        {
+            [URLparams setObject:@"" forKey:@"waiting"];
+            [URLparams setObject:@"" forKey:@"queued"];
+            [URLparams setObject:@"" forKey:@"dispatched"];
+            [URLparams setObject:@"" forKey:@"running"];
+        }
+        else if (tag == STOPPED_BTN)
+        {
+            [URLparams setObject:@"" forKey:@"stopped"];
+            [URLparams setObject:@"" forKey:@"failed"];
+        }
+    }
+    
+    //Write params to disk
+    NSString *plistPath = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0] stringByAppendingPathComponent:SIMJOB_FILTERS_FILE];
+    [URLparams writeToFile:plistPath atomically:YES];
+    rowNum = 1;
+    [self startLoading];
 }
- //Needed to set height of search display controller properly.
+//Needed to set height of search display controller properly.
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     //Height of cell for toggle buttons
@@ -486,7 +486,7 @@
 
 - (void)initSearchWithSearchText:(NSString *)searchText
 {
-
+    
     [filteredSimJobsArr removeAllObjects];
     NSString *searchScopeProperty;
     NSInteger scopeIndex = [self.searchDisplayController.searchBar selectedScopeButtonIndex];

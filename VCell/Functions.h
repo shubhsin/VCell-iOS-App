@@ -6,10 +6,11 @@
 //  Copyright (c) 2013 vcell. All rights reserved.
 //
 
+@class Functions;
 
 @protocol FetchJSONDelegate
 
-- (void)fetchJSONDidCompleteWithJSONArray:(NSArray *)jsonData;
+- (void)fetchJSONDidCompleteWithJSONArray:(NSArray *)jsonData function:(Functions *)function;
 
 @end
 

@@ -39,36 +39,36 @@
         displaySegmentIndex = [[userDefaults objectForKey:BM_DISPLAYSEGMENTINDEX] integerValue];
     else
         displaySegmentIndex = APPLICATIONS_SEGMENT;
-
+    
     self.appSimSegmentControl.selectedSegmentIndex = displaySegmentIndex;
     
     numberOfObjectsReceived = [userDefaults objectForKey:BM_NUMBEROFOBJECTS];
-        
+    
     actionSheetPref = [userDefaults objectForKey:BM_ACTIONSHEETPREF];
 }
 
 - (void)initActionSheet
 {
     NSArray *buttonTitles = [NSArray arrayWithObjects:@"My Models",@"Public",@"Shared",@"Educational",@"Tutorial", nil];
-
-   
+    
+    
     NSMutableArray *buttonMutableTitles = [NSMutableArray array];
     
     [buttonTitles enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
         [buttonMutableTitles addObject:[NSMutableString stringWithString:obj]];
     }];
-
+    
     
     if(!numberOfObjectsReceived)
     {
         
         numberOfObjectsReceived = [NSMutableDictionary dictionaryWithObjects:[NSArray arrayWithObjects:
-                                                                    [NSNumber numberWithInteger:0],
-                                                                    [NSNumber numberWithInteger:0],
-                                                                    [NSNumber numberWithInteger:0],
-                                                                    [NSNumber numberWithInteger:0],
-                                                                    [NSNumber numberWithInteger:0],
-                                                                    nil] forKeys:buttonTitles];
+                                                                              [NSNumber numberWithInteger:0],
+                                                                              [NSNumber numberWithInteger:0],
+                                                                              [NSNumber numberWithInteger:0],
+                                                                              [NSNumber numberWithInteger:0],
+                                                                              [NSNumber numberWithInteger:0],
+                                                                              nil] forKeys:buttonTitles];
         
         [userDefaults setObject:numberOfObjectsReceived forKey:BM_NUMBEROFOBJECTS];
         [userDefaults synchronize];
@@ -77,12 +77,12 @@
     if(!actionSheetDict)
     {
         actionSheetDict = [NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:
-                                                            [(AppDelegate *)[[UIApplication sharedApplication] delegate] username],
-                                                            @"all_public",
-                                                            @"all_shared",
-                                                            @"Education",
-                                                            @"tutorial"
-                                                           , nil] forKeys:buttonTitles];
+                                                               [(AppDelegate *)[[UIApplication sharedApplication] delegate] username],
+                                                               @"all_public",
+                                                               @"all_shared",
+                                                               @"Education",
+                                                               @"tutorial"
+                                                               , nil] forKeys:buttonTitles];
     }
     
     if(!actionSheetPref)
@@ -93,7 +93,7 @@
     }
     
     [buttonMutableTitles enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-
+        
         if([obj isEqualToString:actionSheetPref])
         {
             [obj appendString:TICK_MARK];
@@ -134,10 +134,6 @@
 - (void)initDictAndstartLoading:(id)sender
 {
     [Functions deleteAllObjects:BIOMODEL_ENTITY inManagedObjectContext:self.managedObjectContext withOwner:actionSheetPref];
-     // To get rid of rougue simulations, applications if any
-  //  [Functions deleteAllObjects:SIMULATION_ENTITY inManagedObjectContext:self.managedObjectContext];
-  //  [Functions deleteAllObjects:APPLICATION_ENTITY inManagedObjectContext:self.managedObjectContext];
-    
     rowNum = 0;
     [self initURLParamDict];
     [self startLoading];
@@ -200,7 +196,7 @@
 
 #pragma mark - fetch JSON delegate
 
-- (void)fetchJSONDidCompleteWithJSONArray:(NSArray *)jsonData
+- (void)fetchJSONDidCompleteWithJSONArray:(NSArray *)jsonData function:(Functions *)function;
 {
     [numberOfObjectsReceived setValue:[NSNumber numberWithInteger:[jsonData count]] forKey:actionSheetPref];
     
@@ -208,7 +204,7 @@
     [userDefaults synchronize];
     
     NSManagedObjectContext *context = [self managedObjectContext];
-
+    
     // Add the objects in the array
     for(NSDictionary *dict in jsonData)
         [Biomodel biomodelWithDict:dict inContext:context biomodelGroup:actionSheetPref];
@@ -228,7 +224,7 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-{    
+{
     // Return the number of rows in the section.
     id <NSFetchedResultsSectionInfo> sectionInfo = [[self fetchedResultsControllerForTableView:tableView] sections][section];
     return [sectionInfo numberOfObjects];
@@ -250,7 +246,7 @@
             bioModel = [[baseObject application] biomodel];
             break;
     }
-        
+    
     return [bioModel name];
 }
 
@@ -276,7 +272,7 @@
 {
     NSString *entityName, *sortKey, *sectionKeyPath;
     NSMutableString *predicateFormat = [NSMutableString stringWithString:@"("];
-
+    
     switch (displaySegmentIndex) {
             
         case BIOMODELS_SEGMENT:
@@ -298,7 +294,7 @@
             entityName = SIMULATION_ENTITY;
             sortKey = @"application.biomodel.savedDate";
             sectionKeyPath =  @"application.biomodel.bmKey";
-            [predicateFormat appendString:@"application.biomodel."];            
+            [predicateFormat appendString:@"application.biomodel."];
             break;
     }
     
@@ -314,12 +310,12 @@
     
     //Set the predicate
     
-        
+    
     if(searchString)
         [predicateFormat appendFormat:@" AND (SELF.name contains[c] '%@')",searchString];
-   
+    
     NSPredicate *predicate = [NSPredicate predicateWithFormat:predicateFormat];
-
+    
     [fetchRequest setPredicate:predicate];
     
     // Edit the sort key as appropriate.
@@ -336,13 +332,13 @@
     
     
     aFetchedResultsController.delegate = self;
-
+    
 	NSError *error = nil;
 	if (![aFetchedResultsController performFetch:&error]) {
 	    NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
 	}
     return aFetchedResultsController;
-
+    
 }
 
 - (NSFetchedResultsController *)searchFetchedResultsController
@@ -352,7 +348,7 @@
     }
     _searchFetchedResultsController = [self newFetchedResultsControllerWithSearch:self.searchDisplayController.searchBar.text];
     return _searchFetchedResultsController;
-
+    
 }
 
 - (NSFetchedResultsController *)fetchedResultsController
@@ -368,13 +364,13 @@
 {
     id object = [[self fetchedResultsControllerForTableView:tableView] objectAtIndexPath:indexPath];
     cell.textLabel.text = [object name];
-
+    
     if(displaySegmentIndex == BIOMODELS_SEGMENT)
     {
         UILabel *labelTwo = [[UILabel alloc] initWithFrame:CGRectMake(160, 27, 140, 20)];
-
+        
         cell.detailTextLabel.text = [object savedDateString];
-
+        
         labelTwo.font = cell.detailTextLabel.font;
         labelTwo.textAlignment = NSTextAlignmentRight;
         labelTwo.textColor = [UIColor darkGrayColor];
@@ -388,12 +384,12 @@
         labelTwo.text =  [NSString stringWithFormat:@"| A: %d | S: %d |",[[object applications] count], numberOfSim];
         
         [cell.contentView addSubview:labelTwo];
-       
+        
     }
     else if(displaySegmentIndex == APPLICATIONS_SEGMENT)
     {
         if ([cell.contentView subviews])
-            for (UIView *subview in [cell.contentView subviews]) 
+            for (UIView *subview in [cell.contentView subviews])
                 [subview removeFromSuperview];
         
         cell.detailTextLabel.text = [NSString stringWithFormat:@"Simulations: %d",[[object simulations] count]];
@@ -406,7 +402,7 @@
         
         cell.detailTextLabel.text = [[object application] name];
     }
-
+    
 }
 
 
@@ -437,7 +433,7 @@
                 indexPath = [NSIndexPath indexPathForRow:rowNum - [[numberOfObjectsReceived objectForKey:actionSheetPref] integerValue] inSection:0];
             else
                 indexPath = [NSIndexPath indexPathForRow:0 inSection:oldNumberOfSections];
-        
+            
             [Functions scrollToFirstRowOfNewSectionsWithOldNumberOfSections:indexPath tableView:self.tableView];
         }
     }
@@ -461,13 +457,13 @@
     
     NSUInteger sections = [[self.fetchedResultsController sections] count];
     if(sections > 0)
-    if([[numberOfObjectsReceived objectForKey:actionSheetPref] integerValue] == [[URLparams objectForKey:BM_MAXROWS] integerValue] &&
-       indexPath.section == sections -1 &&
-       indexPath.row == [self.tableView numberOfRowsInSection:sections - 1] - 1 &&
-       tableView == self.tableView)
-    {
-        [self startLoading];
-    }
+        if([[numberOfObjectsReceived objectForKey:actionSheetPref] integerValue] == [[URLparams objectForKey:BM_MAXROWS] integerValue] &&
+           indexPath.section == sections -1 &&
+           indexPath.row == [self.tableView numberOfRowsInSection:sections - 1] - 1 &&
+           tableView == self.tableView)
+        {
+            [self startLoading];
+        }
 }
 
 - (IBAction)appSimSwap:(id)sender
@@ -477,7 +473,7 @@
     
     [userDefaults setObject:[NSNumber numberWithInteger:displaySegmentIndex] forKey:BM_DISPLAYSEGMENTINDEX];
     [userDefaults synchronize];
-
+    
     self.fetchedResultsController = nil;
     [self.tableView reloadData];
 }

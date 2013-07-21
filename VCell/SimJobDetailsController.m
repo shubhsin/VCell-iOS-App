@@ -19,7 +19,6 @@
 - (void)setObject:(SimJob *)object
 {
     simJob = object;
-    NSLog(@"%@",simJob);
     if(!IS_PHONE)
         [self setUpCells];
 }
@@ -33,17 +32,11 @@
 
 - (void)viewWillAppear:(BOOL)animated
 {
-
+    [self.tableView deselectRowAtIndexPath:[self.tableView indexPathForSelectedRow] animated:YES];
 }
 
 - (void)setUpCells
 {
-    
-    //section 0
-//    self.viewData = 
-//    self.parentApp =
-//    self.parentSim =
-    
     //section 1
     self.simKey.detailTextLabel.text = simJob.simKey;
     self.simName.detailTextLabel.text = simJob.simName;
@@ -86,11 +79,32 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if(indexPath.section == 0) //0th section contains buttons
-        return;
-    
-    UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
-    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Details" message:cell.detailTextLabel.text delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil];
-    [alertView show];
+    {
+        if(indexPath.row == 0) // View Data
+        {
+            
+        }
+        else if(indexPath.row == 1) // View Parent
+        {
+            if([self isFromBiomodelTab]) //If Navigation is from biomodel tab, pop two view controllers for parent
+            {
+                NSArray *viewControllers = [self.navigationController viewControllers];
+                [self.navigationController popToViewController:[viewControllers objectAtIndex:[viewControllers count] - 3] animated:YES];
+            }
+            else
+            {
+                BiomodelDetailsViewController *biomodelDetailsViewController = [[BiomodelDetailsViewController alloc] initWithStyle:UITableViewStylePlain];
+                [biomodelDetailsViewController setObject:simJob];
+                [self.navigationController pushViewController:biomodelDetailsViewController animated:YES];
+            }
+        }
+    }
+    else
+    {
+        UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Details" message:cell.detailTextLabel.text delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+        [alertView show];
+    }
 }
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
