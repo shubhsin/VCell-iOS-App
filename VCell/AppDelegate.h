@@ -13,6 +13,9 @@
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
+
+- (NSString *)username;
+
 //For Core Data
 @property (readonly, strong, nonatomic) NSManagedObjectContext *managedObjectContext;
 @property (readonly, strong, nonatomic) NSManagedObjectModel *managedObjectModel;
@@ -20,5 +23,4 @@
 
 - (void)saveContext;
 - (NSURL *)applicationDocumentsDirectory;
-
 @end

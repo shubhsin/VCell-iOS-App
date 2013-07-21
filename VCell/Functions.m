@@ -11,10 +11,9 @@
 {
     //HUD Variables
     MBProgressHUD *HUD;
-    long long expectedLength;
-	long long currentLength;
     
     //Class Vars
+    NSURLConnection *connection;
     NSMutableData *connectionData;
     NSUInteger rowNum;
 }
@@ -121,14 +120,15 @@
     rowNum = rownum;
     connectionData = [NSMutableData data];
     NSURLRequest *urlReq = [NSURLRequest requestWithURL:url];
-    NSURLConnection *connection = [[NSURLConnection alloc] initWithRequest:urlReq  delegate:self];
+    connection = [[NSURLConnection alloc] initWithRequest:urlReq  delegate:self];
     [connection start];
     HUD = [MBProgressHUD showHUDAddedTo:view animated:YES];
     HUD.delegate = delegate;
+    [HUD addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(hudWasCancelled)]];
     if(rowNum == 1)
     {
         HUD.dimBackground = YES;
-        HUD.labelText = @"Fetching...";
+        HUD.labelText = @"Tap To Cancel...";
     }
     else
     {
@@ -142,23 +142,8 @@
 
 #pragma mark - NSURLConnectionDelegete
 
-- (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response
-{
-    if(rowNum == 1)
-    {
-        expectedLength = [response expectedContentLength];
-        currentLength = 0;
-        HUD.mode = MBProgressHUDModeDeterminate;
-    }
-}
-
 - (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data
 {
-    if(rowNum == 1)
-    {
-        currentLength += [data length];
-        HUD.progress = currentLength / (float)expectedLength;
-    }
     [connectionData appendData:data];
 }
 
@@ -182,4 +167,9 @@
 	[HUD hide:YES];
 }
 
+- (void)hudWasCancelled
+{
+    [connection cancel];
+	[HUD hide:YES];
+}
 @end

@@ -76,11 +76,12 @@
     
     if(!actionSheetDict)
     {
-        actionSheetDict = [NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:@"schaff",
-                                                           @"all_public",
-                                                           @"all_shared",
-                                                           @"Education",
-                                                           @"tutorial"
+        actionSheetDict = [NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:
+                                                            [(AppDelegate *)[[UIApplication sharedApplication] delegate] username],
+                                                            @"all_public",
+                                                            @"all_shared",
+                                                            @"Education",
+                                                            @"tutorial"
                                                            , nil] forKeys:buttonTitles];
     }
     

@@ -131,4 +131,9 @@
     return [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject];
 }
 
+- (NSString *)username
+{
+    return USERNAME;
+}
+
 @end
