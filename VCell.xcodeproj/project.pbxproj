@@ -55,6 +55,8 @@
 		54DA31AC1764B8900020D2B5 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 54DA31791764B8900020D2B5 /* Foundation.framework */; };
 		54DA31B41764B8900020D2B5 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 54DA31B21764B8900020D2B5 /* InfoPlist.strings */; };
 		54DA31B71764B8900020D2B5 /* VCellTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 54DA31B61764B8900020D2B5 /* VCellTests.m */; };
+		54DD491A17AD24EB00E27B2D /* BiomodelCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 54DD491917AD24EB00E27B2D /* BiomodelCell.m */; };
+		54DD491C17AD2C9600E27B2D /* BiomodelCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 54DD491B17AD2C9600E27B2D /* BiomodelCell.xib */; };
 		54EDA98B17709B7100A32120 /* 37x-Checkmark.png in Resources */ = {isa = PBXBuildFile; fileRef = 54EDA98917709B7100A32120 /* 37x-Checkmark.png */; };
 		54EDA98C17709B7100A32120 /* 37x-Checkmark@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 54EDA98A17709B7100A32120 /* 37x-Checkmark@2x.png */; };
 		9307B08CFDDB41158E846CD9 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F5E3B9BD63D1452C89576DCF /* libPods.a */; };
@@ -218,6 +220,9 @@
 		54DA31B31764B8900020D2B5 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		54DA31B51764B8900020D2B5 /* VCellTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VCellTests.h; sourceTree = "<group>"; };
 		54DA31B61764B8900020D2B5 /* VCellTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VCellTests.m; sourceTree = "<group>"; };
+		54DD491817AD24EB00E27B2D /* BiomodelCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BiomodelCell.h; sourceTree = "<group>"; };
+		54DD491917AD24EB00E27B2D /* BiomodelCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BiomodelCell.m; sourceTree = "<group>"; };
+		54DD491B17AD2C9600E27B2D /* BiomodelCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BiomodelCell.xib; sourceTree = "<group>"; };
 		54EDA98917709B7100A32120 /* 37x-Checkmark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "37x-Checkmark.png"; sourceTree = "<group>"; };
 		54EDA98A17709B7100A32120 /* 37x-Checkmark@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "37x-Checkmark@2x.png"; sourceTree = "<group>"; };
 		E5C91B3667764141BF077055 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = SOURCE_ROOT; };
@@ -315,6 +320,9 @@
 			children = (
 				545AF780178E8A1A0003678F /* BiomodelViewController.h */,
 				545AF781178E8A1A0003678F /* BiomodelViewController.m */,
+				54DD491817AD24EB00E27B2D /* BiomodelCell.h */,
+				54DD491917AD24EB00E27B2D /* BiomodelCell.m */,
+				54DD491B17AD2C9600E27B2D /* BiomodelCell.xib */,
 				545AF784178EA6DA0003678F /* BioModel.xcdatamodeld */,
 				545AF7DB1796C7800003678F /* BiomodelDetailsViewController.h */,
 				545AF7DC1796C7810003678F /* BiomodelDetailsViewController.m */,
@@ -621,6 +629,7 @@
 				540C37951771F68F00D95990 /* SimJobCell.xib in Resources */,
 				540AAC601772FD74007C4DCF /* dot.png in Resources */,
 				540AAC611772FD74007C4DCF /* dot@2x.png in Resources */,
+				54DD491C17AD2C9600E27B2D /* BiomodelCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -703,6 +712,7 @@
 				545AF7D5178F21100003678F /* Biomodel.m in Sources */,
 				545AF7D8178FC0BA0003678F /* Functions.m in Sources */,
 				545AF7DD1796C7810003678F /* BiomodelDetailsViewController.m in Sources */,
+				54DD491A17AD24EB00E27B2D /* BiomodelCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

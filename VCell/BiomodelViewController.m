@@ -257,12 +257,21 @@
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    
     static NSString *CellIdentifier = @"Cell";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-    if ( cell == nil ) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
+    [self.searchDisplayController.searchResultsTableView registerNib:[UINib nibWithNibName:@"BiomodelCell" bundle:[NSBundle mainBundle]] forCellReuseIdentifier:CellIdentifier];
+    [self.tableView registerNib:[UINib nibWithNibName:@"BiomodelCell" bundle:[NSBundle mainBundle]] forCellReuseIdentifier:CellIdentifier];
+    
+    BiomodelCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    
+    //Register nib files manually for custom cell since search display controller can't load from storyboard
+   
+    if(cell == nil)
+    {
+        cell = [[BiomodelCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
     }
-    [self configureCell:cell atIndexPath:indexPath  tableView:tableView];
+    
+    [self configureCell:cell atIndexPath:indexPath tableView:tableView];
     return cell;
 }
 
@@ -360,20 +369,21 @@
     return _fetchedResultsController;
 }
 
-- (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath tableView:(UITableView *)tableView
+- (void)configureCell:(BiomodelCell *)cell atIndexPath:(NSIndexPath *)indexPath tableView:(UITableView *)tableView
 {
     id object = [[self fetchedResultsControllerForTableView:tableView] objectAtIndexPath:indexPath];
-    cell.textLabel.text = [object name];
+    
+    cell.titleLabel.text = [object name];
+
+    cell.simAppCountLabel.text = nil;
     
     if(displaySegmentIndex == BIOMODELS_SEGMENT)
     {
-        UILabel *appSimCountLabel = [[UILabel alloc] initWithFrame:CGRectMake(170, 27, 140, 20)];
+        cell.detailLabel.text = [object name];
         
-        cell.detailTextLabel.text = [object savedDateString];
-        
-        appSimCountLabel.font = cell.detailTextLabel.font;
-        appSimCountLabel.textAlignment = NSTextAlignmentRight;
-        appSimCountLabel.textColor = [UIColor darkGrayColor];
+        cell.simAppCountLabel.font = cell.detailTextLabel.font;
+        cell.simAppCountLabel.textAlignment = NSTextAlignmentRight;
+        cell.simAppCountLabel.textColor = [UIColor darkGrayColor];
         
         __block NSUInteger numberOfSim = 0;
         
@@ -381,26 +391,15 @@
             numberOfSim += [[obj simulations] count];
         }];
         
-        appSimCountLabel.text =  [NSString stringWithFormat:@"| A: %d | S: %d |",[[object applications] count], numberOfSim];
-        
-        [cell.contentView addSubview:appSimCountLabel];
-        
+        cell.simAppCountLabel.text =  [NSString stringWithFormat:@"| A: %d | S: %d |",[[object applications] count], numberOfSim];
     }
     else if(displaySegmentIndex == APPLICATIONS_SEGMENT)
     {
-        if ([cell.contentView subviews])
-            for (UIView *subview in [cell.contentView subviews])
-                [subview removeFromSuperview];
-        
-        cell.detailTextLabel.text = [NSString stringWithFormat:@"Simulations: %d",[[object simulations] count]];
+        cell.detailLabel.text = [NSString stringWithFormat:@"Simulations: %d",[[object simulations] count]];
     }
     else if(displaySegmentIndex == SIMULATIONS_SEGMENT)
     {
-        if ([cell.contentView subviews])
-            for (UIView *subview in [cell.contentView subviews])
-                [subview removeFromSuperview];
-        
-        cell.detailTextLabel.text = [[object application] name];
+        cell.detailLabel.text = [[object application] name];
     }
     
 }
