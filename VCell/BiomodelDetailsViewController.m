@@ -63,7 +63,7 @@
 {
     NSURL *bioModelUrl = [NSURL URLWithString:[NSString stringWithFormat:@"%@?bmId=%@",BIOMODEL_URL,simJob.bioModelLink.bioModelKey]];
     bioModelFunc = [[Functions alloc] init];
-    [bioModelFunc fetchJSONFromURL:bioModelUrl WithrowNum:1 AddHUDToView:[[[[UIApplication sharedApplication] keyWindow] subviews] lastObject] delegate:self];
+    [bioModelFunc fetchJSONFromURL:bioModelUrl HUDTextMode:YES AddHUDToView:[[[[UIApplication sharedApplication] keyWindow] subviews] lastObject] delegate:self];
 }
 
 - (void)viewDidLoad
@@ -83,7 +83,7 @@
         NSURL *checkJobsURL = [NSURL URLWithString:[NSString stringWithFormat:@"%@?simId=%d&hasData=all&waiting=on&queued=on&dispatched=on&running=on&completed=on&failed=on&stopped=on&startRow=1&maxRows=200"
                                                     ,SIMTASK_URL,[simulation.key integerValue]]];
         simJobFunc = [[Functions alloc] init];
-        [simJobFunc fetchJSONFromURL:checkJobsURL WithrowNum:1 AddHUDToView:self.navigationController.view delegate:self];
+        [simJobFunc fetchJSONFromURL:checkJobsURL HUDTextMode:YES AddHUDToView:self.navigationController.view delegate:self];
         
     }
 }

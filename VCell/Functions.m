@@ -15,7 +15,7 @@
     //Class Vars
     NSURLConnection *connection;
     NSMutableData *connectionData;
-    NSUInteger rowNum;
+    BOOL HUDTextMode;
 }
 @end
 
@@ -114,10 +114,10 @@
     }];
 }
 
-- (void)fetchJSONFromURL:(NSURL*)url WithrowNum:(NSUInteger)rownum AddHUDToView:(UIView*)view delegate:(id)delegate
+- (void)fetchJSONFromURL:(NSURL*)url HUDTextMode:(BOOL)HUDtextMode AddHUDToView:(UIView*)view delegate:(id)delegate;
 {
     self.delegate = delegate;
-    rowNum = rownum;
+    HUDTextMode = HUDtextMode;
     connectionData = [NSMutableData data];
     NSURLRequest *urlReq = [NSURLRequest requestWithURL:url];
     connection = [[NSURLConnection alloc] initWithRequest:urlReq  delegate:self];
@@ -125,7 +125,7 @@
     HUD = [MBProgressHUD showHUDAddedTo:view animated:YES];
     HUD.delegate = delegate;
     [HUD addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(hudWasCancelled)]];
-    if(rowNum == 1)
+    if(!HUDTextMode)
     {
         HUD.dimBackground = YES;
         HUD.labelText = @"Tap To Cancel...";
@@ -151,7 +151,7 @@
 {
     // Save the received JSON array inside an NSArray
     NSArray *jsonData = [NSJSONSerialization JSONObjectWithData:connectionData options:kNilOptions error:nil];
-    if(rowNum == 1)
+    if(!HUDTextMode)
     {
         HUD.customView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"37x-Checkmark.png"]];
         HUD.mode = MBProgressHUDModeCustomView;

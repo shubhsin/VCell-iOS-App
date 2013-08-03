@@ -107,7 +107,8 @@
 {
     NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@startRow=%d",SIMTASK_URL,[Functions contructUrlParamsOnDict:URLparams],rowNum]];
     NSLog(@"%@",url);
-    [functions fetchJSONFromURL:url WithrowNum:rowNum AddHUDToView:self.navigationController.view delegate:self];
+    
+    [functions fetchJSONFromURL:url HUDTextMode:(rowNum==1?NO:YES) AddHUDToView:self.navigationController.view delegate:self];
 }
 
 
@@ -475,7 +476,7 @@
     if(indexPath.section == 0 && tableView != self.searchDisplayController.searchResultsTableView)
         return 38.0f;
     //Height of normal cells
-    return 112.0f;
+    return 86.0f;
 }
 
 #pragma mark - Search Delegates

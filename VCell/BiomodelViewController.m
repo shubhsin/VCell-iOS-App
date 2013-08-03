@@ -43,8 +43,8 @@
     self.appSimSegmentControl.selectedSegmentIndex = displaySegmentIndex;
     
     numberOfObjectsReceived = [userDefaults objectForKey:BM_NUMBEROFOBJECTS];
-    
     actionSheetPref = [userDefaults objectForKey:BM_ACTIONSHEETPREF];
+    [self initURLParamDict];
 }
 
 - (void)initActionSheet
@@ -73,7 +73,7 @@
         [userDefaults setObject:numberOfObjectsReceived forKey:BM_NUMBEROFOBJECTS];
         [userDefaults synchronize];
     }
-    
+
     if(!actionSheetDict)
     {
         actionSheetDict = [NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:
@@ -141,7 +141,6 @@
         [(UIRefreshControl *)sender endRefreshing];
 }
 
-#pragma mark - Fetch JSON
 
 - (void)initURLParamDict
 {
@@ -174,6 +173,7 @@
     [fetchRequest setIncludesSubentities:NO];
     rowNum = [context countForFetchRequest:fetchRequest error:nil];
 }
+#pragma mark - Fetch JSON
 
 - (void)startLoading
 {
@@ -183,7 +183,7 @@
                                        rowNum+1,
                                        [actionSheetDict objectForKey:actionSheetPref]]];
     NSLog(@"%@",url);
-    [functions fetchJSONFromURL:url WithrowNum:rowNum+1 AddHUDToView:self.navigationController.view delegate:self];
+    [functions fetchJSONFromURL:url HUDTextMode:(rowNum+1==1?NO:YES) AddHUDToView:self.navigationController.view delegate:self];
 }
 
 #pragma mark MBProgressHUDDelegate methods
@@ -367,13 +367,13 @@
     
     if(displaySegmentIndex == BIOMODELS_SEGMENT)
     {
-        UILabel *labelTwo = [[UILabel alloc] initWithFrame:CGRectMake(160, 27, 140, 20)];
+        UILabel *appSimCountLabel = [[UILabel alloc] initWithFrame:CGRectMake(170, 27, 140, 20)];
         
         cell.detailTextLabel.text = [object savedDateString];
         
-        labelTwo.font = cell.detailTextLabel.font;
-        labelTwo.textAlignment = NSTextAlignmentRight;
-        labelTwo.textColor = [UIColor darkGrayColor];
+        appSimCountLabel.font = cell.detailTextLabel.font;
+        appSimCountLabel.textAlignment = NSTextAlignmentRight;
+        appSimCountLabel.textColor = [UIColor darkGrayColor];
         
         __block NSUInteger numberOfSim = 0;
         
@@ -381,9 +381,9 @@
             numberOfSim += [[obj simulations] count];
         }];
         
-        labelTwo.text =  [NSString stringWithFormat:@"| A: %d | S: %d |",[[object applications] count], numberOfSim];
+        appSimCountLabel.text =  [NSString stringWithFormat:@"| A: %d | S: %d |",[[object applications] count], numberOfSim];
         
-        [cell.contentView addSubview:labelTwo];
+        [cell.contentView addSubview:appSimCountLabel];
         
     }
     else if(displaySegmentIndex == APPLICATIONS_SEGMENT)
@@ -454,7 +454,6 @@
 {
     if(tableView != self.tableView)
         return;
-    
     NSUInteger sections = [[self.fetchedResultsController sections] count];
     if(sections > 0)
         if([[numberOfObjectsReceived objectForKey:actionSheetPref] integerValue] == [[URLparams objectForKey:BM_MAXROWS] integerValue] &&
