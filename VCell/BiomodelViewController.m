@@ -492,11 +492,10 @@
             actionSheetPref = [btnIndex stringByReplacingOccurrencesOfString:TICK_MARK withString:@""];
         else
             actionSheetPref = btnIndex;
+        
         [userDefaults setObject:actionSheetPref forKey:BM_ACTIONSHEETPREF];
         [userDefaults synchronize];
-        
         [self setOwnerBtnTitle];
-        
         [self initActionSheet];
         [self.tableView setContentOffset:CGPointZero animated:NO]; // Scroll to top
         [self updateNumRow];

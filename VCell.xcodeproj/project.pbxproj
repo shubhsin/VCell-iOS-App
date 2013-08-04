@@ -57,9 +57,9 @@
 		54DA31B71764B8900020D2B5 /* VCellTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 54DA31B61764B8900020D2B5 /* VCellTests.m */; };
 		54DD491A17AD24EB00E27B2D /* BiomodelCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 54DD491917AD24EB00E27B2D /* BiomodelCell.m */; };
 		54DD491C17AD2C9600E27B2D /* BiomodelCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 54DD491B17AD2C9600E27B2D /* BiomodelCell.xib */; };
+		54DD491F17AE588400E27B2D /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 54DD491E17AE588400E27B2D /* MBProgressHUD.m */; };
 		54EDA98B17709B7100A32120 /* 37x-Checkmark.png in Resources */ = {isa = PBXBuildFile; fileRef = 54EDA98917709B7100A32120 /* 37x-Checkmark.png */; };
 		54EDA98C17709B7100A32120 /* 37x-Checkmark@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 54EDA98A17709B7100A32120 /* 37x-Checkmark@2x.png */; };
-		9307B08CFDDB41158E846CD9 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F5E3B9BD63D1452C89576DCF /* libPods.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -223,10 +223,10 @@
 		54DD491817AD24EB00E27B2D /* BiomodelCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BiomodelCell.h; sourceTree = "<group>"; };
 		54DD491917AD24EB00E27B2D /* BiomodelCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BiomodelCell.m; sourceTree = "<group>"; };
 		54DD491B17AD2C9600E27B2D /* BiomodelCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BiomodelCell.xib; sourceTree = "<group>"; };
+		54DD491D17AE588400E27B2D /* MBProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBProgressHUD.h; sourceTree = "<group>"; };
+		54DD491E17AE588400E27B2D /* MBProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBProgressHUD.m; sourceTree = "<group>"; };
 		54EDA98917709B7100A32120 /* 37x-Checkmark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "37x-Checkmark.png"; sourceTree = "<group>"; };
 		54EDA98A17709B7100A32120 /* 37x-Checkmark@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "37x-Checkmark@2x.png"; sourceTree = "<group>"; };
-		E5C91B3667764141BF077055 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = SOURCE_ROOT; };
-		F5E3B9BD63D1452C89576DCF /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -239,7 +239,6 @@
 				54DA31781764B8900020D2B5 /* UIKit.framework in Frameworks */,
 				54DA317A1764B8900020D2B5 /* Foundation.framework in Frameworks */,
 				54DA317C1764B8900020D2B5 /* CoreGraphics.framework in Frameworks */,
-				9307B08CFDDB41158E846CD9 /* libPods.a in Frameworks */,
 				54C2F4F2177FDEE700FEB6B9 /* libCorePlot-CocoaTouch.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -458,7 +457,6 @@
 				54DA31AF1764B8900020D2B5 /* VCellTests */,
 				54DA31761764B8900020D2B5 /* Frameworks */,
 				54DA31751764B8900020D2B5 /* Products */,
-				E5C91B3667764141BF077055 /* Pods.xcconfig */,
 			);
 			sourceTree = "<group>";
 		};
@@ -479,7 +477,6 @@
 				54DA31791764B8900020D2B5 /* Foundation.framework */,
 				54DA317B1764B8900020D2B5 /* CoreGraphics.framework */,
 				54DA31A91764B8900020D2B5 /* SenTestingKit.framework */,
-				F5E3B9BD63D1452C89576DCF /* libPods.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -487,7 +484,7 @@
 		54DA317D1764B8900020D2B5 /* VCell */ = {
 			isa = PBXGroup;
 			children = (
-				54C2F4A2177FDEA800FEB6B9 /* CorePlot */,
+				54DD492017AE588E00E27B2D /* Libraries */,
 				543721E0176DFA8000AFC35F /* Constants.h */,
 				543721E1176DFA8000AFC35F /* Constants.m */,
 				545AF7D6178FC0BA0003678F /* Functions.h */,
@@ -537,6 +534,16 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		54DD492017AE588E00E27B2D /* Libraries */ = {
+			isa = PBXGroup;
+			children = (
+				54C2F4A2177FDEA800FEB6B9 /* CorePlot */,
+				54DD491D17AE588400E27B2D /* MBProgressHUD.h */,
+				54DD491E17AE588400E27B2D /* MBProgressHUD.m */,
+			);
+			name = Libraries;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -544,11 +551,9 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 54DA31BA1764B8900020D2B5 /* Build configuration list for PBXNativeTarget "VCell" */;
 			buildPhases = (
-				4AE1A5FE6D42427A80CDBAF7 /* Check Pods Manifest.lock */,
 				54DA31701764B8900020D2B5 /* Sources */,
 				54DA31711764B8900020D2B5 /* Frameworks */,
 				54DA31721764B8900020D2B5 /* Resources */,
-				ECBA1D3DCB674CED9BB05336 /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -644,20 +649,6 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		4AE1A5FE6D42427A80CDBAF7 /* Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Check Pods Manifest.lock";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
-		};
 		54DA31A61764B8900020D2B5 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -670,20 +661,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "# Run the unit tests in this test bundle.\n\"${SYSTEM_DEVELOPER_DIR}/Tools/RunUnitTests\"\n";
-		};
-		ECBA1D3DCB674CED9BB05336 /* Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Pods-resources.sh\"\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -713,6 +690,7 @@
 				545AF7D8178FC0BA0003678F /* Functions.m in Sources */,
 				545AF7DD1796C7810003678F /* BiomodelDetailsViewController.m in Sources */,
 				54DD491A17AD24EB00E27B2D /* BiomodelCell.m in Sources */,
+				54DD491F17AE588400E27B2D /* MBProgressHUD.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -830,7 +808,6 @@
 		};
 		54DA31BB1764B8900020D2B5 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = E5C91B3667764141BF077055 /* Pods.xcconfig */;
 			buildSettings = {
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "VCell/VCell-Prefix.pch";
@@ -848,7 +825,6 @@
 		};
 		54DA31BC1764B8900020D2B5 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = E5C91B3667764141BF077055 /* Pods.xcconfig */;
 			buildSettings = {
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "VCell/VCell-Prefix.pch";

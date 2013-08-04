@@ -14,5 +14,5 @@
     #import "Constants.h"
     #import "CorePlot-CocoaTouch.h"
     #import <CoreData/CoreData.h>
-    #import <Functions.h>
+    #import "Functions.h"
 #endif
