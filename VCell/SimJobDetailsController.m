@@ -26,8 +26,34 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    //Pull to refresh
+    
+    UIRefreshControl *refreshControl = [[UIRefreshControl alloc] init];
+    [refreshControl addTarget:self action:@selector(refreshSimJob:) forControlEvents:UIControlEventValueChanged];
+    [self setRefreshControl:refreshControl];
+    
     if(IS_PHONE)
         [self setUpCells];
+}
+
+- (void)refreshSimJob:(id)sender
+{
+    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@?simId=%@&jobId=%@&taskId=%@&completed=on&dispatched=on&failed=on&queued=on&running=on&stopped=on&waiting=on",SIMTASK_URL,simJob.simKey,simJob.jobIndex,simJob.taskId]];
+    [[[Functions alloc] init] fetchJSONFromURL:url HUDTextMode:NO AddHUDToView:self.navigationController.view delegate:self];
+    [(UIRefreshControl *)sender endRefreshing];
+}
+
+- (void)fetchJSONDidCompleteWithJSONArray:(NSArray *)jsonData function:(Functions *)function
+{
+    SimJob *newSimJob = [[SimJob alloc] initWithDict:[jsonData objectAtIndex:0]];
+    [self loadNewSimJob:newSimJob];
+}
+
+- (void)loadNewSimJob:(SimJob*)newSimJob
+{
+    simJob = newSimJob;
+    
+    [self setUpCells];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -37,6 +63,13 @@
 
 - (void)setUpCells
 {
+    //section 0
+    if([simJob.schedulerStatus isEqualToString:@"stopped"] || [simJob.schedulerStatus isEqualToString:@"failed"] ||
+       [simJob.schedulerStatus isEqualToString:@"completed"])
+        self.startStopSim.textLabel.text = STARTSIMULATION;
+    else
+        self.startStopSim.textLabel.text = STOPSIMULATION;
+    
     //section 1
     self.simKey.detailTextLabel.text = simJob.simKey;
     self.simName.detailTextLabel.text = simJob.simName;
@@ -97,6 +130,40 @@
                 [biomodelDetailsViewController setObject:simJob];
                 [self.navigationController pushViewController:biomodelDetailsViewController animated:YES];
             }
+        }
+        else if(indexPath.row == 2)
+        {
+            [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
+            
+            NSURL *url;
+            if([self.startStopSim.textLabel.text isEqualToString:STARTSIMULATION])
+            {
+               url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/%@/simulation/%@/startSimulation",BIOMODEL_URL,simJob.bioModelLink.bioModelKey,simJob.simKey]];
+            }
+            else
+            {
+                 url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/%@/simulation/%@/stopSimulation",BIOMODEL_URL,simJob.bioModelLink.bioModelKey,simJob.simKey]];
+            }
+            
+            NSMutableURLRequest *urlReq = [NSMutableURLRequest requestWithURL:url];
+            [urlReq setHTTPMethod:@"POST"];
+       
+            MBProgressHUD *HUD = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
+            
+            HUD.mode = MBProgressHUDModeText;
+            HUD.labelText = @"Working...";
+            HUD.margin = 10.f;
+            HUD.yOffset = 150.f;
+            HUD.userInteractionEnabled = YES;
+            
+            [NSURLConnection sendAsynchronousRequest:urlReq queue:[NSOperationQueue mainQueue]
+            completionHandler:^(NSURLResponse *response, NSData *data, NSError *error)
+            {
+                SimJob *newSimJob = [[SimJob alloc] initWithDict:[[NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:nil] objectAtIndex:0]];
+                [self loadNewSimJob:newSimJob];
+                [HUD hide:YES];
+            }];
+            
         }
     }
     else

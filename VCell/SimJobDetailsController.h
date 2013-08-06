@@ -9,13 +9,18 @@
 #import <UIKit/UIKit.h>
 #import "SimJob.h"
 
-@interface SimJobDetailsController : UITableViewController <UIAlertViewDelegate,UISplitViewControllerDelegate>
+
+#define STARTSIMULATION @"Start Simulation"
+#define STOPSIMULATION @"Stop Simulation"
+
+@interface SimJobDetailsController : UITableViewController <UIAlertViewDelegate,UISplitViewControllerDelegate,FetchJSONDelegate>
 
 @property (assign, nonatomic, getter=isFromBiomodelTab) BOOL fromBiomodelTab;
 
 //section 0
 @property (weak, nonatomic) IBOutlet UITableViewCell *viewData;
 @property (weak, nonatomic) IBOutlet UITableViewCell *parent;
+@property (weak, nonatomic) IBOutlet UITableViewCell *startStopSim;
 
 //section 1
 @property (weak, nonatomic) IBOutlet UITableViewCell *simKey;
