@@ -122,21 +122,26 @@
     NSURLRequest *urlReq = [NSURLRequest requestWithURL:url];
     connection = [[NSURLConnection alloc] initWithRequest:urlReq  delegate:self];
     [connection start];
-    HUD = [MBProgressHUD showHUDAddedTo:view animated:YES];
-    HUD.delegate = delegate;
-    [HUD addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(hudWasCancelled)]];
-    if(!HUDTextMode)
+    
+    if(view != nil)
     {
-        HUD.dimBackground = YES;
-        HUD.labelText = @"Tap To Cancel...";
-    }
-    else
-    {
-        HUD.mode = MBProgressHUDModeText;
-        HUD.labelText = @"Fetching...";
-        HUD.margin = 10.f;
-        HUD.yOffset = 150.f;
-        HUD.userInteractionEnabled = NO;
+    
+        HUD = [MBProgressHUD showHUDAddedTo:view animated:YES];
+        HUD.delegate = delegate;
+        [HUD addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(hudWasCancelled)]];
+        if(!HUDTextMode)
+        {
+            HUD.dimBackground = YES;
+            HUD.labelText = @"Tap To Cancel...";
+        }
+        else
+        {
+            HUD.mode = MBProgressHUDModeText;
+            HUD.labelText = @"Fetching...";
+            HUD.margin = 10.f;
+            HUD.yOffset = 150.f;
+            HUD.userInteractionEnabled = NO;
+        }
     }
 }
 

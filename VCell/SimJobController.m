@@ -11,7 +11,8 @@
 @interface SimJobController ()
 {
     //Class Vars
-    Functions *functions;
+    Functions *functionsJSON;
+    Functions *functionsQuotas;
     NSUInteger numberOfObjectsReceived;
     NSMutableDictionary *URLparams;
     NSMutableData *connectionData;
@@ -58,12 +59,24 @@
     URLparams = [Functions initURLParamDictWithFileName:SIMJOB_FILTERS_FILE Keys:keys AndObjects:objects];
 }
 
+- (void)updateQuota
+{
+    NSLog(@"Fired");
+
+       NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@?startRow=1&maxRows=20&simId=&jobId=&taskId=&hasData=all&waiting=on&dispatched=on&running=on",SIMTASK_URL]];
+    [functionsQuotas fetchJSONFromURL:url HUDTextMode:NO AddHUDToView:nil delegate:self];
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     
-    functions = [[Functions alloc] init];
-    
+    functionsJSON = [[Functions alloc] init];
+    functionsQuotas = [[Functions alloc] init];
+    self.navigationItem.title = @"Loading Quotas...";
+    [self updateQuota];
+    [NSTimer scheduledTimerWithTimeInterval:30 target:self selector:@selector(updateQuota) userInfo:nil repeats:YES];
+
     //Pull to refresh
     UIRefreshControl *refreshControl = [[UIRefreshControl alloc] init];
     [refreshControl addTarget:self action:@selector(initDictAndstartLoading:) forControlEvents:UIControlEventValueChanged];
@@ -108,46 +121,55 @@
     NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@startRow=%d",SIMTASK_URL,[Functions contructUrlParamsOnDict:URLparams],rowNum]];
     NSLog(@"%@",url);
     
-    [functions fetchJSONFromURL:url HUDTextMode:(rowNum==1?NO:YES) AddHUDToView:self.navigationController.view delegate:self];
+    [functionsJSON fetchJSONFromURL:url HUDTextMode:(rowNum==1?NO:YES) AddHUDToView:self.navigationController.view delegate:self];
 }
 
 
 - (void)fetchJSONDidCompleteWithJSONArray:(NSArray *)jsonData function:(Functions *)function;
 {
-    // Make an empty array
-    NSMutableArray *simMutableJobs = [NSMutableArray array];
-    
-    // Add the objects in the array
-    for(NSDictionary *dict in jsonData)
-        [simMutableJobs addObject:[[SimJob alloc] initWithDict:dict]];
-    
-    numberOfObjectsReceived = [simMutableJobs count];
-    
-    if(rowNum == 1)
+    if(function == functionsJSON)
     {
-        simJobs = [NSMutableArray arrayWithArray:simMutableJobs];
-        [self breakIntoSectionsbyDate:sortByDate andSimJobArr:simJobs forTableView:self.tableView];
+        // Make an empty array
+        NSMutableArray *simMutableJobs = [NSMutableArray array];
+    
+        // Add the objects in the array
+        for(NSDictionary *dict in jsonData)
+            [simMutableJobs addObject:[[SimJob alloc] initWithDict:dict]];
+    
+        numberOfObjectsReceived = [simMutableJobs count];
+    
+        if(rowNum == 1)
+        {
+            simJobs = [NSMutableArray arrayWithArray:simMutableJobs];
+            [self breakIntoSectionsbyDate:sortByDate andSimJobArr:simJobs forTableView:self.tableView];
         
-    }
-    else
-    {
-        //Update the main array
-        [simJobs addObjectsFromArray:simMutableJobs];
+        }
+        else
+        {
+            //Update the main array
+            [simJobs addObjectsFromArray:simMutableJobs];
         
-        //Update the sections array with new sections
+            //Update the sections array with new sections
         
-        NSMutableArray *newSections = [self returnSectionsArrayByDate:sortByDate fromArray:simMutableJobs];
+            NSMutableArray *newSections = [self returnSectionsArrayByDate:sortByDate fromArray:simMutableJobs];
         
-        NSUInteger oldNumberOfSections = [self.tableView numberOfSections];
+            NSUInteger oldNumberOfSections = [self.tableView numberOfSections];
         
-        [simJobSections addObjectsFromArray:newSections];
+            [simJobSections addObjectsFromArray:newSections];
         
-        NSUInteger numberOfSections = [self.tableView numberOfSections];
+            NSUInteger numberOfSections = [self.tableView numberOfSections];
         
         //Add to the tableview
-        [self.tableView insertSections:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(numberOfSections,[newSections count])] withRowAnimation:UITableViewRowAnimationBottom];
+            [self.tableView insertSections:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(numberOfSections,[newSections count])] withRowAnimation:UITableViewRowAnimationBottom];
         
-        [Functions scrollToFirstRowOfNewSectionsWithOldNumberOfSections:[NSIndexPath indexPathForRow:0 inSection:oldNumberOfSections] tableView:self.tableView];
+            [Functions scrollToFirstRowOfNewSectionsWithOldNumberOfSections:[NSIndexPath indexPathForRow:0 inSection:oldNumberOfSections] tableView:self.tableView];
+        }
+    }
+    
+    if(function == functionsQuotas)
+    {
+        NSLog(@"Fire End");
+        self.navigationItem.title = [NSString stringWithFormat:@"%d/20 Running",jsonData.count];
     }
 }
 #pragma mark MBProgressHUDDelegate methods
