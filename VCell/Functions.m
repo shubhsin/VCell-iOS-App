@@ -15,7 +15,9 @@
     //Class Vars
     NSURLConnection *connection;
     NSMutableData *connectionData;
+    NSMutableURLRequest *urlReq;
     BOOL HUDTextMode;
+    BOOL loginMode;
 }
 @end
 
@@ -67,24 +69,6 @@
     if (![managedObjectContext save:&error]) {
     	NSLog(@"Error deleting %@ - error:%@",entityDescription,error);
     }
-    
-    
-//Deletes entire db file.
-//    NSError * error;
-//    // retrieve the store URL
-//    NSURL * storeURL = [[managedObjectContext persistentStoreCoordinator] URLForPersistentStore:[[[managedObjectContext persistentStoreCoordinator] persistentStores] lastObject]];
-//    // lock the current context
-//    [managedObjectContext lock];
-//    [managedObjectContext reset];//to drop pending changes
-//    //delete the store from the current managedObjectContext
-//    if ([[managedObjectContext persistentStoreCoordinator] removePersistentStore:[[[managedObjectContext persistentStoreCoordinator] persistentStores] lastObject] error:&error])
-//    {
-//        // remove the file containing the data
-//        [[NSFileManager defaultManager] removeItemAtURL:storeURL error:&error];
-//        //recreate the store like in the  appDelegate method
-//        [[managedObjectContext persistentStoreCoordinator] addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:storeURL options:nil error:&error];//recreates the persistent store
-//    }
-//    [managedObjectContext unlock];
 }
 
 + (void)scrollToFirstRowOfNewSectionsWithOldNumberOfSections:(NSIndexPath*)firstCellOfNewData tableView:(UITableView *)tableView
@@ -114,18 +98,52 @@
     }];
 }
 
-- (void)fetchJSONFromURL:(NSURL*)url HUDTextMode:(BOOL)HUDtextMode AddHUDToView:(UIView*)view delegate:(id)delegate;
+
+- (void)renewToken
 {
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    
+    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@?user_id=%@&user_password=%@",ACCESS_TOKEN_URL,[[userDefaults objectForKey:USERPASSKEY] objectAtIndex:0],[[userDefaults objectForKey:USERPASSKEY] objectAtIndex:1]]];
+    NSLog(@"%@",url);
+    [[[Functions alloc] init] fetchJSONFromURL:url HUDTextMode:NO AddHUDToView:nil delegate:self loginMode:YES];
+}
+
+- (void)fetchJSONDidCompleteWithJSONArray:(NSArray *)jsonData function:(Functions *)function
+{
+    if(jsonData == nil)
+    {
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Error" message:@"Wrong User/Pass" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+        [alertView show];
+        [AccessToken deleteUser];
+    }
+    else
+    {
+        AccessToken *accessToken = [AccessToken sharedInstance];
+        [accessToken updateSharedWithDict:(NSDictionary*)jsonData];
+        [self startConnection];
+
+    }
+}
+
+
+- (void)fetchJSONFromURL:(NSURL*)url HUDTextMode:(BOOL)HUDtextMode AddHUDToView:(UIView*)view delegate:(id)delegate loginMode:(BOOL)mode
+{
+    loginMode = mode;
+    [self fetchJSONFromURL:url HUDTextMode:HUDTextMode AddHUDToView:view delegate:delegate];
+}
+
+- (void)fetchJSONFromURL:(NSURL*)url HUDTextMode:(BOOL)HUDtextMode AddHUDToView:(UIView*)view delegate:(id)delegate
+{
+    NSURL *urlWithClientID = [NSURL URLWithString:[NSString stringWithFormat:@"%@&client_id=%@",[url description],CLIENT_ID]];
     self.delegate = delegate;
     HUDTextMode = HUDtextMode;
     connectionData = [NSMutableData data];
-    NSURLRequest *urlReq = [NSURLRequest requestWithURL:url];
-    connection = [[NSURLConnection alloc] initWithRequest:urlReq  delegate:self];
-    [connection start];
+    urlReq = [NSMutableURLRequest requestWithURL:urlWithClientID];
+    
     
     if(view != nil)
     {
-    
+        
         HUD = [MBProgressHUD showHUDAddedTo:view animated:YES];
         HUD.delegate = delegate;
         [HUD addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(hudWasCancelled)]];
@@ -143,6 +161,29 @@
             HUD.userInteractionEnabled = NO;
         }
     }
+    
+    if(!loginMode)
+    {
+        AccessToken *accessToken = [AccessToken sharedInstance];
+    
+        NSTimeInterval validity = [[NSDate dateWithTimeIntervalSince1970:[accessToken.expireDateSeconds doubleValue]] timeIntervalSinceNow];
+
+        if(validity < 0)
+        {
+            NSLog(@"Renewing token:%@",accessToken.token);
+            [self renewToken];
+            return;
+        }
+    }
+    [self startConnection];
+}
+
+- (void)startConnection
+{
+    if(!loginMode)
+        [urlReq addValue:[NSString stringWithFormat:@"CUSTOM access_token=%@",[[AccessToken sharedInstance] token]] forHTTPHeaderField:@"Authorization"];
+    connection = [[NSURLConnection alloc] initWithRequest:urlReq  delegate:self];
+    [connection start];
 }
 
 #pragma mark - NSURLConnectionDelegete

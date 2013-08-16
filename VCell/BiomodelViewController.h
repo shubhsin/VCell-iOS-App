@@ -14,6 +14,7 @@
 #import "Application.h"
 #import "Simulation.h"
 #import "BiomodelDetailsViewController.h"
+#import "AccessToken.h"
 
 #define BM_DISPLAYSEGMENTINDEX @"displaySegmentIndex"
 #define BM_NUMBEROFOBJECTS @"numberOfObjects" //to keep track of number of objects received in last request

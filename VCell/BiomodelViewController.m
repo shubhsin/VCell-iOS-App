@@ -77,7 +77,7 @@
     if(!actionSheetDict)
     {
         actionSheetDict = [NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:
-                                                               [(AppDelegate *)[[UIApplication sharedApplication] delegate] username],
+                                                               [[AccessToken sharedInstance] userId],
                                                                @"all_public",
                                                                @"all_shared",
                                                                @"Education",

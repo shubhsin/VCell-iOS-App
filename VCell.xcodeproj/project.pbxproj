@@ -60,6 +60,9 @@
 		54DD491F17AE588400E27B2D /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 54DD491E17AE588400E27B2D /* MBProgressHUD.m */; };
 		54EDA98B17709B7100A32120 /* 37x-Checkmark.png in Resources */ = {isa = PBXBuildFile; fileRef = 54EDA98917709B7100A32120 /* 37x-Checkmark.png */; };
 		54EDA98C17709B7100A32120 /* 37x-Checkmark@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 54EDA98A17709B7100A32120 /* 37x-Checkmark@2x.png */; };
+		54FB100117BDE299005D671D /* AccessToken.m in Sources */ = {isa = PBXBuildFile; fileRef = 54FB100017BDE299005D671D /* AccessToken.m */; };
+		54FB100417BDE72E005D671D /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 54FB100317BDE72E005D671D /* LoginViewController.m */; };
+		54FB102817BE00B3005D671D /* LoggedInViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 54FB102717BE00B3005D671D /* LoggedInViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -227,6 +230,12 @@
 		54DD491E17AE588400E27B2D /* MBProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBProgressHUD.m; sourceTree = "<group>"; };
 		54EDA98917709B7100A32120 /* 37x-Checkmark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "37x-Checkmark.png"; sourceTree = "<group>"; };
 		54EDA98A17709B7100A32120 /* 37x-Checkmark@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "37x-Checkmark@2x.png"; sourceTree = "<group>"; };
+		54FB0FFF17BDE299005D671D /* AccessToken.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AccessToken.h; sourceTree = "<group>"; };
+		54FB100017BDE299005D671D /* AccessToken.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AccessToken.m; sourceTree = "<group>"; };
+		54FB100217BDE72E005D671D /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
+		54FB100317BDE72E005D671D /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
+		54FB102617BE00B3005D671D /* LoggedInViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoggedInViewController.h; sourceTree = "<group>"; };
+		54FB102717BE00B3005D671D /* LoggedInViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoggedInViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -493,6 +502,7 @@
 				54DA31871764B8900020D2B5 /* AppDelegate.m */,
 				54DA318F1764B8900020D2B5 /* MainStoryboard_iPhone.storyboard */,
 				54DA31921764B8900020D2B5 /* MainStoryboard_iPad.storyboard */,
+				54FB100817BDE777005D671D /* Login */,
 				545AF783178E8A260003678F /* Second Tab - Biomodel */,
 				543721E3176DFB7100AFC35F /* First Tab - SimJob */,
 				54097FA41774A54D00AA6AE2 /* Resources */,
@@ -542,6 +552,19 @@
 				54DD491E17AE588400E27B2D /* MBProgressHUD.m */,
 			);
 			name = Libraries;
+			sourceTree = "<group>";
+		};
+		54FB100817BDE777005D671D /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				54FB100217BDE72E005D671D /* LoginViewController.h */,
+				54FB100317BDE72E005D671D /* LoginViewController.m */,
+				54FB0FFF17BDE299005D671D /* AccessToken.h */,
+				54FB100017BDE299005D671D /* AccessToken.m */,
+				54FB102617BE00B3005D671D /* LoggedInViewController.h */,
+				54FB102717BE00B3005D671D /* LoggedInViewController.m */,
+			);
+			name = Login;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -691,6 +714,9 @@
 				545AF7DD1796C7810003678F /* BiomodelDetailsViewController.m in Sources */,
 				54DD491A17AD24EB00E27B2D /* BiomodelCell.m in Sources */,
 				54DD491F17AE588400E27B2D /* MBProgressHUD.m in Sources */,
+				54FB100117BDE299005D671D /* AccessToken.m in Sources */,
+				54FB100417BDE72E005D671D /* LoginViewController.m in Sources */,
+				54FB102817BE00B3005D671D /* LoggedInViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

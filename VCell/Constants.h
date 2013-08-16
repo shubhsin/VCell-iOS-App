@@ -15,9 +15,13 @@
 #define TICK_MARK @"\342\234\223"
 #define SIMJOBTAB 0
 #define BIOMODELTAB 1
+#define USERPASSKEY @"userpasskey"
+
 
 extern NSString * const BASE_URL;
 extern NSString * const SIMTASK_URL;
 extern NSString * const BIOMODEL_URL;
 extern NSString * const SIMJOB_FILTERS_FILE;
 extern NSString * const BIOMODEL_FILTERS_FILE;
+extern NSString * const ACCESS_TOKEN_URL;
+extern NSString * const CLIENT_ID;

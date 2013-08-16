@@ -17,8 +17,9 @@
 #import <Foundation/Foundation.h>
 #import "BiomodelViewController.h"
 #import "MBProgressHUD.h"
+#import "AccessToken.h"
 
-@interface Functions : NSObject <MBProgressHUDDelegate>
+@interface Functions : NSObject <MBProgressHUDDelegate,FetchJSONDelegate>
 
 //Construct a URL appending '&' on dict keys and objects
 + (NSString*)contructUrlParamsOnDict:(NSDictionary*)dict;
@@ -32,6 +33,8 @@
 
 //Makes a NSURLConnection request fetches data and shows HUD
 - (void)fetchJSONFromURL:(NSURL*)url HUDTextMode:(BOOL)HUDtextMode AddHUDToView:(UIView*)view delegate:(id)delegate;
+
+- (void)fetchJSONFromURL:(NSURL*)url HUDTextMode:(BOOL)HUDtextMode AddHUDToView:(UIView*)view delegate:(id)delegate loginMode:(BOOL)mode;
 
 //Delete all objects from Coredata
 + (void)deleteAllObjects:(NSString *) entityDescription inManagedObjectContext:(NSManagedObjectContext *) context withOwner:(NSString *)owner;
