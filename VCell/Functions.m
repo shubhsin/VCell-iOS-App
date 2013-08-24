@@ -17,7 +17,7 @@
     NSMutableData *connectionData;
     NSMutableURLRequest *urlReq;
     BOOL HUDTextMode;
-    BOOL loginMode;
+    BOOL disableTokenMode;
 }
 @end
 
@@ -32,6 +32,7 @@
 }
 + (NSMutableDictionary*)initURLParamDictWithFileName:(NSString*)fileName Keys:(NSArray*)keys AndObjects:(NSArray*)objects
 {
+    
     NSMutableDictionary *URLparams;
     NSFileManager *fileManager = [NSFileManager defaultManager];
     NSString *plistPath = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0] stringByAppendingPathComponent:fileName];
@@ -104,8 +105,7 @@
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     
     NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@?user_id=%@&user_password=%@",ACCESS_TOKEN_URL,[[userDefaults objectForKey:USERPASSKEY] objectAtIndex:0],[[userDefaults objectForKey:USERPASSKEY] objectAtIndex:1]]];
-    NSLog(@"%@",url);
-    [[[Functions alloc] init] fetchJSONFromURL:url HUDTextMode:NO AddHUDToView:nil delegate:self loginMode:YES];
+    [[[Functions alloc] init] fetchJSONFromURL:url HUDTextMode:NO AddHUDToView:nil delegate:self disableTokenMode:YES];
 }
 
 - (void)fetchJSONDidCompleteWithJSONArray:(NSArray *)jsonData function:(Functions *)function
@@ -114,33 +114,32 @@
     {
         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Error" message:@"Wrong User/Pass" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil];
         [alertView show];
-        [AccessToken deleteUser];
     }
     else
     {
-        AccessToken *accessToken = [AccessToken sharedInstance];
-        [accessToken updateSharedWithDict:(NSDictionary*)jsonData];
+        [AccessToken setSharedInstance:[[AccessToken alloc] initWithDict:(NSDictionary*)jsonData]];
         [self startConnection];
 
     }
 }
 
 
-- (void)fetchJSONFromURL:(NSURL*)url HUDTextMode:(BOOL)HUDtextMode AddHUDToView:(UIView*)view delegate:(id)delegate loginMode:(BOOL)mode
-{
-    loginMode = mode;
-    [self fetchJSONFromURL:url HUDTextMode:HUDTextMode AddHUDToView:view delegate:delegate];
-}
 
 - (void)fetchJSONFromURL:(NSURL*)url HUDTextMode:(BOOL)HUDtextMode AddHUDToView:(UIView*)view delegate:(id)delegate
 {
+    [self fetchJSONFromURL:url HUDTextMode:HUDTextMode AddHUDToView:view delegate:delegate disableTokenMode:[AccessToken sharedInstance]?NO:YES];
+}
+
+- (void)fetchJSONFromURL:(NSURL*)url HUDTextMode:(BOOL)HUDtextMode AddHUDToView:(UIView*)view delegate:(id)delegate disableTokenMode:(BOOL)mode
+{
+    disableTokenMode = mode;
     NSURL *urlWithClientID = [NSURL URLWithString:[NSString stringWithFormat:@"%@&client_id=%@",[url description],CLIENT_ID]];
     self.delegate = delegate;
     HUDTextMode = HUDtextMode;
     connectionData = [NSMutableData data];
-    urlReq = [NSMutableURLRequest requestWithURL:urlWithClientID];
+    urlReq =  [[NSMutableURLRequest alloc] initWithURL:urlWithClientID cachePolicy:NSURLRequestReloadIgnoringCacheData timeoutInterval:0]; //[NSMutableURLRequest requestWithURL:urlWithClientID];
     
-    
+    NSLog(@"Performing : %@",urlWithClientID);
     if(view != nil)
     {
         
@@ -162,15 +161,13 @@
         }
     }
     
-    if(!loginMode)
+    if(!disableTokenMode)
     {
-        AccessToken *accessToken = [AccessToken sharedInstance];
-    
-        NSTimeInterval validity = [[NSDate dateWithTimeIntervalSince1970:[accessToken.expireDateSeconds doubleValue]] timeIntervalSinceNow];
+        NSTimeInterval validity = [[NSDate dateWithTimeIntervalSince1970:[[[AccessToken sharedInstance] expireDateSeconds] doubleValue]] timeIntervalSinceNow];
 
         if(validity < 0)
         {
-            NSLog(@"Renewing token:%@",accessToken.token);
+            NSLog(@"Renewing token:%@",[[AccessToken sharedInstance] token]);
             [self renewToken];
             return;
         }
@@ -180,8 +177,10 @@
 
 - (void)startConnection
 {
-    if(!loginMode)
-        [urlReq addValue:[NSString stringWithFormat:@"CUSTOM access_token=%@",[[AccessToken sharedInstance] token]] forHTTPHeaderField:@"Authorization"];
+    if(!disableTokenMode)
+    {   [urlReq setValue:[NSString stringWithFormat:@"CUSTOM access_token=%@",[[AccessToken sharedInstance] token]] forHTTPHeaderField:@"Authorization"];
+        NSLog(@"%@",[urlReq allHTTPHeaderFields]);
+    }
     connection = [[NSURLConnection alloc] initWithRequest:urlReq  delegate:self];
     [connection start];
 }
@@ -195,6 +194,7 @@
 
 - (void)connectionDidFinishLoading:(NSURLConnection *)connection
 {
+    
     // Save the received JSON array inside an NSArray
     NSArray *jsonData = [NSJSONSerialization JSONObjectWithData:connectionData options:kNilOptions error:nil];
     if(!HUDTextMode)
@@ -206,6 +206,7 @@
     [self.delegate fetchJSONDidCompleteWithJSONArray:jsonData function:self];
     HUD.labelText = @"Done!";
     [HUD hide:YES afterDelay:1];
+    
 }
 
 - (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error

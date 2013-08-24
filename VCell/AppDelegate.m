@@ -18,7 +18,7 @@
 {
     // Override point for customization after application launch
         
-    UITabBarController *tabBar = (UITabBarController*)self.window.rootViewController;
+   /* UITabBarController *tabBar = (UITabBarController*)self.window.rootViewController;
 
     if (!IS_PHONE)
     {
@@ -32,7 +32,7 @@
     biomodelViewController.managedObjectContext = self.managedObjectContext;
     
     [tabBar setSelectedIndex:1];
-    
+    */
     return YES;
 }
 							

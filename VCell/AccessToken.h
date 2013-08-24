@@ -16,10 +16,9 @@
 @property (nonatomic, strong) NSString *userId;
 @property (nonatomic, strong) NSNumber *userKey;
 
-- (void)updateSharedWithDict:(NSDictionary *)dict;
 - (id)initWithDict:(NSDictionary*) dict;
-- (id)initFromDisk;
 + (id)sharedInstance;
-+ (void)deleteUser;
-+ (BOOL)tokenExists;
++ (void)setSharedInstance:(AccessToken*)sI;
+//+ (void)deleteUser;
+//+ (BOOL)tokenExists;
 @end

@@ -23,7 +23,7 @@
     self.usernameTextField.text = @"schaff";
     self.passwordTextField.text = @"me&jan";
     
-    if([AccessToken tokenExists])
+    if([AccessToken sharedInstance])
         [self performSegueWithIdentifier:@"loggedIn" sender:nil];
     
 }
@@ -54,7 +54,7 @@
     {
         NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@?user_id=%@&user_password=%@",ACCESS_TOKEN_URL,self.usernameTextField.text,[self sha1:self.passwordTextField.text]]];
         NSLog(@"%@",url);
-        [[[Functions alloc] init] fetchJSONFromURL:url HUDTextMode:NO AddHUDToView:self.navigationController.view delegate:self loginMode:YES];
+        [[[Functions alloc] init] fetchJSONFromURL:url HUDTextMode:NO AddHUDToView:self.view delegate:self disableTokenMode:YES];
     }
     
 }
@@ -68,11 +68,18 @@
     }
     else
     {
-        accessToken = [[AccessToken alloc] initWithDict:(NSDictionary*)jsonData];
+   
+        [AccessToken setSharedInstance:[[AccessToken alloc] initWithDict:(NSDictionary*)jsonData]];
+        
+        NSLog(@"Got token: %@",[[AccessToken sharedInstance] token]);
+        
         NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
         [userDefaults setObject:[NSArray arrayWithObjects:self.usernameTextField.text,[self sha1:self.passwordTextField.text], nil] forKey:USERPASSKEY];
         [userDefaults synchronize];
-   
+       
+        
+      
+        
         [self performSegueWithIdentifier:@"loggedIn" sender:nil];
     }
    

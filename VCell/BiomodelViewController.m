@@ -31,6 +31,16 @@
 
 @implementation BiomodelViewController
 
+- (NSManagedObjectContext*)managedObjectContext
+{
+   if(_managedObjectContext == nil)
+   {
+       AppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
+       _managedObjectContext = appDelegate.managedObjectContext;
+   }
+    return _managedObjectContext;
+}
+
 - (void)loadPrefs
 {
     userDefaults = [NSUserDefaults standardUserDefaults];
@@ -42,7 +52,7 @@
     
     self.appSimSegmentControl.selectedSegmentIndex = displaySegmentIndex;
     
-    numberOfObjectsReceived = [userDefaults objectForKey:BM_NUMBEROFOBJECTS];
+    numberOfObjectsReceived = [[userDefaults objectForKey:BM_NUMBEROFOBJECTS] mutableCopy];
     actionSheetPref = [userDefaults objectForKey:BM_ACTIONSHEETPREF];
     [self initURLParamDict];
 }
@@ -74,20 +84,21 @@
         [userDefaults synchronize];
     }
 
-    if(!actionSheetDict)
-    {
-        actionSheetDict = [NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:
-                                                               [[AccessToken sharedInstance] userId],
+      
+    actionSheetDict = [NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:
+                                                               [[AccessToken sharedInstance] userId]?[[AccessToken sharedInstance] userId]:@"",
                                                                @"all_public",
                                                                @"all_shared",
                                                                @"Education",
                                                                @"tutorial"
                                                                , nil] forKeys:buttonTitles];
-    }
+    
     
     if(!actionSheetPref)
     {
-        actionSheetPref = [buttonTitles objectAtIndex:0];
+        actionSheetPref = [buttonTitles objectAtIndex:[AccessToken sharedInstance]?0:1];
+        
+        
         [userDefaults setObject:actionSheetPref forKey:BM_ACTIONSHEETPREF];
         [userDefaults synchronize];
     }
@@ -115,6 +126,12 @@
                         nil];
 }
 
+- (void)viewDidAppear:(BOOL)animated
+{
+   
+  
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -122,7 +139,6 @@
     [self initActionSheet];
     [self updateNumRow];
     [self setOwnerBtnTitle];
-    
     functions = [[Functions alloc] init];
     //Pull to refresh
     UIRefreshControl *refreshControl = [[UIRefreshControl alloc] init];
@@ -182,7 +198,6 @@
                                        [Functions contructUrlParamsOnDict:URLparams],
                                        rowNum+1,
                                        [actionSheetDict objectForKey:actionSheetPref]]];
-    NSLog(@"%@",url);
     [functions fetchJSONFromURL:url HUDTextMode:(rowNum+1==1?NO:YES) AddHUDToView:self.navigationController.view delegate:self];
 }
 
@@ -213,6 +228,9 @@
     if (![context save:&error]) {
         NSLog(@"Whoops, couldn't save: %@", [error localizedDescription]);
     }
+    
+    //self.fetchedResultsController = nil;
+    //[self.tableView reloadData];
 }
 
 #pragma mark - Table view data source

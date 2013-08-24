@@ -45,7 +45,11 @@
     
     if(indexPath.section == 1 && indexPath.row == 0) //logout button
     {
-        [AccessToken deleteUser];
+        [AccessToken setSharedInstance:nil];
+        [[NSUserDefaults standardUserDefaults] removeObjectForKey:USERPASSKEY];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+        AppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
+        [Functions deleteAllObjects:BIOMODEL_ENTITY inManagedObjectContext:appDelegate.managedObjectContext withOwner:nil];
         [self.navigationController popViewControllerAnimated:NO];
     }
 }

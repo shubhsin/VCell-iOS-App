@@ -34,7 +34,7 @@
 //Makes a NSURLConnection request fetches data and shows HUD
 - (void)fetchJSONFromURL:(NSURL*)url HUDTextMode:(BOOL)HUDtextMode AddHUDToView:(UIView*)view delegate:(id)delegate;
 
-- (void)fetchJSONFromURL:(NSURL*)url HUDTextMode:(BOOL)HUDtextMode AddHUDToView:(UIView*)view delegate:(id)delegate loginMode:(BOOL)mode;
+- (void)fetchJSONFromURL:(NSURL*)url HUDTextMode:(BOOL)HUDtextMode AddHUDToView:(UIView*)view delegate:(id)delegate disableTokenMode:(BOOL)mode;
 
 //Delete all objects from Coredata
 + (void)deleteAllObjects:(NSString *) entityDescription inManagedObjectContext:(NSManagedObjectContext *) context withOwner:(NSString *)owner;
