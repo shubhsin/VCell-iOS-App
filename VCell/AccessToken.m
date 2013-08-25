@@ -12,8 +12,7 @@
 
 static AccessToken *sharedInstance = nil;
 
-
-+ (AccessToken*)sharedInstance
++ (id)sharedInstance
 {
     return sharedInstance;
 }

@@ -61,7 +61,7 @@
                     if([key isEqualToString:BEGIN_STAMP] || [key isEqualToString:END_STAMP])
                     {
                         NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
-                        dateFormat.dateFormat = @"EEEE',' d MMMM yyyy";
+                        dateFormat.dateFormat = DATEFORMAT;
                         cell.detailTextLabel.text = [dateFormat stringFromDate:[NSDate dateWithTimeIntervalSince1970:[data doubleValue]]];
                     }
                     else
@@ -81,8 +81,27 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if(indexPath.section != 3) // for last two rows
+    if(indexPath.section == 0 || indexPath.section == 1 || indexPath.section == 2)
         [self performSegueWithIdentifier:@"simJobFilterDetailView" sender:nil];
+    
+ //   if(indexPath.section == 3);
+    
+    if(indexPath.section == 4 && indexPath.row == 0) //Logout btn
+    {
+        [AccessToken setSharedInstance:nil];
+        
+        AppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
+        
+        [Functions deleteAllObjects:BIOMODEL_ENTITY inManagedObjectContext:appDelegate.managedObjectContext withOwner:nil];
+        
+        NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+        [userDefaults removeObjectForKey:USERPASSKEY];
+        [userDefaults synchronize];
+     
+        LoginViewController *loginViewController = [self.storyboard instantiateInitialViewController];
+        
+        [self presentViewController:loginViewController animated:YES completion:nil];
+    }
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender

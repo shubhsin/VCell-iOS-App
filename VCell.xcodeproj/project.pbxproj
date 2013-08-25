@@ -62,7 +62,6 @@
 		54EDA98C17709B7100A32120 /* 37x-Checkmark@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 54EDA98A17709B7100A32120 /* 37x-Checkmark@2x.png */; };
 		54FB100117BDE299005D671D /* AccessToken.m in Sources */ = {isa = PBXBuildFile; fileRef = 54FB100017BDE299005D671D /* AccessToken.m */; };
 		54FB100417BDE72E005D671D /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 54FB100317BDE72E005D671D /* LoginViewController.m */; };
-		54FB102817BE00B3005D671D /* LoggedInViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 54FB102717BE00B3005D671D /* LoggedInViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -234,8 +233,6 @@
 		54FB100017BDE299005D671D /* AccessToken.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AccessToken.m; sourceTree = "<group>"; };
 		54FB100217BDE72E005D671D /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
 		54FB100317BDE72E005D671D /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
-		54FB102617BE00B3005D671D /* LoggedInViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoggedInViewController.h; sourceTree = "<group>"; };
-		54FB102717BE00B3005D671D /* LoggedInViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoggedInViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -561,8 +558,6 @@
 				54FB100317BDE72E005D671D /* LoginViewController.m */,
 				54FB0FFF17BDE299005D671D /* AccessToken.h */,
 				54FB100017BDE299005D671D /* AccessToken.m */,
-				54FB102617BE00B3005D671D /* LoggedInViewController.h */,
-				54FB102717BE00B3005D671D /* LoggedInViewController.m */,
 			);
 			name = Login;
 			sourceTree = "<group>";
@@ -716,7 +711,6 @@
 				54DD491F17AE588400E27B2D /* MBProgressHUD.m in Sources */,
 				54FB100117BDE299005D671D /* AccessToken.m in Sources */,
 				54FB100417BDE72E005D671D /* LoginViewController.m in Sources */,
-				54FB102817BE00B3005D671D /* LoggedInViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

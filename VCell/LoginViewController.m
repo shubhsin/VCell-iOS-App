@@ -20,12 +20,12 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.usernameTextField.text = @"schaff";
-    self.passwordTextField.text = @"me&jan";
-    
-    if([AccessToken sharedInstance])
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    if([[NSUserDefaults standardUserDefaults] objectForKey:USERPASSKEY])
         [self performSegueWithIdentifier:@"loggedIn" sender:nil];
-    
 }
 
 - (NSString*)sha1:(NSString*)input
@@ -55,8 +55,7 @@
         NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@?user_id=%@&user_password=%@",ACCESS_TOKEN_URL,self.usernameTextField.text,[self sha1:self.passwordTextField.text]]];
         NSLog(@"%@",url);
         [[[Functions alloc] init] fetchJSONFromURL:url HUDTextMode:NO AddHUDToView:self.view delegate:self disableTokenMode:YES];
-    }
-    
+    } 
 }
 
 - (void)fetchJSONDidCompleteWithJSONArray:(NSArray *)jsonData function:(Functions *)function
@@ -76,14 +75,9 @@
         NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
         [userDefaults setObject:[NSArray arrayWithObjects:self.usernameTextField.text,[self sha1:self.passwordTextField.text], nil] forKey:USERPASSKEY];
         [userDefaults synchronize];
-       
-        
-      
         
         [self performSegueWithIdentifier:@"loggedIn" sender:nil];
     }
-   
-    
 }
 
 @end

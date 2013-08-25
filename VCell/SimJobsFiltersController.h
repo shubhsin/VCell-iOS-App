@@ -16,7 +16,7 @@
 #import <UIKit/UIKit.h>
 #import "SimJobsFiltersDetail.h"
 #import "SimJobController.h"
-
+#import "LoginViewController.h"
 
 @interface SimJobsFiltersController : UITableViewController
 

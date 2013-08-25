@@ -127,7 +127,8 @@
 
 - (void)fetchJSONFromURL:(NSURL*)url HUDTextMode:(BOOL)HUDtextMode AddHUDToView:(UIView*)view delegate:(id)delegate
 {
-    [self fetchJSONFromURL:url HUDTextMode:HUDTextMode AddHUDToView:view delegate:delegate disableTokenMode:[AccessToken sharedInstance]?NO:YES];
+    
+    [self fetchJSONFromURL:url HUDTextMode:HUDTextMode AddHUDToView:view delegate:delegate disableTokenMode:[[NSUserDefaults standardUserDefaults] objectForKey:USERPASSKEY]?NO:YES];
 }
 
 - (void)fetchJSONFromURL:(NSURL*)url HUDTextMode:(BOOL)HUDtextMode AddHUDToView:(UIView*)view delegate:(id)delegate disableTokenMode:(BOOL)mode
@@ -137,7 +138,9 @@
     self.delegate = delegate;
     HUDTextMode = HUDtextMode;
     connectionData = [NSMutableData data];
-    urlReq =  [[NSMutableURLRequest alloc] initWithURL:urlWithClientID cachePolicy:NSURLRequestReloadIgnoringCacheData timeoutInterval:0]; //[NSMutableURLRequest requestWithURL:urlWithClientID];
+    urlReq = [NSMutableURLRequest requestWithURL:urlWithClientID];
+    
+    [urlReq setHTTPShouldHandleCookies:NO]; // 1.5 days of head banging.
     
     NSLog(@"Performing : %@",urlWithClientID);
     if(view != nil)
