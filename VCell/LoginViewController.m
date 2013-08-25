@@ -55,7 +55,11 @@
         NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@?user_id=%@&user_password=%@",ACCESS_TOKEN_URL,self.usernameTextField.text,[self sha1:self.passwordTextField.text]]];
         NSLog(@"%@",url);
         [[[Functions alloc] init] fetchJSONFromURL:url HUDTextMode:NO AddHUDToView:self.view delegate:self disableTokenMode:YES];
-    } 
+    }
+    if(indexPath.section == 1 && indexPath.row == 2)
+    {
+        [self performSegueWithIdentifier:@"loggedIn" sender:nil];
+    }
 }
 
 - (void)fetchJSONDidCompleteWithJSONArray:(NSArray *)jsonData function:(Functions *)function

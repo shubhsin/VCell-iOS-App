@@ -123,8 +123,6 @@
     }
 }
 
-
-
 - (void)fetchJSONFromURL:(NSURL*)url HUDTextMode:(BOOL)HUDtextMode AddHUDToView:(UIView*)view delegate:(id)delegate
 {
     
@@ -181,9 +179,8 @@
 - (void)startConnection
 {
     if(!disableTokenMode)
-    {   [urlReq setValue:[NSString stringWithFormat:@"CUSTOM access_token=%@",[[AccessToken sharedInstance] token]] forHTTPHeaderField:@"Authorization"];
-        NSLog(@"%@",[urlReq allHTTPHeaderFields]);
-    }
+       [urlReq setValue:[NSString stringWithFormat:@"CUSTOM access_token=%@",[[AccessToken sharedInstance] token]] forHTTPHeaderField:@"Authorization"];
+    
     connection = [[NSURLConnection alloc] initWithRequest:urlReq  delegate:self];
     [connection start];
 }
