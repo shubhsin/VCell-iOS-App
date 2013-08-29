@@ -196,17 +196,23 @@
 {
     
     // Save the received JSON array inside an NSArray
-    NSArray *jsonData = [NSJSONSerialization JSONObjectWithData:connectionData options:kNilOptions error:nil];
+    id jsonData = [NSJSONSerialization JSONObjectWithData:connectionData options:kNilOptions error:nil];
     if(!HUDTextMode)
     {
         HUD.customView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"37x-Checkmark.png"]];
         HUD.mode = MBProgressHUDModeCustomView;
         HUD.dimBackground = NO;
     }
-    [self.delegate fetchJSONDidCompleteWithJSONArray:jsonData function:self];
+    if([jsonData isKindOfClass:[NSDictionary class]])
+    {
+        NSDictionary *error = [jsonData objectForKey:@"fault"];
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Error" message:[error objectForKey:@"faultstring"] delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+        [alertView show];
+    }
+    else
+        [self.delegate fetchJSONDidCompleteWithJSONArray:jsonData function:self];
     HUD.labelText = @"Done!";
     [HUD hide:YES afterDelay:1];
-    
 }
 
 - (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error

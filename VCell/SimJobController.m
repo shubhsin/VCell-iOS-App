@@ -74,8 +74,8 @@
     functionsJSON = [[Functions alloc] init];
     functionsQuotas = [[Functions alloc] init];
     self.navigationItem.title = @"Loading Quotas...";
-    [self updateQuota];
-    [NSTimer scheduledTimerWithTimeInterval:30 target:self selector:@selector(updateQuota) userInfo:nil repeats:YES];
+    //[self updateQuota];
+    //[NSTimer scheduledTimerWithTimeInterval:30 target:self selector:@selector(updateQuota) userInfo:nil repeats:YES];
 
     //Pull to refresh
     UIRefreshControl *refreshControl = [[UIRefreshControl alloc] init];
@@ -129,15 +129,16 @@
 {
     if(function == functionsJSON)
     {
+
         // Make an empty array
         NSMutableArray *simMutableJobs = [NSMutableArray array];
     
         // Add the objects in the array
         for(NSDictionary *dict in jsonData)
             [simMutableJobs addObject:[[SimJob alloc] initWithDict:dict]];
-    
+
         numberOfObjectsReceived = [simMutableJobs count];
-    
+
         if(rowNum == 1)
         {
             simJobs = [NSMutableArray arrayWithArray:simMutableJobs];
@@ -165,7 +166,7 @@
             [Functions scrollToFirstRowOfNewSectionsWithOldNumberOfSections:[NSIndexPath indexPathForRow:0 inSection:oldNumberOfSections] tableView:self.tableView];
         }
     }
-    
+
     if(function == functionsQuotas)
     {
         NSLog(@"Fire End");
