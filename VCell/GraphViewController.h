@@ -13,6 +13,6 @@
 
 @property (weak, nonatomic) IBOutlet CPTGraphHostingView *hostView;
 
-- (void)setObject:(SimGraph *)obj;
+- (void)setGraphObject:(SimGraph *)obj;
 
 @end

@@ -194,7 +194,6 @@
 
 - (void)connectionDidFinishLoading:(NSURLConnection *)connection
 {
-    
     // Save the received JSON array inside an NSArray
     id jsonData = [NSJSONSerialization JSONObjectWithData:connectionData options:kNilOptions error:nil];
     if(!HUDTextMode)

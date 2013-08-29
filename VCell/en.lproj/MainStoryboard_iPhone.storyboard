@@ -735,6 +735,7 @@
                         <outlet property="userKey" destination="Haz-FZ-3A4" id="Yee-er-qwS"/>
                         <outlet property="username" destination="H2M-4q-5Qh" id="UEK-DB-D9Z"/>
                         <outlet property="viewData" destination="40O-t5-ywa" id="gCf-Bp-sXv"/>
+                        <segue destination="qpS-ch-Yt9" kind="push" identifier="viewData" id="CUC-uD-JiW"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8AS-Wz-hwC" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1087,7 +1088,7 @@
             <objects>
                 <tableViewController id="qpS-ch-Yt9" customClass="GraphAxisSelectController" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="singleLineEtched" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="hGn-JP-tmb">
-                        <rect key="frame" x="0.0" y="64" width="320" height="504"/>
+                        <rect key="frame" x="0.0" y="64" width="320" height="455"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <prototypes>
@@ -1113,14 +1114,14 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vfi-c7-TTl" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3191" y="-171"/>
+            <point key="canvasLocation" x="2817" y="-171"/>
         </scene>
         <!--Graph View Controller - Results-->
         <scene sceneID="QrW-tN-RpG">
             <objects>
                 <viewController id="gTa-tn-OvL" customClass="GraphViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="bbi-P6-j7I">
-                        <rect key="frame" x="0.0" y="64" width="320" height="504"/>
+                        <rect key="frame" x="0.0" y="64" width="320" height="455"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ULK-iA-rTg" customClass="CPTGraphHostingView">
@@ -1372,25 +1373,6 @@
                 </searchDisplayController>
             </objects>
             <point key="canvasLocation" x="1253" y="587"/>
-        </scene>
-        <!--Navigation Controller - Item-->
-        <scene sceneID="EvT-6R-jBt">
-            <objects>
-                <navigationController id="A6z-an-8uN" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Item" id="YyN-P7-bwA"/>
-                    <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="RUz-Um-zcb">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <nil name="viewControllers"/>
-                    <connections>
-                        <segue destination="qpS-ch-Yt9" kind="relationship" relationship="rootViewController" id="mXB-Gf-044"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="HUA-KW-xaD" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="2685" y="-171"/>
         </scene>
         <!--Navigation Controller - Biomodels-->
         <scene sceneID="MKN-d4-rhj">

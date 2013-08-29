@@ -76,7 +76,6 @@
     self.status.detailTextLabel.text = simJob.status;
     self.startDate.detailTextLabel.text = [simJob startDateString];
     self.msg.detailTextLabel.text = simJob.message;
-    NSLog(@"%@",simJob.simKey);
     //section 2
     self.simContextKey.detailTextLabel.text = simJob.bioModelLink.simContextKey;
     self.simContextBranch.detailTextLabel.text = simJob.bioModelLink.simContextBranchId;
@@ -115,7 +114,7 @@
     {
         if(indexPath.row == 0) // View Data
         {
-            
+            [self performSegueWithIdentifier:@"viewData" sender:self];
         }
         else if(indexPath.row == 1) // View Parent
         {
@@ -131,7 +130,7 @@
                 [self.navigationController pushViewController:biomodelDetailsViewController animated:YES];
             }
         }
-        else if(indexPath.row == 2)
+        else if(indexPath.row == 2) //Start stop simulation
         {
             [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
             
@@ -183,5 +182,12 @@
     return NO;
 }
 
-
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    if ([[segue identifier] isEqualToString:@"viewData"])
+    {
+        //TODO
+        //Send simJob
+    }
+}
 @end

@@ -6,7 +6,7 @@
 //  Copyright (c) 2013 vcell. All rights reserved.
 //
 
-//#define LOCALHOST
+#define LOCALHOST
 
 #define USERNAME @"schaff"
 

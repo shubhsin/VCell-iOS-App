@@ -22,7 +22,6 @@
     self = [super init];
     if(self)
     {
-        NSLog(@"%@",dict);
         _simKey = [dict objectForKey:@"simKey"];
         _simName = [dict objectForKey:@"simName"];
         _userName = [dict objectForKey:@"userName"];

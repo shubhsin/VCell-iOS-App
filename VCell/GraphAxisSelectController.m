@@ -55,7 +55,6 @@
     static NSString *CellIdentifier = @"Cell";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
     
-    // Configure the cell...
     if (cell == nil) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
     }
@@ -80,7 +79,7 @@
 {
     if ([[segue identifier] isEqualToString:@"showGraph"])
     {
-        [[segue destinationViewController] setObject:simGraph];
+        [[segue destinationViewController] setGraphObject:simGraph];
     }
 
 }
@@ -92,7 +91,7 @@
     UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
     if(indexPath.section == VIEWDATA)
     {
-        [self performSegueWithIdentifier:@"showGraph" sender:nil];
+        [self performSegueWithIdentifier:@"showGraph" sender:self];
     }
     
     if (indexPath.section == XAXIS)

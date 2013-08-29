@@ -445,12 +445,12 @@
 		54C2F4F517800D2400FEB6B9 /* Graph */ = {
 			isa = PBXGroup;
 			children = (
+				54C2F4F9178033BC00FEB6B9 /* GraphAxisSelectController.h */,
+				54C2F4FA178033BC00FEB6B9 /* GraphAxisSelectController.m */,
 				54DA319C1764B8900020D2B5 /* GraphViewController.h */,
 				54DA319D1764B8900020D2B5 /* GraphViewController.m */,
 				54C2F4F617800D9400FEB6B9 /* SimGraph.h */,
 				54C2F4F717800D9400FEB6B9 /* SimGraph.m */,
-				54C2F4F9178033BC00FEB6B9 /* GraphAxisSelectController.h */,
-				54C2F4FA178033BC00FEB6B9 /* GraphAxisSelectController.m */,
 			);
 			name = Graph;
 			sourceTree = "<group>";
@@ -838,6 +838,7 @@
 					"$(inherited)",
 					"\"$(SRCROOT)/VCell\"",
 				);
+				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -855,6 +856,7 @@
 					"$(inherited)",
 					"\"$(SRCROOT)/VCell\"",
 				);
+				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};

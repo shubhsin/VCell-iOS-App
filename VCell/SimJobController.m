@@ -74,8 +74,8 @@
     functionsJSON = [[Functions alloc] init];
     functionsQuotas = [[Functions alloc] init];
     self.navigationItem.title = @"Loading Quotas...";
-    //[self updateQuota];
-    //[NSTimer scheduledTimerWithTimeInterval:30 target:self selector:@selector(updateQuota) userInfo:nil repeats:YES];
+    [self updateQuota];
+    [NSTimer scheduledTimerWithTimeInterval:30 target:self selector:@selector(updateQuota) userInfo:nil repeats:YES];
 
     //Pull to refresh
     UIRefreshControl *refreshControl = [[UIRefreshControl alloc] init];
@@ -118,9 +118,7 @@
 
 - (void)startLoading
 {
-    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@startRow=%d",SIMTASK_URL,[Functions contructUrlParamsOnDict:URLparams],rowNum]];
-    NSLog(@"%@",url);
-    
+    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@startRow=%d",SIMTASK_URL,[Functions contructUrlParamsOnDict:URLparams],rowNum]];    
     [functionsJSON fetchJSONFromURL:url HUDTextMode:(rowNum==1?NO:YES) AddHUDToView:self.navigationController.view delegate:self];
 }
 
@@ -129,7 +127,6 @@
 {
     if(function == functionsJSON)
     {
-
         // Make an empty array
         NSMutableArray *simMutableJobs = [NSMutableArray array];
     
@@ -160,7 +157,7 @@
         
             NSUInteger numberOfSections = [self.tableView numberOfSections];
         
-        //Add to the tableview
+            //Add to the tableview
             [self.tableView insertSections:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(numberOfSections,[newSections count])] withRowAnimation:UITableViewRowAnimationBottom];
         
             [Functions scrollToFirstRowOfNewSectionsWithOldNumberOfSections:[NSIndexPath indexPathForRow:0 inSection:oldNumberOfSections] tableView:self.tableView];
