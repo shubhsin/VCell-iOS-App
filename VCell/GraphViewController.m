@@ -73,6 +73,7 @@
     [self configureGraph];
     [self configurePlots];
     [self configureAxes];
+    [self configureLegend];
 }
 
 -(void)configureHost
@@ -149,11 +150,9 @@
 
 - (CPTPlotSymbol *)randomPlotSymbol
 {
-    NSUInteger rand = arc4random() % 11;
     
     NSArray *plotSymbols = [NSArray arrayWithObjects:
                                             @"crossPlotSymbol",
-                                            @"ellipsePlotSymbol",
                                             @"rectanglePlotSymbol",
                                             @"plusPlotSymbol",
                                             @"starPlotSymbol",
@@ -163,6 +162,7 @@
                                             @"hexagonPlotSymbol",
                                             @"dashPlotSymbol",
                                             @"snowPlotSymbol",nil];
+    NSUInteger rand = arc4random() % [plotSymbols count];
     SEL sel = NSSelectorFromString([plotSymbols objectAtIndex:rand]);
     return [CPTPlotSymbol performSelector:sel];
 }
@@ -252,11 +252,10 @@
     
     int exponentialOfyMax = (int)log10f([yMax floatValue]);
     
-    
     if(simGraph.YVar.count == 1) // Y-Axis Name
-        y.title = [simGraph.variables objectAtIndex:simGraph.YVar.firstIndex];
+        y.title = [NSString stringWithFormat:@"%@ (10^%d)",[simGraph.variables objectAtIndex:simGraph.YVar.firstIndex],exponentialOfyMax];
     else
-        y.title = @"Multiple Variables";
+        y.title = [NSString stringWithFormat:@"Mutiple Variables (10^%d)",exponentialOfyMax];
     y.titleTextStyle = axisTitleStyle;
     y.titleOffset = -40.0f;
     y.axisLineStyle = axisLineStyle;
@@ -295,6 +294,23 @@
     y.majorTickLocations = yLocations;
 }
 
+-(void)configureLegend
+{
+	// 1 - Get graph instance
+	CPTGraph *graph = self.hostView.hostedGraph;
+	// 2 - Create legend
+	CPTLegend *theLegend = [CPTLegend legendWithGraph:graph];
+	// 3 - Configure legen
+	theLegend.numberOfColumns = 1;
+	theLegend.fill = [CPTFill fillWithColor:[CPTColor whiteColor]];
+	theLegend.borderLineStyle = [CPTLineStyle lineStyle];
+	theLegend.cornerRadius = 5.0;
+	// 4 - Add legend to graph
+	graph.legend = theLegend;
+	graph.legendAnchor = CPTRectAnchorRight;
+	CGFloat legendPadding = -(self.view.bounds.size.width / 8);
+	graph.legendDisplacement = CGPointMake(legendPadding, 0.0);
+}
 
 #pragma mark - CPTPlotDataSource methods
 -(NSUInteger)numberOfRecordsForPlot:(CPTPlot *)plot

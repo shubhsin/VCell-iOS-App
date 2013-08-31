@@ -202,7 +202,7 @@
         HUD.mode = MBProgressHUDModeCustomView;
         HUD.dimBackground = NO;
     }
-    if([jsonData isKindOfClass:[NSDictionary class]])
+    if([jsonData isKindOfClass:[NSDictionary class]] && [jsonData objectForKey:@"fault"])
     {
         NSDictionary *error = [jsonData objectForKey:@"fault"];
         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Error" message:[error objectForKey:@"faultstring"] delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil];

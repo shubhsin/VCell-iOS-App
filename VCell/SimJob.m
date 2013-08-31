@@ -58,7 +58,7 @@
             _mathModelLink.mathModelName = [[dict objectForKey:@"mathModelLink"] objectForKey:@"mathModelName"];
         }
         
-        //save the app from crashing in case these values arent returned by the API
+        //save the app from crashing in case these values are not returned by the API
         if([_simKey class] == [NSNull class])
             _simKey = nil;
         if([_simName class] == [NSNull class])
