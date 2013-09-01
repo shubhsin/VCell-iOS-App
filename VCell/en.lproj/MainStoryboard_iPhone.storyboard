@@ -117,7 +117,7 @@
                                 <action selector="bioModelDateSwap:" destination="TTe-86-iE8" id="ff5-Ol-2Nr"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" title="Filter" id="DJj-Y5-W7F">
+                        <barButtonItem key="rightBarButtonItem" title="Options" id="DJj-Y5-W7F">
                             <connections>
                                 <segue destination="nQ0-Sx-c0j" kind="push" identifier="showSimJobsFilters" id="Ubn-Ea-1Ll"/>
                             </connections>
@@ -1337,21 +1337,26 @@
                     </tableView>
                     <navigationItem key="navigationItem" id="Roy-Gu-j7J">
                         <nil key="title"/>
+                        <barButtonItem key="leftBarButtonItem" title="Owner" style="done" id="ecH-P6-WXt">
+                            <connections>
+                                <action selector="selectOwnerBtnClicked:" destination="hcS-J6-KHh" id="ChU-0j-2ez"/>
+                            </connections>
+                        </barButtonItem>
                         <segmentedControl key="titleView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" id="owD-Vu-vQA">
-                            <rect key="frame" x="5" y="6" width="244" height="33"/>
+                            <rect key="frame" x="71" y="5" width="170" height="35"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <segments>
-                                <segment title="Biomodels"/>
-                                <segment title="Applications"/>
-                                <segment title="Simulations"/>
+                                <segment title="Bio"/>
+                                <segment title="App"/>
+                                <segment title="Sim"/>
                             </segments>
                             <connections>
                                 <action selector="appSimSwap:" destination="hcS-J6-KHh" eventType="valueChanged" id="v0n-9d-cQd"/>
                             </connections>
                         </segmentedControl>
-                        <barButtonItem key="rightBarButtonItem" title="Owner" id="ecH-P6-WXt">
+                        <barButtonItem key="rightBarButtonItem" title="Options" id="wEO-0J-XFj">
                             <connections>
-                                <action selector="selectOwnerBtnClicked:" destination="hcS-J6-KHh" id="ChU-0j-2ez"/>
+                                <action selector="optionBtnClicked:" destination="hcS-J6-KHh" id="d7Y-Ks-hw5"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -1397,100 +1402,6 @@
     <resources>
         <image name="dot.png" width="15" height="15"/>
     </resources>
-    <classes>
-        <class className="BiomodelViewController" superclassName="UITableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/BiomodelViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="appSimSwap:"/>
-                <relationship kind="action" name="selectOwnerBtnClicked:"/>
-                <relationship kind="outlet" name="appSimSegmentControl" candidateClass="UISegmentedControl"/>
-                <relationship kind="outlet" name="ownerBtn" candidateClass="UIBarButtonItem"/>
-            </relationships>
-        </class>
-        <class className="CPTGraphHostingView" superclassName="UIView">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/CPTGraphHostingView.h"/>
-        </class>
-        <class className="GraphAxisSelectController" superclassName="UITableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/GraphAxisSelectController.h"/>
-        </class>
-        <class className="GraphViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/GraphViewController.h"/>
-            <relationships>
-                <relationship kind="outlet" name="hostView" candidateClass="CPTGraphHostingView"/>
-            </relationships>
-        </class>
-        <class className="LoginViewController" superclassName="UITableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/LoginViewController.h"/>
-            <relationships>
-                <relationship kind="outlet" name="passwordTextField" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="usernameTextField" candidateClass="UITextField"/>
-            </relationships>
-        </class>
-        <class className="NSLayoutConstraint" superclassName="NSObject">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/NSLayoutConstraint.h"/>
-        </class>
-        <class className="SimJobButtonCell" superclassName="UITableViewCell">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/SimJobButtonCell.h"/>
-            <relationships>
-                <relationship kind="action" name="btnPressed:"/>
-                <relationship kind="outlet" name="completedBtn" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="runningBtn" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="stoppedBtn" candidateClass="UIButton"/>
-            </relationships>
-        </class>
-        <class className="SimJobController" superclassName="UITableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/SimJobController.h"/>
-            <relationships>
-                <relationship kind="action" name="bioModelDateSwap:"/>
-                <relationship kind="outlet" name="biomodelDateSwapBtn" candidateClass="UIBarButtonItem"/>
-                <relationship kind="outlet" name="searchBar" candidateClass="UISearchBar"/>
-            </relationships>
-        </class>
-        <class className="SimJobDetailsController" superclassName="UITableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/SimJobDetailsController.h"/>
-            <relationships>
-                <relationship kind="outlet" name="bioModelBranch" candidateClass="UITableViewCell"/>
-                <relationship kind="outlet" name="bioModelKey" candidateClass="UITableViewCell"/>
-                <relationship kind="outlet" name="bioModelName" candidateClass="UITableViewCell"/>
-                <relationship kind="outlet" name="computeHost" candidateClass="UITableViewCell"/>
-                <relationship kind="outlet" name="htcJobId" candidateClass="UITableViewCell"/>
-                <relationship kind="outlet" name="jobId" candidateClass="UITableViewCell"/>
-                <relationship kind="outlet" name="msg" candidateClass="UITableViewCell"/>
-                <relationship kind="outlet" name="parent" candidateClass="UITableViewCell"/>
-                <relationship kind="outlet" name="schStatus" candidateClass="UITableViewCell"/>
-                <relationship kind="outlet" name="simContextBranch" candidateClass="UITableViewCell"/>
-                <relationship kind="outlet" name="simContextKey" candidateClass="UITableViewCell"/>
-                <relationship kind="outlet" name="simContextName" candidateClass="UITableViewCell"/>
-                <relationship kind="outlet" name="simKey" candidateClass="UITableViewCell"/>
-                <relationship kind="outlet" name="simName" candidateClass="UITableViewCell"/>
-                <relationship kind="outlet" name="site" candidateClass="UITableViewCell"/>
-                <relationship kind="outlet" name="startDate" candidateClass="UITableViewCell"/>
-                <relationship kind="outlet" name="startStopSim" candidateClass="UITableViewCell"/>
-                <relationship kind="outlet" name="status" candidateClass="UITableViewCell"/>
-                <relationship kind="outlet" name="taskId" candidateClass="UITableViewCell"/>
-                <relationship kind="outlet" name="userKey" candidateClass="UITableViewCell"/>
-                <relationship kind="outlet" name="username" candidateClass="UITableViewCell"/>
-                <relationship kind="outlet" name="viewData" candidateClass="UITableViewCell"/>
-            </relationships>
-        </class>
-        <class className="SimJobsFiltersController" superclassName="UITableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/SimJobsFiltersController.h"/>
-            <relationships>
-                <relationship kind="action" name="clearBtn:"/>
-                <relationship kind="action" name="doneBtn:"/>
-                <relationship kind="outlet" name="computeHostCell" candidateClass="UITableViewCell"/>
-                <relationship kind="outlet" name="dateBeginCell" candidateClass="UITableViewCell"/>
-                <relationship kind="outlet" name="dateEndCell" candidateClass="UITableViewCell"/>
-                <relationship kind="outlet" name="hasDataCell" candidateClass="UITableViewCell"/>
-                <relationship kind="outlet" name="maxRowsCell" candidateClass="UITableViewCell"/>
-                <relationship kind="outlet" name="serverIDCell" candidateClass="UITableViewCell"/>
-                <relationship kind="outlet" name="simulationIDCell" candidateClass="UITableViewCell"/>
-            </relationships>
-        </class>
-        <class className="SimJobsFiltersDetail" superclassName="UITableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/SimJobsFiltersDetail.h"/>
-        </class>
-    </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>

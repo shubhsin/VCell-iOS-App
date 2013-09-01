@@ -84,4 +84,21 @@
     }
 }
 
++ (void)logoutFrom:(UIViewController *)view
+{
+    [AccessToken setSharedInstance:nil];
+    
+    AppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
+    
+    [Functions deleteAllObjects:BIOMODEL_ENTITY inManagedObjectContext:appDelegate.managedObjectContext withOwner:nil];
+    
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    [userDefaults removeObjectForKey:USERPASSKEY];
+    [userDefaults synchronize];
+    
+    LoginViewController *loginViewController = [view.storyboard instantiateInitialViewController];
+    
+    [view presentViewController:loginViewController animated:YES completion:nil];
+}
+
 @end

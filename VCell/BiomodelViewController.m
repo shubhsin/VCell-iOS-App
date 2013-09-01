@@ -18,6 +18,8 @@
     //Class Vars
     NSString *actionSheetPref;
     NSDictionary *actionSheetDict;
+    NSString *sortPref;
+    NSDictionary *sortPrefDict;
     NSMutableDictionary *numberOfObjectsReceived;
     NSUInteger displaySegmentIndex;
     Functions *functions;
@@ -57,6 +59,7 @@
     
     numberOfObjectsReceived = [[userDefaults objectForKey:BM_NUMBEROFOBJECTS] mutableCopy];
     actionSheetPref = [userDefaults objectForKey:BM_ACTIONSHEETPREF];
+    sortPref = [userDefaults objectForKey:BM_SORTPREF];
     [self initURLParamDict];
 }
 
@@ -97,8 +100,7 @@
         
     if(!actionSheetPref)
     {
-        actionSheetPref = [buttonTitles objectAtIndex:[AccessToken sharedInstance]?0:1];
-        
+        actionSheetPref = [buttonTitles objectAtIndex:[AccessToken sharedInstance]?0:1]; //Select Public as default owner if user selected public access
         
         [userDefaults setObject:actionSheetPref forKey:BM_ACTIONSHEETPREF];
         [userDefaults synchronize];
@@ -125,6 +127,60 @@
                         [buttonMutableTitles objectAtIndex:3],
                         [buttonMutableTitles objectAtIndex:4],
                         nil];
+    
+}
+
+- (void)initOptionsActionSheet
+{
+    
+    NSArray *buttonTitles = [NSArray arrayWithObjects:@"Date (newest)", @"Date (oldest)", @"Name (A-Z)", @"Name (Z-A)", nil];
+    
+    NSMutableArray *buttonMutableTitles = [NSMutableArray array];
+    
+    [buttonTitles enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+        [buttonMutableTitles addObject:[NSMutableString stringWithString:obj]];
+    }];
+    
+    if(!sortPref)
+    {
+        actionSheetPref = [buttonTitles objectAtIndex:0];
+        [userDefaults setObject:actionSheetPref forKey:BM_SORTPREF];
+        [userDefaults synchronize];
+    }
+    
+    sortPrefDict = [NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:
+                                                            DATE_DESC,
+                                                            DATE_ASC,
+                                                            NAME_ASC,
+                                                            NAME_DESC
+                                                           , nil] forKeys:buttonTitles];
+    
+    [buttonMutableTitles enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+        
+        if([obj isEqualToString:sortPref])
+        {
+            [obj appendString:TICK_MARK];
+            *stop = YES;
+        }
+    }];
+    
+    self.optionsActionSheet = nil; //reclaim memory from last action sheet
+    self.optionsActionSheet = [[UIActionSheet alloc]
+                        initWithTitle:@"Select Sort Order"
+                        delegate:self
+                        cancelButtonTitle:@"Cancel"
+                        destructiveButtonTitle:@"Logout"
+                        otherButtonTitles:
+                        [buttonMutableTitles objectAtIndex:0],
+                        [buttonMutableTitles objectAtIndex:1],
+                        [buttonMutableTitles objectAtIndex:2],
+                        [buttonMutableTitles objectAtIndex:3],
+                        nil];
+
+}
+- (void)viewWillAppear:(BOOL)animated
+{
+    [self initOptionsActionSheet];
 }
 
 - (void)viewDidLoad
@@ -187,17 +243,19 @@
 
 - (void)startLoading
 {
-    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@startRow=%d&category=%@",
+    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@startRow=%d&category=%@&orderBy=%@",
                                        BIOMODEL_URL,
                                        [Functions contructUrlParamsOnDict:URLparams],
                                        rowNum+1,
-                                       [actionSheetDict objectForKey:actionSheetPref]]];
+                                       [actionSheetDict objectForKey:actionSheetPref],
+                                       [sortPrefDict objectForKey:sortPref]]];
     [functions fetchJSONFromURL:url HUDTextMode:(rowNum+1==1?NO:YES) AddHUDToView:self.navigationController.view delegate:self];
 }
 
 #pragma mark MBProgressHUDDelegate methods
 
-- (void)hudWasHidden:(MBProgressHUD *)hud {
+- (void)hudWasHidden:(MBProgressHUD *)hud
+{
 	// Remove HUD from screen when the HUD was hidded
 	[HUD removeFromSuperview];
 	HUD = nil;
@@ -381,29 +439,51 @@
 
 - (NSFetchedResultsController *)newFetchedResultsControllerWithSearch:(NSString *)searchString
 {
+    BOOL ascending;
     NSString *entityName, *sortKey, *sectionKeyPath;
     NSMutableString *predicateFormat = [NSMutableString stringWithString:@"("];
+    
+    if([[sortPrefDict objectForKey:sortPref] isEqualToString:DATE_DESC])
+    {
+        sortKey = @"savedDate";
+        ascending = NO;
+    }
+    else if([[sortPrefDict objectForKey:sortPref] isEqualToString:DATE_ASC])
+    {
+        sortKey = @"savedDate";
+        ascending = YES;
+    }
+    else if([[sortPrefDict objectForKey:sortPref] isEqualToString:DATE_DESC])
+    {
+        sortKey = @"name";
+        ascending = YES;
+    }
+    else //if([[sortPrefDict objectForKey:sortPref] isEqualToString:DATE_DESC])
+    {
+        sortKey = @"name";
+        ascending = NO;
+    }
     
     switch (displaySegmentIndex) {
             
         case BIOMODELS_SEGMENT:
-            
+
             entityName = BIOMODEL_ENTITY;
-            sortKey = @"savedDate";
+            
             sectionKeyPath = nil;
             
             break;
         case APPLICATIONS_SEGMENT:
             
             entityName = APPLICATION_ENTITY;
-            sortKey = @"biomodel.savedDate";
+            sortKey = [NSString stringWithFormat:@"biomodel.%@",sortKey];
             sectionKeyPath = @"biomodel.bmKey";
             [predicateFormat appendString:@"biomodel."];
             break;
         case SIMULATIONS_SEGMENT:
             
             entityName = SIMULATION_ENTITY;
-            sortKey = @"application.biomodel.savedDate";
+            sortKey = [NSString stringWithFormat:@"application.biomodel.%@",sortKey];
             sectionKeyPath =  @"application.biomodel.bmKey";
             [predicateFormat appendString:@"application.biomodel."];
             break;
@@ -431,7 +511,7 @@
     
     // Edit the sort key as appropriate.
     
-    NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:sortKey ascending:NO];
+    NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:sortKey ascending:ascending];
     NSArray *sortDescriptors = @[sortDescriptor];
     
     [fetchRequest setSortDescriptors:sortDescriptors];
@@ -553,22 +633,50 @@
 
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
 {
-    NSString *btnIndex = [actionSheet buttonTitleAtIndex:buttonIndex];
-    if(![btnIndex isEqualToString:@"Cancel"])
+    if(actionSheet == self.actionSheet)
     {
-        if([btnIndex isEqualToString:[actionSheetPref stringByAppendingString:TICK_MARK]])
-            actionSheetPref = [btnIndex stringByReplacingOccurrencesOfString:TICK_MARK withString:@""];
+        NSString *btnIndex = [actionSheet buttonTitleAtIndex:buttonIndex];
+        if(![btnIndex isEqualToString:@"Cancel"])
+        {
+            if([btnIndex isEqualToString:[actionSheetPref stringByAppendingString:TICK_MARK]])
+                actionSheetPref = [btnIndex stringByReplacingOccurrencesOfString:TICK_MARK withString:@""];
+            else
+                actionSheetPref = btnIndex;
+            
+            [userDefaults setObject:actionSheetPref forKey:BM_ACTIONSHEETPREF];
+            [userDefaults synchronize];
+            [self setOwnerBtnTitle];
+            [self initActionSheet];
+            [self.tableView setContentOffset:CGPointZero animated:NO]; // Scroll to top
+            [self updateNumRow];
+            self.fetchedResultsController = nil;
+            [self.tableView reloadData];
+        }
+    }
+    
+    if(actionSheet == self.optionsActionSheet)
+    {
+        NSString *btnIndex = [actionSheet buttonTitleAtIndex:buttonIndex];
+        if([btnIndex isEqualToString:@"Logout"])
+        {
+            [LoginViewController logoutFrom:self];
+        }
+        else if([btnIndex isEqualToString:@"Cancel"]);
         else
-            actionSheetPref = btnIndex;
-        
-        [userDefaults setObject:actionSheetPref forKey:BM_ACTIONSHEETPREF];
-        [userDefaults synchronize];
-        [self setOwnerBtnTitle];
-        [self initActionSheet];
-        [self.tableView setContentOffset:CGPointZero animated:NO]; // Scroll to top
-        [self updateNumRow];
-        self.fetchedResultsController = nil;
-        [self.tableView reloadData];
+        {
+            if([btnIndex isEqualToString:[sortPref stringByAppendingString:TICK_MARK]])
+                sortPref = [btnIndex stringByReplacingOccurrencesOfString:TICK_MARK withString:@""];
+            else
+                sortPref = btnIndex;
+            
+            [userDefaults setObject:sortPref forKey:BM_SORTPREF];
+            [userDefaults synchronize];
+            [self initOptionsActionSheet];
+            [self.tableView setContentOffset:CGPointZero animated:NO]; // Scroll to top
+            [Functions deleteAllObjects:BIOMODEL_ENTITY inManagedObjectContext:self.managedObjectContext withOwner:nil];
+            self.fetchedResultsController = nil;
+            [self.tableView reloadData];
+        }
     }
 }
 
@@ -645,4 +753,10 @@
     self.searchFetchedResultsController = nil;
 }
 
+- (IBAction)optionBtnClicked:(id)sender
+{
+    [self.optionsActionSheet showFromTabBar:self.tabBarController.tabBar];
+}
+
 @end
+

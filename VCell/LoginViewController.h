@@ -14,4 +14,6 @@
 @property (weak, nonatomic) IBOutlet UITextField *usernameTextField;
 @property (weak, nonatomic) IBOutlet UITextField *passwordTextField;
 
++ (void)logoutFrom:(UIViewController *)view;
+
 @end

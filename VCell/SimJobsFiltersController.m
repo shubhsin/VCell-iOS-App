@@ -88,19 +88,8 @@
     
     if(indexPath.section == 4 && indexPath.row == 0) //Logout btn
     {
-        [AccessToken setSharedInstance:nil];
         
-        AppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
-        
-        [Functions deleteAllObjects:BIOMODEL_ENTITY inManagedObjectContext:appDelegate.managedObjectContext withOwner:nil];
-        
-        NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-        [userDefaults removeObjectForKey:USERPASSKEY];
-        [userDefaults synchronize];
-     
-        LoginViewController *loginViewController = [self.storyboard instantiateInitialViewController];
-        
-        [self presentViewController:loginViewController animated:YES completion:nil];
+        [LoginViewController logoutFrom:self];
     }
 }
 
