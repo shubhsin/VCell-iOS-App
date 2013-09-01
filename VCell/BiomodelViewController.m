@@ -88,11 +88,11 @@
     }
 
     actionSheetDict = [NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:
-                                                               [[AccessToken sharedInstance] userId]?[[AccessToken sharedInstance] userId]:@"",
-                                                               @"all_public",
-                                                               @"all_shared",
-                                                               @"Education",
-                                                               @"tutorial"
+                                                               @"mine",
+                                                               @"public",
+                                                               @"shared",
+                                                               @"educational",
+                                                               @"tutorials"
                                                                , nil] forKeys:buttonTitles];
         
     if(!actionSheetPref)
@@ -187,7 +187,7 @@
 
 - (void)startLoading
 {
-    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@startRow=%d&owner=%@",
+    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@startRow=%d&category=%@",
                                        BIOMODEL_URL,
                                        [Functions contructUrlParamsOnDict:URLparams],
                                        rowNum+1,
