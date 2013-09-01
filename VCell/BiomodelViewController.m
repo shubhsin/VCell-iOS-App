@@ -266,14 +266,13 @@
 {
     NSInteger sections = [[[self fetchedResultsControllerForTableView:tableView] sections] count];
     //Plus One for Online Search
-    return (tableView==self.searchDisplayController.searchResultsTableView) && (displaySegmentIndex == BIOMODELS_SEGMENT)?sections+1:sections;
+    return (IS_ONLINE_SEARCHED_BIOMODEL)?sections+1:sections;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    if(tableView == self.searchDisplayController.searchResultsTableView && section == tableView.numberOfSections - 1 && displaySegmentIndex == BIOMODELS_SEGMENT)
+    if(IS_ONLINE_SEARCHED_BIOMODEL_SECTION)
         return onlineSearchedBiomodels?[onlineSearchedBiomodels count]:1;
-    
     
     id <NSFetchedResultsSectionInfo> sectionInfo = [[self fetchedResultsControllerForTableView:tableView] sections][section];
     NSInteger numberOfRowsInSection = [sectionInfo numberOfObjects];
@@ -282,7 +281,7 @@
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
 {
-    if(tableView == self.searchDisplayController.searchResultsTableView && section == tableView.numberOfSections - 1 && displaySegmentIndex == BIOMODELS_SEGMENT)
+    if(IS_ONLINE_SEARCHED_BIOMODEL_SECTION)
         return @"Online";
     
     if(displaySegmentIndex == BIOMODELS_SEGMENT) return nil;
@@ -329,10 +328,9 @@
 - (void)configureCell:(BiomodelCell *)cell atIndexPath:(NSIndexPath *)indexPath tableView:(UITableView *)tableView
 {
     //Online Search
-    if(tableView == self.searchDisplayController.searchResultsTableView
-       && indexPath.section == tableView.numberOfSections - 1 && onlineSearchedBiomodels == nil && displaySegmentIndex == BIOMODELS_SEGMENT)
+    NSInteger section = indexPath.section;
+    if(IS_ONLINE_SEARCHED_BIOMODEL_SECTION && onlineSearchedBiomodels == nil)
     {
-
             cell.titleLabel.text = @"Press Search Button to Begin";
             cell.titleLabel.textAlignment = NSTextAlignmentCenter;
             cell.detailLabel.text = nil;
@@ -340,7 +338,7 @@
             return;
     }
     
-    id object = (tableView == self.searchDisplayController.searchResultsTableView && onlineSearchedBiomodels != nil && displaySegmentIndex == BIOMODELS_SEGMENT)?[onlineSearchedBiomodels objectAtIndex:indexPath.row]:[[self fetchedResultsControllerForTableView:tableView] objectAtIndexPath:indexPath];
+    id object = (IS_ONLINE_SEARCHED_BIOMODEL && onlineSearchedBiomodels != nil)?[onlineSearchedBiomodels objectAtIndex:indexPath.row]:[[self fetchedResultsControllerForTableView:tableView] objectAtIndexPath:indexPath];
     
     [self configureCell:cell withObject:object];
     
@@ -509,8 +507,12 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    NSInteger section = indexPath.section;
+    
+    id object = IS_ONLINE_SEARCHED_BIOMODEL_SECTION?[onlineSearchedBiomodels objectAtIndex:indexPath.row]:[[self fetchedResultsControllerForTableView:tableView] objectAtIndexPath:indexPath];
+    
     BiomodelDetailsViewController *biomodelDetailsViewController = [[BiomodelDetailsViewController alloc] initWithStyle:UITableViewStylePlain];
-    [biomodelDetailsViewController setObject:[[self fetchedResultsControllerForTableView:tableView] objectAtIndexPath:indexPath]];
+    [biomodelDetailsViewController setObject:object];
     [self.navigationController pushViewController:biomodelDetailsViewController animated:YES];
     
 }

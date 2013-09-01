@@ -36,6 +36,9 @@
 #define APPLICATION_ENTITY @"Application"
 #define SIMULATION_ENTITY @"Simulation"
 
+#define IS_ONLINE_SEARCHED_BIOMODEL tableView == self.searchDisplayController.searchResultsTableView && displaySegmentIndex == BIOMODELS_SEGMENT
+#define IS_ONLINE_SEARCHED_BIOMODEL_SECTION IS_ONLINE_SEARCHED_BIOMODEL && section == tableView.numberOfSections - 1
+
 @interface BiomodelViewController : UITableViewController <NSFetchedResultsControllerDelegate, FetchJSONDelegate, UISearchBarDelegate, UISearchDisplayDelegate, UIActionSheetDelegate>
 
 @property (strong, nonatomic) UIActionSheet *actionSheet;
