@@ -31,9 +31,6 @@
 #define BIOMODELID @"bmId"
 #define BMOWNER @"owner"
 
-//OWNERS
-
-
 //coredata entity constants
 #define BIOMODEL_ENTITY @"Biomodel"
 #define APPLICATION_ENTITY @"Application"

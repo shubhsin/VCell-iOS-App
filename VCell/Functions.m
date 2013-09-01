@@ -214,6 +214,11 @@
     [HUD hide:YES afterDelay:1];
 }
 
+- (void)cancelConnection
+{
+    [connection cancel];
+}
+
 - (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error
 {
 	[HUD hide:YES];

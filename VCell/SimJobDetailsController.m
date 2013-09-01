@@ -26,8 +26,8 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    //Pull to refresh
     
+    //Pull to refresh
     UIRefreshControl *refreshControl = [[UIRefreshControl alloc] init];
     [refreshControl addTarget:self action:@selector(refreshSimJob:) forControlEvents:UIControlEventValueChanged];
     [self setRefreshControl:refreshControl];
@@ -52,7 +52,6 @@
 - (void)loadNewSimJob:(SimJob*)newSimJob
 {
     simJob = newSimJob;
-    
     [self setUpCells];
 }
 

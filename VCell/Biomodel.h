@@ -27,6 +27,7 @@
 @property (nonatomic, retain) NSString * annot;
 @property (nonatomic, retain) NSOrderedSet *applications;
 
+//Sending biomodelGroup as nil doesnt save the biomodel in local store
 + (id)biomodelWithDict:(NSDictionary*)dict inContext:(NSManagedObjectContext*)context biomodelGroup:(NSString*)bmg;
 - (NSString *)savedDateString;
 
