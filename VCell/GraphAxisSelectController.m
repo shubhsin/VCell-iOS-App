@@ -91,16 +91,21 @@
         cell.textLabel.textAlignment = NSTextAlignmentCenter;
     }
     else
-    {
+    {      
         if([selectedIndexPath isEqual:indexPath])
+        {
             cell.accessoryType = UITableViewCellAccessoryCheckmark;
+        }
     
         cell.textLabel.text = [simGraph.variables objectAtIndex:indexPath.row];
     }
     return cell;
 }
 
-
+- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    [cell setSelected:NO];
+}
 
 #pragma mark - Table view delegate
 
