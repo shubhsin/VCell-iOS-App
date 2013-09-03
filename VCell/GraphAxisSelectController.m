@@ -17,12 +17,36 @@
 
 @implementation GraphAxisSelectController
 
+- (void)setSimJob:(SimJob *)obj
+{
+    
+    simGraph = [[SimGraph alloc] initWithSimJob:obj];
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    simGraph = [[SimGraph alloc] initWithDict:nil];
-    simGraph.XVar = [NSMutableIndexSet indexSet];
-    simGraph.YVar = [NSMutableIndexSet indexSet];
+    
+    NSURL *url = [[NSURL alloc] initWithString:[NSString stringWithFormat:@"%@/%@?",SIMDATA_URL,simGraph.simJob.simKey]];
+    
+    [[[Functions alloc] init] fetchJSONFromURL:url HUDTextMode:NO AddHUDToView:self.navigationController.view delegate:self];
+}
+
+- (void)fetchJSONDidCompleteWithJSONArray:(NSArray *)jsonData function:(Functions *)function
+{
+    simGraph.variables = [(NSDictionary *)jsonData objectForKey:@"variables"];
+    if(simGraph.variables.count == 0)
+        [[[UIAlertView alloc] initWithTitle:@"Message" message:@"No Data" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil] show];
+    else
+    {
+        [self.tableView reloadData];
+        /*
+        [self.tableView beginUpdates];
+        [self.tableView insertRowsAtIndexPaths:[Functions makeNSIndexPathsFromArray:simGraph.variables ForSection:XAXIS] withRowAnimation:UITableViewRowAnimationFade];
+        [self.tableView insertRowsAtIndexPaths:[Functions makeNSIndexPathsFromArray:simGraph.variables ForSection:YAXIS] withRowAnimation:UITableViewRowAnimationFade];
+        [self.tableView endUpdates];
+         */
+    }
 }
 
 #pragma mark - Table view data source
@@ -46,7 +70,6 @@
 {
     if(section == VIEWDATA) //view data button
         return 1;
-    
     return [simGraph.variables count];
 }
 
@@ -59,57 +82,50 @@
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
     }
     
+    cell.textLabel.textAlignment = NSTextAlignmentLeft;
+    cell.accessoryType = UITableViewCellAccessoryNone;
+
     if(indexPath.section == VIEWDATA)
     {
         cell.textLabel.text = @"View Graph";
         cell.textLabel.textAlignment = NSTextAlignmentCenter;
-        return cell;
     }
-    if(selectedIndexPath == indexPath)
-        cell.accessoryType = UITableViewCellAccessoryCheckmark;
     else
-        cell.accessoryType = UITableViewCellAccessoryNone;
+    {
+        if([selectedIndexPath isEqual:indexPath])
+            cell.accessoryType = UITableViewCellAccessoryCheckmark;
     
-    cell.textLabel.text = [simGraph.variables objectAtIndex:indexPath.row];
-    
+        cell.textLabel.text = [simGraph.variables objectAtIndex:indexPath.row];
+    }
     return cell;
 }
 
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    if ([[segue identifier] isEqualToString:@"showGraph"])
-    {
-        [[segue destinationViewController] setGraphObject:simGraph];
-    }
 
-}
 
 #pragma mark - Table view delegate
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
+    UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
     if(indexPath.section == VIEWDATA)
     {
         [self performSegueWithIdentifier:@"showGraph" sender:self];
     }
-    
-    if (indexPath.section == XAXIS)
+    else if(indexPath.section == XAXIS)
     {
-        [[self.tableView cellForRowAtIndexPath:selectedIndexPath] setAccessoryType:UITableViewCellAccessoryNone];
+        [[tableView cellForRowAtIndexPath:selectedIndexPath] setAccessoryType:UITableViewCellAccessoryNone];
         
         if(cell.accessoryType == UITableViewCellAccessoryCheckmark)
             cell.accessoryType = UITableViewCellAccessoryNone;
         else
             cell.accessoryType = UITableViewCellAccessoryCheckmark;
         
-        selectedIndexPath = indexPath;
+        selectedIndexPath = [NSIndexPath indexPathForRow:indexPath.row inSection:indexPath.section];
         
         [simGraph.XVar removeAllIndexes];
         [simGraph.XVar addIndex:indexPath.row];
     }
-    
-    if(indexPath.section == YAXIS)
+    else if(indexPath.section == YAXIS)
     {
         if(cell.accessoryType == UITableViewCellAccessoryCheckmark)
         {
@@ -123,6 +139,15 @@
         }
     }
     [cell setSelected:NO animated:NO];
+    [cell setHighlighted:NO];
 }
 
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    if ([[segue identifier] isEqualToString:@"showGraph"])
+    {
+        [[segue destinationViewController] setGraphObject:simGraph];
+    }
+    
+}
 @end

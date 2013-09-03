@@ -29,6 +29,10 @@
 
 + (void)scrollToFirstRowOfNewSectionsWithOldNumberOfSections:(NSIndexPath*)firstCellOfNewData tableView:(UITableView*)tableView;
 
+//Makes IndexPaths from array for a section
++ (NSArray *)makeNSIndexPathsFromArray:(NSArray *)array ForSection:(NSUInteger)section;
+
+
 @property (weak, nonatomic) id <FetchJSONDelegate> delegate;
 
 //Makes a NSURLConnection request fetches data and shows HUD

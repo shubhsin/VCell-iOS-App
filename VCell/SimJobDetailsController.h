@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "SimJob.h"
-
+#import "GraphAxisSelectController.h"
 
 #define STARTSIMULATION @"Start Simulation"
 #define STOPSIMULATION @"Stop Simulation"

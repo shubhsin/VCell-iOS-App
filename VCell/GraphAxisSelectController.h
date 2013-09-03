@@ -14,6 +14,8 @@
 #define YAXIS 1
 #define VIEWDATA 2
 
-@interface GraphAxisSelectController : UITableViewController
+@interface GraphAxisSelectController : UITableViewController <FetchJSONDelegate>
+
+- (void)setSimJob:(SimJob *)obj;
 
 @end

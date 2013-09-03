@@ -28,5 +28,8 @@ NSString * const BIOMODEL_URL = URL_DEF "/biomodel" EXTENSION;
 
 NSString * const ACCESS_TOKEN_URL = URL_DEF "/access_token" EXTENSION;
 
+NSString * const SIMDATA_URL = URL_DEF "/simdata" EXTENSION;
+
 NSString * const CLIENT_ID = @"Tl3zecmvYDcA1c8dtTrxL8ae0cPukFpo";
+
 

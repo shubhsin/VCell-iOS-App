@@ -185,8 +185,7 @@
 {
     if ([[segue identifier] isEqualToString:@"viewData"])
     {
-        //TODO
-        //Send simJob
+        [[segue destinationViewController] setSimJob:simJob];
     }
 }
 @end

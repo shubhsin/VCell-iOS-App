@@ -10,211 +10,41 @@
 
 @implementation SimGraph
 
-- (id)initWithDict:(NSDictionary*) dict
+- (id)initWithSimJob:(SimJob*)simjob
 {
     self = [super init];
     if(self)
     {
-        self.variables = [NSArray arrayWithObjects:@"t",
-                          @"RanC_cyt",
-                          @"RanC_nuc",
-                          nil];
-        self.values = [NSMutableDictionary dictionary];
-        NSArray *t = [NSArray arrayWithObjects:
-         [NSDecimalNumber numberWithDouble:0.0],
-         [NSNumber numberWithDouble:6.901407861455072E-8],
-         [NSNumber numberWithDouble:6.902098002241218E-4],
-         [NSNumber numberWithDouble:0.0037896463896144005],
-         [NSNumber numberWithDouble:0.006889082979004679],
-         [NSNumber numberWithDouble:0.009988519568394957],
-         [NSNumber numberWithDouble:0.015148379620569261],
-         [NSNumber numberWithDouble:0.024201346479484052],
-         [NSNumber numberWithDouble:0.04601947623071856],
-         [NSNumber numberWithDouble:0.06783760598195307],
-         [NSNumber numberWithDouble:0.08965573573318758],
-         [NSNumber numberWithDouble:0.11147386548442209],
-         [NSNumber numberWithDouble:0.13678793008831333],
-         [NSNumber numberWithDouble:0.16210199469220457],
-         [NSNumber numberWithDouble:0.1874160592960958],
-         [NSNumber numberWithDouble:0.23420335948473064],
-         [NSNumber numberWithDouble:0.28099065967336545],
-         [NSNumber numberWithDouble:0.32777795986200026],
-         [NSNumber numberWithDouble:0.37456526005063506],
-         [NSNumber numberWithDouble:0.42135256023926987],
-         [NSNumber numberWithDouble:0.4681398604279047],
-         [NSNumber numberWithDouble:0.5149271606165395],
-         [NSNumber numberWithDouble:0.6094853699116786],
-         [NSNumber numberWithDouble:0.7040435792068176],
-         [NSNumber numberWithDouble:0.7986017885019566],
-         [NSNumber numberWithDouble:0.8931599977970957],
-         [NSNumber numberWithDouble:0.9877182070922347],
-         [NSNumber numberWithDouble:1.0822764163873737],
-         [NSNumber numberWithDouble:1.1768346256825128],
-         [NSNumber numberWithDouble:1.271392834977652],
-         [NSNumber numberWithDouble:1.3659510442727911],
-         [NSNumber numberWithDouble:1.5368948919528427],
-         [NSNumber numberWithDouble:1.7078387396328942],
-         [NSNumber numberWithDouble:1.8787825873129458],
-         [NSNumber numberWithDouble:2.0497264349929973],
-         [NSNumber numberWithDouble:2.220670282673049],
-         [NSNumber numberWithDouble:2.391614130353101],
-         [NSNumber numberWithDouble:2.5625579780331527],
-         [NSNumber numberWithDouble:2.7335018257132044],
-         [NSNumber numberWithDouble:2.904445673393256],
-         [NSNumber numberWithDouble:3.1753907089905113],
-         [NSNumber numberWithDouble:3.4463357445877665],
-         [NSNumber numberWithDouble:3.7172807801850216],
-         [NSNumber numberWithDouble:3.9882258157822768],
-         [NSNumber numberWithDouble:4.259170851379531],
-         [NSNumber numberWithDouble:4.530115886976787],
-         [NSNumber numberWithDouble:4.801060922574042],
-         [NSNumber numberWithDouble:5.072005958171297],
-         [NSNumber numberWithDouble:5.342950993768552],
-         [NSNumber numberWithDouble:5.613896029365807],
-         [NSNumber numberWithDouble:5.884841064963062],
-         [NSNumber numberWithDouble:6.155786100560317],
-         [NSNumber numberWithDouble:6.4267311361575725],
-         [NSNumber numberWithDouble:6.697676171754828],
-         [NSNumber numberWithDouble:6.968621207352083],
-         [NSNumber numberWithDouble:7.440129621508753],
-         [NSNumber numberWithDouble:7.911638035665423],
-         [NSNumber numberWithDouble:8.383146449822092],
-         [NSNumber numberWithDouble:8.854654863978762],
-         [NSNumber numberWithDouble:9.326163278135432],
-         [NSNumber numberWithDouble:9.797671692292102],
-         [NSNumber numberWithDouble:10.072005958171297],
-         nil];
-        NSArray *RanC_cyt = [NSArray arrayWithObjects:[NSNumber numberWithDouble:0.0],
-                             [NSNumber numberWithDouble:5.8586041391031734E-12],
-                             [NSNumber numberWithDouble:5.8553110467846066E-8],
-                             [NSNumber numberWithDouble:3.2096950563529636E-7],
-                             [NSNumber numberWithDouble:5.826932074258021E-7],
-                             [NSNumber numberWithDouble:8.436683259494101E-7],
-                             [NSNumber numberWithDouble:1.2764262798500142E-6],
-                             [NSNumber numberWithDouble:2.0305572118183753E-6],
-                             [NSNumber numberWithDouble:3.821487595467054E-6],
-                             [NSNumber numberWithDouble:5.575354715737867E-6],
-                             [NSNumber numberWithDouble:7.292870566491766E-6],
-                             [NSNumber numberWithDouble:8.974765320218134E-6],
-                             [NSNumber numberWithDouble:1.0882354868504389E-5],
-                             [NSNumber numberWithDouble:1.2743983036004356E-5],
-                             [NSNumber numberWithDouble:1.4560805199569102E-5],
-                             [NSNumber numberWithDouble:1.78044848129703E-5],
-                             [NSNumber numberWithDouble:2.090538790426214E-5],
-                             [NSNumber numberWithDouble:2.3869775811166822E-5],
-                             [NSNumber numberWithDouble:2.6703595339836147E-5],
-                             [NSNumber numberWithDouble:2.9412526788351404E-5],
-                             [NSNumber numberWithDouble:3.200200599273866E-5],
-                             [NSNumber numberWithDouble:3.447723530565086E-5],
-                             [NSNumber numberWithDouble:3.9150889431001875E-5],
-                             [NSNumber numberWithDouble:4.3416311039291503E-5],
-                             [NSNumber numberWithDouble:4.730896016913245E-5],
-                             [NSNumber numberWithDouble:5.0860988893166583E-5],
-                             [NSNumber numberWithDouble:5.410159306174895E-5],
-                             [NSNumber numberWithDouble:5.7057472904369153E-5],
-                             [NSNumber numberWithDouble:5.975311552263351E-5],
-                             [NSNumber numberWithDouble:6.22109464896714E-5],
-                             [NSNumber numberWithDouble:6.445146076159438E-5],
-                             [NSNumber numberWithDouble:6.800971108511442E-5],
-                             [NSNumber numberWithDouble:7.10157440227729E-5],
-                             [NSNumber numberWithDouble:7.355227697062153E-5],
-                             [NSNumber numberWithDouble:7.568963129774627E-5],
-                             [NSNumber numberWithDouble:7.748786177528174E-5],
-                             [NSNumber numberWithDouble:7.899812875502013E-5],
-                             [NSNumber numberWithDouble:8.026379244998958E-5],
-                             [NSNumber numberWithDouble:8.132157357958376E-5],
-                             [NSNumber numberWithDouble:8.220267778873108E-5],
-                             [NSNumber numberWithDouble:8.330073973151112E-5],
-                             [NSNumber numberWithDouble:8.410645606297441E-5],
-                             [NSNumber numberWithDouble:8.468670933891663E-5],
-                             [NSNumber numberWithDouble:8.509316655676586E-5],
-                             [NSNumber numberWithDouble:8.536548338837804E-5],
-                             [NSNumber numberWithDouble:8.55341723727997E-5],
-                             [NSNumber numberWithDouble:8.562290504544103E-5],
-                             [NSNumber numberWithDouble:8.565008801379003E-5],
-                             [NSNumber numberWithDouble:8.562994852394003E-5],
-                             [NSNumber numberWithDouble:8.55734286142196E-5],
-                             [NSNumber numberWithDouble:8.548896773695488E-5],
-                             [NSNumber numberWithDouble:8.538311361079644E-5],
-                             [NSNumber numberWithDouble:8.52609484141989E-5],
-                             [NSNumber numberWithDouble:8.512639800128573E-5],
-                             [NSNumber numberWithDouble:8.498248778551248E-5],
-                             [NSNumber numberWithDouble:8.471634699948533E-5],
-                             [NSNumber numberWithDouble:8.443743127743151E-5],
-                             [NSNumber numberWithDouble:8.415154621558877E-5],
-                             [NSNumber numberWithDouble:8.386247356755068E-5],
-                             [NSNumber numberWithDouble:8.357253040118518E-5],
-                             [NSNumber numberWithDouble:8.328312441575825E-5],
-                             [NSNumber numberWithDouble:8.315935561428755E-5],
-                             nil];
-        NSArray *RanC_nuc = [NSArray arrayWithObjects:[NSNumber numberWithDouble:4.493165893949507E-4],
-                             [NSNumber numberWithDouble:4.493165657959726E-4],
-                             [NSNumber numberWithDouble:4.4908073061687427E-4],
-                             [NSNumber numberWithDouble:4.480236648774965E-4],
-                             [NSNumber numberWithDouble:4.4696936008814547E-4],
-                             [NSNumber numberWithDouble:4.459180393349009E-4],
-                             [NSNumber numberWithDouble:4.441746308225485E-4],
-                             [NSNumber numberWithDouble:4.411363210457396E-4],
-                             [NSNumber numberWithDouble:4.339197259912134E-4],
-                             [NSNumber numberWithDouble:4.26850870640641E-4],
-                             [NSNumber numberWithDouble:4.1992692380649814E-4],
-                             [NSNumber numberWithDouble:4.131449707893131E-4],
-                             [NSNumber numberWithDouble:4.054509150142878E-4],
-                             [NSNumber numberWithDouble:3.9794006833800935E-4],
-                             [NSNumber numberWithDouble:3.9060782449924184E-4],
-                             [NSNumber numberWithDouble:3.775114715945078E-4],
-                             [NSNumber numberWithDouble:3.6498424778355214E-4],
-                             [NSNumber numberWithDouble:3.5300120136127057E-4],
-                             [NSNumber numberWithDouble:3.4153863426264626E-4],
-                             [NSNumber numberWithDouble:3.305739076697497E-4],
-                             [NSNumber numberWithDouble:3.2008535533942657E-4],
-                             [NSNumber numberWithDouble:3.100522413014454E-4],
-                             [NSNumber numberWithDouble:2.910859753121303E-4],
-                             [NSNumber numberWithDouble:2.7374709923717845E-4],
-                             [NSNumber numberWithDouble:2.5789421958803736E-4],
-                             [NSNumber numberWithDouble:2.4339922820478237E-4],
-                             [NSNumber numberWithDouble:2.3014581164842185E-4],
-                             [NSNumber numberWithDouble:2.1802755026287176E-4],
-                             [NSNumber numberWithDouble:2.0694681478116054E-4],
-                             [NSNumber numberWithDouble:1.9681420368431607E-4],
-                             [NSNumber numberWithDouble:1.8754803207270704E-4],
-                             [NSNumber numberWithDouble:1.727589333657764E-4],
-                             [NSNumber numberWithDouble:1.6017176557405182E-4],
-                             [NSNumber numberWithDouble:1.4945700786981003E-4],
-                             [NSNumber numberWithDouble:1.4033436165642834E-4],
-                             [NSNumber numberWithDouble:1.3256428990171675E-4],
-                             [NSNumber numberWithDouble:1.259428337897413E-4],
-                             [NSNumber numberWithDouble:1.2029732064103994E-4],
-                             [NSNumber numberWithDouble:1.1548154269914738E-4],
-                             [NSNumber numberWithDouble:1.1137113635692388E-4],
-                             [NSNumber numberWithDouble:1.0604831208669434E-4],
-                             [NSNumber numberWithDouble:1.0189376028614747E-4],
-                             [NSNumber numberWithDouble:9.864057638672276E-5],
-                             [NSNumber numberWithDouble:9.608292239942509E-5],
-                             [NSNumber numberWithDouble:9.406328779113598E-5],
-                             [NSNumber numberWithDouble:9.246043192138968E-5],
-                             [NSNumber numberWithDouble:9.117995650640803E-5],
-                             [NSNumber numberWithDouble:9.014835742303826E-5],
-                             [NSNumber numberWithDouble:8.930901033428361E-5],
-                             [NSNumber numberWithDouble:8.861853343824617E-5],
-                             [NSNumber numberWithDouble:8.804344734494632E-5],
-                             [NSNumber numberWithDouble:8.755769301164936E-5],
-                             [NSNumber numberWithDouble:8.714104481850401E-5],
-                             [NSNumber numberWithDouble:8.677795179161719E-5],
-                             [NSNumber numberWithDouble:8.645648214310861E-5],
-                             [NSNumber numberWithDouble:8.597022245014186E-5],
-                             [NSNumber numberWithDouble:8.554867439208062E-5],
-                             [NSNumber numberWithDouble:8.516906415828648E-5],
-                             [NSNumber numberWithDouble:8.481670809857124E-5],
-                             [NSNumber numberWithDouble:8.448278403725475E-5],
-                             [NSNumber numberWithDouble:8.41620726863455E-5],
-                             [NSNumber numberWithDouble:8.402758117290705E-5],
-                             nil];
-        [self.values setObject:t forKey:[self.variables objectAtIndex:0]];
-        [self.values setObject:RanC_cyt forKey:[self.variables objectAtIndex:1]];
-        [self.values setObject:RanC_nuc forKey:[self.variables objectAtIndex:2]];
+        self.simJob = simjob;
+        self.XVar = [NSMutableIndexSet indexSet];
+        self.YVar = [NSMutableIndexSet indexSet];
     }
     return self;
+}
+
+- (void)setVariables:(NSArray *)vars
+{    
+    NSMutableArray *array = [NSMutableArray array];
+    
+    [vars enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+ 
+        if([obj isKindOfClass:[NSDictionary class]])
+            [array addObject:[obj objectForKey:@"name"]];
+    }];
+    _variables = array;
+}
+
+- (void)setValues:(NSDictionary *)data
+{
+    NSArray *array = [data objectForKey:@"variables"];
+    NSMutableDictionary *dict = [NSMutableDictionary dictionary];
+    
+    [array enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+        NSDictionary *objDict = obj;
+        [dict setObject:[objDict objectForKey:@"values"] forKey:[objDict objectForKey:@"name"]];
+    }];
+    
+    _values = dict;
 }
 
 @end

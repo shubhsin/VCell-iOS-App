@@ -99,6 +99,18 @@
     }];
 }
 
++ (NSArray *)makeNSIndexPathsFromArray:(NSArray *)array ForSection:(NSUInteger)section
+{
+    NSMutableArray *paths = [NSMutableArray array];
+    
+    [array enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+        
+        [paths addObject:[NSIndexPath indexPathForRow:idx inSection:section]];
+        
+    }];
+    
+    return paths;
+}
 
 - (void)renewToken
 {
@@ -210,6 +222,9 @@
     }
     else
         [self.delegate fetchJSONDidCompleteWithJSONArray:jsonData function:self];
+    if([[HUD gestureRecognizers] objectAtIndex:0])
+        [HUD removeGestureRecognizer:[[HUD gestureRecognizers] objectAtIndex:0]]; //Remove the gesture Recognizer which was added to cancel the request in case user taps the HUD after request is complete.
+        
     HUD.labelText = @"Done!";
     [HUD hide:YES afterDelay:1];
 }
@@ -226,7 +241,8 @@
 
 - (void)hudWasCancelled
 {
+
     [connection cancel];
-	[HUD hide:YES];
+    [HUD hide:YES];
 }
 @end

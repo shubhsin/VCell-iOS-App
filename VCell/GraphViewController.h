@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "SimGraph.h"
 
-@interface GraphViewController : UIViewController <CPTPlotDataSource,UIAlertViewDelegate>
+@interface GraphViewController : UIViewController <CPTPlotDataSource, UIAlertViewDelegate, FetchJSONDelegate>
 
 @property (weak, nonatomic) IBOutlet CPTGraphHostingView *hostView;
 

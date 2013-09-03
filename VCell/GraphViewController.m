@@ -21,10 +21,12 @@
 {
     simGraph = obj;
 }
+
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
     [self.navigationController popViewControllerAnimated:YES];
 }
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -42,8 +44,9 @@
         return;
     }
     
-    //Init the Plotting
-    [self initPlot];
+    NSURL *url = [[NSURL alloc] initWithString:[NSString stringWithFormat:@"%@/%@/jobindex/%@?",SIMDATA_URL,simGraph.simJob.simKey,simGraph.simJob.jobIndex]];
+    
+    [[[Functions alloc] init] fetchJSONFromURL:url HUDTextMode:NO AddHUDToView:self.navigationController.view delegate:self];
     
     //Toggle view/hide of nav bar
     UITapGestureRecognizer *tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(toggleNavigationBar:)];
@@ -52,6 +55,14 @@
     [self.hostView addGestureRecognizer:tapGestureRecognizer];
  
 }
+
+- (void)fetchJSONDidCompleteWithJSONArray:(NSArray *)jsonData function:(Functions *)function
+{
+    simGraph.values = (NSDictionary *)jsonData;
+    //Init the Plotting
+    [self initPlot];
+}
+
 - (void)viewDidAppear:(BOOL)animated
 {
     if ([simGraph.XVar count] != 0 || [simGraph.YVar count] != 0)
@@ -93,7 +104,7 @@
     
     // 3 - Create and set text style
     CPTMutableTextStyle *titleStyle = [CPTMutableTextStyle textStyle];
-    titleStyle.color = [CPTColor whiteColor];
+    titleStyle.color = [CPTColor blackColor];
     titleStyle.fontName = @"Helvetica-Bold";
     titleStyle.fontSize = 16.0f;
     graph.titleTextStyle = titleStyle;
@@ -171,16 +182,16 @@
 {
     // 1 - Create styles
     CPTMutableTextStyle *axisTitleStyle = [CPTMutableTextStyle textStyle];
-    axisTitleStyle.color = [CPTColor whiteColor];
+    axisTitleStyle.color = [CPTColor blackColor];
     axisTitleStyle.fontName = @"Helvetica-Bold";
     axisTitleStyle.fontSize = 12.0f;
     
     CPTMutableLineStyle *axisLineStyle = [CPTMutableLineStyle lineStyle];
     axisLineStyle.lineWidth = 2.0f;
-    axisLineStyle.lineColor = [CPTColor whiteColor];
+    axisLineStyle.lineColor = [CPTColor blackColor];
     
     CPTMutableTextStyle *axisTextStyle = [[CPTMutableTextStyle alloc] init];
-    axisTextStyle.color = [CPTColor whiteColor];
+    axisTextStyle.color = [CPTColor blackColor];
     axisTextStyle.fontName = @"Helvetica-Bold";
     axisTextStyle.fontSize = 11.0f;
     
@@ -189,8 +200,8 @@
     tickLineStyle.lineWidth = 2.0f;
     
     CPTMutableLineStyle *gridLineStyle = [CPTMutableLineStyle lineStyle];
-    tickLineStyle.lineColor = [CPTColor blackColor];
-    tickLineStyle.lineWidth = 1.0f;
+    gridLineStyle.lineColor = [CPTColor whiteColor];
+    gridLineStyle.lineWidth = 1.0f;
     
     // 2 - Get axis set
     CPTXYAxisSet *axisSet = (CPTXYAxisSet *) self.hostView.hostedGraph.axisSet;

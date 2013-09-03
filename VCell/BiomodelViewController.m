@@ -292,7 +292,7 @@
         
         UITableView *tableView = self.searchDisplayController.searchResultsTableView;
                 
-        NSArray *paths = [self makeNSIndexPathsFromArray:onlineSearchedBiomodels ForSection:tableView.numberOfSections - 1];
+        NSArray *paths = [Functions makeNSIndexPathsFromArray:onlineSearchedBiomodels ForSection:tableView.numberOfSections - 1];
         NSIndexPath *indexPathSearchCell = [NSIndexPath indexPathForRow:0 inSection:tableView.numberOfSections - 1];
 
         [tableView beginUpdates];
@@ -305,18 +305,7 @@
     //[self.tableView reloadData];
 }
 
-- (NSArray *)makeNSIndexPathsFromArray:(NSArray *)array ForSection:(NSUInteger)section
-{
-    NSMutableArray *paths = [NSMutableArray array];
-    
-    [array enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-        
-        [paths addObject:[NSIndexPath indexPathForRow:idx inSection:section]];
-        
-    }];
-    
-    return paths;
-}
+
 
 #pragma mark - Table view data source
 
@@ -707,7 +696,7 @@
     if(onlineSearchedBiomodels)
     {
         UITableView *tableView = self.searchDisplayController.searchResultsTableView;
-        NSArray *paths = [self makeNSIndexPathsFromArray:onlineSearchedBiomodels ForSection:tableView.numberOfSections - 1];
+        NSArray *paths = [Functions makeNSIndexPathsFromArray:onlineSearchedBiomodels ForSection:tableView.numberOfSections - 1];
         [tableView beginUpdates];
         [tableView deleteRowsAtIndexPaths:paths withRowAnimation:UITableViewRowAnimationFade];
         onlineSearchedBiomodels = nil;
