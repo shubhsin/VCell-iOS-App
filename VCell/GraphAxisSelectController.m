@@ -11,7 +11,7 @@
 @interface GraphAxisSelectController ()
 {
     SimGraph *simGraph;
-    NSIndexPath *selectedIndexPath;
+    NSIndexPath *selectedIndexPathForXAxis;
 }
 @end
 
@@ -19,7 +19,6 @@
 
 - (void)setSimJob:(SimJob *)obj
 {
-    
     simGraph = [[SimGraph alloc] initWithSimJob:obj];
 }
 
@@ -92,11 +91,11 @@
     }
     else
     {      
-        if([selectedIndexPath isEqual:indexPath])
-        {
+        if(indexPath.row == [simGraph.XVar firstIndex] && indexPath.section == XAXIS)
             cell.accessoryType = UITableViewCellAccessoryCheckmark;
-        }
-    
+        if(indexPath.section == YAXIS && [simGraph.YVar containsIndex:indexPath.row])
+            cell.accessoryType = UITableViewCellAccessoryCheckmark;
+        
         cell.textLabel.text = [simGraph.variables objectAtIndex:indexPath.row];
     }
     return cell;
@@ -104,7 +103,6 @@
 
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    [cell setSelected:NO];
 }
 
 #pragma mark - Table view delegate
@@ -118,15 +116,15 @@
     }
     else if(indexPath.section == XAXIS)
     {
-        [[tableView cellForRowAtIndexPath:selectedIndexPath] setAccessoryType:UITableViewCellAccessoryNone];
+        [[tableView cellForRowAtIndexPath:selectedIndexPathForXAxis] setAccessoryType:UITableViewCellAccessoryNone];
         
         if(cell.accessoryType == UITableViewCellAccessoryCheckmark)
             cell.accessoryType = UITableViewCellAccessoryNone;
         else
             cell.accessoryType = UITableViewCellAccessoryCheckmark;
         
-        selectedIndexPath = [NSIndexPath indexPathForRow:indexPath.row inSection:indexPath.section];
-        
+        selectedIndexPathForXAxis = [NSIndexPath indexPathForRow:indexPath.row inSection:indexPath.section];
+
         [simGraph.XVar removeAllIndexes];
         [simGraph.XVar addIndex:indexPath.row];
     }
@@ -143,8 +141,6 @@
             [simGraph.YVar addIndex:indexPath.row];
         }
     }
-    [cell setSelected:NO animated:NO];
-    [cell setHighlighted:NO];
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
