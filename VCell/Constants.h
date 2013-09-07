@@ -26,3 +26,4 @@ extern NSString * const BIOMODEL_FILTERS_FILE;
 extern NSString * const ACCESS_TOKEN_URL;
 extern NSString * const CLIENT_ID;
 extern NSString * const SIMDATA_URL;
+extern NSString * const REGISTER_URL;

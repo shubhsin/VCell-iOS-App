@@ -29,6 +29,7 @@
 		54608B121779ADDA0004C4D9 /* SimJobsFiltersController.m in Sources */ = {isa = PBXBuildFile; fileRef = 54608B111779ADDA0004C4D9 /* SimJobsFiltersController.m */; };
 		54608B151779BC320004C4D9 /* SimJobsFiltersDetail.m in Sources */ = {isa = PBXBuildFile; fileRef = 54608B141779BC320004C4D9 /* SimJobsFiltersDetail.m */; };
 		5467C06017674804002A5CC9 /* SimJobCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5467C05F17674804002A5CC9 /* SimJobCell.m */; };
+		5492E32917DB58EC00CABA4F /* RegisterationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5492E32817DB58EC00CABA4F /* RegisterationViewController.m */; };
 		54C2F4F2177FDEE700FEB6B9 /* libCorePlot-CocoaTouch.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 54C2F4F1177FDEE700FEB6B9 /* libCorePlot-CocoaTouch.a */; };
 		54C2F4F4177FDF2500FEB6B9 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 54C2F4F3177FDF2500FEB6B9 /* QuartzCore.framework */; };
 		54C2F4F817800D9400FEB6B9 /* SimGraph.m in Sources */ = {isa = PBXBuildFile; fileRef = 54C2F4F717800D9400FEB6B9 /* SimGraph.m */; };
@@ -110,6 +111,8 @@
 		54608B141779BC320004C4D9 /* SimJobsFiltersDetail.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SimJobsFiltersDetail.m; sourceTree = "<group>"; };
 		5467C05E17674804002A5CC9 /* SimJobCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SimJobCell.h; sourceTree = "<group>"; };
 		5467C05F17674804002A5CC9 /* SimJobCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SimJobCell.m; sourceTree = "<group>"; };
+		5492E32717DB58EC00CABA4F /* RegisterationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RegisterationViewController.h; sourceTree = "<group>"; };
+		5492E32817DB58EC00CABA4F /* RegisterationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RegisterationViewController.m; sourceTree = "<group>"; };
 		54C2F4A4177FDEE700FEB6B9 /* CorePlot-CocoaTouch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CorePlot-CocoaTouch.h"; sourceTree = "<group>"; };
 		54C2F4A5177FDEE700FEB6B9 /* CPTAnimation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPTAnimation.h; sourceTree = "<group>"; };
 		54C2F4A6177FDEE700FEB6B9 /* CPTAnimationOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPTAnimationOperation.h; sourceTree = "<group>"; };
@@ -558,6 +561,8 @@
 				54FB100317BDE72E005D671D /* LoginViewController.m */,
 				54FB0FFF17BDE299005D671D /* AccessToken.h */,
 				54FB100017BDE299005D671D /* AccessToken.m */,
+				5492E32717DB58EC00CABA4F /* RegisterationViewController.h */,
+				5492E32817DB58EC00CABA4F /* RegisterationViewController.m */,
 			);
 			name = Login;
 			sourceTree = "<group>";
@@ -711,6 +716,7 @@
 				54DD491F17AE588400E27B2D /* MBProgressHUD.m in Sources */,
 				54FB100117BDE299005D671D /* AccessToken.m in Sources */,
 				54FB100417BDE72E005D671D /* LoginViewController.m in Sources */,
+				5492E32917DB58EC00CABA4F /* RegisterationViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
