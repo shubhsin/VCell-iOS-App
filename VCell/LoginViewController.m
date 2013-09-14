@@ -1,10 +1,12 @@
-//
-//  LoginViewController.m
-//  VCell
-//
-//  Created by Aciid on 16/08/13.
-//  Copyright (c) 2013 vcell. All rights reserved.
-//
+/*
+ * Copyright (C) 1999-2011 University of Connecticut Health Center
+ *
+ * Licensed under the MIT License (the "License").
+ * You may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at:
+ *
+ *  http://www.opensource.org/licenses/mit-license.php
+ */
 
 #import "LoginViewController.h"
 #import <CommonCrypto/CommonDigest.h>
@@ -61,6 +63,20 @@
         [self performSegueWithIdentifier:@"loggedIn" sender:nil];
     }
 }
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    if ([[segue identifier] isEqualToString:@"loggedIn"])
+    {
+        if (!IS_PHONE)
+        {
+            UITabBarController *tabBar = [segue destinationViewController];
+            UISplitViewController *splitViewController = (UISplitViewController *)[tabBar.viewControllers objectAtIndex:0];
+            splitViewController.delegate = (id)[splitViewController.viewControllers lastObject];
+        }
+    }
+}
+
 
 - (void)fetchJSONDidCompleteWithJSONArray:(NSArray *)jsonData function:(Functions *)function
 {

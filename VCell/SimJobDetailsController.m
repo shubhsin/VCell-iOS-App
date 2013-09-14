@@ -1,10 +1,12 @@
-//
-//  SimJobDetailsViewController.m
-//  VCell
-//
-//  Created by Aciid on 26/06/13.
-//  Copyright (c) 2013 vcell. All rights reserved.
-//
+/*
+ * Copyright (C) 1999-2011 University of Connecticut Health Center
+ *
+ * Licensed under the MIT License (the "License").
+ * You may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at:
+ *
+ *  http://www.opensource.org/licenses/mit-license.php
+ */
 
 #import "SimJobDetailsController.h"
 
@@ -113,7 +115,10 @@
     {
         if(indexPath.row == 0) // View Data
         {
-            [self performSegueWithIdentifier:@"viewData" sender:self];
+            if([simJob.hasData intValue] == 1)
+                [self performSegueWithIdentifier:@"viewData" sender:self];
+            else
+                [[[UIAlertView alloc] initWithTitle:@"No Data" message:@"This simulation has no data." delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil] show];
         }
         else if(indexPath.row == 1) // View Parent
         {

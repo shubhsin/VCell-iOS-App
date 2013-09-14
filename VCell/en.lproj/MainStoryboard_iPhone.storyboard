@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="2.0" toolsVersion="3084" systemVersion="12D78" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="wlM-Mh-HLZ">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="2.0" toolsVersion="3084" systemVersion="12E55" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="wlM-Mh-HLZ">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="2083"/>
     </dependencies>
@@ -1688,115 +1688,6 @@
     <resources>
         <image name="dot.png" width="15" height="15"/>
     </resources>
-    <classes>
-        <class className="BiomodelViewController" superclassName="UITableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/BiomodelViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="appSimSwap:"/>
-                <relationship kind="action" name="optionBtnClicked:"/>
-                <relationship kind="action" name="selectOwnerBtnClicked:"/>
-                <relationship kind="outlet" name="appSimSegmentControl" candidateClass="UISegmentedControl"/>
-                <relationship kind="outlet" name="ownerBtn" candidateClass="UIBarButtonItem"/>
-            </relationships>
-        </class>
-        <class className="CPTGraphHostingView" superclassName="UIView">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/CPTGraphHostingView.h"/>
-        </class>
-        <class className="GraphAxisSelectController" superclassName="UITableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/GraphAxisSelectController.h"/>
-        </class>
-        <class className="GraphViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/GraphViewController.h"/>
-            <relationships>
-                <relationship kind="outlet" name="hostView" candidateClass="CPTGraphHostingView"/>
-            </relationships>
-        </class>
-        <class className="LoginViewController" superclassName="UITableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/LoginViewController.h"/>
-            <relationships>
-                <relationship kind="outlet" name="passwordTextField" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="usernameTextField" candidateClass="UITextField"/>
-            </relationships>
-        </class>
-        <class className="NSLayoutConstraint" superclassName="NSObject">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/NSLayoutConstraint.h"/>
-        </class>
-        <class className="RegisterationViewController" superclassName="UITableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/RegisterationViewController.h"/>
-            <relationships>
-                <relationship kind="outlet" name="NotifyTF" candidateClass="UITableViewCell"/>
-                <relationship kind="outlet" name="countryTF" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="emailTF" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="firstNameTF" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="institutionTF" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="lastNameTF" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="passwordTF" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="rePasswordTF" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="usernameTF" candidateClass="UITextField"/>
-            </relationships>
-        </class>
-        <class className="SimJobButtonCell" superclassName="UITableViewCell">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/SimJobButtonCell.h"/>
-            <relationships>
-                <relationship kind="action" name="btnPressed:"/>
-                <relationship kind="outlet" name="completedBtn" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="runningBtn" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="stoppedBtn" candidateClass="UIButton"/>
-            </relationships>
-        </class>
-        <class className="SimJobController" superclassName="UITableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/SimJobController.h"/>
-            <relationships>
-                <relationship kind="action" name="bioModelDateSwap:"/>
-                <relationship kind="outlet" name="biomodelDateSwapBtn" candidateClass="UIBarButtonItem"/>
-                <relationship kind="outlet" name="searchBar" candidateClass="UISearchBar"/>
-            </relationships>
-        </class>
-        <class className="SimJobDetailsController" superclassName="UITableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/SimJobDetailsController.h"/>
-            <relationships>
-                <relationship kind="outlet" name="bioModelBranch" candidateClass="UITableViewCell"/>
-                <relationship kind="outlet" name="bioModelKey" candidateClass="UITableViewCell"/>
-                <relationship kind="outlet" name="bioModelName" candidateClass="UITableViewCell"/>
-                <relationship kind="outlet" name="computeHost" candidateClass="UITableViewCell"/>
-                <relationship kind="outlet" name="htcJobId" candidateClass="UITableViewCell"/>
-                <relationship kind="outlet" name="jobId" candidateClass="UITableViewCell"/>
-                <relationship kind="outlet" name="msg" candidateClass="UITableViewCell"/>
-                <relationship kind="outlet" name="parent" candidateClass="UITableViewCell"/>
-                <relationship kind="outlet" name="schStatus" candidateClass="UITableViewCell"/>
-                <relationship kind="outlet" name="simContextBranch" candidateClass="UITableViewCell"/>
-                <relationship kind="outlet" name="simContextKey" candidateClass="UITableViewCell"/>
-                <relationship kind="outlet" name="simContextName" candidateClass="UITableViewCell"/>
-                <relationship kind="outlet" name="simKey" candidateClass="UITableViewCell"/>
-                <relationship kind="outlet" name="simName" candidateClass="UITableViewCell"/>
-                <relationship kind="outlet" name="site" candidateClass="UITableViewCell"/>
-                <relationship kind="outlet" name="startDate" candidateClass="UITableViewCell"/>
-                <relationship kind="outlet" name="startStopSim" candidateClass="UITableViewCell"/>
-                <relationship kind="outlet" name="status" candidateClass="UITableViewCell"/>
-                <relationship kind="outlet" name="taskId" candidateClass="UITableViewCell"/>
-                <relationship kind="outlet" name="userKey" candidateClass="UITableViewCell"/>
-                <relationship kind="outlet" name="username" candidateClass="UITableViewCell"/>
-                <relationship kind="outlet" name="viewData" candidateClass="UITableViewCell"/>
-            </relationships>
-        </class>
-        <class className="SimJobsFiltersController" superclassName="UITableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/SimJobsFiltersController.h"/>
-            <relationships>
-                <relationship kind="action" name="clearBtn:"/>
-                <relationship kind="action" name="doneBtn:"/>
-                <relationship kind="outlet" name="computeHostCell" candidateClass="UITableViewCell"/>
-                <relationship kind="outlet" name="dateBeginCell" candidateClass="UITableViewCell"/>
-                <relationship kind="outlet" name="dateEndCell" candidateClass="UITableViewCell"/>
-                <relationship kind="outlet" name="hasDataCell" candidateClass="UITableViewCell"/>
-                <relationship kind="outlet" name="maxRowsCell" candidateClass="UITableViewCell"/>
-                <relationship kind="outlet" name="serverIDCell" candidateClass="UITableViewCell"/>
-                <relationship kind="outlet" name="simulationIDCell" candidateClass="UITableViewCell"/>
-            </relationships>
-        </class>
-        <class className="SimJobsFiltersDetail" superclassName="UITableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/SimJobsFiltersDetail.h"/>
-        </class>
-    </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>
