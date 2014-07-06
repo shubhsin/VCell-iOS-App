@@ -12,7 +12,7 @@
 
 @interface SimJobTableViewController ()
 {
-    NSArray *simJobs;
+    NSMutableArray *simJobs;
 }
 
 @end
@@ -22,7 +22,7 @@
 
 - (void)setObject:(NSArray *)obj
 {
-    simJobs = obj;
+    simJobs = [NSMutableArray arrayWithArray:obj];
 }
 
 - (void)viewDidLoad
@@ -34,17 +34,13 @@
     
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
-    [self.tableView reloadData];
 }
-
-
 
 #pragma mark - Table view data source
 
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    // Return the number of rows in the section.
     return [simJobs count];
 }
 
@@ -65,6 +61,10 @@
     else
         cell.simStartBtn.titleLabel.text = @"Start";
     
+    [cell.simStartBtn addTarget:self action:@selector(startStopBtnPressed:) forControlEvents:UIControlEventTouchUpInside];
+    
+    [cell.simDataBtn addTarget:self action:@selector(dataBtnPressed:) forControlEvents:UIControlEventTouchUpInside];
+    
     if([simJob.status isEqualToString:@"running"])
         cell.simStatusLabel.text = [NSString stringWithFormat:@"%.0f%% Completed",[simJob.progressValue floatValue]*100];
     
@@ -72,6 +72,54 @@
     
     return cell;
 }
+
+- (void)dataBtnPressed:(UIButton *)sender
+{
+    [self performSegueWithIdentifier:@"viewData" sender:sender];
+}
+
+- (void)startStopBtnPressed:(UIButton *)sender
+{
+    SimJobTableViewCell *senderCell = (SimJobTableViewCell*)((UIButton*)sender).superview;
+    NSIndexPath *indexPath = [self.tableView indexPathForCell:senderCell];
+    SimJob *simJob = [simJobs objectAtIndex:indexPath.row];
+    NSURL *url;
+    if([sender.titleLabel.text isEqualToString:@"Start"])
+    {
+        url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/%@/simulation/%@/startSimulation",BIOMODEL_URL,simJob.bioModelLink.bioModelKey,simJob.simKey]];
+    }
+    else
+    {
+        url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/%@/simulation/%@/stopSimulation",BIOMODEL_URL,simJob.bioModelLink.bioModelKey,simJob.simKey]];
+    }
+    
+    NSMutableURLRequest *urlReq = [NSMutableURLRequest requestWithURL:url];
+    [urlReq setHTTPMethod:@"POST"];
+    [urlReq setValue:[NSString stringWithFormat:@"CUSTOM access_token=%@",[[AccessToken sharedInstance] token]] forHTTPHeaderField:@"Authorization"];
+    MBProgressHUD *HUD = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
+    
+    HUD.mode = MBProgressHUDModeText;
+    HUD.labelText = @"Working...";
+    HUD.margin = 10.f;
+    HUD.yOffset = 150.f;
+    HUD.userInteractionEnabled = YES;
+    
+    [NSURLConnection sendAsynchronousRequest:urlReq queue:[NSOperationQueue mainQueue]
+                           completionHandler:^(NSURLResponse *response, NSData *data, NSError *error)
+     {
+         
+         
+         
+         NSDictionary *dict = [[NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:nil] objectAtIndex:0];
+         
+         SimJob *newSimJob = [[SimJob alloc] initWithDict:dict];
+         
+         [simJobs replaceObjectAtIndex:indexPath.row withObject:newSimJob];
+         [self.tableView reloadData];
+        [HUD hide:YES];
+     }];
+}
+
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -91,6 +139,13 @@
         NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
         [[segue destinationViewController] setObject:[simJobs objectAtIndex:indexPath.row]];
     }
+    if ([[segue identifier] isEqualToString:@"viewData"])
+    {
+        SimJobTableViewCell *senderCell = (SimJobTableViewCell*)((UIButton*)sender).superview;
+        NSIndexPath *indexPath = [self.tableView indexPathForCell:senderCell];
+        [[segue destinationViewController] setSimJob:[simJobs objectAtIndex:indexPath.row]];
+    }
+
 }
 
 

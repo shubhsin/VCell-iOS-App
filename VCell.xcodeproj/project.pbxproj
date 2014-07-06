@@ -288,17 +288,9 @@
 		543721E3176DFB7100AFC35F /* First Tab - SimJob */ = {
 			isa = PBXGroup;
 			children = (
+				54F4172A19699EAA002235B7 /* Controllers */,
+				54F4172B19699EB3002235B7 /* Models */,
 				54F41711196999F6002235B7 /* Views */,
-				54F417081969990C002235B7 /* SimulationViewTableViewController.h */,
-				54F417091969990C002235B7 /* SimulationViewTableViewController.m */,
-				54F4170A1969990C002235B7 /* SimJobTableViewController.h */,
-				54F4170B1969990C002235B7 /* SimJobTableViewController.m */,
-				54F4170C1969990C002235B7 /* ResourceViewController.h */,
-				54F4170D1969990C002235B7 /* ResourceViewController.m */,
-				54419AE5177B48EE00D10E30 /* SimJobDetailsController.h */,
-				54419AE6177B48EE00D10E30 /* SimJobDetailsController.m */,
-				54F4172419699A2E002235B7 /* SimJob.h */,
-				54F4172519699A2E002235B7 /* SimJob.m */,
 				54C2F4F517800D2400FEB6B9 /* Graph */,
 			);
 			name = "First Tab - SimJob";
@@ -483,9 +475,9 @@
 				54DA31871764B8900020D2B5 /* AppDelegate.m */,
 				54DA318F1764B8900020D2B5 /* MainStoryboard_iPhone.storyboard */,
 				54DA31921764B8900020D2B5 /* MainStoryboard_iPad.storyboard */,
+				543721E3176DFB7100AFC35F /* First Tab - SimJob */,
 				54FB100817BDE777005D671D /* Login */,
 				545AF783178E8A260003678F /* Second Tab - Biomodel */,
-				543721E3176DFB7100AFC35F /* First Tab - SimJob */,
 				54097FA41774A54D00AA6AE2 /* Resources */,
 				54DA317E1764B8900020D2B5 /* Supporting Files */,
 			);
@@ -546,6 +538,30 @@
 				54F4172019699A0F002235B7 /* SimJobTableViewCell.m */,
 			);
 			name = Views;
+			sourceTree = "<group>";
+		};
+		54F4172A19699EAA002235B7 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				54F417081969990C002235B7 /* SimulationViewTableViewController.h */,
+				54F417091969990C002235B7 /* SimulationViewTableViewController.m */,
+				54F4170A1969990C002235B7 /* SimJobTableViewController.h */,
+				54F4170B1969990C002235B7 /* SimJobTableViewController.m */,
+				54F4170C1969990C002235B7 /* ResourceViewController.h */,
+				54F4170D1969990C002235B7 /* ResourceViewController.m */,
+				54419AE5177B48EE00D10E30 /* SimJobDetailsController.h */,
+				54419AE6177B48EE00D10E30 /* SimJobDetailsController.m */,
+			);
+			name = Controllers;
+			sourceTree = "<group>";
+		};
+		54F4172B19699EB3002235B7 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				54F4172419699A2E002235B7 /* SimJob.h */,
+				54F4172519699A2E002235B7 /* SimJob.m */,
+			);
+			name = Models;
 			sourceTree = "<group>";
 		};
 		54FB100817BDE777005D671D /* Login */ = {
