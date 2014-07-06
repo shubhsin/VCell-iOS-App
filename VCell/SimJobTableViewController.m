@@ -107,13 +107,8 @@
     [NSURLConnection sendAsynchronousRequest:urlReq queue:[NSOperationQueue mainQueue]
                            completionHandler:^(NSURLResponse *response, NSData *data, NSError *error)
      {
-         
-         
-         
          NSDictionary *dict = [[NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:nil] objectAtIndex:0];
-         
          SimJob *newSimJob = [[SimJob alloc] initWithDict:dict];
-         
          [simJobs replaceObjectAtIndex:indexPath.row withObject:newSimJob];
          [self.tableView reloadData];
         [HUD hide:YES];

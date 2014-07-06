@@ -17,7 +17,7 @@
     int rowNum;
     NSMutableDictionary *simJobs; // Key: simKey , Value: SimJobs
     NSMutableOrderedSet *simKeys; // simKeys with order preserved.
-    
+    BOOL isLoading;
 }
 
 @end
@@ -36,6 +36,7 @@
 
 - (void)startLoading
 {
+    isLoading = YES;
     NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@?submitLow=&submitHigh=&maxRows=10&serverId=&computeHost+value%%3D=&simId=&jobId=&taskId=&hasData=all&waiting=on&queued=on&dispatched=on&running=on&completed=on&failed=on&stopped=on&startRow=%d",SIMTASK_URL,rowNum]];
    // ALog(@"%@",url);
     [fetchSimJobFunc fetchJSONFromURL:url HUDTextMode:(rowNum==1?NO:YES) AddHUDToView:self.navigationController.view delegate:self];
@@ -74,9 +75,30 @@
             
         }];
         
+        // load more data if first request doesnt fill up the screen
+        if(simKeys.count < 10 && simMutableJobs.count != 0)
+        {
+            rowNum = rowNum + 10;
+            [self startLoading];
+        }
+        
         [self.tableView reloadData];
+        isLoading = NO;
     }
 }
+
+
+- (void)scrollViewWillEndDragging:(UIScrollView *)scrollView withVelocity:(CGPoint)velocity targetContentOffset:(inout CGPoint *)targetContentOffset
+{
+    if(simKeys.count > 0 && !isLoading){
+        float bottomEdge = scrollView.contentOffset.y + scrollView.frame.size.height;
+        if (bottomEdge >= scrollView.contentSize.height) {
+            rowNum = rowNum + 10;
+            [self startLoading];
+        }
+    }
+}
+
 
 #pragma mark - Table view data source
 

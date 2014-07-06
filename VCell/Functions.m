@@ -208,6 +208,13 @@
 
 - (void)connectionDidFinishLoading:(NSURLConnection *)connection
 {
+    
+    if([[HUD gestureRecognizers] objectAtIndex:0])
+        [HUD removeGestureRecognizer:[[HUD gestureRecognizers] objectAtIndex:0]]; //Remove the gesture Recognizer which was added to cancel the request in case user taps the HUD after request is complete.
+    
+    HUD.labelText = @"Done!";
+    [HUD hide:YES];
+    
     // Save the received JSON array inside an NSArray
     id jsonData = [NSJSONSerialization JSONObjectWithData:connectionData options:kNilOptions error:nil];
     if(!HUDTextMode)
@@ -224,11 +231,7 @@
     }
     else
         [self.delegate fetchJSONDidCompleteWithJSONArray:jsonData function:self];
-    if([[HUD gestureRecognizers] objectAtIndex:0])
-        [HUD removeGestureRecognizer:[[HUD gestureRecognizers] objectAtIndex:0]]; //Remove the gesture Recognizer which was added to cancel the request in case user taps the HUD after request is complete.
-        
-    HUD.labelText = @"Done!";
-    [HUD hide:YES afterDelay:1];
+    
 }
 
 - (void)cancelConnection
