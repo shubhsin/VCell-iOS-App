@@ -18,8 +18,8 @@ NSString * const BIOMODEL_FILTERS_FILE = @"biomodelFilters.plist";
 #define URL_DEF @"http://localhost/vcell"
 #else
 #define EXTENSION @""
-//#define URL_DEF @"https://vcellapi.cam.uchc.edu:8080"
-#define URL_DEF @"https://vcell-prod.apigee.net/v1/vcellapi"
+#define URL_DEF @"https://vcellapi.cam.uchc.edu:8080"
+//#define URL_DEF @"https://vcell-prod.apigee.net/v1/vcellapi"
 #endif
 
 NSString * const BASE_URL = URL_DEF;
