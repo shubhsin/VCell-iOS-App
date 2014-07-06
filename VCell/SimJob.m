@@ -38,11 +38,16 @@
         _computeHost = [dict objectForKey:@"computeHost"];
         _schedulerStatus = [dict objectForKey:@"schedulerStatus"];
         _hasData = [dict objectForKey:@"hasData"];
+        _scanCount = [dict objectForKey:@"scanCount"];
 
+        _progressValue = [dict objectForKey:@"progress"];
+        _myQueueOrdinal = [dict objectForKey:@"myQueueOrdinal"];
+        _globalQueueOrdinal = [dict objectForKey:@"globalQueueOrdinal"];
+        
+        
         if([dict objectForKey:@"bioModelLink"] != [NSNull null])
         {
             _bioModelLink = [[BioModelLink alloc] init];
-            
             _bioModelLink.bioModelKey = [[dict objectForKey:@"bioModelLink"] objectForKey:@"bioModelKey"];
             _bioModelLink.bioModelBranchId = [[dict objectForKey:@"bioModelLink"] objectForKey:@"bioModelBranchId"];
             _bioModelLink.bioModelName = [[dict objectForKey:@"bioModelLink"] objectForKey:@"bioModelName"];

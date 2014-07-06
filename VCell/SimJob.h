@@ -23,11 +23,15 @@
 @property (nonatomic,strong) NSNumber *startdate;
 @property (nonatomic,strong) NSNumber *jobIndex;
 @property (nonatomic,strong) NSNumber *taskId;
+@property (nonatomic,strong) NSNumber *scanCount;
 @property (nonatomic,strong) NSString *message;
 @property (nonatomic,strong) NSString *site;
 @property (nonatomic,strong) NSString *computeHost;
 @property (nonatomic,strong) NSString *schedulerStatus;
 @property (nonatomic,strong) NSNumber *hasData;
+@property (nonatomic,strong) NSNumber *myQueueOrdinal;
+@property (nonatomic,strong) NSNumber *globalQueueOrdinal;
+@property (nonatomic,strong) NSNumber *progressValue;
 @property (nonatomic,strong) BioModelLink *bioModelLink;
 @property (nonatomic,strong) MathModelLink *mathModelLink;
 

@@ -82,8 +82,7 @@
     {
         self.title = @"Simulation Jobs";
         
-        NSURL *checkJobsURL = [NSURL URLWithString:[NSString stringWithFormat:@"%@?simId=%d&hasData=all&waiting=on&queued=on&dispatched=on&running=on&completed=on&failed=on&stopped=on&startRow=1&maxRows=200"
-                                                    ,SIMTASK_URL,[simulation.key integerValue]]];
+        NSURL *checkJobsURL = [NSURL URLWithString:[NSString stringWithFormat:@"%@?simId=%d&hasData=all&waiting=on&queued=on&dispatched=on&running=on&completed=on&failed=on&stopped=on&startRow=1&maxRows=200",SIMTASK_URL,[simulation.key intValue]]];
         simJobFunc = [[Functions alloc] init];
         [simJobFunc fetchJSONFromURL:checkJobsURL HUDTextMode:YES AddHUDToView:self.navigationController.view delegate:self];
         

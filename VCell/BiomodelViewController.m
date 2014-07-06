@@ -28,7 +28,7 @@
     Functions *functionOnlineSearch;
     NSUInteger oldNumberOfSections;
     NSMutableData *connectionData;
-    NSUInteger rowNum; //current start row of the data to request
+    int rowNum; //current start row of the data to request
     NSMutableDictionary *URLparams;
     NSUserDefaults *userDefaults;
     NSMutableArray *onlineSearchedBiomodels; //Online Searched Biomodels
@@ -238,7 +238,7 @@
     [fetchRequest setPredicate:predicate];
     [fetchRequest setEntity:entity];
     [fetchRequest setIncludesSubentities:NO];
-    rowNum = [context countForFetchRequest:fetchRequest error:nil];
+    rowNum = (int)[context countForFetchRequest:fetchRequest error:nil];
 }
 
 #pragma mark - Fetch JSON
@@ -408,17 +408,17 @@
         cell.simAppCountLabel.textAlignment = NSTextAlignmentRight;
         cell.simAppCountLabel.textColor = [UIColor darkGrayColor];
         
-        __block NSUInteger numberOfSim = 0;
+        __block int numberOfSim = 0;
         
         [[object applications] enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
             numberOfSim += [[obj simulations] count];
         }];
         
-        cell.simAppCountLabel.text =  [NSString stringWithFormat:@"| A: %d | S: %d |",[[object applications] count], numberOfSim];
+        cell.simAppCountLabel.text =  [NSString stringWithFormat:@"| A: %d | S: %d |",(int)[[object applications] count], numberOfSim];
     }
     else if(displaySegmentIndex == APPLICATIONS_SEGMENT)
     {
-        cell.detailLabel.text = [NSString stringWithFormat:@"Simulations: %d",[[object simulations] count]];
+        cell.detailLabel.text = [NSString stringWithFormat:@"Simulations: %d",(int)[[object simulations] count]];
     }
     else if(displaySegmentIndex == SIMULATIONS_SEGMENT)
     {

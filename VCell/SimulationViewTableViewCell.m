@@ -1,16 +1,14 @@
-/*
- * Copyright (C) 1999-2011 University of Connecticut Health Center
- *
- * Licensed under the MIT License (the "License").
- * You may not use this file except in compliance with the License.
- * You may obtain a copy of the License at:
- *
- *  http://www.opensource.org/licenses/mit-license.php
- */
+//
+//  SimulationViewTableViewCell.m
+//  VCell_14
+//
+//  Created by Aciid on 05/06/14.
+//  Copyright (c) 2014 ankit. All rights reserved.
+//
 
-#import "SimJobCell.h"
+#import "SimulationViewTableViewCell.h"
 
-@implementation SimJobCell
+@implementation SimulationViewTableViewCell
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
@@ -18,8 +16,12 @@
     if (self) {
         // Initialization code
     }
-
     return self;
+}
+
+- (void)awakeFromNib
+{
+    // Initialization code
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated

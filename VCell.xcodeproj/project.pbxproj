@@ -7,17 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		540AAC5D1772D482007C4DCF /* SimJobButtonCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 540AAC5C1772D482007C4DCF /* SimJobButtonCell.m */; };
 		540AAC601772FD74007C4DCF /* dot.png in Resources */ = {isa = PBXBuildFile; fileRef = 540AAC5E1772FD73007C4DCF /* dot.png */; };
 		540AAC611772FD74007C4DCF /* dot@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 540AAC5F1772FD74007C4DCF /* dot@2x.png */; };
-		540C37951771F68F00D95990 /* SimJobCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 540C37941771F68F00D95990 /* SimJobCell.xib */; };
 		541BD299177193DD00E82846 /* greyButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 541BD297177193DD00E82846 /* greyButton.png */; };
 		541BD29A177193DD00E82846 /* greyButton@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 541BD298177193DD00E82846 /* greyButton@2x.png */; };
 		541BD29D177193F100E82846 /* greyButtonHighlight.png in Resources */ = {isa = PBXBuildFile; fileRef = 541BD29B177193F100E82846 /* greyButtonHighlight.png */; };
 		541BD29E177193F100E82846 /* greyButtonHighlight@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 541BD29C177193F100E82846 /* greyButtonHighlight@2x.png */; };
 		543721E2176DFA8000AFC35F /* Constants.m in Sources */ = {isa = PBXBuildFile; fileRef = 543721E1176DFA8000AFC35F /* Constants.m */; };
 		54419AE7177B48EE00D10E30 /* SimJobDetailsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 54419AE6177B48EE00D10E30 /* SimJobDetailsController.m */; };
-		544CE0CA1765E13600F69C45 /* SimJob.m in Sources */ = {isa = PBXBuildFile; fileRef = 544CE0C91765E13600F69C45 /* SimJob.m */; };
 		545AF782178E8A1A0003678F /* BiomodelViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 545AF781178E8A1A0003678F /* BiomodelViewController.m */; };
 		545AF786178EA6DA0003678F /* BioModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 545AF784178EA6DA0003678F /* BioModel.xcdatamodeld */; };
 		545AF78C178ED36C0003678F /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 545AF78B178ED36C0003678F /* CoreData.framework */; };
@@ -26,9 +23,6 @@
 		545AF7D5178F21100003678F /* Biomodel.m in Sources */ = {isa = PBXBuildFile; fileRef = 545AF7D4178F21100003678F /* Biomodel.m */; };
 		545AF7D8178FC0BA0003678F /* Functions.m in Sources */ = {isa = PBXBuildFile; fileRef = 545AF7D7178FC0BA0003678F /* Functions.m */; };
 		545AF7DD1796C7810003678F /* BiomodelDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 545AF7DC1796C7810003678F /* BiomodelDetailsViewController.m */; };
-		54608B121779ADDA0004C4D9 /* SimJobsFiltersController.m in Sources */ = {isa = PBXBuildFile; fileRef = 54608B111779ADDA0004C4D9 /* SimJobsFiltersController.m */; };
-		54608B151779BC320004C4D9 /* SimJobsFiltersDetail.m in Sources */ = {isa = PBXBuildFile; fileRef = 54608B141779BC320004C4D9 /* SimJobsFiltersDetail.m */; };
-		5467C06017674804002A5CC9 /* SimJobCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5467C05F17674804002A5CC9 /* SimJobCell.m */; };
 		5492E32917DB58EC00CABA4F /* RegisterationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5492E32817DB58EC00CABA4F /* RegisterationViewController.m */; };
 		54C2F4F2177FDEE700FEB6B9 /* libCorePlot-CocoaTouch.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 54C2F4F1177FDEE700FEB6B9 /* libCorePlot-CocoaTouch.a */; };
 		54C2F4F4177FDF2500FEB6B9 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 54C2F4F3177FDF2500FEB6B9 /* QuartzCore.framework */; };
@@ -45,7 +39,6 @@
 		54DA318E1764B8900020D2B5 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 54DA318D1764B8900020D2B5 /* Default-568h@2x.png */; };
 		54DA31911764B8900020D2B5 /* MainStoryboard_iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 54DA318F1764B8900020D2B5 /* MainStoryboard_iPhone.storyboard */; };
 		54DA31941764B8900020D2B5 /* MainStoryboard_iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 54DA31921764B8900020D2B5 /* MainStoryboard_iPad.storyboard */; };
-		54DA31971764B8900020D2B5 /* SimJobController.m in Sources */ = {isa = PBXBuildFile; fileRef = 54DA31961764B8900020D2B5 /* SimJobController.m */; };
 		54DA31991764B8900020D2B5 /* first.png in Resources */ = {isa = PBXBuildFile; fileRef = 54DA31981764B8900020D2B5 /* first.png */; };
 		54DA319B1764B8900020D2B5 /* first@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 54DA319A1764B8900020D2B5 /* first@2x.png */; };
 		54DA319E1764B8900020D2B5 /* GraphViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 54DA319D1764B8900020D2B5 /* GraphViewController.m */; };
@@ -58,9 +51,16 @@
 		54DA31B71764B8900020D2B5 /* VCellTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 54DA31B61764B8900020D2B5 /* VCellTests.m */; };
 		54DD491A17AD24EB00E27B2D /* BiomodelCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 54DD491917AD24EB00E27B2D /* BiomodelCell.m */; };
 		54DD491C17AD2C9600E27B2D /* BiomodelCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 54DD491B17AD2C9600E27B2D /* BiomodelCell.xib */; };
-		54DD491F17AE588400E27B2D /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 54DD491E17AE588400E27B2D /* MBProgressHUD.m */; };
 		54EDA98B17709B7100A32120 /* 37x-Checkmark.png in Resources */ = {isa = PBXBuildFile; fileRef = 54EDA98917709B7100A32120 /* 37x-Checkmark.png */; };
 		54EDA98C17709B7100A32120 /* 37x-Checkmark@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 54EDA98A17709B7100A32120 /* 37x-Checkmark@2x.png */; };
+		54F4170E1969990C002235B7 /* SimulationViewTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 54F417091969990C002235B7 /* SimulationViewTableViewController.m */; };
+		54F4170F1969990C002235B7 /* SimJobTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 54F4170B1969990C002235B7 /* SimJobTableViewController.m */; };
+		54F417101969990C002235B7 /* ResourceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 54F4170D1969990C002235B7 /* ResourceViewController.m */; };
+		54F4172119699A0F002235B7 /* SimulationViewTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 54F4171C19699A0F002235B7 /* SimulationViewTableViewCell.m */; };
+		54F4172219699A0F002235B7 /* SimViewQuotaTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 54F4171E19699A0F002235B7 /* SimViewQuotaTableViewCell.m */; };
+		54F4172319699A0F002235B7 /* SimJobTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 54F4172019699A0F002235B7 /* SimJobTableViewCell.m */; };
+		54F4172619699A2E002235B7 /* SimJob.m in Sources */ = {isa = PBXBuildFile; fileRef = 54F4172519699A2E002235B7 /* SimJob.m */; };
+		54F4172919699AFE002235B7 /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 54F4172819699AFE002235B7 /* MBProgressHUD.m */; };
 		54FB100117BDE299005D671D /* AccessToken.m in Sources */ = {isa = PBXBuildFile; fileRef = 54FB100017BDE299005D671D /* AccessToken.m */; };
 		54FB100417BDE72E005D671D /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 54FB100317BDE72E005D671D /* LoginViewController.m */; };
 /* End PBXBuildFile section */
@@ -76,11 +76,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		540AAC5B1772D482007C4DCF /* SimJobButtonCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SimJobButtonCell.h; sourceTree = "<group>"; };
-		540AAC5C1772D482007C4DCF /* SimJobButtonCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SimJobButtonCell.m; sourceTree = "<group>"; };
 		540AAC5E1772FD73007C4DCF /* dot.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dot.png; sourceTree = "<group>"; };
 		540AAC5F1772FD74007C4DCF /* dot@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "dot@2x.png"; sourceTree = "<group>"; };
-		540C37941771F68F00D95990 /* SimJobCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SimJobCell.xib; sourceTree = "<group>"; };
 		541BD297177193DD00E82846 /* greyButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = greyButton.png; sourceTree = "<group>"; };
 		541BD298177193DD00E82846 /* greyButton@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "greyButton@2x.png"; sourceTree = "<group>"; };
 		541BD29B177193F100E82846 /* greyButtonHighlight.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = greyButtonHighlight.png; sourceTree = "<group>"; };
@@ -89,8 +86,6 @@
 		543721E1176DFA8000AFC35F /* Constants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Constants.m; sourceTree = "<group>"; };
 		54419AE5177B48EE00D10E30 /* SimJobDetailsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SimJobDetailsController.h; sourceTree = "<group>"; };
 		54419AE6177B48EE00D10E30 /* SimJobDetailsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SimJobDetailsController.m; sourceTree = "<group>"; };
-		544CE0C81765E13600F69C45 /* SimJob.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SimJob.h; sourceTree = "<group>"; };
-		544CE0C91765E13600F69C45 /* SimJob.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SimJob.m; sourceTree = "<group>"; };
 		545AF780178E8A1A0003678F /* BiomodelViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BiomodelViewController.h; sourceTree = "<group>"; };
 		545AF781178E8A1A0003678F /* BiomodelViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BiomodelViewController.m; sourceTree = "<group>"; };
 		545AF785178EA6DA0003678F /* BioModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = BioModel.xcdatamodel; sourceTree = "<group>"; };
@@ -105,12 +100,6 @@
 		545AF7D7178FC0BA0003678F /* Functions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Functions.m; sourceTree = "<group>"; };
 		545AF7DB1796C7800003678F /* BiomodelDetailsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BiomodelDetailsViewController.h; sourceTree = "<group>"; };
 		545AF7DC1796C7810003678F /* BiomodelDetailsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BiomodelDetailsViewController.m; sourceTree = "<group>"; };
-		54608B101779ADDA0004C4D9 /* SimJobsFiltersController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SimJobsFiltersController.h; sourceTree = "<group>"; };
-		54608B111779ADDA0004C4D9 /* SimJobsFiltersController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SimJobsFiltersController.m; sourceTree = "<group>"; };
-		54608B131779BC320004C4D9 /* SimJobsFiltersDetail.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SimJobsFiltersDetail.h; sourceTree = "<group>"; };
-		54608B141779BC320004C4D9 /* SimJobsFiltersDetail.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SimJobsFiltersDetail.m; sourceTree = "<group>"; };
-		5467C05E17674804002A5CC9 /* SimJobCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SimJobCell.h; sourceTree = "<group>"; };
-		5467C05F17674804002A5CC9 /* SimJobCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SimJobCell.m; sourceTree = "<group>"; };
 		5492E32717DB58EC00CABA4F /* RegisterationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RegisterationViewController.h; sourceTree = "<group>"; };
 		5492E32817DB58EC00CABA4F /* RegisterationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RegisterationViewController.m; sourceTree = "<group>"; };
 		54C2F4A4177FDEE700FEB6B9 /* CorePlot-CocoaTouch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CorePlot-CocoaTouch.h"; sourceTree = "<group>"; };
@@ -211,8 +200,6 @@
 		54DA318D1764B8900020D2B5 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		54DA31901764B8900020D2B5 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard_iPhone.storyboard; sourceTree = "<group>"; };
 		54DA31931764B8900020D2B5 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard_iPad.storyboard; sourceTree = "<group>"; };
-		54DA31951764B8900020D2B5 /* SimJobController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SimJobController.h; sourceTree = "<group>"; };
-		54DA31961764B8900020D2B5 /* SimJobController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SimJobController.m; sourceTree = "<group>"; };
 		54DA31981764B8900020D2B5 /* first.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = first.png; sourceTree = "<group>"; };
 		54DA319A1764B8900020D2B5 /* first@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "first@2x.png"; sourceTree = "<group>"; };
 		54DA319C1764B8900020D2B5 /* GraphViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GraphViewController.h; sourceTree = "<group>"; };
@@ -228,10 +215,24 @@
 		54DD491817AD24EB00E27B2D /* BiomodelCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BiomodelCell.h; sourceTree = "<group>"; };
 		54DD491917AD24EB00E27B2D /* BiomodelCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BiomodelCell.m; sourceTree = "<group>"; };
 		54DD491B17AD2C9600E27B2D /* BiomodelCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BiomodelCell.xib; sourceTree = "<group>"; };
-		54DD491D17AE588400E27B2D /* MBProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBProgressHUD.h; sourceTree = "<group>"; };
-		54DD491E17AE588400E27B2D /* MBProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBProgressHUD.m; sourceTree = "<group>"; };
 		54EDA98917709B7100A32120 /* 37x-Checkmark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "37x-Checkmark.png"; sourceTree = "<group>"; };
 		54EDA98A17709B7100A32120 /* 37x-Checkmark@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "37x-Checkmark@2x.png"; sourceTree = "<group>"; };
+		54F417081969990C002235B7 /* SimulationViewTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SimulationViewTableViewController.h; sourceTree = "<group>"; };
+		54F417091969990C002235B7 /* SimulationViewTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SimulationViewTableViewController.m; sourceTree = "<group>"; };
+		54F4170A1969990C002235B7 /* SimJobTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SimJobTableViewController.h; sourceTree = "<group>"; };
+		54F4170B1969990C002235B7 /* SimJobTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SimJobTableViewController.m; sourceTree = "<group>"; };
+		54F4170C1969990C002235B7 /* ResourceViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ResourceViewController.h; sourceTree = "<group>"; };
+		54F4170D1969990C002235B7 /* ResourceViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ResourceViewController.m; sourceTree = "<group>"; };
+		54F4171B19699A0F002235B7 /* SimulationViewTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SimulationViewTableViewCell.h; sourceTree = "<group>"; };
+		54F4171C19699A0F002235B7 /* SimulationViewTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SimulationViewTableViewCell.m; sourceTree = "<group>"; };
+		54F4171D19699A0F002235B7 /* SimViewQuotaTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SimViewQuotaTableViewCell.h; sourceTree = "<group>"; };
+		54F4171E19699A0F002235B7 /* SimViewQuotaTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SimViewQuotaTableViewCell.m; sourceTree = "<group>"; };
+		54F4171F19699A0F002235B7 /* SimJobTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SimJobTableViewCell.h; sourceTree = "<group>"; };
+		54F4172019699A0F002235B7 /* SimJobTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SimJobTableViewCell.m; sourceTree = "<group>"; };
+		54F4172419699A2E002235B7 /* SimJob.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SimJob.h; sourceTree = "<group>"; };
+		54F4172519699A2E002235B7 /* SimJob.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SimJob.m; sourceTree = "<group>"; };
+		54F4172719699AFE002235B7 /* MBProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBProgressHUD.h; sourceTree = "<group>"; };
+		54F4172819699AFE002235B7 /* MBProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBProgressHUD.m; sourceTree = "<group>"; };
 		54FB0FFF17BDE299005D671D /* AccessToken.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AccessToken.h; sourceTree = "<group>"; };
 		54FB100017BDE299005D671D /* AccessToken.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AccessToken.m; sourceTree = "<group>"; };
 		54FB100217BDE72E005D671D /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
@@ -287,40 +288,20 @@
 		543721E3176DFB7100AFC35F /* First Tab - SimJob */ = {
 			isa = PBXGroup;
 			children = (
-				54DA31951764B8900020D2B5 /* SimJobController.h */,
-				54DA31961764B8900020D2B5 /* SimJobController.m */,
+				54F41711196999F6002235B7 /* Views */,
+				54F417081969990C002235B7 /* SimulationViewTableViewController.h */,
+				54F417091969990C002235B7 /* SimulationViewTableViewController.m */,
+				54F4170A1969990C002235B7 /* SimJobTableViewController.h */,
+				54F4170B1969990C002235B7 /* SimJobTableViewController.m */,
+				54F4170C1969990C002235B7 /* ResourceViewController.h */,
+				54F4170D1969990C002235B7 /* ResourceViewController.m */,
 				54419AE5177B48EE00D10E30 /* SimJobDetailsController.h */,
 				54419AE6177B48EE00D10E30 /* SimJobDetailsController.m */,
-				544CE0C81765E13600F69C45 /* SimJob.h */,
-				544CE0C91765E13600F69C45 /* SimJob.m */,
+				54F4172419699A2E002235B7 /* SimJob.h */,
+				54F4172519699A2E002235B7 /* SimJob.m */,
 				54C2F4F517800D2400FEB6B9 /* Graph */,
-				54419AE4177B48BB00D10E30 /* Filters */,
-				54419AE3177B48B100D10E30 /* Custom Cells */,
 			);
 			name = "First Tab - SimJob";
-			sourceTree = "<group>";
-		};
-		54419AE3177B48B100D10E30 /* Custom Cells */ = {
-			isa = PBXGroup;
-			children = (
-				540C37941771F68F00D95990 /* SimJobCell.xib */,
-				5467C05E17674804002A5CC9 /* SimJobCell.h */,
-				5467C05F17674804002A5CC9 /* SimJobCell.m */,
-				540AAC5B1772D482007C4DCF /* SimJobButtonCell.h */,
-				540AAC5C1772D482007C4DCF /* SimJobButtonCell.m */,
-			);
-			name = "Custom Cells";
-			sourceTree = "<group>";
-		};
-		54419AE4177B48BB00D10E30 /* Filters */ = {
-			isa = PBXGroup;
-			children = (
-				54608B101779ADDA0004C4D9 /* SimJobsFiltersController.h */,
-				54608B111779ADDA0004C4D9 /* SimJobsFiltersController.m */,
-				54608B131779BC320004C4D9 /* SimJobsFiltersDetail.h */,
-				54608B141779BC320004C4D9 /* SimJobsFiltersDetail.m */,
-			);
-			name = Filters;
 			sourceTree = "<group>";
 		};
 		545AF783178E8A260003678F /* Second Tab - Biomodel */ = {
@@ -547,11 +528,24 @@
 		54DD492017AE588E00E27B2D /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				54F4172719699AFE002235B7 /* MBProgressHUD.h */,
+				54F4172819699AFE002235B7 /* MBProgressHUD.m */,
 				54C2F4A2177FDEA800FEB6B9 /* CorePlot */,
-				54DD491D17AE588400E27B2D /* MBProgressHUD.h */,
-				54DD491E17AE588400E27B2D /* MBProgressHUD.m */,
 			);
 			name = Libraries;
+			sourceTree = "<group>";
+		};
+		54F41711196999F6002235B7 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				54F4171B19699A0F002235B7 /* SimulationViewTableViewCell.h */,
+				54F4171C19699A0F002235B7 /* SimulationViewTableViewCell.m */,
+				54F4171D19699A0F002235B7 /* SimViewQuotaTableViewCell.h */,
+				54F4171E19699A0F002235B7 /* SimViewQuotaTableViewCell.m */,
+				54F4171F19699A0F002235B7 /* SimJobTableViewCell.h */,
+				54F4172019699A0F002235B7 /* SimJobTableViewCell.m */,
+			);
+			name = Views;
 			sourceTree = "<group>";
 		};
 		54FB100817BDE777005D671D /* Login */ = {
@@ -612,6 +606,7 @@
 		54DA316C1764B8900020D2B5 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				LastTestingUpgradeCheck = 0510;
 				LastUpgradeCheck = 0460;
 				ORGANIZATIONNAME = vcell;
 			};
@@ -654,7 +649,6 @@
 				541BD29A177193DD00E82846 /* greyButton@2x.png in Resources */,
 				541BD29D177193F100E82846 /* greyButtonHighlight.png in Resources */,
 				541BD29E177193F100E82846 /* greyButtonHighlight@2x.png in Resources */,
-				540C37951771F68F00D95990 /* SimJobCell.xib in Resources */,
 				540AAC601772FD74007C4DCF /* dot.png in Resources */,
 				540AAC611772FD74007C4DCF /* dot@2x.png in Resources */,
 				54DD491C17AD2C9600E27B2D /* BiomodelCell.xib in Resources */,
@@ -694,29 +688,30 @@
 			files = (
 				54DA31841764B8900020D2B5 /* main.m in Sources */,
 				54DA31881764B8900020D2B5 /* AppDelegate.m in Sources */,
-				54DA31971764B8900020D2B5 /* SimJobController.m in Sources */,
 				54DA319E1764B8900020D2B5 /* GraphViewController.m in Sources */,
-				544CE0CA1765E13600F69C45 /* SimJob.m in Sources */,
-				5467C06017674804002A5CC9 /* SimJobCell.m in Sources */,
+				54F417101969990C002235B7 /* ResourceViewController.m in Sources */,
 				543721E2176DFA8000AFC35F /* Constants.m in Sources */,
-				540AAC5D1772D482007C4DCF /* SimJobButtonCell.m in Sources */,
-				54608B121779ADDA0004C4D9 /* SimJobsFiltersController.m in Sources */,
-				54608B151779BC320004C4D9 /* SimJobsFiltersDetail.m in Sources */,
+				54F4172219699A0F002235B7 /* SimViewQuotaTableViewCell.m in Sources */,
+				54F4170E1969990C002235B7 /* SimulationViewTableViewController.m in Sources */,
 				54419AE7177B48EE00D10E30 /* SimJobDetailsController.m in Sources */,
 				54C2F4F817800D9400FEB6B9 /* SimGraph.m in Sources */,
+				54F4172919699AFE002235B7 /* MBProgressHUD.m in Sources */,
 				54C2F4FB178033BC00FEB6B9 /* GraphAxisSelectController.m in Sources */,
 				545AF782178E8A1A0003678F /* BiomodelViewController.m in Sources */,
 				545AF786178EA6DA0003678F /* BioModel.xcdatamodeld in Sources */,
 				545AF7CF178F21100003678F /* Simulation.m in Sources */,
 				545AF7D2178F21100003678F /* Application.m in Sources */,
+				54F4170F1969990C002235B7 /* SimJobTableViewController.m in Sources */,
 				545AF7D5178F21100003678F /* Biomodel.m in Sources */,
 				545AF7D8178FC0BA0003678F /* Functions.m in Sources */,
+				54F4172619699A2E002235B7 /* SimJob.m in Sources */,
 				545AF7DD1796C7810003678F /* BiomodelDetailsViewController.m in Sources */,
+				54F4172319699A0F002235B7 /* SimJobTableViewCell.m in Sources */,
 				54DD491A17AD24EB00E27B2D /* BiomodelCell.m in Sources */,
-				54DD491F17AE588400E27B2D /* MBProgressHUD.m in Sources */,
 				54FB100117BDE299005D671D /* AccessToken.m in Sources */,
 				54FB100417BDE72E005D671D /* LoginViewController.m in Sources */,
 				5492E32917DB58EC00CABA4F /* RegisterationViewController.m in Sources */,
+				54F4172119699A0F002235B7 /* SimulationViewTableViewCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
