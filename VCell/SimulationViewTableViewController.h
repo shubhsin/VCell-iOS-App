@@ -9,6 +9,9 @@
 #import <UIKit/UIKit.h>
 #import "SimJob.h"
 
-@interface SimulationViewTableViewController : UITableViewController <FetchJSONDelegate>
+@interface SimulationViewTableViewController : UIViewController <UITableViewDataSource, UITableViewDelegate, FetchJSONDelegate>
+
+@property (nonatomic, weak) IBOutlet UITableView *tableView;
+
 
 @end

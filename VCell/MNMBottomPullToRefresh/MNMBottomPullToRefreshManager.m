@@ -89,7 +89,7 @@ CGFloat const kAnimationDuration = 0.2f;
     
     if ([table_ contentSize].height < CGRectGetHeight([table_ frame])) {
         
-        offset = -[table_ contentOffset].y;
+        offset = -[table_ contentOffset].y - self.contentInset.top;
         
     } else {
         
@@ -112,11 +112,11 @@ CGFloat const kAnimationDuration = 0.2f;
         
     } else {
         
-        yOrigin = CGRectGetHeight([table_ frame]);
+        yOrigin = CGRectGetHeight([table_ frame]) - self.contentInset.top;
     }
     
     CGRect frame = [pullToRefreshView_ frame];
-    frame.origin.y = yOrigin - 49 - 64;
+    frame.origin.y = yOrigin;
     [pullToRefreshView_ setFrame:frame];
     
     [table_ addSubview:pullToRefreshView_];

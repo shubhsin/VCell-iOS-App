@@ -24,8 +24,8 @@
 		545AF7D5178F21100003678F /* Biomodel.m in Sources */ = {isa = PBXBuildFile; fileRef = 545AF7D4178F21100003678F /* Biomodel.m */; };
 		545AF7D8178FC0BA0003678F /* Functions.m in Sources */ = {isa = PBXBuildFile; fileRef = 545AF7D7178FC0BA0003678F /* Functions.m */; };
 		545AF7DD1796C7810003678F /* BiomodelDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 545AF7DC1796C7810003678F /* BiomodelDetailsViewController.m */; };
-		548E72BC198A418E0086990D /* MNMBottomPullToRefreshManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 548E72B9198A418E0086990D /* MNMBottomPullToRefreshManager.m */; };
-		548E72BD198A418E0086990D /* MNMBottomPullToRefreshView.m in Sources */ = {isa = PBXBuildFile; fileRef = 548E72BB198A418E0086990D /* MNMBottomPullToRefreshView.m */; };
+		548E72CC198A4B4E0086990D /* MNMBottomPullToRefreshManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 548E72C9198A4B4E0086990D /* MNMBottomPullToRefreshManager.m */; };
+		548E72CD198A4B4E0086990D /* MNMBottomPullToRefreshView.m in Sources */ = {isa = PBXBuildFile; fileRef = 548E72CB198A4B4E0086990D /* MNMBottomPullToRefreshView.m */; };
 		5492E32917DB58EC00CABA4F /* RegisterationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5492E32817DB58EC00CABA4F /* RegisterationViewController.m */; };
 		54C2F4F4177FDF2500FEB6B9 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 54C2F4F3177FDF2500FEB6B9 /* QuartzCore.framework */; };
 		54C2F4F817800D9400FEB6B9 /* SimGraph.m in Sources */ = {isa = PBXBuildFile; fileRef = 54C2F4F717800D9400FEB6B9 /* SimGraph.m */; };
@@ -104,10 +104,10 @@
 		545AF7D7178FC0BA0003678F /* Functions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Functions.m; sourceTree = "<group>"; };
 		545AF7DB1796C7800003678F /* BiomodelDetailsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BiomodelDetailsViewController.h; sourceTree = "<group>"; };
 		545AF7DC1796C7810003678F /* BiomodelDetailsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BiomodelDetailsViewController.m; sourceTree = "<group>"; };
-		548E72B8198A418E0086990D /* MNMBottomPullToRefreshManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MNMBottomPullToRefreshManager.h; sourceTree = "<group>"; };
-		548E72B9198A418E0086990D /* MNMBottomPullToRefreshManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MNMBottomPullToRefreshManager.m; sourceTree = "<group>"; };
-		548E72BA198A418E0086990D /* MNMBottomPullToRefreshView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MNMBottomPullToRefreshView.h; sourceTree = "<group>"; };
-		548E72BB198A418E0086990D /* MNMBottomPullToRefreshView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MNMBottomPullToRefreshView.m; sourceTree = "<group>"; };
+		548E72C8198A4B4E0086990D /* MNMBottomPullToRefreshManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MNMBottomPullToRefreshManager.h; sourceTree = "<group>"; };
+		548E72C9198A4B4E0086990D /* MNMBottomPullToRefreshManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MNMBottomPullToRefreshManager.m; sourceTree = "<group>"; };
+		548E72CA198A4B4E0086990D /* MNMBottomPullToRefreshView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MNMBottomPullToRefreshView.h; sourceTree = "<group>"; };
+		548E72CB198A4B4E0086990D /* MNMBottomPullToRefreshView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MNMBottomPullToRefreshView.m; sourceTree = "<group>"; };
 		5492E32717DB58EC00CABA4F /* RegisterationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RegisterationViewController.h; sourceTree = "<group>"; };
 		5492E32817DB58EC00CABA4F /* RegisterationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RegisterationViewController.m; sourceTree = "<group>"; };
 		54C2F4F3177FDF2500FEB6B9 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
@@ -349,10 +349,10 @@
 			isa = PBXGroup;
 			children = (
 				54372F47198A383F00435202 /* loadingIcon@2x.png */,
-				548E72B8198A418E0086990D /* MNMBottomPullToRefreshManager.h */,
-				548E72B9198A418E0086990D /* MNMBottomPullToRefreshManager.m */,
-				548E72BA198A418E0086990D /* MNMBottomPullToRefreshView.h */,
-				548E72BB198A418E0086990D /* MNMBottomPullToRefreshView.m */,
+				548E72C8198A4B4E0086990D /* MNMBottomPullToRefreshManager.h */,
+				548E72C9198A4B4E0086990D /* MNMBottomPullToRefreshManager.m */,
+				548E72CA198A4B4E0086990D /* MNMBottomPullToRefreshView.h */,
+				548E72CB198A4B4E0086990D /* MNMBottomPullToRefreshView.m */,
 			);
 			path = MNMBottomPullToRefresh;
 			sourceTree = "<group>";
@@ -728,7 +728,7 @@
 			files = (
 				54DA31841764B8900020D2B5 /* main.m in Sources */,
 				54DA31881764B8900020D2B5 /* AppDelegate.m in Sources */,
-				548E72BD198A418E0086990D /* MNMBottomPullToRefreshView.m in Sources */,
+				548E72CD198A4B4E0086990D /* MNMBottomPullToRefreshView.m in Sources */,
 				54DA319E1764B8900020D2B5 /* GraphViewController.m in Sources */,
 				54F417101969990C002235B7 /* ResourceViewController.m in Sources */,
 				543721E2176DFA8000AFC35F /* Constants.m in Sources */,
@@ -746,7 +746,7 @@
 				545AF7D5178F21100003678F /* Biomodel.m in Sources */,
 				545AF7D8178FC0BA0003678F /* Functions.m in Sources */,
 				54F4172619699A2E002235B7 /* SimJob.m in Sources */,
-				548E72BC198A418E0086990D /* MNMBottomPullToRefreshManager.m in Sources */,
+				548E72CC198A4B4E0086990D /* MNMBottomPullToRefreshManager.m in Sources */,
 				545AF7DD1796C7810003678F /* BiomodelDetailsViewController.m in Sources */,
 				54F4172319699A0F002235B7 /* SimJobTableViewCell.m in Sources */,
 				54DD491A17AD24EB00E27B2D /* BiomodelCell.m in Sources */,

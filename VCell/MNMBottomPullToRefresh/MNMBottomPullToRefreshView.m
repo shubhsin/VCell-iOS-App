@@ -140,6 +140,9 @@
 - (void)layoutSubviews {
     
     [super layoutSubviews];
+    CGRect frame = containerView_.frame;
+    frame.size.width = 320;
+    containerView_.frame = frame;
 }
 
 /*
