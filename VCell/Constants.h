@@ -8,7 +8,7 @@
  *  http://www.opensource.org/licenses/mit-license.php
  */
 
-//#define LOCALHOST
+#define LOCALHOST
 
 #define USERNAME @"schaff"
 

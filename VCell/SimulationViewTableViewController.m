@@ -10,14 +10,16 @@
 #import "SimulationViewTableViewCell.h"
 #import "SimViewQuotaTableViewCell.h"
 #import "SimJobTableViewController.h"
+#import "MNMBottomPullToRefreshManager.h"
 
-@interface SimulationViewTableViewController ()
+@interface SimulationViewTableViewController () <MNMBottomPullToRefreshManagerClient>
 {
     Functions *fetchSimJobFunc;
     int rowNum;
     NSMutableDictionary *simJobs; // Key: simKey , Value: SimJobs
     NSMutableOrderedSet *simKeys; // simKeys with order preserved.
     BOOL isLoading;
+    MNMBottomPullToRefreshManager *_pullToRefreshManager;
 }
 
 @end
@@ -31,7 +33,9 @@
     simJobs = [NSMutableDictionary dictionary];
     simKeys = [NSMutableOrderedSet orderedSet];
     fetchSimJobFunc = [[Functions alloc] init]; //For fetching simJobs
-    [self startLoading]; //Start the fetching 
+    [self startLoading]; //Start the fetching
+    _pullToRefreshManager = [[MNMBottomPullToRefreshManager alloc] initWithPullToRefreshViewHeight:60.0f tableView:self.tableView withClient:self];
+    _pullToRefreshManager.contentInset = UIEdgeInsetsMake(64, 0, 0, 0);
 }
 
 - (void)startLoading
@@ -74,31 +78,30 @@
             }
             
         }];
-        
-        // load more data if first request doesnt fill up the screen
-        if(simKeys.count < 10 && simMutableJobs.count != 0)
-        {
-            rowNum = rowNum + 10;
-            [self startLoading];
-        }
-        
         [self.tableView reloadData];
+        [_pullToRefreshManager tableViewReloadFinished];
         isLoading = NO;
     }
 }
 
-
-- (void)scrollViewWillEndDragging:(UIScrollView *)scrollView withVelocity:(CGPoint)velocity targetContentOffset:(inout CGPoint *)targetContentOffset
-{
-    if(simKeys.count > 0 && !isLoading){
-        float bottomEdge = scrollView.contentOffset.y + scrollView.frame.size.height;
-        if (bottomEdge >= scrollView.contentSize.height) {
-            rowNum = rowNum + 10;
-            [self startLoading];
-        }
-    }
+- (void)viewDidLayoutSubviews {
+    
+    [super viewDidLayoutSubviews];
+    
+    [_pullToRefreshManager relocatePullToRefreshView];
 }
 
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    [_pullToRefreshManager tableViewScrolled];
+}
+- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate {
+    [_pullToRefreshManager tableViewReleased];
+}
+
+- (void)bottomPullToRefreshTriggered:(MNMBottomPullToRefreshManager *)manager {
+    rowNum = rowNum + 10;
+    [self startLoading];
+}
 
 #pragma mark - Table view data source
 
@@ -117,16 +120,14 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if(indexPath.row == 0)
-    {
+    if(indexPath.row == 0) {
         SimViewQuotaTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"QuotaCell" forIndexPath:indexPath];
         cell.quotaMaxLabel.text = @"1";
         cell.quotaRunningLabel.text = @"11";
         cell.quotaWaitingLabel.text = @"22";
         return cell;
-    }
-    else
-    {
+    } else {
+       
         SimulationViewTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
         SimJob *simJob = [[simJobs objectForKey:[simKeys objectAtIndex:indexPath.row - 1]] objectAtIndex:0];
         cell.simName.lineBreakMode = NSLineBreakByWordWrapping;
@@ -155,6 +156,7 @@
     }];
     
     NSInteger numJobs = [[[jobs objectAtIndex:0] scanCount] integerValue];
+   
     if(completed == numJobs)
         status = @"Completed";
     else
@@ -165,8 +167,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if(indexPath.row != 0)
-    {
+    if(indexPath.row != 0) {
         [self performSegueWithIdentifier:@"ShowSimJobs" sender:self];
     }
 }
@@ -179,12 +180,10 @@
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
     
-    if([[segue identifier] isEqualToString:@"ShowSimJobs"])
-    {
+    if([[segue identifier] isEqualToString:@"ShowSimJobs"]) {
         NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
         [[segue destinationViewController] setObject:[simJobs objectForKey:[simKeys objectAtIndex:indexPath.row - 1]]];
     }
-    
 }
 
 

@@ -11,6 +11,4 @@
 
 @interface SimulationViewTableViewController : UITableViewController <FetchJSONDelegate>
 
-
-
 @end

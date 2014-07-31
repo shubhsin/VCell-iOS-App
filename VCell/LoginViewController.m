@@ -80,13 +80,11 @@
 
 - (void)fetchJSONDidCompleteWithJSONArray:(NSArray *)jsonData function:(Functions *)function
 {
-    if(jsonData == nil)
-    {
+    if(jsonData == nil) {
         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Error" message:@"Wrong User/Pass" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil];
         [alertView show];
     }
-    else
-    {
+    else {
    
         [AccessToken setSharedInstance:[[AccessToken alloc] initWithDict:(NSDictionary*)jsonData]];
         

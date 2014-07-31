@@ -26,8 +26,7 @@ static AccessToken *sharedInstance = nil;
 - (id)initWithDict:(NSDictionary *)dict
 {
     self = [super init];
-    if(self)
-    {
+    if(self) {
         _token = [dict objectForKey:@"token"];
         _creationDateSeconds = [dict objectForKey:@"creationDateSeconds"];
         _expireDateSeconds = [dict objectForKey:@"expireDateSeconds"];
@@ -36,6 +35,7 @@ static AccessToken *sharedInstance = nil;
     }
     return self;
 }
+
 //+ (NSString*)filePath
 //{
 //    NSArray* paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);

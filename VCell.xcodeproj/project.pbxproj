@@ -14,6 +14,7 @@
 		541BD29D177193F100E82846 /* greyButtonHighlight.png in Resources */ = {isa = PBXBuildFile; fileRef = 541BD29B177193F100E82846 /* greyButtonHighlight.png */; };
 		541BD29E177193F100E82846 /* greyButtonHighlight@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 541BD29C177193F100E82846 /* greyButtonHighlight@2x.png */; };
 		543721E2176DFA8000AFC35F /* Constants.m in Sources */ = {isa = PBXBuildFile; fileRef = 543721E1176DFA8000AFC35F /* Constants.m */; };
+		54372F48198A383F00435202 /* loadingIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 54372F47198A383F00435202 /* loadingIcon@2x.png */; };
 		54419AE7177B48EE00D10E30 /* SimJobDetailsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 54419AE6177B48EE00D10E30 /* SimJobDetailsController.m */; };
 		545AF782178E8A1A0003678F /* BiomodelViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 545AF781178E8A1A0003678F /* BiomodelViewController.m */; };
 		545AF786178EA6DA0003678F /* BioModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 545AF784178EA6DA0003678F /* BioModel.xcdatamodeld */; };
@@ -23,6 +24,8 @@
 		545AF7D5178F21100003678F /* Biomodel.m in Sources */ = {isa = PBXBuildFile; fileRef = 545AF7D4178F21100003678F /* Biomodel.m */; };
 		545AF7D8178FC0BA0003678F /* Functions.m in Sources */ = {isa = PBXBuildFile; fileRef = 545AF7D7178FC0BA0003678F /* Functions.m */; };
 		545AF7DD1796C7810003678F /* BiomodelDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 545AF7DC1796C7810003678F /* BiomodelDetailsViewController.m */; };
+		548E72BC198A418E0086990D /* MNMBottomPullToRefreshManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 548E72B9198A418E0086990D /* MNMBottomPullToRefreshManager.m */; };
+		548E72BD198A418E0086990D /* MNMBottomPullToRefreshView.m in Sources */ = {isa = PBXBuildFile; fileRef = 548E72BB198A418E0086990D /* MNMBottomPullToRefreshView.m */; };
 		5492E32917DB58EC00CABA4F /* RegisterationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5492E32817DB58EC00CABA4F /* RegisterationViewController.m */; };
 		54C2F4F4177FDF2500FEB6B9 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 54C2F4F3177FDF2500FEB6B9 /* QuartzCore.framework */; };
 		54C2F4F817800D9400FEB6B9 /* SimGraph.m in Sources */ = {isa = PBXBuildFile; fileRef = 54C2F4F717800D9400FEB6B9 /* SimGraph.m */; };
@@ -84,6 +87,7 @@
 		541BD29C177193F100E82846 /* greyButtonHighlight@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "greyButtonHighlight@2x.png"; sourceTree = "<group>"; };
 		543721E0176DFA8000AFC35F /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
 		543721E1176DFA8000AFC35F /* Constants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Constants.m; sourceTree = "<group>"; };
+		54372F47198A383F00435202 /* loadingIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "loadingIcon@2x.png"; path = "../loadingIcon@2x.png"; sourceTree = "<group>"; };
 		54419AE5177B48EE00D10E30 /* SimJobDetailsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SimJobDetailsController.h; sourceTree = "<group>"; };
 		54419AE6177B48EE00D10E30 /* SimJobDetailsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SimJobDetailsController.m; sourceTree = "<group>"; };
 		545AF780178E8A1A0003678F /* BiomodelViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BiomodelViewController.h; sourceTree = "<group>"; };
@@ -100,6 +104,10 @@
 		545AF7D7178FC0BA0003678F /* Functions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Functions.m; sourceTree = "<group>"; };
 		545AF7DB1796C7800003678F /* BiomodelDetailsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BiomodelDetailsViewController.h; sourceTree = "<group>"; };
 		545AF7DC1796C7810003678F /* BiomodelDetailsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BiomodelDetailsViewController.m; sourceTree = "<group>"; };
+		548E72B8198A418E0086990D /* MNMBottomPullToRefreshManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MNMBottomPullToRefreshManager.h; sourceTree = "<group>"; };
+		548E72B9198A418E0086990D /* MNMBottomPullToRefreshManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MNMBottomPullToRefreshManager.m; sourceTree = "<group>"; };
+		548E72BA198A418E0086990D /* MNMBottomPullToRefreshView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MNMBottomPullToRefreshView.h; sourceTree = "<group>"; };
+		548E72BB198A418E0086990D /* MNMBottomPullToRefreshView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MNMBottomPullToRefreshView.m; sourceTree = "<group>"; };
 		5492E32717DB58EC00CABA4F /* RegisterationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RegisterationViewController.h; sourceTree = "<group>"; };
 		5492E32817DB58EC00CABA4F /* RegisterationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RegisterationViewController.m; sourceTree = "<group>"; };
 		54C2F4F3177FDF2500FEB6B9 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
@@ -297,6 +305,17 @@
 			name = "First Tab - SimJob";
 			sourceTree = "<group>";
 		};
+		54372F33198A19F800435202 /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				543721E0176DFA8000AFC35F /* Constants.h */,
+				543721E1176DFA8000AFC35F /* Constants.m */,
+				545AF7D6178FC0BA0003678F /* Functions.h */,
+				545AF7D7178FC0BA0003678F /* Functions.m */,
+			);
+			name = Utilities;
+			sourceTree = "<group>";
+		};
 		545AF783178E8A260003678F /* Second Tab - Biomodel */ = {
 			isa = PBXGroup;
 			children = (
@@ -324,6 +343,18 @@
 				545AF7CD178F21100003678F /* Simulation.h */,
 			);
 			name = Models;
+			sourceTree = "<group>";
+		};
+		548E72AB198A412E0086990D /* MNMBottomPullToRefresh */ = {
+			isa = PBXGroup;
+			children = (
+				54372F47198A383F00435202 /* loadingIcon@2x.png */,
+				548E72B8198A418E0086990D /* MNMBottomPullToRefreshManager.h */,
+				548E72B9198A418E0086990D /* MNMBottomPullToRefreshManager.m */,
+				548E72BA198A418E0086990D /* MNMBottomPullToRefreshView.h */,
+				548E72BB198A418E0086990D /* MNMBottomPullToRefreshView.m */,
+			);
+			path = MNMBottomPullToRefresh;
 			sourceTree = "<group>";
 		};
 		54C2F4F517800D2400FEB6B9 /* Graph */ = {
@@ -375,10 +406,7 @@
 			isa = PBXGroup;
 			children = (
 				54DD492017AE588E00E27B2D /* Libraries */,
-				543721E0176DFA8000AFC35F /* Constants.h */,
-				543721E1176DFA8000AFC35F /* Constants.m */,
-				545AF7D6178FC0BA0003678F /* Functions.h */,
-				545AF7D7178FC0BA0003678F /* Functions.m */,
+				54372F33198A19F800435202 /* Utilities */,
 				54DA31861764B8900020D2B5 /* AppDelegate.h */,
 				54DA31871764B8900020D2B5 /* AppDelegate.m */,
 				54DA318F1764B8900020D2B5 /* MainStoryboard_iPhone.storyboard */,
@@ -428,6 +456,7 @@
 		54DD492017AE588E00E27B2D /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				548E72AB198A412E0086990D /* MNMBottomPullToRefresh */,
 				54F4172719699AFE002235B7 /* MBProgressHUD.h */,
 				54F4172819699AFE002235B7 /* MBProgressHUD.m */,
 				54F4172C1969B1E0002235B7 /* CorePlotHeaders */,
@@ -439,10 +468,10 @@
 		54F41711196999F6002235B7 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				54F4171B19699A0F002235B7 /* SimulationViewTableViewCell.h */,
-				54F4171C19699A0F002235B7 /* SimulationViewTableViewCell.m */,
 				54F4171D19699A0F002235B7 /* SimViewQuotaTableViewCell.h */,
 				54F4171E19699A0F002235B7 /* SimViewQuotaTableViewCell.m */,
+				54F4171B19699A0F002235B7 /* SimulationViewTableViewCell.h */,
+				54F4171C19699A0F002235B7 /* SimulationViewTableViewCell.m */,
 				54F4171F19699A0F002235B7 /* SimJobTableViewCell.h */,
 				54F4172019699A0F002235B7 /* SimJobTableViewCell.m */,
 			);
@@ -653,6 +682,7 @@
 				54DA319B1764B8900020D2B5 /* first@2x.png in Resources */,
 				54DA31A01764B8900020D2B5 /* second.png in Resources */,
 				54DA31A21764B8900020D2B5 /* second@2x.png in Resources */,
+				54372F48198A383F00435202 /* loadingIcon@2x.png in Resources */,
 				54EDA98B17709B7100A32120 /* 37x-Checkmark.png in Resources */,
 				54EDA98C17709B7100A32120 /* 37x-Checkmark@2x.png in Resources */,
 				541BD299177193DD00E82846 /* greyButton.png in Resources */,
@@ -698,6 +728,7 @@
 			files = (
 				54DA31841764B8900020D2B5 /* main.m in Sources */,
 				54DA31881764B8900020D2B5 /* AppDelegate.m in Sources */,
+				548E72BD198A418E0086990D /* MNMBottomPullToRefreshView.m in Sources */,
 				54DA319E1764B8900020D2B5 /* GraphViewController.m in Sources */,
 				54F417101969990C002235B7 /* ResourceViewController.m in Sources */,
 				543721E2176DFA8000AFC35F /* Constants.m in Sources */,
@@ -715,6 +746,7 @@
 				545AF7D5178F21100003678F /* Biomodel.m in Sources */,
 				545AF7D8178FC0BA0003678F /* Functions.m in Sources */,
 				54F4172619699A2E002235B7 /* SimJob.m in Sources */,
+				548E72BC198A418E0086990D /* MNMBottomPullToRefreshManager.m in Sources */,
 				545AF7DD1796C7810003678F /* BiomodelDetailsViewController.m in Sources */,
 				54F4172319699A0F002235B7 /* SimJobTableViewCell.m in Sources */,
 				54DD491A17AD24EB00E27B2D /* BiomodelCell.m in Sources */,
