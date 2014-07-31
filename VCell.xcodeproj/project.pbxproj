@@ -27,6 +27,7 @@
 		548E72CC198A4B4E0086990D /* MNMBottomPullToRefreshManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 548E72C9198A4B4E0086990D /* MNMBottomPullToRefreshManager.m */; };
 		548E72CD198A4B4E0086990D /* MNMBottomPullToRefreshView.m in Sources */ = {isa = PBXBuildFile; fileRef = 548E72CB198A4B4E0086990D /* MNMBottomPullToRefreshView.m */; };
 		5492E32917DB58EC00CABA4F /* RegisterationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5492E32817DB58EC00CABA4F /* RegisterationViewController.m */; };
+		54BDEF1B198AA50E00010EB4 /* ConfigureSimulationTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 54BDEF1A198AA50E00010EB4 /* ConfigureSimulationTableViewController.m */; };
 		54C2F4F4177FDF2500FEB6B9 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 54C2F4F3177FDF2500FEB6B9 /* QuartzCore.framework */; };
 		54C2F4F817800D9400FEB6B9 /* SimGraph.m in Sources */ = {isa = PBXBuildFile; fileRef = 54C2F4F717800D9400FEB6B9 /* SimGraph.m */; };
 		54C2F4FB178033BC00FEB6B9 /* GraphAxisSelectController.m in Sources */ = {isa = PBXBuildFile; fileRef = 54C2F4FA178033BC00FEB6B9 /* GraphAxisSelectController.m */; };
@@ -110,6 +111,8 @@
 		548E72CB198A4B4E0086990D /* MNMBottomPullToRefreshView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MNMBottomPullToRefreshView.m; sourceTree = "<group>"; };
 		5492E32717DB58EC00CABA4F /* RegisterationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RegisterationViewController.h; sourceTree = "<group>"; };
 		5492E32817DB58EC00CABA4F /* RegisterationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RegisterationViewController.m; sourceTree = "<group>"; };
+		54BDEF19198AA50E00010EB4 /* ConfigureSimulationTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConfigureSimulationTableViewController.h; sourceTree = "<group>"; };
+		54BDEF1A198AA50E00010EB4 /* ConfigureSimulationTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConfigureSimulationTableViewController.m; sourceTree = "<group>"; };
 		54C2F4F3177FDF2500FEB6B9 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		54C2F4F617800D9400FEB6B9 /* SimGraph.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SimGraph.h; sourceTree = "<group>"; };
 		54C2F4F717800D9400FEB6B9 /* SimGraph.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SimGraph.m; sourceTree = "<group>"; };
@@ -489,6 +492,8 @@
 				54F4170D1969990C002235B7 /* ResourceViewController.m */,
 				54419AE5177B48EE00D10E30 /* SimJobDetailsController.h */,
 				54419AE6177B48EE00D10E30 /* SimJobDetailsController.m */,
+				54BDEF19198AA50E00010EB4 /* ConfigureSimulationTableViewController.h */,
+				54BDEF1A198AA50E00010EB4 /* ConfigureSimulationTableViewController.m */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -732,6 +737,7 @@
 				54DA319E1764B8900020D2B5 /* GraphViewController.m in Sources */,
 				54F417101969990C002235B7 /* ResourceViewController.m in Sources */,
 				543721E2176DFA8000AFC35F /* Constants.m in Sources */,
+				54BDEF1B198AA50E00010EB4 /* ConfigureSimulationTableViewController.m in Sources */,
 				54F4172219699A0F002235B7 /* SimViewQuotaTableViewCell.m in Sources */,
 				54F4170E1969990C002235B7 /* SimulationViewTableViewController.m in Sources */,
 				54419AE7177B48EE00D10E30 /* SimJobDetailsController.m in Sources */,

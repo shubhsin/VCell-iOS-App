@@ -21,7 +21,7 @@
 #import "MBProgressHUD.h"
 #import "AccessToken.h"
 
-@interface Functions : NSObject <MBProgressHUDDelegate,FetchJSONDelegate>
+@interface Functions : NSObject <MBProgressHUDDelegate,FetchJSONDelegate, NSURLConnectionDelegate>
 
 //Construct a URL appending '&' on dict keys and objects
 + (NSString*)contructUrlParamsOnDict:(NSDictionary*)dict;

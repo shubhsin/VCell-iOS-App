@@ -14,15 +14,17 @@ NSString * const SIMJOB_FILTERS_FILE = @"simJobFilters.plist";
 NSString * const BIOMODEL_FILTERS_FILE = @"biomodelFilters.plist";
 
 #ifdef LOCALHOST
+
 #define EXTENSION @".php"
-
 #define localhosturl "169.254.98.144"
-
 #define URL_DEF @"http://" localhosturl "/vcell"
+
 #else
+
 #define EXTENSION @""
 #define URL_DEF @"https://vcellapi.cam.uchc.edu:8080"
 //#define URL_DEF @"https://vcell-prod.apigee.net/v1/vcellapi"
+
 #endif
 
 NSString * const BASE_URL = URL_DEF;

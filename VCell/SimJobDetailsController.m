@@ -14,6 +14,7 @@
 {
     SimJob *simJob;
 }
+
 @end
 
 @implementation SimJobDetailsController
@@ -139,12 +140,11 @@
             [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
             
             NSURL *url;
-            if([self.startStopSim.textLabel.text isEqualToString:STARTSIMULATION])
-            {
-               url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/%@/simulation/%@/startSimulation",BIOMODEL_URL,simJob.bioModelLink.bioModelKey,simJob.simKey]];
-            }
-            else
-            {
+            if([self.startStopSim.textLabel.text isEqualToString:STARTSIMULATION]) {
+                [self performSegueWithIdentifier:@"configureSimulation" sender:self];
+                return;
+//               url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/%@/simulation/%@/startSimulation",BIOMODEL_URL,simJob.bioModelLink.bioModelKey,simJob.simKey]];
+            } else {
                  url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/%@/simulation/%@/stopSimulation",BIOMODEL_URL,simJob.bioModelLink.bioModelKey,simJob.simKey]];
             }
             
@@ -188,9 +188,12 @@
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    if ([[segue identifier] isEqualToString:@"viewData"])
-    {
+    if ([[segue identifier] isEqualToString:@"viewData"]) {
         [[segue destinationViewController] setSimJob:simJob];
     }
+    else if ([[segue identifier] isEqualToString:@"configureSimulation"]) {
+        [[segue destinationViewController] setObject:simJob];
+    }
+    
 }
 @end

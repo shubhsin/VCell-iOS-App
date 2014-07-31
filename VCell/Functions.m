@@ -139,7 +139,6 @@
 
 - (void)fetchJSONFromURL:(NSURL*)url HUDTextMode:(BOOL)HUDtextMode AddHUDToView:(UIView*)view delegate:(id)delegate
 {
-    
     [self fetchJSONFromURL:url HUDTextMode:HUDTextMode AddHUDToView:view delegate:delegate disableTokenMode:[[NSUserDefaults standardUserDefaults] objectForKey:USERPASSKEY]?NO:YES];
 }
 
@@ -183,10 +182,38 @@
         if(validity < 0)
         {
             NSLog(@"Renewing token:%@",[[AccessToken sharedInstance] token]);
+            
             [self renewToken];
+            NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+                
+            NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@?user_id=%@&user_password=%@",ACCESS_TOKEN_URL,[[userDefaults objectForKey:USERPASSKEY] objectAtIndex:0],[[userDefaults objectForKey:USERPASSKEY] objectAtIndex:1]]];
+            NSURL *urlWithClientID = [NSURL URLWithString:[NSString stringWithFormat:@"%@&client_id=%@",[url description],CLIENT_ID]];
+            NSURLRequest *request = [NSMutableURLRequest requestWithURL:urlWithClientID];
+
+            
+            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
+                NSError *error;
+                NSData *jsonData = [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:&error];
+                if(error != nil) {
+                    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Error" message:@"Something is not right..." delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+                    [alertView show];
+                }
+                else {
+                    id dict = [NSJSONSerialization JSONObjectWithData:jsonData options:kNilOptions error:nil];
+                    [AccessToken setSharedInstance:[[AccessToken alloc] initWithDict:(NSDictionary*)dict]];
+                }
+            
+                
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [self startConnection];
+                });
+                
+            });
             return;
         }
+        
     }
+    
     [self startConnection];
 }
 
@@ -200,18 +227,20 @@
 }
 
 #pragma mark - NSURLConnectionDelegete
+- (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response
+{
+    
+}
 
 - (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data
 {
     [connectionData appendData:data];
 }
 
-- (void)connectionDidFinishLoading:(NSURLConnection *)connection
+- (void)connectionDidFinishLoading:(NSURLConnection *)aConnection
 {
-    
-    if([[HUD gestureRecognizers] objectAtIndex:0])
+    if([[HUD gestureRecognizers] count] && [[HUD gestureRecognizers] objectAtIndex:0])
         [HUD removeGestureRecognizer:[[HUD gestureRecognizers] objectAtIndex:0]]; //Remove the gesture Recognizer which was added to cancel the request in case user taps the HUD after request is complete.
-    
     HUD.labelText = @"Done!";
     [HUD hide:YES];
     
@@ -239,8 +268,9 @@
     [connection cancel];
 }
 
-- (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error
+- (void)connection:(NSURLConnection *)aConnection didFailWithError:(NSError *)error
 {
+    NSLog(@"Failed %@ %@", [[aConnection currentRequest] URL] ,error);
 	[HUD hide:YES];
 }
 
