@@ -49,6 +49,8 @@
 @property (nonatomic,strong) NSString *simContextBranchId;
 @property (nonatomic,strong) NSString *simContextName;
 
+- (id)initWithDict:(NSDictionary*) dict;
+
 @end
 
 @interface MathModelLink : NSObject

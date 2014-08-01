@@ -7,10 +7,12 @@
 //
 
 #import "ConfigureSimulationTableViewController.h"
+#import "Application+configureApplication.h"
 
 @interface ConfigureSimulationTableViewController () <FetchJSONDelegate>
 {
     SimJob *_simJob;
+    Application *_application;
 }
 
 @property (weak, nonatomic) IBOutlet UITableViewCell *nameCell;
@@ -47,8 +49,8 @@
 
 - (void)fetchJSONDidCompleteWithJSONArray:(NSArray *)jsonData function:(Functions *)function
 {
+   _application = [Application initWithDict:(NSDictionary*)jsonData];
     
-
     [self setUpCells];
 }
 

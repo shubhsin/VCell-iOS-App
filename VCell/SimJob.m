@@ -45,16 +45,8 @@
         _globalQueueOrdinal = [dict objectForKey:@"globalQueueOrdinal"];
         
         
-        if([dict objectForKey:@"bioModelLink"] != [NSNull null])
-        {
-            _bioModelLink = [[BioModelLink alloc] init];
-            _bioModelLink.bioModelKey = [[dict objectForKey:@"bioModelLink"] objectForKey:@"bioModelKey"];
-            _bioModelLink.bioModelBranchId = [[dict objectForKey:@"bioModelLink"] objectForKey:@"bioModelBranchId"];
-            _bioModelLink.bioModelName = [[dict objectForKey:@"bioModelLink"] objectForKey:@"bioModelName"];
-            _bioModelLink.simContextKey = [[dict objectForKey:@"bioModelLink"] objectForKey:@"simContextKey"];
-            _bioModelLink.simContextBranchId = [[dict objectForKey:@"bioModelLink"] objectForKey:@"simContextBranchId"];
-            _bioModelLink.simContextName = [[dict objectForKey:@"bioModelLink"] objectForKey:@"simContextName"];
-            
+        if([dict objectForKey:@"bioModelLink"] != [NSNull null]) {
+            _bioModelLink = [[BioModelLink alloc] initWithDict:[dict objectForKey:@"bioModelLink"]];
         }
         if([dict objectForKey:@"mathModelLink"] != [NSNull null])
         {
@@ -126,6 +118,20 @@
 @end
 
 @implementation BioModelLink
+
+- (id)initWithDict:(NSDictionary*) dict
+{
+    self = [super init];
+    if(self) {
+        self.bioModelKey = [dict objectForKey:@"bioModelKey"];
+        self.bioModelBranchId = [dict objectForKey:@"bioModelBranchId"];
+        self.bioModelName = [dict objectForKey:@"bioModelName"];
+        self.simContextKey = [dict objectForKey:@"simContextKey"];
+        self.simContextBranchId = [dict objectForKey:@"simContextBranchId"];
+        self.simContextName = [dict objectForKey:@"simContextName"];
+    }
+    return self;
+}
 
 - (NSString*)description
 {

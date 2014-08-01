@@ -27,6 +27,8 @@
 		548E72CC198A4B4E0086990D /* MNMBottomPullToRefreshManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 548E72C9198A4B4E0086990D /* MNMBottomPullToRefreshManager.m */; };
 		548E72CD198A4B4E0086990D /* MNMBottomPullToRefreshView.m in Sources */ = {isa = PBXBuildFile; fileRef = 548E72CB198A4B4E0086990D /* MNMBottomPullToRefreshView.m */; };
 		5492E32917DB58EC00CABA4F /* RegisterationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5492E32817DB58EC00CABA4F /* RegisterationViewController.m */; };
+		549C4520198B62470046C525 /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 549C451F198B62470046C525 /* MBProgressHUD.m */; };
+		549C4523198B640D0046C525 /* Application+configureApplication.m in Sources */ = {isa = PBXBuildFile; fileRef = 549C4522198B640D0046C525 /* Application+configureApplication.m */; };
 		54BDEF1B198AA50E00010EB4 /* ConfigureSimulationTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 54BDEF1A198AA50E00010EB4 /* ConfigureSimulationTableViewController.m */; };
 		54C2F4F4177FDF2500FEB6B9 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 54C2F4F3177FDF2500FEB6B9 /* QuartzCore.framework */; };
 		54C2F4F817800D9400FEB6B9 /* SimGraph.m in Sources */ = {isa = PBXBuildFile; fileRef = 54C2F4F717800D9400FEB6B9 /* SimGraph.m */; };
@@ -47,7 +49,6 @@
 		54DA319E1764B8900020D2B5 /* GraphViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 54DA319D1764B8900020D2B5 /* GraphViewController.m */; };
 		54DA31A01764B8900020D2B5 /* second.png in Resources */ = {isa = PBXBuildFile; fileRef = 54DA319F1764B8900020D2B5 /* second.png */; };
 		54DA31A21764B8900020D2B5 /* second@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 54DA31A11764B8900020D2B5 /* second@2x.png */; };
-		54DA31AA1764B8900020D2B5 /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 54DA31A91764B8900020D2B5 /* SenTestingKit.framework */; };
 		54DA31AB1764B8900020D2B5 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 54DA31771764B8900020D2B5 /* UIKit.framework */; };
 		54DA31AC1764B8900020D2B5 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 54DA31791764B8900020D2B5 /* Foundation.framework */; };
 		54DA31B41764B8900020D2B5 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 54DA31B21764B8900020D2B5 /* InfoPlist.strings */; };
@@ -63,7 +64,6 @@
 		54F4172219699A0F002235B7 /* SimViewQuotaTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 54F4171E19699A0F002235B7 /* SimViewQuotaTableViewCell.m */; };
 		54F4172319699A0F002235B7 /* SimJobTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 54F4172019699A0F002235B7 /* SimJobTableViewCell.m */; };
 		54F4172619699A2E002235B7 /* SimJob.m in Sources */ = {isa = PBXBuildFile; fileRef = 54F4172519699A2E002235B7 /* SimJob.m */; };
-		54F4172919699AFE002235B7 /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 54F4172819699AFE002235B7 /* MBProgressHUD.m */; };
 		54F4177C1969B1E0002235B7 /* libCorePlot-CocoaTouch.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 54F4177B1969B1E0002235B7 /* libCorePlot-CocoaTouch.a */; };
 		54FB100117BDE299005D671D /* AccessToken.m in Sources */ = {isa = PBXBuildFile; fileRef = 54FB100017BDE299005D671D /* AccessToken.m */; };
 		54FB100417BDE72E005D671D /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 54FB100317BDE72E005D671D /* LoginViewController.m */; };
@@ -111,6 +111,10 @@
 		548E72CB198A4B4E0086990D /* MNMBottomPullToRefreshView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MNMBottomPullToRefreshView.m; sourceTree = "<group>"; };
 		5492E32717DB58EC00CABA4F /* RegisterationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RegisterationViewController.h; sourceTree = "<group>"; };
 		5492E32817DB58EC00CABA4F /* RegisterationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RegisterationViewController.m; sourceTree = "<group>"; };
+		549C451E198B62470046C525 /* MBProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBProgressHUD.h; sourceTree = "<group>"; };
+		549C451F198B62470046C525 /* MBProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBProgressHUD.m; sourceTree = "<group>"; };
+		549C4521198B640D0046C525 /* Application+configureApplication.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Application+configureApplication.h"; sourceTree = "<group>"; };
+		549C4522198B640D0046C525 /* Application+configureApplication.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Application+configureApplication.m"; sourceTree = "<group>"; };
 		54BDEF19198AA50E00010EB4 /* ConfigureSimulationTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConfigureSimulationTableViewController.h; sourceTree = "<group>"; };
 		54BDEF1A198AA50E00010EB4 /* ConfigureSimulationTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConfigureSimulationTableViewController.m; sourceTree = "<group>"; };
 		54C2F4F3177FDF2500FEB6B9 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
@@ -139,8 +143,7 @@
 		54DA319D1764B8900020D2B5 /* GraphViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GraphViewController.m; sourceTree = "<group>"; };
 		54DA319F1764B8900020D2B5 /* second.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = second.png; sourceTree = "<group>"; };
 		54DA31A11764B8900020D2B5 /* second@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "second@2x.png"; sourceTree = "<group>"; };
-		54DA31A81764B8900020D2B5 /* VCellTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = VCellTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
-		54DA31A91764B8900020D2B5 /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
+		54DA31A81764B8900020D2B5 /* VCellTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = VCellTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		54DA31B11764B8900020D2B5 /* VCellTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "VCellTests-Info.plist"; sourceTree = "<group>"; };
 		54DA31B31764B8900020D2B5 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		54DA31B51764B8900020D2B5 /* VCellTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VCellTests.h; sourceTree = "<group>"; };
@@ -164,8 +167,6 @@
 		54F4172019699A0F002235B7 /* SimJobTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SimJobTableViewCell.m; sourceTree = "<group>"; };
 		54F4172419699A2E002235B7 /* SimJob.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SimJob.h; sourceTree = "<group>"; };
 		54F4172519699A2E002235B7 /* SimJob.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SimJob.m; sourceTree = "<group>"; };
-		54F4172719699AFE002235B7 /* MBProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBProgressHUD.h; sourceTree = "<group>"; };
-		54F4172819699AFE002235B7 /* MBProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBProgressHUD.m; sourceTree = "<group>"; };
 		54F4172D1969B1E0002235B7 /* CorePlot-CocoaTouch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CorePlot-CocoaTouch.h"; sourceTree = "<group>"; };
 		54F4172E1969B1E0002235B7 /* CPTAnimation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPTAnimation.h; sourceTree = "<group>"; };
 		54F4172F1969B1E0002235B7 /* CPTAnimationOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPTAnimationOperation.h; sourceTree = "<group>"; };
@@ -269,7 +270,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				54DA31AA1764B8900020D2B5 /* SenTestingKit.framework in Frameworks */,
 				54DA31AB1764B8900020D2B5 /* UIKit.framework in Frameworks */,
 				54DA31AC1764B8900020D2B5 /* Foundation.framework in Frameworks */,
 			);
@@ -388,7 +388,7 @@
 			isa = PBXGroup;
 			children = (
 				54DA31741764B8900020D2B5 /* VCell.app */,
-				54DA31A81764B8900020D2B5 /* VCellTests.octest */,
+				54DA31A81764B8900020D2B5 /* VCellTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -400,7 +400,6 @@
 				54DA31771764B8900020D2B5 /* UIKit.framework */,
 				54DA31791764B8900020D2B5 /* Foundation.framework */,
 				54DA317B1764B8900020D2B5 /* CoreGraphics.framework */,
-				54DA31A91764B8900020D2B5 /* SenTestingKit.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -459,9 +458,9 @@
 		54DD492017AE588E00E27B2D /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				549C451E198B62470046C525 /* MBProgressHUD.h */,
+				549C451F198B62470046C525 /* MBProgressHUD.m */,
 				548E72AB198A412E0086990D /* MNMBottomPullToRefresh */,
-				54F4172719699AFE002235B7 /* MBProgressHUD.h */,
-				54F4172819699AFE002235B7 /* MBProgressHUD.m */,
 				54F4172C1969B1E0002235B7 /* CorePlotHeaders */,
 				54F4177B1969B1E0002235B7 /* libCorePlot-CocoaTouch.a */,
 			);
@@ -503,6 +502,8 @@
 			children = (
 				54F4172419699A2E002235B7 /* SimJob.h */,
 				54F4172519699A2E002235B7 /* SimJob.m */,
+				549C4521198B640D0046C525 /* Application+configureApplication.h */,
+				549C4522198B640D0046C525 /* Application+configureApplication.m */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -641,8 +642,8 @@
 			);
 			name = VCellTests;
 			productName = VCellTests;
-			productReference = 54DA31A81764B8900020D2B5 /* VCellTests.octest */;
-			productType = "com.apple.product-type.bundle";
+			productReference = 54DA31A81764B8900020D2B5 /* VCellTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
 
@@ -739,14 +740,15 @@
 				543721E2176DFA8000AFC35F /* Constants.m in Sources */,
 				54BDEF1B198AA50E00010EB4 /* ConfigureSimulationTableViewController.m in Sources */,
 				54F4172219699A0F002235B7 /* SimViewQuotaTableViewCell.m in Sources */,
+				549C4520198B62470046C525 /* MBProgressHUD.m in Sources */,
 				54F4170E1969990C002235B7 /* SimulationViewTableViewController.m in Sources */,
 				54419AE7177B48EE00D10E30 /* SimJobDetailsController.m in Sources */,
 				54C2F4F817800D9400FEB6B9 /* SimGraph.m in Sources */,
-				54F4172919699AFE002235B7 /* MBProgressHUD.m in Sources */,
 				54C2F4FB178033BC00FEB6B9 /* GraphAxisSelectController.m in Sources */,
 				545AF782178E8A1A0003678F /* BiomodelViewController.m in Sources */,
 				545AF786178EA6DA0003678F /* BioModel.xcdatamodeld in Sources */,
 				545AF7CF178F21100003678F /* Simulation.m in Sources */,
+				549C4523198B640D0046C525 /* Application+configureApplication.m in Sources */,
 				545AF7D2178F21100003678F /* Application.m in Sources */,
 				54F4170F1969990C002235B7 /* SimJobTableViewController.m in Sources */,
 				545AF7D5178F21100003678F /* Biomodel.m in Sources */,
@@ -922,13 +924,13 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"\"$(SDKROOT)/Developer/Library/Frameworks\"",
 					"\"$(DEVELOPER_LIBRARY_DIR)/Frameworks\"",
+					"$(inherited)",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "VCell/VCell-Prefix.pch";
 				INFOPLIST_FILE = "VCellTests/VCellTests-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUNDLE_LOADER)";
-				WRAPPER_EXTENSION = octest;
 			};
 			name = Debug;
 		};
@@ -939,13 +941,13 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"\"$(SDKROOT)/Developer/Library/Frameworks\"",
 					"\"$(DEVELOPER_LIBRARY_DIR)/Frameworks\"",
+					"$(inherited)",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "VCell/VCell-Prefix.pch";
 				INFOPLIST_FILE = "VCellTests/VCellTests-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUNDLE_LOADER)";
-				WRAPPER_EXTENSION = octest;
 			};
 			name = Release;
 		};

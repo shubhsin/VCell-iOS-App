@@ -23,6 +23,7 @@
 @property (nonatomic, retain) NSNumber * mathKey;
 @property (nonatomic, retain) NSOrderedSet *simulations;
 @property (nonatomic, retain) Biomodel *biomodel;
+
 @end
 
 @interface Application (CoreDataGeneratedAccessors)
@@ -37,4 +38,5 @@
 - (void)removeSimulationsObject:(Simulation *)value;
 - (void)addSimulations:(NSOrderedSet *)values;
 - (void)removeSimulations:(NSOrderedSet *)values;
+
 @end
