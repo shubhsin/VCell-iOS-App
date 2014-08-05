@@ -6,10 +6,14 @@
 //  Copyright (c) 2014 vcell. All rights reserved.
 //
 
-#import "Application.h"
+@interface NewApplication : NSObject
 
-@interface Application (configureApplication)
-
+@property (nonatomic, strong) NSNumber * key;
+@property (nonatomic, strong) NSNumber * branchId;
+@property (nonatomic, strong) NSString * name;
+@property (nonatomic, strong) NSString * ownerName;
+@property (nonatomic, strong) NSNumber * ownerKey;
+@property (nonatomic, strong) NSNumber * mathKey;
 @property (nonatomic, strong) NSString *solverName;
 @property (nonatomic, strong) NSNumber *scanCount;
 @property (nonatomic, strong) BioModelLink *bioModelLink;
@@ -50,5 +54,7 @@ typedef enum : NSUInteger {
 @property (nonatomic, strong) NSNumber *cardinality;
 
 - (instancetype)initWithDict:(NSDictionary*)dict;
+
+- (NSString*)stringFromType;
 
 @end

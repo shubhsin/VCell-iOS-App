@@ -13,6 +13,7 @@
 		541BD29A177193DD00E82846 /* greyButton@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 541BD298177193DD00E82846 /* greyButton@2x.png */; };
 		541BD29D177193F100E82846 /* greyButtonHighlight.png in Resources */ = {isa = PBXBuildFile; fileRef = 541BD29B177193F100E82846 /* greyButtonHighlight.png */; };
 		541BD29E177193F100E82846 /* greyButtonHighlight@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 541BD29C177193F100E82846 /* greyButtonHighlight@2x.png */; };
+		5423F26219913D7D0053A68A /* TITokenField.m in Sources */ = {isa = PBXBuildFile; fileRef = 5423F26119913D7D0053A68A /* TITokenField.m */; };
 		543721E2176DFA8000AFC35F /* Constants.m in Sources */ = {isa = PBXBuildFile; fileRef = 543721E1176DFA8000AFC35F /* Constants.m */; };
 		54372F48198A383F00435202 /* loadingIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 54372F47198A383F00435202 /* loadingIcon@2x.png */; };
 		54419AE7177B48EE00D10E30 /* SimJobDetailsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 54419AE6177B48EE00D10E30 /* SimJobDetailsController.m */; };
@@ -28,7 +29,7 @@
 		548E72CD198A4B4E0086990D /* MNMBottomPullToRefreshView.m in Sources */ = {isa = PBXBuildFile; fileRef = 548E72CB198A4B4E0086990D /* MNMBottomPullToRefreshView.m */; };
 		5492E32917DB58EC00CABA4F /* RegisterationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5492E32817DB58EC00CABA4F /* RegisterationViewController.m */; };
 		549C4520198B62470046C525 /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 549C451F198B62470046C525 /* MBProgressHUD.m */; };
-		549C4523198B640D0046C525 /* Application+configureApplication.m in Sources */ = {isa = PBXBuildFile; fileRef = 549C4522198B640D0046C525 /* Application+configureApplication.m */; };
+		549C4523198B640D0046C525 /* NewApplication.m in Sources */ = {isa = PBXBuildFile; fileRef = 549C4522198B640D0046C525 /* NewApplication.m */; };
 		54BDEF1B198AA50E00010EB4 /* ConfigureSimulationTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 54BDEF1A198AA50E00010EB4 /* ConfigureSimulationTableViewController.m */; };
 		54C2F4F4177FDF2500FEB6B9 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 54C2F4F3177FDF2500FEB6B9 /* QuartzCore.framework */; };
 		54C2F4F817800D9400FEB6B9 /* SimGraph.m in Sources */ = {isa = PBXBuildFile; fileRef = 54C2F4F717800D9400FEB6B9 /* SimGraph.m */; };
@@ -86,6 +87,8 @@
 		541BD298177193DD00E82846 /* greyButton@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "greyButton@2x.png"; sourceTree = "<group>"; };
 		541BD29B177193F100E82846 /* greyButtonHighlight.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = greyButtonHighlight.png; sourceTree = "<group>"; };
 		541BD29C177193F100E82846 /* greyButtonHighlight@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "greyButtonHighlight@2x.png"; sourceTree = "<group>"; };
+		5423F26019913D7D0053A68A /* TITokenField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TITokenField.h; sourceTree = "<group>"; };
+		5423F26119913D7D0053A68A /* TITokenField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TITokenField.m; sourceTree = "<group>"; };
 		543721E0176DFA8000AFC35F /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
 		543721E1176DFA8000AFC35F /* Constants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Constants.m; sourceTree = "<group>"; };
 		54372F47198A383F00435202 /* loadingIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "loadingIcon@2x.png"; path = "../loadingIcon@2x.png"; sourceTree = "<group>"; };
@@ -113,8 +116,8 @@
 		5492E32817DB58EC00CABA4F /* RegisterationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RegisterationViewController.m; sourceTree = "<group>"; };
 		549C451E198B62470046C525 /* MBProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBProgressHUD.h; sourceTree = "<group>"; };
 		549C451F198B62470046C525 /* MBProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBProgressHUD.m; sourceTree = "<group>"; };
-		549C4521198B640D0046C525 /* Application+configureApplication.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Application+configureApplication.h"; sourceTree = "<group>"; };
-		549C4522198B640D0046C525 /* Application+configureApplication.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Application+configureApplication.m"; sourceTree = "<group>"; };
+		549C4521198B640D0046C525 /* NewApplication.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewApplication.h; sourceTree = "<group>"; };
+		549C4522198B640D0046C525 /* NewApplication.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewApplication.m; sourceTree = "<group>"; };
 		54BDEF19198AA50E00010EB4 /* ConfigureSimulationTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConfigureSimulationTableViewController.h; sourceTree = "<group>"; };
 		54BDEF1A198AA50E00010EB4 /* ConfigureSimulationTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConfigureSimulationTableViewController.m; sourceTree = "<group>"; };
 		54C2F4F3177FDF2500FEB6B9 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
@@ -297,6 +300,15 @@
 			name = Resources;
 			sourceTree = "<group>";
 		};
+		5423F26319913D840053A68A /* TITokenField */ = {
+			isa = PBXGroup;
+			children = (
+				5423F26019913D7D0053A68A /* TITokenField.h */,
+				5423F26119913D7D0053A68A /* TITokenField.m */,
+			);
+			name = TITokenField;
+			sourceTree = "<group>";
+		};
 		543721E3176DFB7100AFC35F /* First Tab - SimJob */ = {
 			isa = PBXGroup;
 			children = (
@@ -458,6 +470,7 @@
 		54DD492017AE588E00E27B2D /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				5423F26319913D840053A68A /* TITokenField */,
 				549C451E198B62470046C525 /* MBProgressHUD.h */,
 				549C451F198B62470046C525 /* MBProgressHUD.m */,
 				548E72AB198A412E0086990D /* MNMBottomPullToRefresh */,
@@ -502,8 +515,8 @@
 			children = (
 				54F4172419699A2E002235B7 /* SimJob.h */,
 				54F4172519699A2E002235B7 /* SimJob.m */,
-				549C4521198B640D0046C525 /* Application+configureApplication.h */,
-				549C4522198B640D0046C525 /* Application+configureApplication.m */,
+				549C4521198B640D0046C525 /* NewApplication.h */,
+				549C4522198B640D0046C525 /* NewApplication.m */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -654,6 +667,11 @@
 				LastTestingUpgradeCheck = 0510;
 				LastUpgradeCheck = 0460;
 				ORGANIZATIONNAME = vcell;
+				TargetAttributes = {
+					54DA31731764B8900020D2B5 = {
+						DevelopmentTeam = M2TZJK2U6H;
+					};
+				};
 			};
 			buildConfigurationList = 54DA316F1764B8900020D2B5 /* Build configuration list for PBXProject "VCell" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -748,12 +766,13 @@
 				545AF782178E8A1A0003678F /* BiomodelViewController.m in Sources */,
 				545AF786178EA6DA0003678F /* BioModel.xcdatamodeld in Sources */,
 				545AF7CF178F21100003678F /* Simulation.m in Sources */,
-				549C4523198B640D0046C525 /* Application+configureApplication.m in Sources */,
+				549C4523198B640D0046C525 /* NewApplication.m in Sources */,
 				545AF7D2178F21100003678F /* Application.m in Sources */,
 				54F4170F1969990C002235B7 /* SimJobTableViewController.m in Sources */,
 				545AF7D5178F21100003678F /* Biomodel.m in Sources */,
 				545AF7D8178FC0BA0003678F /* Functions.m in Sources */,
 				54F4172619699A2E002235B7 /* SimJob.m in Sources */,
+				5423F26219913D7D0053A68A /* TITokenField.m in Sources */,
 				548E72CC198A4B4E0086990D /* MNMBottomPullToRefreshManager.m in Sources */,
 				545AF7DD1796C7810003678F /* BiomodelDetailsViewController.m in Sources */,
 				54F4172319699A0F002235B7 /* SimJobTableViewCell.m in Sources */,
@@ -880,6 +899,8 @@
 		54DA31BB1764B8900020D2B5 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "VCell/VCell-Prefix.pch";
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
@@ -892,6 +913,7 @@
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
@@ -900,6 +922,8 @@
 		54DA31BC1764B8900020D2B5 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "VCell/VCell-Prefix.pch";
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
@@ -912,6 +936,7 @@
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};

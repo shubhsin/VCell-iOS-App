@@ -16,7 +16,7 @@ NSString * const BIOMODEL_FILTERS_FILE = @"biomodelFilters.plist";
 #ifdef LOCALHOST
 
 #define EXTENSION @".php"
-#define localhosturl "169.254.31.160"
+#define localhosturl "192.168.1.4"
 #define URL_DEF @"http://" localhosturl "/vcell"
 
 #else

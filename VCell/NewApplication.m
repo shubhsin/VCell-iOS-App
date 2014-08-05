@@ -6,25 +6,26 @@
 //  Copyright (c) 2014 vcell. All rights reserved.
 //
 
-#import "Application+configureApplication.h"
+#import "NewApplication.h"
+
 #import "SimJob.h"
 
-@implementation Application (configureApplication)
+@implementation NewApplication
 
-@dynamic bioModelLink;
-@dynamic scanCount;
-@dynamic solverName;
-@dynamic overrides;
-@dynamic parameters;
+@synthesize bioModelLink;
+@synthesize scanCount;
+@synthesize solverName;
+@synthesize overrides;
+@synthesize parameters;
 
 + (instancetype)initWithDict:(NSDictionary*)dict
 {
-    Application *application = [[Application alloc] init];
+    NewApplication *application = [[NewApplication alloc] init];
     
-   // application.bioModelLink = [[BioModelLink alloc] initWithDict:[dict objectForKey:@"bioModelLink"]];
-    application.branchId = [dict objectForKey:@"branchId"];
-    application.key = [dict objectForKey:@"key"];
-    application.mathKey = [dict objectForKey:@"mathKey"];
+    application.bioModelLink = [[BioModelLink alloc] initWithDict:[dict objectForKey:@"bioModelLink"]];
+    application.branchId = [NSNumber numberWithInteger:[[dict objectForKey:@"branchId"] integerValue]];
+    application.key = [NSNumber numberWithInteger:[[dict objectForKey:@"key"] integerValue]];
+    application.mathKey = [NSNumber numberWithInteger:[[dict objectForKey:@"mathKey"] integerValue]];
     application.name = [dict objectForKey:@"name"];
     application.ownerKey = [dict objectForKey:@"ownerKey"];
     application.ownerName = [dict objectForKey:@"ownerName"];
@@ -33,13 +34,13 @@
     
     NSMutableArray *overrides = [NSMutableArray array];
     for(id obj in [dict objectForKey:@"overrides"]) {
-        [overrides addObject:[[ApplicationParameters alloc] initWithDict:obj]];
+        [overrides addObject:[[ApplicationOverride alloc] initWithDict:obj]];
     }
     application.overrides = [NSArray arrayWithArray:overrides];
     
     NSMutableArray *parameters = [NSMutableArray array];
     for(id obj in [dict objectForKey:@"parameters"]) {
-        [parameters addObject:[[ApplicationOverride alloc] initWithDict:obj]];
+        [parameters addObject:[[ApplicationParameters alloc] initWithDict:obj]];
     }
     application.parameters = [NSArray arrayWithArray:parameters];
     

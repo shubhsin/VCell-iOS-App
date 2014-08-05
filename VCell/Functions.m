@@ -175,15 +175,14 @@
         }
     }
     
-    if(!disableTokenMode)
-    {
+    if(!disableTokenMode) {
+        
         NSTimeInterval validity = [[NSDate dateWithTimeIntervalSince1970:[[[AccessToken sharedInstance] expireDateSeconds] doubleValue]] timeIntervalSinceNow];
 
-        if(validity < 0)
-        {
+        if(validity < 0) {
             NSLog(@"Renewing token:%@",[[AccessToken sharedInstance] token]);
             
-            [self renewToken];
+            //[self renewToken];
             NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
                 
             NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@?user_id=%@&user_password=%@",ACCESS_TOKEN_URL,[[userDefaults objectForKey:USERPASSKEY] objectAtIndex:0],[[userDefaults objectForKey:USERPASSKEY] objectAtIndex:1]]];
@@ -202,8 +201,6 @@
                     id dict = [NSJSONSerialization JSONObjectWithData:jsonData options:kNilOptions error:nil];
                     [AccessToken setSharedInstance:[[AccessToken alloc] initWithDict:(NSDictionary*)dict]];
                 }
-            
-                
                 dispatch_async(dispatch_get_main_queue(), ^{
                     [self startConnection];
                 });
@@ -213,7 +210,6 @@
         }
         
     }
-    
     [self startConnection];
 }
 
@@ -246,14 +242,13 @@
     
     // Save the received JSON array inside an NSArray
     id jsonData = [NSJSONSerialization JSONObjectWithData:connectionData options:kNilOptions error:nil];
-    if(!HUDTextMode)
-    {
+    if(!HUDTextMode) {
         HUD.customView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"37x-Checkmark.png"]];
         HUD.mode = MBProgressHUDModeCustomView;
         HUD.dimBackground = NO;
     }
-    if([jsonData isKindOfClass:[NSDictionary class]] && [jsonData objectForKey:@"fault"])
-    {
+    
+    if([jsonData isKindOfClass:[NSDictionary class]] && [jsonData objectForKey:@"fault"]) {
         NSDictionary *error = [jsonData objectForKey:@"fault"];
         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Error" message:[error objectForKey:@"faultstring"] delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil];
         [alertView show];
@@ -276,7 +271,6 @@
 
 - (void)hudWasCancelled
 {
-
     [connection cancel];
     [HUD hide:YES];
 }
