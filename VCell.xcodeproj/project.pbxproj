@@ -14,6 +14,13 @@
 		541BD29D177193F100E82846 /* greyButtonHighlight.png in Resources */ = {isa = PBXBuildFile; fileRef = 541BD29B177193F100E82846 /* greyButtonHighlight.png */; };
 		541BD29E177193F100E82846 /* greyButtonHighlight@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 541BD29C177193F100E82846 /* greyButtonHighlight@2x.png */; };
 		5423F26219913D7D0053A68A /* TITokenField.m in Sources */ = {isa = PBXBuildFile; fileRef = 5423F26119913D7D0053A68A /* TITokenField.m */; };
+		5423F26619928AD40053A68A /* ParameterSelectTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5423F26519928AD40053A68A /* ParameterSelectTableViewController.m */; };
+		5423F26919928B1D0053A68A /* ParameterSelectTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5423F26819928B1D0053A68A /* ParameterSelectTableViewCell.m */; };
+		5423F26B1992A03F0053A68A /* AddParamView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5423F26A1992A03F0053A68A /* AddParamView.xib */; };
+		5423F26E1992A2430053A68A /* AddParamView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5423F26D1992A2430053A68A /* AddParamView.m */; };
+		5423F2711992A5150053A68A /* UIImage+ImageEffects.m in Sources */ = {isa = PBXBuildFile; fileRef = 5423F2701992A5150053A68A /* UIImage+ImageEffects.m */; };
+		5423F2751992A6B90053A68A /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 54DA317B1764B8900020D2B5 /* CoreGraphics.framework */; };
+		5423F2771992A6D60053A68A /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5423F2761992A6D60053A68A /* Accelerate.framework */; };
 		543721E2176DFA8000AFC35F /* Constants.m in Sources */ = {isa = PBXBuildFile; fileRef = 543721E1176DFA8000AFC35F /* Constants.m */; };
 		54372F48198A383F00435202 /* loadingIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 54372F47198A383F00435202 /* loadingIcon@2x.png */; };
 		54419AE7177B48EE00D10E30 /* SimJobDetailsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 54419AE6177B48EE00D10E30 /* SimJobDetailsController.m */; };
@@ -36,7 +43,6 @@
 		54C2F4FB178033BC00FEB6B9 /* GraphAxisSelectController.m in Sources */ = {isa = PBXBuildFile; fileRef = 54C2F4FA178033BC00FEB6B9 /* GraphAxisSelectController.m */; };
 		54DA31781764B8900020D2B5 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 54DA31771764B8900020D2B5 /* UIKit.framework */; };
 		54DA317A1764B8900020D2B5 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 54DA31791764B8900020D2B5 /* Foundation.framework */; };
-		54DA317C1764B8900020D2B5 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 54DA317B1764B8900020D2B5 /* CoreGraphics.framework */; };
 		54DA31821764B8900020D2B5 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 54DA31801764B8900020D2B5 /* InfoPlist.strings */; };
 		54DA31841764B8900020D2B5 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 54DA31831764B8900020D2B5 /* main.m */; };
 		54DA31881764B8900020D2B5 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 54DA31871764B8900020D2B5 /* AppDelegate.m */; };
@@ -89,6 +95,17 @@
 		541BD29C177193F100E82846 /* greyButtonHighlight@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "greyButtonHighlight@2x.png"; sourceTree = "<group>"; };
 		5423F26019913D7D0053A68A /* TITokenField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TITokenField.h; sourceTree = "<group>"; };
 		5423F26119913D7D0053A68A /* TITokenField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TITokenField.m; sourceTree = "<group>"; };
+		5423F26419928AD40053A68A /* ParameterSelectTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ParameterSelectTableViewController.h; sourceTree = "<group>"; };
+		5423F26519928AD40053A68A /* ParameterSelectTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ParameterSelectTableViewController.m; sourceTree = "<group>"; };
+		5423F26719928B1D0053A68A /* ParameterSelectTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ParameterSelectTableViewCell.h; sourceTree = "<group>"; };
+		5423F26819928B1D0053A68A /* ParameterSelectTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ParameterSelectTableViewCell.m; sourceTree = "<group>"; };
+		5423F26A1992A03F0053A68A /* AddParamView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AddParamView.xib; sourceTree = "<group>"; };
+		5423F26C1992A2430053A68A /* AddParamView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddParamView.h; sourceTree = "<group>"; };
+		5423F26D1992A2430053A68A /* AddParamView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddParamView.m; sourceTree = "<group>"; };
+		5423F26F1992A5150053A68A /* UIImage+ImageEffects.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+ImageEffects.h"; sourceTree = "<group>"; };
+		5423F2701992A5150053A68A /* UIImage+ImageEffects.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+ImageEffects.m"; sourceTree = "<group>"; };
+		5423F2731992A68E0053A68A /* ImageIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ImageIO.framework; path = System/Library/Frameworks/ImageIO.framework; sourceTree = SDKROOT; };
+		5423F2761992A6D60053A68A /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
 		543721E0176DFA8000AFC35F /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
 		543721E1176DFA8000AFC35F /* Constants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Constants.m; sourceTree = "<group>"; };
 		54372F47198A383F00435202 /* loadingIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "loadingIcon@2x.png"; path = "../loadingIcon@2x.png"; sourceTree = "<group>"; };
@@ -260,11 +277,12 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5423F2771992A6D60053A68A /* Accelerate.framework in Frameworks */,
+				5423F2751992A6B90053A68A /* CoreGraphics.framework in Frameworks */,
 				545AF78C178ED36C0003678F /* CoreData.framework in Frameworks */,
 				54C2F4F4177FDF2500FEB6B9 /* QuartzCore.framework in Frameworks */,
 				54DA31781764B8900020D2B5 /* UIKit.framework in Frameworks */,
 				54DA317A1764B8900020D2B5 /* Foundation.framework in Frameworks */,
-				54DA317C1764B8900020D2B5 /* CoreGraphics.framework in Frameworks */,
 				54F4177C1969B1E0002235B7 /* libCorePlot-CocoaTouch.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -307,6 +325,15 @@
 				5423F26119913D7D0053A68A /* TITokenField.m */,
 			);
 			name = TITokenField;
+			sourceTree = "<group>";
+		};
+		5423F2721992A51B0053A68A /* Image Effects */ = {
+			isa = PBXGroup;
+			children = (
+				5423F26F1992A5150053A68A /* UIImage+ImageEffects.h */,
+				5423F2701992A5150053A68A /* UIImage+ImageEffects.m */,
+			);
+			name = "Image Effects";
 			sourceTree = "<group>";
 		};
 		543721E3176DFB7100AFC35F /* First Tab - SimJob */ = {
@@ -408,6 +435,8 @@
 		54DA31761764B8900020D2B5 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				5423F2761992A6D60053A68A /* Accelerate.framework */,
+				5423F2731992A68E0053A68A /* ImageIO.framework */,
 				54C2F4F3177FDF2500FEB6B9 /* QuartzCore.framework */,
 				54DA31771764B8900020D2B5 /* UIKit.framework */,
 				54DA31791764B8900020D2B5 /* Foundation.framework */,
@@ -430,6 +459,7 @@
 				545AF783178E8A260003678F /* Second Tab - Biomodel */,
 				54097FA41774A54D00AA6AE2 /* Resources */,
 				54DA317E1764B8900020D2B5 /* Supporting Files */,
+				5423F26A1992A03F0053A68A /* AddParamView.xib */,
 			);
 			path = VCell;
 			sourceTree = "<group>";
@@ -470,6 +500,7 @@
 		54DD492017AE588E00E27B2D /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				5423F2721992A51B0053A68A /* Image Effects */,
 				5423F26319913D840053A68A /* TITokenField */,
 				549C451E198B62470046C525 /* MBProgressHUD.h */,
 				549C451F198B62470046C525 /* MBProgressHUD.m */,
@@ -483,12 +514,16 @@
 		54F41711196999F6002235B7 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				5423F26C1992A2430053A68A /* AddParamView.h */,
+				5423F26D1992A2430053A68A /* AddParamView.m */,
 				54F4171D19699A0F002235B7 /* SimViewQuotaTableViewCell.h */,
 				54F4171E19699A0F002235B7 /* SimViewQuotaTableViewCell.m */,
 				54F4171B19699A0F002235B7 /* SimulationViewTableViewCell.h */,
 				54F4171C19699A0F002235B7 /* SimulationViewTableViewCell.m */,
 				54F4171F19699A0F002235B7 /* SimJobTableViewCell.h */,
 				54F4172019699A0F002235B7 /* SimJobTableViewCell.m */,
+				5423F26719928B1D0053A68A /* ParameterSelectTableViewCell.h */,
+				5423F26819928B1D0053A68A /* ParameterSelectTableViewCell.m */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -506,6 +541,8 @@
 				54419AE6177B48EE00D10E30 /* SimJobDetailsController.m */,
 				54BDEF19198AA50E00010EB4 /* ConfigureSimulationTableViewController.h */,
 				54BDEF1A198AA50E00010EB4 /* ConfigureSimulationTableViewController.m */,
+				5423F26419928AD40053A68A /* ParameterSelectTableViewController.h */,
+				5423F26519928AD40053A68A /* ParameterSelectTableViewController.m */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -702,6 +739,7 @@
 				54DA318E1764B8900020D2B5 /* Default-568h@2x.png in Resources */,
 				54DA31911764B8900020D2B5 /* MainStoryboard_iPhone.storyboard in Resources */,
 				54DA31941764B8900020D2B5 /* MainStoryboard_iPad.storyboard in Resources */,
+				5423F26B1992A03F0053A68A /* AddParamView.xib in Resources */,
 				54DA31991764B8900020D2B5 /* first.png in Resources */,
 				54DA319B1764B8900020D2B5 /* first@2x.png in Resources */,
 				54DA31A01764B8900020D2B5 /* second.png in Resources */,
@@ -766,6 +804,7 @@
 				545AF782178E8A1A0003678F /* BiomodelViewController.m in Sources */,
 				545AF786178EA6DA0003678F /* BioModel.xcdatamodeld in Sources */,
 				545AF7CF178F21100003678F /* Simulation.m in Sources */,
+				5423F2711992A5150053A68A /* UIImage+ImageEffects.m in Sources */,
 				549C4523198B640D0046C525 /* NewApplication.m in Sources */,
 				545AF7D2178F21100003678F /* Application.m in Sources */,
 				54F4170F1969990C002235B7 /* SimJobTableViewController.m in Sources */,
@@ -773,10 +812,13 @@
 				545AF7D8178FC0BA0003678F /* Functions.m in Sources */,
 				54F4172619699A2E002235B7 /* SimJob.m in Sources */,
 				5423F26219913D7D0053A68A /* TITokenField.m in Sources */,
+				5423F26619928AD40053A68A /* ParameterSelectTableViewController.m in Sources */,
 				548E72CC198A4B4E0086990D /* MNMBottomPullToRefreshManager.m in Sources */,
 				545AF7DD1796C7810003678F /* BiomodelDetailsViewController.m in Sources */,
+				5423F26E1992A2430053A68A /* AddParamView.m in Sources */,
 				54F4172319699A0F002235B7 /* SimJobTableViewCell.m in Sources */,
 				54DD491A17AD24EB00E27B2D /* BiomodelCell.m in Sources */,
+				5423F26919928B1D0053A68A /* ParameterSelectTableViewCell.m in Sources */,
 				54FB100117BDE299005D671D /* AccessToken.m in Sources */,
 				54FB100417BDE72E005D671D /* LoginViewController.m in Sources */,
 				5492E32917DB58EC00CABA4F /* RegisterationViewController.m in Sources */,

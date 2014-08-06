@@ -36,7 +36,7 @@
     for(id obj in [dict objectForKey:@"overrides"]) {
         [overrides addObject:[[ApplicationOverride alloc] initWithDict:obj]];
     }
-    application.overrides = [NSArray arrayWithArray:overrides];
+    application.overrides = overrides;
     
     NSMutableArray *parameters = [NSMutableArray array];
     for(id obj in [dict objectForKey:@"parameters"]) {
@@ -45,6 +45,16 @@
     application.parameters = [NSArray arrayWithArray:parameters];
     
     return application;
+}
+
+- (BOOL)parameterinOverrides:(ApplicationParameters*)param
+{
+    __block BOOL inOverrides = NO;
+    [self.overrides enumerateObjectsUsingBlock:^(ApplicationOverride *obj, NSUInteger idx, BOOL *stop) {
+        if([obj.name isEqualToString:param.name])
+            inOverrides = YES;
+    }];
+    return inOverrides;
 }
 
 -(NSString*)description

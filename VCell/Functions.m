@@ -180,6 +180,7 @@
         NSTimeInterval validity = [[NSDate dateWithTimeIntervalSince1970:[[[AccessToken sharedInstance] expireDateSeconds] doubleValue]] timeIntervalSinceNow];
 
         if(validity < 0) {
+            
             NSLog(@"Renewing token:%@",[[AccessToken sharedInstance] token]);
             
             //[self renewToken];

@@ -5,6 +5,7 @@
 //  Created by Ankit Agarwal on 01/08/14.
 //  Copyright (c) 2014 vcell. All rights reserved.
 //
+@class ApplicationParameters;
 
 @interface NewApplication : NSObject
 
@@ -17,10 +18,11 @@
 @property (nonatomic, strong) NSString *solverName;
 @property (nonatomic, strong) NSNumber *scanCount;
 @property (nonatomic, strong) BioModelLink *bioModelLink;
-@property (nonatomic, strong) NSArray *overrides;
+@property (nonatomic, strong) NSMutableArray *overrides;
 @property (nonatomic, strong) NSArray *parameters;
 
 + (instancetype)initWithDict:(NSDictionary*)dict;
+- (BOOL)parameterinOverrides:(ApplicationParameters*)param;
 
 @end
 

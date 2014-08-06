@@ -9,12 +9,14 @@
 #import "ConfigureSimulationTableViewController.h"
 #import "NewApplication.h"
 #import "TITokenField.h"
+#import "ParameterSelectTableViewController.h"
 
-@interface ConfigureSimulationTableViewController () <FetchJSONDelegate>
+@interface ConfigureSimulationTableViewController () <FetchJSONDelegate, TITokenFieldDelegate, UIAlertViewDelegate>
 {
     SimJob *_simJob;
     NewApplication *_application;
     TITokenFieldView *_tokenFieldView;
+    TIToken *_selectedToken;
 }
 
 @property (weak, nonatomic) IBOutlet UITableViewCell *nameCell;
@@ -43,10 +45,11 @@
 - (void)loadSimulation
 {
 #warning change this
-   // NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/biomodel/%@/simulation/%@",BASE_URL, _simJob.bioModelLink.bioModelKey, _simJob.simKey]];
-    
+#ifdef LOCALHOST
     NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/simulation.php?", BASE_URL]];
-    
+#else
+    NSURL *url =[NSURL URLWithString:[NSString stringWithFormat:@"%@/biomodel/%@/simulation/%@?",BASE_URL, _simJob.bioModelLink.bioModelKey, _simJob.simKey]];
+#endif
     [[[Functions alloc] init] fetchJSONFromURL:url HUDTextMode:NO AddHUDToView:self.navigationController.view delegate:self];
 }
 
@@ -69,7 +72,7 @@
     //Adjust cell detail text label's width
     NSArray *cells = @[self.nameCell, self.modeCell, self.solverCell, self.ownerCell, self.numJobsCell];
 
-    for(UITableViewCell *cell in cells){
+    for(UITableViewCell *cell in cells) {
         CGRect frame = [[cell detailTextLabel] frame];
         frame.size.width = self.view.frame.size.width - frame.origin.x - 15;
         [[cell detailTextLabel] setFrame:frame];
@@ -93,6 +96,7 @@
     }];
     
     _tokenFieldView = [[TITokenFieldView alloc] initWithFrame:CGRectMake(16, 30, 290, 500)];
+    _tokenFieldView.tokenField.delegate = self;
 	[self.footerView addSubview:_tokenFieldView];
     
     [_tokenFieldView.tokenField addTokensWithTitleArray:overridesArray];
@@ -105,11 +109,16 @@
         token.textColor = [UIColor colorWithRed:34/255.0 green:34/255.0 blue:34/255.0 alpha:1.0];
     }];
     
-    //_tokenFieldView.scrollEnabled = NO;
+    _tokenFieldView.scrollEnabled = NO;
     _tokenFieldView.tokenField.editable = NO;
     _tokenFieldView.tokenField.backgroundColor = [UIColor whiteColor];
     _tokenFieldView.separator.backgroundColor = [UIColor clearColor];
     
+    [self footerFrameUpdate];
+}
+
+- (void)footerFrameUpdate
+{
     CGFloat tokenFieldBottom = _tokenFieldView.tokenField.frame.size.height;
     _tokenFieldView.contentSize = CGSizeMake(_tokenFieldView.contentSize.width, tokenFieldBottom);
     
@@ -123,7 +132,38 @@
     frame = self.footerView.frame;
     frame.size.height = _tokenFieldView.frame.size.height + _tokenFieldView.frame.origin.y;
     self.footerView.frame = frame;
-    
+}
+
+- (void)tokenFieldDidSelect:(TIToken *)token
+{
+    if(token.representedObject) {
+        _selectedToken = token;
+        ApplicationOverride *override = (ApplicationOverride *)token.representedObject;
+        NSString *msg =[NSString stringWithFormat:@"Type: %@\nValues: %@\ncardinality: %@",[override stringFromType],override.values,override.cardinality];
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Details" message:msg delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:@"Remove",nil];
+        alertView.tag = 1;
+        [alertView show];
+    }
+}
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if(alertView.tag == 0) {
+        [self.tableView deselectRowAtIndexPath:[self.tableView indexPathForSelectedRow] animated:YES];
+        return;
+    }
+    if(alertView.tag == 1) {
+        if (buttonIndex == 1) {
+            [_application.overrides removeObject:_selectedToken.representedObject];
+            [UIView animateWithDuration:0.2 animations:^{
+                _selectedToken.alpha = 0;
+            } completion:^(BOOL finished) {
+                [_tokenFieldView.tokenField removeToken:_selectedToken];
+                [self footerFrameUpdate];
+            }];
+            
+        }
+    }
 }
 
 #pragma mark - Table view delegate
@@ -136,13 +176,9 @@
         
     } else {
         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Details" message:cell.detailTextLabel.text delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+        alertView.tag = 0;
         [alertView show];
     }
-}
-
-- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
-{
-    [self.tableView deselectRowAtIndexPath:[self.tableView indexPathForSelectedRow] animated:YES];
 }
 
 -(void)viewDidLayoutSubviews
@@ -151,7 +187,7 @@
     [self.tableView setContentInset:UIEdgeInsetsMake(50, 0, self.footerView.frame.size.height - 50, 0)];
 }
 
-/*
+
  #pragma mark - Navigation
  
  // In a storyboard-based application, you will often want to do a little preparation before navigation
@@ -159,7 +195,11 @@
  {
  // Get the new view controller using [segue destinationViewController].
  // Pass the selected object to the new view controller.
+     if([[segue identifier] isEqualToString:@"addParam"]){
+         [(ParameterSelectTableViewController*)[segue destinationViewController] setApplication:_application];
+     }
+     
  }
- */
+
 
 @end

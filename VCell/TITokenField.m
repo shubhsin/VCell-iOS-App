@@ -730,12 +730,9 @@ NSString * const kTextHidden = @"\u200D"; // Zero-Width Joiner
 - (void)selectToken:(TIToken *)token {
 	
 	[self deselectSelectedToken];
-    if(token.representedObject) {
-        ApplicationOverride *override = (ApplicationOverride *)token.representedObject;
-        NSString *msg =[NSString stringWithFormat:@"Type: %@\nValues: %@\ncardinality: %@",[override stringFromType],override.values,override.cardinality];
-        
-        [[[UIAlertView alloc] initWithTitle:@"Details" message:msg delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil] show];
-    }
+    if ([delegate respondsToSelector:@selector(tokenFieldDidSelect:)]){
+		[delegate tokenFieldDidSelect:token];
+	}
 }
 
 - (void)deselectSelectedToken {
