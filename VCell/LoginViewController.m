@@ -22,12 +22,10 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-}
-
-- (void)viewDidAppear:(BOOL)animated
-{
-    if([[NSUserDefaults standardUserDefaults] objectForKey:USERPASSKEY])
-        [self performSegueWithIdentifier:@"loggedIn" sender:nil];
+    if([[NSUserDefaults standardUserDefaults] objectForKey:USERPASSKEY]) {
+        UITabBarController *tabBarController = [self.storyboard instantiateViewControllerWithIdentifier:@"mainTabBarContoller"];
+        [self presentViewController:tabBarController animated:NO completion:nil];
+    }
 }
 
 - (NSString*)sha1:(NSString*)input

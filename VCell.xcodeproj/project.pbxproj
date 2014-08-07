@@ -21,6 +21,7 @@
 		5423F2711992A5150053A68A /* UIImage+ImageEffects.m in Sources */ = {isa = PBXBuildFile; fileRef = 5423F2701992A5150053A68A /* UIImage+ImageEffects.m */; };
 		5423F2751992A6B90053A68A /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 54DA317B1764B8900020D2B5 /* CoreGraphics.framework */; };
 		5423F2771992A6D60053A68A /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5423F2761992A6D60053A68A /* Accelerate.framework */; };
+		5423F2791993F7950053A68A /* blurImg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5423F2781993F7950053A68A /* blurImg@2x.png */; };
 		543721E2176DFA8000AFC35F /* Constants.m in Sources */ = {isa = PBXBuildFile; fileRef = 543721E1176DFA8000AFC35F /* Constants.m */; };
 		54372F48198A383F00435202 /* loadingIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 54372F47198A383F00435202 /* loadingIcon@2x.png */; };
 		54419AE7177B48EE00D10E30 /* SimJobDetailsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 54419AE6177B48EE00D10E30 /* SimJobDetailsController.m */; };
@@ -106,6 +107,7 @@
 		5423F2701992A5150053A68A /* UIImage+ImageEffects.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+ImageEffects.m"; sourceTree = "<group>"; };
 		5423F2731992A68E0053A68A /* ImageIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ImageIO.framework; path = System/Library/Frameworks/ImageIO.framework; sourceTree = SDKROOT; };
 		5423F2761992A6D60053A68A /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
+		5423F2781993F7950053A68A /* blurImg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "blurImg@2x.png"; sourceTree = "<group>"; };
 		543721E0176DFA8000AFC35F /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
 		543721E1176DFA8000AFC35F /* Constants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Constants.m; sourceTree = "<group>"; };
 		54372F47198A383F00435202 /* loadingIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "loadingIcon@2x.png"; path = "../loadingIcon@2x.png"; sourceTree = "<group>"; };
@@ -302,6 +304,7 @@
 		54097FA41774A54D00AA6AE2 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				5423F2781993F7950053A68A /* blurImg@2x.png */,
 				541BD297177193DD00E82846 /* greyButton.png */,
 				541BD298177193DD00E82846 /* greyButton@2x.png */,
 				541BD29B177193F100E82846 /* greyButtonHighlight.png */,
@@ -741,6 +744,7 @@
 				54DA31941764B8900020D2B5 /* MainStoryboard_iPad.storyboard in Resources */,
 				5423F26B1992A03F0053A68A /* AddParamView.xib in Resources */,
 				54DA31991764B8900020D2B5 /* first.png in Resources */,
+				5423F2791993F7950053A68A /* blurImg@2x.png in Resources */,
 				54DA319B1764B8900020D2B5 /* first@2x.png in Resources */,
 				54DA31A01764B8900020D2B5 /* second.png in Resources */,
 				54DA31A21764B8900020D2B5 /* second@2x.png in Resources */,
