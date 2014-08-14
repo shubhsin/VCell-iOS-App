@@ -23,7 +23,7 @@
     NSString *sortPref;
     NSDictionary *sortPrefDict;
     NSMutableDictionary *numberOfObjectsReceived;
-    NSUInteger displaySegmentIndex;
+    NSUInteger displayViewIndex;
     Functions *functions;
     Functions *functionOnlineSearch;
     NSUInteger oldNumberOfSections;
@@ -52,12 +52,12 @@
 {
     userDefaults = [NSUserDefaults standardUserDefaults];
     
-    if([userDefaults objectForKey:BM_DISPLAYSEGMENTINDEX])
-        displaySegmentIndex = [[userDefaults objectForKey:BM_DISPLAYSEGMENTINDEX] integerValue];
+    if([userDefaults objectForKey:BM_DISPLAYVIEWINDEX])
+        displayViewIndex = [[userDefaults objectForKey:BM_DISPLAYVIEWINDEX] integerValue];
     else
-        displaySegmentIndex = APPLICATIONS_SEGMENT;
+        displayViewIndex = BIOMODELS_VIEW;
     
-    self.appSimSegmentControl.selectedSegmentIndex = displaySegmentIndex;
+//    self.appSimSegmentControl.selectedSegmentIndex = displaySegmentIndex;
     
     numberOfObjectsReceived = [[userDefaults objectForKey:BM_NUMBEROFOBJECTS] mutableCopy];
     actionSheetPref = [userDefaults objectForKey:BM_ACTIONSHEETPREF];
@@ -320,7 +320,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    if(IS_ONLINE_SEARCHED_BIOMODEL_SECTION)
+    if(IS_ONLINE_SEARCHED_BIOMODEL_VIEW)
         return onlineSearchedBiomodels?[onlineSearchedBiomodels count]:1;
     
     id <NSFetchedResultsSectionInfo> sectionInfo = [[self fetchedResultsControllerForTableView:tableView] sections][section];
@@ -330,20 +330,20 @@
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
 {
-    if(IS_ONLINE_SEARCHED_BIOMODEL_SECTION)
+    if(IS_ONLINE_SEARCHED_BIOMODEL_VIEW)
         return @"Online";
     
-    if(displaySegmentIndex == BIOMODELS_SEGMENT) return nil;
+    if(displayViewIndex == BIOMODELS_VIEW) return nil;
     
     Biomodel *bioModel;
     id baseObject = [[self fetchedResultsControllerForTableView:tableView] objectAtIndexPath:
                      [NSIndexPath indexPathForRow:0 inSection:section]];
     
-    switch (displaySegmentIndex) {
-        case APPLICATIONS_SEGMENT:
+    switch (displayViewIndex) {
+        case APPLICATIONS_VIEW:
             bioModel = [baseObject biomodel];
             break;
-        case SIMULATIONS_SEGMENT:
+        case SIMULATIONS_VIEW:
             bioModel = [[baseObject application] biomodel];
             break;
     }
@@ -378,7 +378,7 @@
 {
     //Online Search
     NSInteger section = indexPath.section;
-    if(IS_ONLINE_SEARCHED_BIOMODEL_SECTION && onlineSearchedBiomodels == nil)
+    if(IS_ONLINE_SEARCHED_BIOMODEL_VIEW && onlineSearchedBiomodels == nil)
     {
             cell.titleLabel.text = @"Press Search Button to Begin";
             cell.titleLabel.textAlignment = NSTextAlignmentCenter;
@@ -400,7 +400,7 @@
     
     cell.simAppCountLabel.text = nil;
     
-    if(displaySegmentIndex == BIOMODELS_SEGMENT)
+    if(displayViewIndex == BIOMODELS_VIEW)
     {
         cell.detailLabel.text = [object name];
         
@@ -416,11 +416,11 @@
         
         cell.simAppCountLabel.text =  [NSString stringWithFormat:@"| A: %d | S: %d |",(int)[[object applications] count], numberOfSim];
     }
-    else if(displaySegmentIndex == APPLICATIONS_SEGMENT)
+    else if(displayViewIndex == APPLICATIONS_VIEW)
     {
         cell.detailLabel.text = [NSString stringWithFormat:@"Simulations: %d",(int)[[object simulations] count]];
     }
-    else if(displaySegmentIndex == SIMULATIONS_SEGMENT)
+    else if(displayViewIndex == SIMULATIONS_VIEW)
     {
         cell.detailLabel.text = [[object application] name];
     }
@@ -455,23 +455,23 @@
         ascending = NO;
     }
     
-    switch (displaySegmentIndex) {
+    switch (displayViewIndex) {
             
-        case BIOMODELS_SEGMENT:
+        case BIOMODELS_VIEW:
 
             entityName = BIOMODEL_ENTITY;
             
             sectionKeyPath = nil;
             
             break;
-        case APPLICATIONS_SEGMENT:
+        case APPLICATIONS_VIEW:
             
             entityName = APPLICATION_ENTITY;
             sortKey = [NSString stringWithFormat:@"biomodel.%@",sortKey];
             sectionKeyPath = @"biomodel.bmKey";
             [predicateFormat appendString:@"biomodel."];
             break;
-        case SIMULATIONS_SEGMENT:
+        case SIMULATIONS_VIEW:
             
             entityName = SIMULATION_ENTITY;
             sortKey = [NSString stringWithFormat:@"application.biomodel.%@",sortKey];
@@ -564,7 +564,7 @@
         if(rowNum > [[URLparams objectForKey:BM_MAXROWS] integerValue])
         {
             NSIndexPath *indexPath;
-            if(displaySegmentIndex == BIOMODELS_SEGMENT)
+            if(displayViewIndex == BIOMODELS_VIEW)
                 indexPath = [NSIndexPath indexPathForRow:rowNum - [[numberOfObjectsReceived objectForKey:actionSheetPref] integerValue] inSection:0];
             else
                 indexPath = [NSIndexPath indexPathForRow:0 inSection:oldNumberOfSections];
@@ -580,7 +580,7 @@
 {
     NSInteger section = indexPath.section;
     
-    id object = IS_ONLINE_SEARCHED_BIOMODEL_SECTION?[onlineSearchedBiomodels objectAtIndex:indexPath.row]:[[self fetchedResultsControllerForTableView:tableView] objectAtIndexPath:indexPath];
+    id object = IS_ONLINE_SEARCHED_BIOMODEL_VIEW?[onlineSearchedBiomodels objectAtIndex:indexPath.row]:[[self fetchedResultsControllerForTableView:tableView] objectAtIndexPath:indexPath];
     
     BiomodelDetailsViewController *biomodelDetailsViewController = [[BiomodelDetailsViewController alloc] initWithStyle:UITableViewStylePlain];
     [biomodelDetailsViewController setObject:object];
@@ -603,17 +603,17 @@
         }
 }
 
-- (IBAction)appSimSwap:(id)sender
-{
-    [self.tableView setContentOffset:CGPointZero animated:NO]; // Scroll to top
-    displaySegmentIndex = self.appSimSegmentControl.selectedSegmentIndex;
-    
-    [userDefaults setObject:[NSNumber numberWithInteger:displaySegmentIndex] forKey:BM_DISPLAYSEGMENTINDEX];
-    [userDefaults synchronize];
-    
-    self.fetchedResultsController = nil;
-    [self.tableView reloadData];
-}
+//- (IBAction)appSimSwap_noused:(id)sender
+//{
+//    [self.tableView setContentOffset:CGPointZero animated:NO]; // Scroll to top
+//    displayViewIndex = self.appSimSegmentControl.selectedSegmentIndex;
+//    
+//    [userDefaults setObject:[NSNumber numberWithInteger:displayViewIndex] forKey:BM_DISPLAYSEGMENTINDEX];
+//    [userDefaults synchronize];
+//    
+//    self.fetchedResultsController = nil;
+//    [self.tableView reloadData];
+//}
 
 - (IBAction)selectOwnerBtnClicked:(id)sender
 {
@@ -685,7 +685,7 @@
 - (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText
 {
     _searchFetchedResultsController = nil;
-    if(displaySegmentIndex == BIOMODELS_SEGMENT && onlineSearchedBiomodels != nil)
+    if(displayViewIndex == BIOMODELS_VIEW && onlineSearchedBiomodels != nil)
     {
         [functionOnlineSearch cancelConnection];
         onlineSearchedBiomodels = nil;
@@ -709,7 +709,7 @@
 
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar
 {
-    if(displaySegmentIndex == BIOMODELS_SEGMENT)
+    if(displayViewIndex == BIOMODELS_VIEW)
     {
         UITableView *tableView = self.searchDisplayController.searchResultsTableView;
     

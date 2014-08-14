@@ -76,8 +76,10 @@
 
 - (void)setUpView
 {
-    if(biomodel || application)
+    if(biomodel){
         self.title = @"Simulations";
+    }else if (application)
+        self.title = @"Applications";
     else if(simulation)
     {
         self.title = @"Simulation Jobs";

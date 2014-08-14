@@ -20,14 +20,14 @@
 #import "AccessToken.h"
 #import "LoginViewController.h"
 
-#define BM_DISPLAYSEGMENTINDEX @"displaySegmentIndex"
+#define BM_DISPLAYVIEWINDEX @"displaySegmentIndex"
 #define BM_NUMBEROFOBJECTS @"numberOfObjects" //to keep track of number of objects received in last request
 #define BM_ACTIONSHEETPREF @"bmActionSheetPref"
 #define BM_SORTPREF @"bmsortPref"
 
-#define BIOMODELS_SEGMENT 0
-#define APPLICATIONS_SEGMENT 1
-#define SIMULATIONS_SEGMENT 2
+#define BIOMODELS_VIEW 0
+#define APPLICATIONS_VIEW 1
+#define SIMULATIONS_VIEW 2
 
 //constants for URL params
 #define BM_BEGIN_STAMP @"savedLow"
@@ -47,8 +47,8 @@
 #define NAME_ASC @"name_asc"
 #define NAME_DESC @"name_desc"
 
-#define IS_ONLINE_SEARCHED_BIOMODEL tableView == self.searchDisplayController.searchResultsTableView && displaySegmentIndex == BIOMODELS_SEGMENT
-#define IS_ONLINE_SEARCHED_BIOMODEL_SECTION IS_ONLINE_SEARCHED_BIOMODEL && section == tableView.numberOfSections - 1
+#define IS_ONLINE_SEARCHED_BIOMODEL tableView == self.searchDisplayController.searchResultsTableView && displayViewIndex == BIOMODELS_VIEW
+#define IS_ONLINE_SEARCHED_BIOMODEL_VIEW IS_ONLINE_SEARCHED_BIOMODEL && section == tableView.numberOfSections - 1
 
 @interface BiomodelViewController : UITableViewController <NSFetchedResultsControllerDelegate, FetchJSONDelegate, UISearchBarDelegate, UISearchDisplayDelegate, UIActionSheetDelegate>
 
@@ -58,10 +58,10 @@
 @property (strong, nonatomic) NSFetchedResultsController *fetchedResultsController;
 @property (strong, nonatomic) NSFetchedResultsController *searchFetchedResultsController;
 @property (strong, nonatomic) NSManagedObjectContext *managedObjectContext;
-@property (weak, nonatomic) IBOutlet UISegmentedControl *appSimSegmentControl;
+//@property (weak, nonatomic) IBOutlet UISegmentedControl *appSimSegmentControl;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *ownerBtn;
 
-- (IBAction)appSimSwap:(id)sender;
+//- (IBAction)appSimSwap_noused:(id)sender;
 - (IBAction)selectOwnerBtnClicked:(id)sender;
 - (IBAction)optionBtnClicked:(id)sender;
 

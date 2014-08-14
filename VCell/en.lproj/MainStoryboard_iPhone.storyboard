@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="5056" systemVersion="13C64" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="wlM-Mh-HLZ">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="5056" systemVersion="13D65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="wlM-Mh-HLZ">
     <dependencies>
         <deployment defaultVersion="1792" identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3733"/>
@@ -1449,18 +1449,6 @@
                                 <action selector="selectOwnerBtnClicked:" destination="hcS-J6-KHh" id="ChU-0j-2ez"/>
                             </connections>
                         </barButtonItem>
-                        <segmentedControl key="titleView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" id="owD-Vu-vQA">
-                            <rect key="frame" x="75" y="5" width="170" height="35"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <segments>
-                                <segment title="Bio"/>
-                                <segment title="App"/>
-                                <segment title="Sim"/>
-                            </segments>
-                            <connections>
-                                <action selector="appSimSwap:" destination="hcS-J6-KHh" eventType="valueChanged" id="v0n-9d-cQd"/>
-                            </connections>
-                        </segmentedControl>
                         <barButtonItem key="rightBarButtonItem" title="Options" id="wEO-0J-XFj">
                             <connections>
                                 <action selector="optionBtnClicked:" destination="hcS-J6-KHh" id="d7Y-Ks-hw5"/>
@@ -1468,7 +1456,6 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="appSimSegmentControl" destination="owD-Vu-vQA" id="iwX-qJ-Eqp"/>
                         <outlet property="ownerBtn" destination="ecH-P6-WXt" id="9ru-kD-vC2"/>
                         <outlet property="searchDisplayController" destination="J1z-CC-JCD" id="29j-Q8-Vh5"/>
                     </connections>
@@ -2211,6 +2198,6 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="CUC-uD-JiW"/>
+        <segue reference="VGc-Bl-Ok9"/>
     </inferredMetricsTieBreakers>
 </document>
