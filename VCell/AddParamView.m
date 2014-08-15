@@ -133,6 +133,8 @@ enum segments {
         case segmentNone:
             break;
         case segmentDependant:
+            _override = [[ApplicationOverride alloc] init];
+            self.override.name = self.param.name;
             self.override.type = Dependent;
             self.override.cardinality = @(1);
             if(!([scanner scanDouble:nil] && [scanner isAtEnd])) {
@@ -143,6 +145,8 @@ enum segments {
             [overrides addObject:self.override];
             break;
         case segmentSingle:
+            _override = [[ApplicationOverride alloc] init];
+            self.override.name = self.param.name;
             self.override.type = Single;
             self.override.cardinality = @(1);
             if(!([scanner scanDouble:nil] && [scanner isAtEnd])) {
@@ -153,6 +157,8 @@ enum segments {
             [overrides addObject:self.override];
             break;
         case segmentList:
+            _override = [[ApplicationOverride alloc] init];
+            self.override.name = self.param.name;
             self.override.type = List;
             self.override.cardinality = @(1);
             self.override.values = [self overrideValuesCommaSeperated]; //@[@(self.valueTextField.text.doubleValue)];
@@ -161,6 +167,8 @@ enum segments {
             [overrides addObject:self.override];
             break;
         case segmentLinear:
+            _override = [[ApplicationOverride alloc] init];
+            self.override.name = self.param.name;
             self.override.type = LinearInterval;
             self.override.cardinality = [NSNumber numberWithInt:self.cardiTextFIeld.text.intValue];
             self.override.values = [self overrideValuesCommaSeperated];
@@ -169,6 +177,8 @@ enum segments {
             [overrides addObject:self.override];
             break;
         case segmentLog:
+            _override = [[ApplicationOverride alloc] init];
+            self.override.name = self.param.name;
             self.override.type = LogInterval;
             self.override.cardinality = [NSNumber numberWithInt:self.cardiTextFIeld.text.intValue];
             self.override.values = [self overrideValuesCommaSeperated];
