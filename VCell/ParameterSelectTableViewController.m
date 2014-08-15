@@ -84,7 +84,6 @@
     if(cell.addedState)
         return;
     
-
     self.paramView = [[[NSBundle mainBundle] loadNibNamed:@"AddParamView" owner:self options:nil] objectAtIndex:0];
     self.paramView.parameterSelectTableViewController = self;
     
@@ -92,7 +91,10 @@
     NSDictionary *dict = @{@"name" : param.name , @"values" : @[param.defaultValue] , @"type" : @"Single"};
     self.paramView.override = [[ApplicationOverride alloc] initWithDict:dict];
     
-    UIImageView *blurView = [[UIImageView alloc] initWithFrame:self.navigationController.view.frame];
+    CGRect frame = self.navigationController.view.frame;
+    frame.origin.y = 20;
+    UIImageView *blurView = [[UIImageView alloc] initWithFrame:frame];
+    
     blurView.userInteractionEnabled = YES;
     blurView.image = [UIImage imageNamed:@"blurImg.png"];
     [self.navigationController.view addSubview:blurView];

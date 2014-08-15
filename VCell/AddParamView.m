@@ -83,9 +83,113 @@ enum segments {
 
 - (IBAction)addBtnClicked:(id)sender
 {
+    
+    /*
+     typedef enum : NSUInteger {
+     LogInterval,
+     List,
+     Single,
+     LinearInterval,
+     Dependent
+     } OverrideType;
+     */
+    
+    NSMutableArray *overrides = self.parameterSelectTableViewController.application.overrides;
+    NSScanner *scanner = [NSScanner scannerWithString:self.valueTextField.text];
+    switch (self.segmentControl.selectedSegmentIndex) {
+        case segmentNone:
+            self.override.cardinality = @(1);
+            [overrides addObject:self.override];
+            break;
+        case segmentDependant:
+            self.override.type = Dependent;
+            self.override.cardinality = @(1);
+            if(!([scanner scanDouble:nil] && [scanner isAtEnd])) {
+                [self showErrorAlert];
+                return;
+            }
+            self.override.values = @[@(self.valueTextField.text.doubleValue)];
+            [overrides addObject:self.override];
+            break;
+        case segmentSingle:
+            self.override.type = Single;
+            self.override.cardinality = @(1);
+            if(!([scanner scanDouble:nil] && [scanner isAtEnd])) {
+                [self showErrorAlert];
+                return;
+            }
+            self.override.values = @[@(self.valueTextField.text.doubleValue)];
+            [overrides addObject:self.override];
+            break;
+        case segmentList:
+            self.override.type = List;
+            self.override.cardinality = @(1);
+            self.override.values = [self overrideValuesCommaSeperated]; //@[@(self.valueTextField.text.doubleValue)];
+            if(!self.override.values)
+                return;
+            [overrides addObject:self.override];
+            break;
+        case segmentLinear:
+            self.override.type = LinearInterval;
+            self.override.cardinality = [NSNumber numberWithInt:self.cardiTextFIeld.text.intValue];
+            self.override.values = [self overrideValuesCommaSeperated];
+            if(!self.override.values)
+                return;
+            [overrides addObject:self.override];
+            break;
+        case segmentLog:
+            self.override.type = LogInterval;
+            self.override.cardinality = [NSNumber numberWithInt:self.cardiTextFIeld.text.intValue];
+            self.override.values = [self overrideValuesCommaSeperated];
+            if(!self.override.values)
+                return;
+            [overrides addObject:self.override];
+            break;
+        default:
+            break;
+    }
     [self.superview removeFromSuperview];
+    [self.parameterSelectTableViewController.tableView reloadData];
     self.parameterSelectTableViewController.tableView.scrollEnabled = YES;
     self.parameterSelectTableViewController.tableView.allowsSelection = YES;
+}
+
+- (NSArray*)overrideValuesCommaSeperated
+{
+    NSArray *seperatedValues = [self.valueTextField.text componentsSeparatedByString:@","];
+    __block NSMutableArray *values = [NSMutableArray array];
+
+    [seperatedValues enumerateObjectsUsingBlock:^(NSString *val, NSUInteger idx, BOOL *stop) {
+        NSScanner *scanner = [NSScanner scannerWithString:val];
+        if(!([scanner scanDouble:nil] && [scanner isAtEnd])) {
+            [self showErrorAlert];
+            values = nil;
+            return;
+        }
+        [values addObject:@(val.doubleValue)];
+    }];
+    
+    return values;
+}
+
+- (void)showErrorAlert
+{
+    NSString *msg;
+    switch (self.segmentControl.selectedSegmentIndex) {
+
+        case segmentDependant:
+        case segmentSingle:
+            msg = @"Please enter a double Value";
+            break;
+        case segmentList:
+        case segmentLinear:
+        case segmentLog:
+            msg = @"Please enter comma seperated double Values";
+            break;
+        default:
+            break;
+    }
+    [[[UIAlertView alloc] initWithTitle:@"error" message:msg delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil] show];
 }
 
 - (IBAction)cancelBtnClicked:(id)sender

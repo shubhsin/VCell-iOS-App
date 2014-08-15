@@ -61,6 +61,11 @@
     [self setupFooterView];
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    [self setupFooterView];
+}
+
 - (void)setUpCells
 {
     self.nameCell.detailTextLabel.text = _application.name;
