@@ -64,6 +64,7 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    [_tokenFieldView.tokenField removeAllTokens];
     [self setupFooterView];
 }
 
@@ -87,10 +88,6 @@
 
 
 -(void)setupFooterView {
-    if(_application.overrides.count == 0) {
-        self.footerView.frame = CGRectZero;
-        return;
-    }
     
     UILabel *footerHeader = [[UILabel alloc] initWithFrame:CGRectMake(15, 5, 0, 0)];
     

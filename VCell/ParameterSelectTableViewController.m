@@ -13,7 +13,10 @@
 #define kPARAMETERSEGMENT 0
 #define kOVERRIDESSEGMENT 1
 
-@interface ParameterSelectTableViewController ()
+@interface ParameterSelectTableViewController () <UIAlertViewDelegate>
+{
+    UIAlertView *_removeOverrideAlertView;
+}
 
 @property (weak, nonatomic) IBOutlet UISegmentedControl *segmentControl;
 @property (assign, nonatomic) BOOL parametersSelected;
@@ -81,8 +84,11 @@
 {
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
     
-    if(!self.parametersSelected)
+    if(!self.parametersSelected){
+        _removeOverrideAlertView = [[UIAlertView alloc] initWithTitle:@"Remove Override" message:@"Do you want to remove this override?" delegate:self cancelButtonTitle:@"No" otherButtonTitles:@"Yes", nil];
+        [_removeOverrideAlertView show];
         return;
+    }
     
     ParameterSelectTableViewCell *cell = (ParameterSelectTableViewCell*)[tableView cellForRowAtIndexPath:indexPath];
     self.paramView = [[[NSBundle mainBundle] loadNibNamed:@"AddParamView" owner:self options:nil] objectAtIndex:0];
@@ -116,6 +122,17 @@
         self.paramView.transform = CGAffineTransformIdentity;
         
     } completion:nil];
+}
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if(alertView == _removeOverrideAlertView){
+        if(buttonIndex == 1){
+            ApplicationOverride *override = self.application.overrides[[[self.tableView indexPathForSelectedRow] row]];
+            [self.application.overrides removeObject:override];
+            [self.tableView reloadData];
+        }
+    }
 }
 
 /*
