@@ -63,6 +63,7 @@
 
 - (void)viewWillAppear:(BOOL)animated
 {
+    [super viewWillAppear:animated];
     [self setupFooterView];
 }
 
@@ -86,6 +87,10 @@
 
 
 -(void)setupFooterView {
+    if(_application.overrides.count == 0) {
+        self.footerView.frame = CGRectZero;
+        return;
+    }
     
     UILabel *footerHeader = [[UILabel alloc] initWithFrame:CGRectMake(15, 5, 0, 0)];
     
@@ -192,6 +197,40 @@
     [self.tableView setContentInset:UIEdgeInsetsMake(50, 0, self.footerView.frame.size.height - 50, 0)];
 }
 
+- (IBAction)sendBtnPressed:(id)sender
+{
+
+    NSURL *url =[NSURL URLWithString:[NSString stringWithFormat:@"%@/biomodel/%@/simulation/%@/save",BASE_URL, _simJob.bioModelLink.bioModelKey, _simJob.simKey]];
+    NSMutableURLRequest *urlReq = [NSMutableURLRequest requestWithURL:url];
+    
+    [urlReq setHTTPMethod:@"POST"];
+    [urlReq setValue:[NSString stringWithFormat:@"CUSTOM access_token=%@",[[AccessToken sharedInstance] token]] forHTTPHeaderField:@"Authorization"];
+    
+    NSDictionary *postBody = @{@"overrides" : [_application overrideDict]};
+
+    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:postBody options:NSJSONWritingPrettyPrinted error:nil];
+
+    [urlReq setHTTPBody:jsonData];
+    [urlReq setValue:@"application/json" forHTTPHeaderField:@"Accept"];
+    [urlReq setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+    
+    MBProgressHUD *HUD = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
+    HUD.mode = MBProgressHUDModeText;
+    HUD.labelText = @"Working...";
+    HUD.margin = 10.f;
+    HUD.yOffset = 150.f;
+    HUD.userInteractionEnabled = NO;
+    
+    [NSURLConnection sendAsynchronousRequest:urlReq queue:[NSOperationQueue mainQueue]
+                           completionHandler:^(NSURLResponse *response, NSData *data, NSError *error)
+     {
+         NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:nil];
+         _application = [NewApplication initWithDict:(NSDictionary*)dict];
+         [self setUpCells];
+         [self setupFooterView];
+         [HUD hide:YES];
+     }];
+}
 
  #pragma mark - Navigation
  

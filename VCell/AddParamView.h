@@ -15,6 +15,7 @@
 @interface AddParamView : UIView
 
 @property (strong, nonatomic) ApplicationOverride *override;
+@property (strong ,nonatomic) ApplicationParameters *param;
 
 @property (weak, nonatomic) IBOutlet UISegmentedControl *segmentControl;
 @property (weak, nonatomic) IBOutlet UILabel *valueLabel;

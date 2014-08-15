@@ -80,16 +80,21 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
-    ParameterSelectTableViewCell *cell = (ParameterSelectTableViewCell*)[tableView cellForRowAtIndexPath:indexPath];
-    if(cell.addedState)
+    
+    if(!self.parametersSelected)
         return;
     
+    ParameterSelectTableViewCell *cell = (ParameterSelectTableViewCell*)[tableView cellForRowAtIndexPath:indexPath];
     self.paramView = [[[NSBundle mainBundle] loadNibNamed:@"AddParamView" owner:self options:nil] objectAtIndex:0];
     self.paramView.parameterSelectTableViewController = self;
-    
-    ApplicationParameters *param = self.application.parameters[indexPath.row];
-    NSDictionary *dict = @{@"name" : param.name , @"values" : @[param.defaultValue] , @"type" : @"Single"};
-    self.paramView.override = [[ApplicationOverride alloc] initWithDict:dict];
+
+    self.paramView.param = self.application.parameters[indexPath.row];
+    if(!cell.addedState) {
+        self.paramView.override = nil;
+    }
+    else {
+        self.paramView.override = [self.application parameterinOverrides:self.application.parameters[indexPath.row]];
+    }
     
     CGRect frame = self.navigationController.view.frame;
     frame.origin.y = 20;

@@ -2011,7 +2011,21 @@
                             <outlet property="delegate" destination="ZQS-Q4-uTE" id="4a3-HM-Xtk"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Configure Simulation" id="aPV-N2-94L"/>
+                    <navigationItem key="navigationItem" title="Configure Simulation" id="aPV-N2-94L">
+                        <barButtonItem key="rightBarButtonItem" style="plain" id="7rh-6y-eN0">
+                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="mad-Gm-qIe">
+                                <rect key="frame" x="233" y="5" width="71" height="33"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                <state key="normal" title="Send">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="sendBtnPressed:" destination="ZQS-Q4-uTE" eventType="touchUpInside" id="UpV-Vp-IXv"/>
+                                </connections>
+                            </button>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="addParametersCell" destination="9J5-5P-tBO" id="ffO-1U-SAR"/>
                         <outlet property="footerView" destination="PR2-qA-zHc" id="Pe9-JO-EeD"/>

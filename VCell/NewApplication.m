@@ -47,7 +47,7 @@
     return application;
 }
 
-- (BOOL)parameterinOverrides:(ApplicationParameters*)param
+- (BOOL)isParameterinOverrides:(ApplicationParameters*)param
 {
     __block BOOL inOverrides = NO;
     [self.overrides enumerateObjectsUsingBlock:^(ApplicationOverride *obj, NSUInteger idx, BOOL *stop) {
@@ -57,9 +57,29 @@
     return inOverrides;
 }
 
+- (ApplicationOverride*)parameterinOverrides:(ApplicationParameters*)param
+{
+    __block ApplicationOverride *override = nil;
+    [self.overrides enumerateObjectsUsingBlock:^(ApplicationOverride *obj, NSUInteger idx, BOOL *stop) {
+        if([obj.name isEqualToString:param.name])
+            override = obj;
+    }];
+    return override;
+}
+
 -(NSString*)description
 {
     return [NSString stringWithFormat:@"app: %@ %@ %@",self.name,self.overrides,self.parameters];
+}
+
+
+- (NSArray *)overrideDict
+{
+    NSMutableArray *overridesDictArray = [NSMutableArray array];
+    [overrides enumerateObjectsUsingBlock:^(ApplicationOverride *obj, NSUInteger idx, BOOL *stop) {
+        [overridesDictArray addObject:[obj dictObject]];
+    }];
+    return overridesDictArray;
 }
 
 @end
@@ -141,6 +161,12 @@
 -(NSString*)description
 {
     return [NSString stringWithFormat:@"override: %@ %@",self.name,self.values];
+}
+
+-(NSDictionary *)dictObject
+{
+    NSDictionary *dict = @{@"name": self.name , @"type" : [self stringFromType] , @"cardinality" : self.cardinality , @"values" : self.values};
+    return dict;
 }
 
 @end

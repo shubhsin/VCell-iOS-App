@@ -6,6 +6,7 @@
 //  Copyright (c) 2014 vcell. All rights reserved.
 //
 @class ApplicationParameters;
+@class ApplicationOverride;
 
 @interface NewApplication : NSObject
 
@@ -21,8 +22,11 @@
 @property (nonatomic, strong) NSMutableArray *overrides;
 @property (nonatomic, strong) NSArray *parameters;
 
+- (NSArray *)overrideDict;
+
 + (instancetype)initWithDict:(NSDictionary*)dict;
-- (BOOL)parameterinOverrides:(ApplicationParameters*)param;
+- (BOOL)isParameterinOverrides:(ApplicationParameters*)param;
+- (ApplicationOverride*)parameterinOverrides:(ApplicationParameters*)param;
 
 @end
 
@@ -58,5 +62,7 @@ typedef enum : NSUInteger {
 - (instancetype)initWithDict:(NSDictionary*)dict;
 
 - (NSString*)stringFromType;
+
+-(NSDictionary *)dictObject;
 
 @end

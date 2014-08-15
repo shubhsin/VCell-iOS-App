@@ -32,6 +32,39 @@ enum segments {
 -(void)setOverride:(ApplicationOverride *)override
 {
     _override = override;
+    if(!override) {
+        self.segmentControl.selectedSegmentIndex = segmentNone;
+        [self segmentControlChanged:nil];
+        return;
+    }
+    switch (override.type) {
+        case LogInterval:
+            self.segmentControl.selectedSegmentIndex = segmentLog;
+            break;
+        case List:
+            self.segmentControl.selectedSegmentIndex = segmentList;
+            break;
+        case Single:
+            self.segmentControl.selectedSegmentIndex = segmentSingle;
+            break;
+        case LinearInterval:
+            self.segmentControl.selectedSegmentIndex = segmentLinear;
+            break;
+        case Dependent:
+            self.segmentControl.selectedSegmentIndex = segmentDependant;
+            break;
+        default:
+            break;
+    }
+    self.cardiTextFIeld.text = override.cardinality.stringValue;
+    NSMutableString *value = [NSMutableString string];
+    [override.values enumerateObjectsUsingBlock:^(NSNumber *obj, NSUInteger idx, BOOL *stop) {
+        [value appendString:obj.stringValue];
+        if(idx == override.values.count - 1)
+            return;
+        [value appendString:@", "];
+    }];
+    self.valueTextField.text = value;
     [self segmentControlChanged:nil];
 }
 
@@ -44,7 +77,7 @@ enum segments {
             self.cardiLabel.hidden = YES;
             self.cardiTextFIeld.hidden = YES;
             self.stepper.hidden = YES;
-            self.valueLabel.text = [NSString stringWithFormat:@"Default Value: %@",self.override.values[0]];
+            self.valueLabel.text = [NSString stringWithFormat:@"Default Value: %@",self.param.defaultValue];
             [self.valueLabel sizeToFit];
             break;
         case segmentDependant:
@@ -98,8 +131,6 @@ enum segments {
     NSScanner *scanner = [NSScanner scannerWithString:self.valueTextField.text];
     switch (self.segmentControl.selectedSegmentIndex) {
         case segmentNone:
-            self.override.cardinality = @(1);
-            [overrides addObject:self.override];
             break;
         case segmentDependant:
             self.override.type = Dependent;
@@ -158,7 +189,7 @@ enum segments {
 {
     NSArray *seperatedValues = [self.valueTextField.text componentsSeparatedByString:@","];
     __block NSMutableArray *values = [NSMutableArray array];
-
+    
     [seperatedValues enumerateObjectsUsingBlock:^(NSString *val, NSUInteger idx, BOOL *stop) {
         NSScanner *scanner = [NSScanner scannerWithString:val];
         if(!([scanner scanDouble:nil] && [scanner isAtEnd])) {
@@ -176,7 +207,7 @@ enum segments {
 {
     NSString *msg;
     switch (self.segmentControl.selectedSegmentIndex) {
-
+            
         case segmentDependant:
         case segmentSingle:
             msg = @"Please enter a double Value";
