@@ -131,8 +131,7 @@
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
 {
-    if(tableView == self.tableViewRunning)
-    {
+    if(tableView == self.tableViewRunning) {
         return @"Running";
     }
     else //if(tableView == self.tableViewQueue)
@@ -140,8 +139,6 @@
         return @"Queued";
     }
 }
-
-
 
 /*
 #pragma mark - Navigation

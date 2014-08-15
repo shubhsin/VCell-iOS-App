@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="5056" systemVersion="13C64" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="5056" systemVersion="13E28" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3733"/>
     </dependencies>
@@ -26,7 +26,7 @@
                     </connections>
                 </segmentedControl>
                 <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1Hr-V2-xtp">
-                    <rect key="frame" x="11" y="171" width="280" height="30"/>
+                    <rect key="frame" x="11" y="171" width="116" height="30"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <color key="backgroundColor" red="0.050313179565309119" green="0.58630116200718241" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                     <state key="normal" title="Add">
@@ -37,8 +37,20 @@
                         <action selector="addBtnClicked:" destination="doP-9y-HaB" eventType="touchUpInside" id="R5c-im-mIC"/>
                     </connections>
                 </button>
+                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6Dn-ho-Ee6">
+                    <rect key="frame" x="175" y="171" width="116" height="30"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <color key="backgroundColor" red="0.050313179569999998" green="0.58630116200000004" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                    <state key="normal" title="Cancel">
+                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="cancelBtnClicked:" destination="doP-9y-HaB" eventType="touchUpInside" id="lQG-me-XCW"/>
+                    </connections>
+                </button>
                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="QIz-Uo-n2Z">
-                    <rect key="frame" x="103" y="120" width="188" height="30"/>
+                    <rect key="frame" x="103" y="120" width="85" height="30"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                     <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardType="numberPad"/>
@@ -63,6 +75,13 @@
                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                     <nil key="highlightedColor"/>
                 </label>
+                <stepper opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" maximumValue="100" translatesAutoresizingMaskIntoConstraints="NO" id="DRZ-G5-Vb0">
+                    <rect key="frame" x="196" y="121" width="94" height="29"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <connections>
+                        <action selector="stepperValueChanged:" destination="doP-9y-HaB" eventType="valueChanged" id="blb-wv-swb"/>
+                    </connections>
+                </stepper>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
@@ -70,6 +89,7 @@
                 <outlet property="cardiLabel" destination="lGm-Vz-iDi" id="k45-58-2zy"/>
                 <outlet property="cardiTextFIeld" destination="QIz-Uo-n2Z" id="eaP-Na-4ab"/>
                 <outlet property="segmentControl" destination="A83-Wq-ayq" id="E8N-Uq-OvT"/>
+                <outlet property="stepper" destination="DRZ-G5-Vb0" id="avL-OC-Vbn"/>
                 <outlet property="valueLabel" destination="fXy-pd-v1a" id="bpE-L4-K0g"/>
                 <outlet property="valueTextField" destination="Uwx-pX-13B" id="pmV-z7-cg1"/>
             </connections>

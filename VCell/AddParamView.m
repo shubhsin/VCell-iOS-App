@@ -9,7 +9,6 @@
 #import "AddParamView.h"
 #import "ParameterSelectTableViewController.h"
 
-
 enum segments {
     segmentNone = 0,
     segmentSingle,
@@ -23,7 +22,11 @@ enum segments {
 
 - (void)awakeFromNib
 {
-    
+    self.cardiTextFIeld.enabled = NO;
+    self.cardiTextFIeld.text = self.override.cardinality ? self.override.cardinality.stringValue : @"0";
+}
+- (IBAction)stepperValueChanged:(id)sender {
+    self.cardiTextFIeld.text = [NSString stringWithFormat:@"%.0f", self.stepper.value];
 }
 
 -(void)setOverride:(ApplicationOverride *)override
@@ -40,6 +43,7 @@ enum segments {
             self.valueTextField.hidden = YES;
             self.cardiLabel.hidden = YES;
             self.cardiTextFIeld.hidden = YES;
+            self.stepper.hidden = YES;
             self.valueLabel.text = [NSString stringWithFormat:@"Default Value: %@",self.override.values[0]];
             [self.valueLabel sizeToFit];
             break;
@@ -49,6 +53,7 @@ enum segments {
             self.valueTextField.hidden = NO;
             self.cardiLabel.hidden = YES;
             self.cardiTextFIeld.hidden = YES;
+            self.stepper.hidden = YES;
             self.valueLabel.text = @"Expression";
             [self.valueLabel sizeToFit];
             break;
@@ -57,6 +62,7 @@ enum segments {
             self.valueTextField.hidden = NO;
             self.cardiLabel.hidden = YES;
             self.cardiTextFIeld.hidden = YES;
+            self.stepper.hidden = YES;
             self.valueLabel.text = @"Values";
             [self.valueLabel sizeToFit];
             break;
@@ -66,6 +72,7 @@ enum segments {
             self.valueTextField.hidden = NO;
             self.cardiLabel.hidden = NO;
             self.cardiTextFIeld.hidden = NO;
+            self.stepper.hidden = NO;
             self.valueLabel.text = @"Values";
             [self.valueLabel sizeToFit];
             break;
@@ -75,6 +82,13 @@ enum segments {
 }
 
 - (IBAction)addBtnClicked:(id)sender
+{
+    [self.superview removeFromSuperview];
+    self.parameterSelectTableViewController.tableView.scrollEnabled = YES;
+    self.parameterSelectTableViewController.tableView.allowsSelection = YES;
+}
+
+- (IBAction)cancelBtnClicked:(id)sender
 {
     [self.superview removeFromSuperview];
     self.parameterSelectTableViewController.tableView.scrollEnabled = YES;

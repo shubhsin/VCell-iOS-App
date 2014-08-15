@@ -84,16 +84,12 @@
     if(cell.addedState)
         return;
     
-    if(!self.paramView) {
-        self.paramView = [[[NSBundle mainBundle] loadNibNamed:@"AddParamView" owner:self options:nil] objectAtIndex:0];
-    }
+
+    self.paramView = [[[NSBundle mainBundle] loadNibNamed:@"AddParamView" owner:self options:nil] objectAtIndex:0];
     self.paramView.parameterSelectTableViewController = self;
-
+    
     ApplicationParameters *param = self.application.parameters[indexPath.row];
-
-    
     NSDictionary *dict = @{@"name" : param.name , @"values" : @[param.defaultValue] , @"type" : @"Single"};
-    
     self.paramView.override = [[ApplicationOverride alloc] initWithDict:dict];
     
     UIImageView *blurView = [[UIImageView alloc] initWithFrame:self.navigationController.view.frame];
@@ -113,17 +109,6 @@
         self.paramView.transform = CGAffineTransformIdentity;
         
     } completion:nil];
-}
-
--(UIImage *)blurredSnapshotforView:(UIView *)view
-{
-    UIGraphicsBeginImageContextWithOptions(view.bounds.size, NO, view.window.screen.scale);
-    [view drawViewHierarchyInRect:view.frame afterScreenUpdates:NO];
-    UIImage *snapshotImage = UIGraphicsGetImageFromCurrentImageContext();
-    UIColor *tintColor = [UIColor colorWithWhite:0.2 alpha:0.73];
-    UIImage *blurredSnapshotImage = [snapshotImage applyBlurWithRadius:8 tintColor:tintColor saturationDeltaFactor:1.8 maskImage:nil];
-    UIGraphicsEndImageContext();
-    return blurredSnapshotImage;
 }
 
 /*

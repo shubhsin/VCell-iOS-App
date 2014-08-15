@@ -15,15 +15,18 @@
 @interface AddParamView : UIView
 
 @property (strong, nonatomic) ApplicationOverride *override;
+
 @property (weak, nonatomic) IBOutlet UISegmentedControl *segmentControl;
 @property (weak, nonatomic) IBOutlet UILabel *valueLabel;
 @property (weak, nonatomic) IBOutlet UITextField *valueTextField;
 @property (weak, nonatomic) IBOutlet UILabel *cardiLabel;
 @property (weak, nonatomic) IBOutlet UITextField *cardiTextFIeld;
+@property (weak, nonatomic) IBOutlet UIStepper *stepper;
 
 @property (weak, nonatomic) ParameterSelectTableViewController *parameterSelectTableViewController;
 
 - (IBAction)segmentControlChanged:(id)sender;
 - (IBAction)addBtnClicked:(id)sender;
+- (IBAction)cancelBtnClicked:(id)sender;
 
 @end
