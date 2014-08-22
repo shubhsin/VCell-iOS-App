@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		14B60C8919A141A40022E18C /* run2_16x16.gif in Resources */ = {isa = PBXBuildFile; fileRef = 14B60C8819A141A40022E18C /* run2_16x16.gif */; };
+		14B60C8B19A142090022E18C /* diagram_icon.gif in Resources */ = {isa = PBXBuildFile; fileRef = 14B60C8A19A142090022E18C /* diagram_icon.gif */; };
 		540AAC601772FD74007C4DCF /* dot.png in Resources */ = {isa = PBXBuildFile; fileRef = 540AAC5E1772FD73007C4DCF /* dot.png */; };
 		540AAC611772FD74007C4DCF /* dot@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 540AAC5F1772FD74007C4DCF /* dot@2x.png */; };
 		541BD299177193DD00E82846 /* greyButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 541BD297177193DD00E82846 /* greyButton.png */; };
@@ -89,6 +91,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		14B60C8819A141A40022E18C /* run2_16x16.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = run2_16x16.gif; sourceTree = "<group>"; };
+		14B60C8A19A142090022E18C /* diagram_icon.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = diagram_icon.gif; sourceTree = "<group>"; };
 		540AAC5E1772FD73007C4DCF /* dot.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dot.png; sourceTree = "<group>"; };
 		540AAC5F1772FD74007C4DCF /* dot@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "dot@2x.png"; sourceTree = "<group>"; };
 		541BD297177193DD00E82846 /* greyButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = greyButton.png; sourceTree = "<group>"; };
@@ -307,6 +311,8 @@
 		54097FA41774A54D00AA6AE2 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				14B60C8A19A142090022E18C /* diagram_icon.gif */,
+				14B60C8819A141A40022E18C /* run2_16x16.gif */,
 				5423F2781993F7950053A68A /* blurImg@2x.png */,
 				541BD297177193DD00E82846 /* greyButton.png */,
 				541BD298177193DD00E82846 /* greyButton@2x.png */,
@@ -742,6 +748,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				54DA31821764B8900020D2B5 /* InfoPlist.strings in Resources */,
+				14B60C8B19A142090022E18C /* diagram_icon.gif in Resources */,
 				54DA318A1764B8900020D2B5 /* Default.png in Resources */,
 				54DA318C1764B8900020D2B5 /* Default@2x.png in Resources */,
 				54DA318E1764B8900020D2B5 /* Default-568h@2x.png in Resources */,
@@ -761,6 +768,7 @@
 				541BD29D177193F100E82846 /* greyButtonHighlight.png in Resources */,
 				541BD29E177193F100E82846 /* greyButtonHighlight@2x.png in Resources */,
 				540AAC601772FD74007C4DCF /* dot.png in Resources */,
+				14B60C8919A141A40022E18C /* run2_16x16.gif in Resources */,
 				540AAC611772FD74007C4DCF /* dot@2x.png in Resources */,
 				54DD491C17AD2C9600E27B2D /* BiomodelCell.xib in Resources */,
 			);
