@@ -5,19 +5,19 @@
 	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
 	<false/>
 	<key>IDESourceControlProjectIdentifier</key>
-	<string>B11FF547-FD4E-4C0D-A841-4CD425CCC0FD</string>
+	<string>E120FCD5-C70D-4D47-B5AB-60A3361FFFB1</string>
 	<key>IDESourceControlProjectName</key>
 	<string>VCell</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
-		<key>E9C80FBC-8F4A-4B97-920F-415A1522050C</key>
+		<key>BB61F5F3-DD20-4CE8-BB49-137EDE555130</key>
 		<string>https://github.com/aciidb0mb3r/VCell-iOS-App.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
 	<string>VCell.xcodeproj/project.xcworkspace</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
-		<key>E9C80FBC-8F4A-4B97-920F-415A1522050C</key>
+		<key>BB61F5F3-DD20-4CE8-BB49-137EDE555130</key>
 		<string>../..</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
@@ -25,14 +25,14 @@
 	<key>IDESourceControlProjectVersion</key>
 	<integer>110</integer>
 	<key>IDESourceControlProjectWCCIdentifier</key>
-	<string>E9C80FBC-8F4A-4B97-920F-415A1522050C</string>
+	<string>BB61F5F3-DD20-4CE8-BB49-137EDE555130</string>
 	<key>IDESourceControlProjectWCConfigurations</key>
 	<array>
 		<dict>
 			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
 			<string>public.vcs.git</string>
 			<key>IDESourceControlWCCIdentifierKey</key>
-			<string>E9C80FBC-8F4A-4B97-920F-415A1522050C</string>
+			<string>BB61F5F3-DD20-4CE8-BB49-137EDE555130</string>
 			<key>IDESourceControlWCCName</key>
 			<string>VCell-iOS-App</string>
 		</dict>

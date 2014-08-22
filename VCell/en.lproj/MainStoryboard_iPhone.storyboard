@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="5056" systemVersion="13E28" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="wlM-Mh-HLZ">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="5056" systemVersion="13D65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="wlM-Mh-HLZ">
     <dependencies>
         <deployment defaultVersion="1792" identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3733"/>
@@ -1394,19 +1394,19 @@
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     </tabBar>
                     <connections>
-                        <segue destination="yIi-jm-5UB" kind="relationship" relationship="viewControllers" id="W40-6P-8dP"/>
                         <segue destination="vHu-KI-ABv" kind="relationship" relationship="viewControllers" id="wwF-IY-uZk"/>
+                        <segue destination="yIi-jm-5UB" kind="relationship" relationship="viewControllers" id="W40-6P-8dP"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="14" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="616" y="176"/>
         </scene>
-        <!--Navigation Controller - Simulation Jobs-->
+        <!--Navigation Controller - My Jobs-->
         <scene sceneID="4eg-um-KaX">
             <objects>
                 <navigationController id="yIi-jm-5UB" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Simulation Jobs" id="IUe-Bk-ulJ"/>
+                    <tabBarItem key="tabBarItem" title="My Jobs" image="run2_16x16.gif" id="IUe-Bk-ulJ"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="AAo-j2-AVG">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -1449,18 +1449,6 @@
                                 <action selector="selectOwnerBtnClicked:" destination="hcS-J6-KHh" id="ChU-0j-2ez"/>
                             </connections>
                         </barButtonItem>
-                        <segmentedControl key="titleView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" id="owD-Vu-vQA">
-                            <rect key="frame" x="75" y="5" width="170" height="35"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <segments>
-                                <segment title="Bio"/>
-                                <segment title="App"/>
-                                <segment title="Sim"/>
-                            </segments>
-                            <connections>
-                                <action selector="appSimSwap:" destination="hcS-J6-KHh" eventType="valueChanged" id="v0n-9d-cQd"/>
-                            </connections>
-                        </segmentedControl>
                         <barButtonItem key="rightBarButtonItem" title="Options" id="wEO-0J-XFj">
                             <connections>
                                 <action selector="optionBtnClicked:" destination="hcS-J6-KHh" id="d7Y-Ks-hw5"/>
@@ -1468,7 +1456,6 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="appSimSegmentControl" destination="owD-Vu-vQA" id="iwX-qJ-Eqp"/>
                         <outlet property="ownerBtn" destination="ecH-P6-WXt" id="9ru-kD-vC2"/>
                         <outlet property="searchDisplayController" destination="J1z-CC-JCD" id="29j-Q8-Vh5"/>
                     </connections>
@@ -1490,7 +1477,7 @@
         <scene sceneID="MKN-d4-rhj">
             <objects>
                 <navigationController id="vHu-KI-ABv" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Biomodels" id="trC-wF-Mhg"/>
+                    <tabBarItem key="tabBarItem" title="Biomodels" image="diagram_icon.gif" id="trC-wF-Mhg"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="ZFp-uF-43W">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -2219,6 +2206,10 @@
             <point key="canvasLocation" x="2521" y="-215"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="diagram_icon.gif" width="20" height="20"/>
+        <image name="run2_16x16.gif" width="16" height="16"/>
+    </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>
