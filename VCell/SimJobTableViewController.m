@@ -84,20 +84,18 @@
     NSIndexPath *indexPath = [self.tableView indexPathForCell:senderCell];
     SimJob *simJob = [simJobs objectAtIndex:indexPath.row];
     NSURL *url;
-    if([sender.titleLabel.text isEqualToString:@"Start"])
-    {
+    
+    if([sender.titleLabel.text isEqualToString:@"Start"]) {
         url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/%@/simulation/%@/startSimulation",BIOMODEL_URL,simJob.bioModelLink.bioModelKey,simJob.simKey]];
-    }
-    else
-    {
+    } else {
         url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/%@/simulation/%@/stopSimulation",BIOMODEL_URL,simJob.bioModelLink.bioModelKey,simJob.simKey]];
     }
     
     NSMutableURLRequest *urlReq = [NSMutableURLRequest requestWithURL:url];
     [urlReq setHTTPMethod:@"POST"];
     [urlReq setValue:[NSString stringWithFormat:@"CUSTOM access_token=%@",[[AccessToken sharedInstance] token]] forHTTPHeaderField:@"Authorization"];
-    MBProgressHUD *HUD = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
     
+    MBProgressHUD *HUD = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
     HUD.mode = MBProgressHUDModeText;
     HUD.labelText = @"Working...";
     HUD.margin = 10.f;

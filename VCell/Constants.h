@@ -21,6 +21,7 @@
 
 
 extern NSString * const BASE_URL;
+extern NSString * const SIMSTATUS_URL;
 extern NSString * const SIMTASK_URL;
 extern NSString * const BIOMODEL_URL;
 extern NSString * const SIMJOB_FILTERS_FILE;

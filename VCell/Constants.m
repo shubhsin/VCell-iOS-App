@@ -31,6 +31,8 @@ NSString * const BASE_URL = URL_DEF;
 
 NSString * const SIMTASK_URL = URL_DEF "/simtask" EXTENSION;
 
+NSString * const SIMSTATUS_URL = URL_DEF "/simstatus" EXTENSION;
+
 NSString * const BIOMODEL_URL = URL_DEF "/biomodel" EXTENSION;
 
 NSString * const ACCESS_TOKEN_URL = URL_DEF "/access_token" EXTENSION;

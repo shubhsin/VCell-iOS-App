@@ -11,9 +11,9 @@
 #import "TITokenField.h"
 #import "ParameterSelectTableViewController.h"
 
-@interface ConfigureSimulationTableViewController () <FetchJSONDelegate, TITokenFieldDelegate, UIAlertViewDelegate>
+@interface ConfigureSimulationTableViewController () <TITokenFieldDelegate, UIAlertViewDelegate>
 {
-    SimJob *_simJob;
+    SimStatus *_simStatus;
     NewApplication *_application;
     TITokenFieldView *_tokenFieldView;
     TIToken *_selectedToken;
@@ -37,26 +37,15 @@
     [self loadSimulation];
 }
 
-- (void)setObject:(SimJob *)object
+- (void)setObject:(SimStatus *)object
 {
-    _simJob = object;
+    _simStatus = object;
+
 }
 
 - (void)loadSimulation
 {
-#warning change this
-#ifdef LOCALHOST
-    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/simulation.php?", BASE_URL]];
-#else
-    NSURL *url =[NSURL URLWithString:[NSString stringWithFormat:@"%@/biomodel/%@/simulation/%@?",BASE_URL, _simJob.bioModelLink.bioModelKey, _simJob.simKey]];
-#endif
-    [[[Functions alloc] init] fetchJSONFromURL:url HUDTextMode:NO AddHUDToView:self.navigationController.view delegate:self];
-}
-
-- (void)fetchJSONDidCompleteWithJSONArray:(NSArray *)jsonData function:(Functions *)function
-{
-   _application = [NewApplication initWithDict:(NSDictionary*)jsonData];
-    
+    _application = _simStatus.simRep;
     [self setUpCells];
     [self setupFooterView];
 }
@@ -197,7 +186,7 @@
 - (IBAction)sendBtnPressed:(id)sender
 {
 
-    NSURL *url =[NSURL URLWithString:[NSString stringWithFormat:@"%@/biomodel/%@/simulation/%@/save",BASE_URL, _simJob.bioModelLink.bioModelKey, _simJob.simKey]];
+    NSURL *url =[NSURL URLWithString:[NSString stringWithFormat:@"%@/biomodel/%@/simulation/%@/save",BASE_URL, _simStatus.simRep.bioModelLink.bioModelKey, _simStatus.simRep.key]];
     NSMutableURLRequest *urlReq = [NSMutableURLRequest requestWithURL:url];
     
     [urlReq setHTTPMethod:@"POST"];

@@ -7,9 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "SimStatus.h"
 
 @interface ConfigureSimulationTableViewController : UITableViewController
 
-- (void)setObject:(SimJob *)object;
+- (void)setObject:(SimStatus *)object;
 
 @end

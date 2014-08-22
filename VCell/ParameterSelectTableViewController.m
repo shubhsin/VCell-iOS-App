@@ -13,7 +13,7 @@
 #define kPARAMETERSEGMENT 0
 #define kOVERRIDESSEGMENT 1
 
-@interface ParameterSelectTableViewController () <UIAlertViewDelegate>
+@interface ParameterSelectTableViewController () <UIAlertViewDelegate,FetchJSONDelegate>
 {
     UIAlertView *_removeOverrideAlertView;
 }
@@ -29,13 +29,25 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
-    
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
     self.parametersSelected = YES;
+    if(_application.parameters.count != 0)
+        return;
+    
+#warning change this
+#ifdef LOCALHOST
+    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/simulation.php?", BASE_URL]];
+#else
+    NSURL *url =[NSURL URLWithString:[NSString stringWithFormat:@"%@/biomodel/%@/simulation/%@?",BASE_URL, _application.bioModelLink.bioModelKey, _application.key]];
+#endif
+    
+    [[[Functions alloc] init] fetchJSONFromURL:url HUDTextMode:NO AddHUDToView:self.navigationController.view delegate:self];
+}
+
+- (void)fetchJSONDidCompleteWithJSONArray:(NSArray *)jsonData function:(Functions *)function
+{
+    NewApplication *app = [NewApplication initWithDict:(NSDictionary*)jsonData];
+    _application.parameters = app.parameters;
+    [self.tableView reloadData];
 }
 
 - (IBAction)segmentChanged:(id)sender
@@ -61,7 +73,7 @@
         cell.defaultValueLabel.text = param.defaultValue.stringValue;
         cell.context.text = param.modelSymbolContext;
         cell.unitLabel.text = param.modelSymbolUnit;
-        cell.addedState = [self.application parameterinOverrides:param];
+        cell.addedState = [self.application isParameterinOverrides:param];
     } else {
         ApplicationOverride *override = self.application.overrides[indexPath.row];
         cell.name.text = override.name;
