@@ -10,6 +10,11 @@
 #import "NewApplication.h"
 #import "TITokenField.h"
 #import "ParameterSelectTableViewController.h"
+#import "SimJobTableViewController.h"
+#import "GraphAxisSelectController.h"
+
+#define STARTSIMULATION @"Start Simulation"
+#define STOPSIMULATION @"Stop Simulation"
 
 @interface ConfigureSimulationTableViewController () <TITokenFieldDelegate, UIAlertViewDelegate>
 {
@@ -25,6 +30,8 @@
 @property (weak, nonatomic) IBOutlet UITableViewCell *solverCell;
 @property (weak, nonatomic) IBOutlet UITableViewCell *numJobsCell;
 @property (weak, nonatomic) IBOutlet UITableViewCell *addParametersCell;
+@property (weak, nonatomic) IBOutlet UITableViewCell *startStopSimulationCell;
+@property (weak, nonatomic) IBOutlet UITableViewCell *checkJobsCell;
 @property (weak, nonatomic) IBOutlet UIView *footerView;
 
 @end
@@ -64,6 +71,11 @@
     self.solverCell.detailTextLabel.text = _application.solverName;
     self.ownerCell.detailTextLabel.text = _application.ownerName;
     self.numJobsCell.detailTextLabel.text = _application.scanCount.stringValue;
+    
+    if([_simStatus.statusString isEqualToString:@"stopped"] || [_simStatus.statusString isEqualToString:@"failed"] | [_simStatus.statusString isEqualToString:@"completed"])
+        self.startStopSimulationCell.textLabel.text = STARTSIMULATION;
+    else
+        self.startStopSimulationCell.textLabel.text = STOPSIMULATION;
     
     //Adjust cell detail text label's width
     NSArray *cells = @[self.nameCell, self.modeCell, self.solverCell, self.ownerCell, self.numJobsCell];
@@ -170,11 +182,49 @@
     UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
     if(cell == self.addParametersCell) {
         
+    } else if(cell == self.checkJobsCell) {
+        
+        [self performSegueWithIdentifier:@"checkJobs" sender:self];
+        
+    }
+    else if(cell == self.startStopSimulationCell) {
+        
+        [self startStopSimulation];
+        
     } else {
+        
         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Details" message:cell.detailTextLabel.text delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil];
         alertView.tag = 0;
         [alertView show];
+        
     }
+}
+
+- (void)startStopSimulation
+{
+    NSURL *url;
+    if([self.startStopSimulationCell.textLabel.text isEqualToString:STARTSIMULATION]) {
+        url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/%@/simulation/%@/startSimulation",BIOMODEL_URL,_simStatus.simRep.bioModelLink.bioModelKey,_simStatus.simRep.key]];
+    } else {
+        url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/%@/simulation/%@/stopSimulation",BIOMODEL_URL,_simStatus.simRep.bioModelLink.bioModelKey,_simStatus.simRep.key]];
+    }
+    
+    NSMutableURLRequest *urlReq = [NSMutableURLRequest requestWithURL:url];
+    [urlReq setHTTPMethod:@"POST"];
+    
+    MBProgressHUD *HUD = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
+    
+    HUD.mode = MBProgressHUDModeText;
+    HUD.labelText = @"Working...";
+    HUD.margin = 10.f;
+    HUD.yOffset = 150.f;
+    HUD.userInteractionEnabled = YES;
+    
+    [NSURLConnection sendAsynchronousRequest:urlReq queue:[NSOperationQueue mainQueue]
+                           completionHandler:^(NSURLResponse *response, NSData *data, NSError *error)
+     {
+         [HUD hide:YES];
+     }];
 }
 
 -(void)viewDidLayoutSubviews
@@ -228,7 +278,9 @@
      if([[segue identifier] isEqualToString:@"addParam"]){
          [(ParameterSelectTableViewController*)[segue destinationViewController] setApplication:_application];
      }
-     
+     if([[segue identifier] isEqualToString:@"checkJobs"]){
+         [(SimJobTableViewController*)[segue destinationViewController] setObject:_simStatus];
+     }
  }
 
 

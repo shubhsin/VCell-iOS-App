@@ -7,9 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "SimStatus.h"
 
 @interface SimJobTableViewController : UITableViewController
 
-- (void)setObject:(NSArray *)obj;
+- (void)setObject:(SimStatus *)object;
 
 @end

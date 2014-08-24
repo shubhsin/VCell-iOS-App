@@ -12,6 +12,7 @@
 
 @interface SimJobTableViewController ()
 {
+    SimStatus *_simStatus;
     NSMutableArray *simJobs;
 }
 
@@ -19,21 +20,25 @@
 
 @implementation SimJobTableViewController
 
-
-- (void)setObject:(NSArray *)obj
+- (void)setObject:(SimStatus *)obj
 {
-    simJobs = [NSMutableArray arrayWithArray:obj];
+    _simStatus = obj;
 }
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    simJobs = [NSMutableArray array];
+    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@?simId=%@&startRow=1&maxRows=100&hasData=all&waiting=on&queued=on&dispatched=on&running=on&completed=on&failed=on&stopped=on", SIMTASK_URL , _simStatus.simRep.key] ];
+    [[[Functions alloc] init] fetchJSONFromURL:url HUDTextMode:NO AddHUDToView:self.navigationController.view delegate:self];
+}
+
+- (void)fetchJSONDidCompleteWithJSONArray:(NSArray *)jsonData function:(Functions *)function
+{
+    for(NSDictionary *dict in jsonData)
+        [simJobs addObject:[[SimJob alloc] initWithDict:dict]];
     
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
-    
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    [self.tableView reloadData];
 }
 
 #pragma mark - Table view data source
@@ -49,11 +54,9 @@
     SimJobTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];    
     
     SimJob *simJob = [simJobs objectAtIndex:indexPath.row];
-    
     cell.simNameLabel.text = simJob.simName;
     cell.simStatusLabel.text = simJob.status;
     cell.simUserLabel.text = simJob.userName;
-
     cell.simDataBtn.enabled = [simJob.hasData boolValue];
     
     if([simJob.status isEqualToString:@"running"] || [simJob.status isEqualToString:@"dispatched"] || [simJob.status isEqualToString:@"queued"] || [simJob.status isEqualToString:@"waiting"])

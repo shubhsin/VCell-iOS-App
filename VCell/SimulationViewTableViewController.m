@@ -37,9 +37,8 @@
     _pullToRefreshManager.contentInset = UIEdgeInsetsMake(64, 0, 0, 0);
 }
 
-- (void)viewDidAppear:(BOOL)animated
-{
-    [super viewDidAppear:animated];
+-(void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
     [self.tableView deselectRowAtIndexPath:[self.tableView indexPathForSelectedRow] animated:YES];
 }
 
@@ -99,7 +98,6 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-
     if(indexPath.row == 0) {
         SimViewQuotaTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"QuotaCell" forIndexPath:indexPath];
         cell.quotaMaxLabel.text = @"1";
@@ -122,13 +120,6 @@
         return cell;
     }
     return nil;
-}
-
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    if(indexPath.row != 0) {
-        [self performSegueWithIdentifier:@"simConfig" sender:self];
-    }
 }
 
 #pragma mark - Navigation
