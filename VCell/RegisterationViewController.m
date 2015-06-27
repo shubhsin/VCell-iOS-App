@@ -12,6 +12,7 @@
 
 @interface RegisterationViewController ()
 
+@property UITapGestureRecognizer * tapToHide;//Will hide keyboard on touching tableView
 
 @end
 
@@ -20,8 +21,24 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    _tapToHide = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(hideKeyboard)];
+    _tapToHide.cancelsTouchesInView = NO;
+    [self.tableView addGestureRecognizer:_tapToHide];
 }
 
+- (void)hideKeyboard
+{
+    
+    [self.usernameTF resignFirstResponder];
+    [self.passwordTF resignFirstResponder];
+    [self.rePasswordTF resignFirstResponder];
+    [self.firstNameTF resignFirstResponder];
+    [self.lastNameTF resignFirstResponder];
+    [self.emailTF resignFirstResponder];
+    [self.institutionTF resignFirstResponder];
+    [self.countryTF resignFirstResponder];
+
+}
 //-(void)tableClicked
 //{
 //    [self.usernameTF resignFirstResponder];

@@ -15,6 +15,7 @@
 {
     AccessToken *accessToken;
 }
+@property UITapGestureRecognizer *tapToHide;
 @end
 
 @implementation LoginViewController
@@ -26,8 +27,16 @@
         UITabBarController *tabBarController = [self.storyboard instantiateViewControllerWithIdentifier:@"mainTabBarContoller"];
         [self presentViewController:tabBarController animated:NO completion:nil];
     }
+    _tapToHide = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(hideKeyboard)];
+    _tapToHide.cancelsTouchesInView = NO;
+    [self.tableView addGestureRecognizer:_tapToHide];
 }
 
+- (void)hideKeyboard
+{
+    [_usernameTextField resignFirstResponder];
+    [_passwordTextField resignFirstResponder];
+}
 - (NSString*)sha1:(NSString*)input
 {
     const char *cstr = [input cStringUsingEncoding:NSUTF8StringEncoding];
